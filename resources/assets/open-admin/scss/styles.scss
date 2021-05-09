@@ -1,0 +1,10 @@
+/* default contain bootstrap overwrites */
+@import "./bootstrap-vars";
+@import "../../bootstrap5/scss/bootstrap";
+@import "./default-theme";
+
+@import "./skeleton"; /* main elements header / sidebar / footer */
+@import "./content"; /* shared content styles */
+@import "./toastr";
+@import "./grid";
+@import "./form";

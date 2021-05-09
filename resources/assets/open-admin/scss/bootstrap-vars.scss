@@ -1,0 +1,14 @@
+$min-contrast-ratio: 1.5 !default;
+$body-color: #4d4d4d;
+$light-elements: #ccc;
+$border-color: rgba(0, 0, 0, 0.05);
+$blue: #3a96ff;
+$green: #00a65a;
+$cyan: #3fb7ff;
+$primary: $blue;
+$light: #e7e7e7;
+$font-size-root: 0.875rem; /* = 14px also nice for making inputs a little smaller */
+
+$pagination-border-color: $border-color;
+$card-border-color: $border-color;
+$accordion-border-color: $border-color;

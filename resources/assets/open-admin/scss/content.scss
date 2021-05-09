@@ -1,0 +1,166 @@
+/*-------------------------------------------------------*/
+/* content header */
+/*-------------------------------------------------------*/
+
+.content-header {
+    h1 {
+        font-size: 1.6rem;
+        margin: 0;
+        float: left;
+    }
+
+    small,
+    .breadcrumb-item {
+        font-size: 0.9rem;
+        color: #777;
+        a {
+            text-decoration: none;
+            &:hover {
+                text-decoration: underline;
+            }
+        }
+    }
+
+    .breadcrumb-nav {
+        float: right;
+        .icon-home {
+            margin-right: 0.5em;
+        }
+    }
+    @media screen and (max-width: 1000px) {
+        .breadcrumb-nav {
+            clear: both;
+            float: left;
+            width: 100%;
+            margin-top: 0.75rem;
+            border-top: 1px solid $border-color;
+        }
+    }
+}
+
+/*-------------------------------------------------------*/
+/* card  */
+/*-------------------------------------------------------*/
+
+.card {
+    border: 0;
+    box-shadow: 0px 0px 1rem -0.5rem rgba(0, 0, 0, 0.2);
+    border-radius: 0.3rem;
+
+    .card-header {
+        background: #fff;
+        padding: 0.75rem;
+
+        &:first-child {
+            border-radius: inherit;
+            border-bottom-left-radius: 0;
+            border-bottom-right-radius: 0;
+        }
+
+        &.no-border {
+            border: 0;
+        }
+
+        .card-title {
+            float: left;
+            font-size: 1.2rem;
+            line-height: 2rem;
+            margin-bottom: 0;
+        }
+        .card-tools {
+            float: right;
+        }
+
+        .btn-box-tool {
+            padding: 5px;
+            font-size: 0.8rem;
+            background: transparent;
+            color: $light-elements;
+            text-align: center;
+
+            &.collapsed .fa::before {
+                content: "\f067";
+            }
+
+            .fa {
+                margin-right: 0;
+            }
+        }
+    }
+}
+
+/*---------------------------------------------------------*/
+/* breadcrumb */
+/*---------------------------------------------------------*/
+
+.breadcrumb {
+    padding: 10px 0;
+}
+
+.breadcrumb a {
+    color: var(--text-color);
+}
+
+/*---------------------------------------------------------*/
+/* button styles */
+/*---------------------------------------------------------*/
+
+@media (max-width: 700px) {
+    .hidden-small {
+        display: none;
+    }
+}
+
+.btn .fa {
+    margin-right: 5px;
+}
+
+/*---------------------------------------------------------*/
+/* user menu */
+/*---------------------------------------------------------*/
+
+.user-menu {
+    border-radius: 0;
+    padding: 0;
+}
+
+.user-menu .user-header {
+    background: var(--menu-bg);
+    color: var(--menu-text);
+}
+
+/*---------------------------------------------------------*/
+/* horizontal forms */
+/*---------------------------------------------------------*/
+
+.form-horizontal {
+    .row {
+        margin-bottom: 0.75rem;
+    }
+
+    .form-label {
+        padding-top: 0.3rem;
+        margin-bottom: 0;
+        text-align: right;
+    }
+    .form-check {
+        padding-top: 0.3rem;
+    }
+}
+
+.alert {
+    button.close {
+        -webkit-appearance: none;
+        padding: 0;
+        cursor: pointer;
+        background: 0 0;
+        border: 0;
+        float: right;
+        font-size: 21px;
+        font-weight: 700;
+        line-height: 1;
+        color: #000;
+        text-shadow: 0 1px 0 #fff;
+        opacity: 0.3;
+    }
+}

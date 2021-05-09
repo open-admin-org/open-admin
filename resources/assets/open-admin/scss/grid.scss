@@ -1,0 +1,127 @@
+.grid-column-selector {
+    .dropdown-menu {
+        padding: 10px;
+        height: auto;
+        max-height: 500px;
+        overflow-x: hidden;
+
+        ul {
+            padding: 0;
+
+            li {
+                margin: 0;
+            }
+        }
+
+        label {
+            width: 100%;
+            padding: 3px;
+        }
+
+        .form-check-input {
+            margin-right: 0.4rem;
+        }
+    }
+}
+
+.grid-actions-menu {
+    left: -30px !important;
+    min-width: 80px;
+}
+
+.grid-actions-dropdown:after {
+    display: none;
+}
+
+/*---------------------------------------------------------*/
+/* filter */
+/*---------------------------------------------------------*/
+
+.filter-box {
+    border-top: 1px solid rgba(0, 0, 0, 0.05);
+
+    .card-body {
+        padding-bottom: 0;
+    }
+    .card-footer {
+        margin-top: 0.25rem;
+        padding: 0.8rem 0 1.5rem 0.75rem;
+        background: #fff;
+
+        .row {
+            margin-bottom: 0;
+        }
+    }
+}
+
+/*---------------------------------------------------------*/
+/* better table styleing */
+/*---------------------------------------------------------*/
+
+.table tr th {
+    vertical-align: top !important;
+    font-weight: normal;
+    background: var(--bs-table-striped-bg);
+    white-space: nowrap;
+    border-top-width: 1px;
+    border-bottom-width: 2px;
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+}
+
+.table tr th a {
+    color: var(--primary-color);
+    text-decoration: none;
+    font-size: 0.8rem;
+}
+
+.table tr th:first-child,
+.table tr td:first-child {
+    padding-left: 10px;
+}
+
+.table tr th,
+.table tr td,
+.table > :not(:last-child) > :last-child > * {
+    border-color: var(--table-border-color);
+}
+
+.table tr td {
+    vertical-align: middle !important;
+    white-space: nowrap;
+    height: 50px;
+    font-weight: lighter;
+}
+
+.table tr.selected td {
+    color: var(--bs-table-selected-color);
+    background-color: var(--bs-table-selected-bg);
+}
+
+.table tr td:last-child a {
+    margin-left: 5px;
+    border-radius: var(--field-border-radius);
+    color: var(--table-color);
+    padding: 5px 10px;
+    display: inline-block;
+    width: 35px;
+}
+
+.table tr td:last-child a.wider {
+    width: auto;
+}
+
+.table tr td:last-child a .fa:after {
+    font-family: "open_sansregular", "Helvetica Neue", Helvetica, Arial,
+        sans-serif;
+    padding-left: 5px;
+}
+
+.table-responsive td {
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.table-responsive td.column-__actions__ {
+    overflow: visible !important;
+}
