@@ -67,10 +67,11 @@ trait HasAssets
         'vendor/open-admin/toastify-js/toastify.css',
         'vendor/open-admin/flatpickr/flatpicker-custom.css',
         'vendor/open-admin/choicesjs/styles/choices.min.css',
+        'vendor/open-admin/sortablejs/nestable.css',
 
         // custom open admin stuff
-        'vendor/open-admin/fontello/css/open-admin.css',
-        'vendor/open-admin/font-awesome/css/font-awesome.min.css',
+        //'vendor/open-admin/fontello/css/open-admin.css',
+        //'vendor/open-admin/font-awesome/css/font-awesome.min.css',
         'vendor/open-admin/open-admin/css/styles.css',
     ];
 
@@ -85,14 +86,14 @@ trait HasAssets
         'vendor/open-admin/toastify-js/toastify.js',
         'vendor/open-admin/flatpickr/flatpickr.min.js',
         'vendor/open-admin/choicesjs/scripts/choices.min.js',
-        'vendor/open-admin/bootstrap5/plugins/number-input.js',
-
+        'vendor/open-admin/sortablejs/Sortable.min.js',
 
         'vendor/open-admin/open-admin/js/open-admin.js',
         'vendor/open-admin/open-admin/js/open-admin-grid.js',
         'vendor/open-admin/open-admin/js/open-admin-form.js',
         'vendor/open-admin/open-admin/js/open-admin-toastr.js',
         'vendor/open-admin/open-admin/js/open-admin-resource.js',
+        'vendor/open-admin/open-admin/js/open-admin-tree.js',
         'vendor/open-admin/open-admin/js/helpers.js',
     ];
 

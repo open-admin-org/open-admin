@@ -13,7 +13,7 @@ class Currency extends Text
      * @var array
      */
     protected static $js = [
-        '/vendor/open-admin/AdminLTE/plugins/input-mask/jquery.inputmask.bundle.min.js',
+        '/vendor/open-admin/inputmask/inputmask.min.js',
     ];
 
     /**

@@ -191,7 +191,7 @@ class Tools implements Renderable
         return <<<HTML
 <div class="btn-group pull-right" style="margin-right: 5px">
     <a href="{$this->getListPath()}" class="btn btn-sm btn-default" title="{$list}">
-        <i class="fa fa-list"></i><span class="hidden-xs"> {$list}</span>
+        <i class="icon-list"></i><span class="hidden-xs"> {$list}</span>
     </a>
 </div>
 HTML;
@@ -209,7 +209,7 @@ HTML;
         return <<<HTML
 <div class="btn-group pull-right" style="margin-right: 5px">
     <a href="{$this->getEditPath()}" class="btn btn-sm btn-primary" title="{$edit}">
-        <i class="fa fa-edit"></i><span class="hidden-xs"> {$edit}</span>
+        <i class="icon-edit"></i><span class="hidden-xs"> {$edit}</span>
     </a>
 </div>
 HTML;
@@ -229,7 +229,7 @@ HTML;
         return <<<HTML
 <div class="btn-group pull-right" style="margin-right: 5px">
     <a onclick="admin.resource.delete(event,this)" data-url="{$this->getDeletePath()}" data-list_url="{$this->getListPath()}"  class="btn btn-sm btn-danger delete" title="{$trans['delete']}">
-        <i class="fa fa-trash"></i><span class="hidden-xs">  {$trans['delete']}</span>
+        <i class="icon-trash"></i><span class="hidden-xs">  {$trans['delete']}</span>
     </a>
 </div>
 HTML;

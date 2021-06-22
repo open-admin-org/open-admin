@@ -8,17 +8,20 @@ use OpenAdmin\Admin\Form\Builder;
 use OpenAdmin\Admin\Form\Concerns\HandleCascadeFields;
 use OpenAdmin\Admin\Form\Concerns\HasFields;
 use OpenAdmin\Admin\Form\Concerns\HasHooks;
+use OpenAdmin\Admin\Form\Concerns\HasFormAttributes;
 use OpenAdmin\Admin\Form\Field;
 use OpenAdmin\Admin\Form\Layout\Layout;
 use OpenAdmin\Admin\Form\Row;
 use OpenAdmin\Admin\Form\Tab;
 use OpenAdmin\Admin\Traits\ShouldSnakeAttributes;
+use OpenAdmin\Admin\Grid\Tools\BatchEdit;
 use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\MessageBag;
@@ -34,6 +37,7 @@ class Form implements Renderable
 {
     use HasHooks;
     use HasFields;
+    use HasFormAttributes;
     use HandleCascadeFields;
     use ShouldSnakeAttributes;
     /**
@@ -135,6 +139,7 @@ class Form implements Renderable
 
         $this->isSoftDeletes = in_array(SoftDeletes::class, class_uses_deep($this->model), true);
 
+        $this->initFormAttributes();
         $this->callInitCallbacks();
     }
 
@@ -342,6 +347,7 @@ class Form implements Renderable
 
             $this->updateRelation($this->relations);
         });
+
 
         if (($response = $this->callSaved()) instanceof Response) {
             return $response;
@@ -567,9 +573,7 @@ class Form implements Renderable
     protected function redirectAfterStore()
     {
         $resourcesPath = $this->resource(0);
-
         $key = $this->model->getKey();
-
         return $this->redirectAfterSaving($resourcesPath, $key);
     }
 
@@ -597,6 +601,7 @@ class Form implements Renderable
      */
     protected function redirectAfterSaving($resourcesPath, $key)
     {
+
         if (request('after-save') == 1) {
             // continue editing
             $url = rtrim($resourcesPath, '/')."/{$key}/edit";
@@ -606,6 +611,10 @@ class Form implements Renderable
         } elseif (request('after-save') == 3) {
             // view resource
             $url = rtrim($resourcesPath, '/')."/{$key}";
+        } elseif (strpos(request("_previous_"),"ids")){
+
+            $url = (new BatchEdit(trans('admin.batch_edit')))->buildBatchUrl($resourcesPath);
+
         } else {
             $url = request(Builder::PREVIOUS_URL_KEY) ?: $resourcesPath;
         }

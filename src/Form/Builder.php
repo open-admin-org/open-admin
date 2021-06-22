@@ -465,13 +465,19 @@ class Builder
     protected function addRedirectUrlField()
     {
         $previous = URL::previous();
-
-        if (!$previous || $previous === URL::current()) {
+        $current = URL::current();
+        if (!$previous || $previous === $current) {
             return;
         }
 
+        $set_previous = $previous;
+        $ids = request("ids");
+        if (!empty($ids)){
+            $set_previous = $current."?ids[]=".implode("&ids[]=",$ids);
+        }
+
         if (Str::contains($previous, url($this->getResource()))) {
-            $this->addHiddenField((new Hidden(static::PREVIOUS_URL_KEY))->value($previous));
+            $this->addHiddenField((new Hidden(static::PREVIOUS_URL_KEY))->value($set_previous));
         }
     }
 
@@ -483,6 +489,25 @@ class Builder
      * @return string
      */
     public function open($options = []): string
+   {
+        if ($this->isMode(self::MODE_EDIT)) {
+            $this->addHiddenField((new Hidden('_method'))->value('PUT'));
+        }
+        $this->addRedirectUrlField();
+
+        $attributes = [];
+        $attributes['action'] = $this->getAction();
+        $attributes['method'] = Arr::get($options, 'method', 'post');
+        $attributes['class'] = $this->formClass;
+        if ($this->hasFile()) {
+            $attributes['enctype'] = 'multipart/form-data';
+        }
+
+        $attributes_str = $this->form->formatAttribute($attributes);
+        return '<form '.$attributes_str.'>';
+    }
+
+    public function open_old($options = []): string
     {
         $attributes = [];
 

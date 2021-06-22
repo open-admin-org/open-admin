@@ -26,6 +26,7 @@ return [
     'reset'                 => 'Reset',
     'export'                => 'Export',
     'batch_delete'          => 'Batch delete',
+    'batch_edit'            => 'Batch edit',
     'save'                  => 'Save',
     'refresh'               => 'Refresh',
     'order'                 => 'Order',

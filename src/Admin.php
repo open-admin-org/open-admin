@@ -378,7 +378,7 @@ class Admin
 
         require config('admin.bootstrap', admin_path('bootstrap.php'));
 
-        //$this->addAdminAssets();
+        $this->addAdminAssets();
 
         $this->fireBootedCallbacks();
     }

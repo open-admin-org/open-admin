@@ -10,15 +10,15 @@
 	<div class="container-fluid card-header no-border">
         @if ( $grid->showTools() || $grid->showExportBtn() || $grid->showCreateBtn() )
         <div class="row">
-            <div class="col-auto  me-auto">
+            <div class="col-auto me-auto">
                 {!! $grid->renderCreateButton() !!}
                 @if ( $grid->showTools() )
                 {!! $grid->renderHeaderTools() !!}
                 @endif
             </div>
             <div class="col-auto">
-                {!! $grid->renderColumnSelector() !!}
                 {!! $grid->renderExportButton() !!}
+                {!! $grid->renderColumnSelector() !!}
             </div>
         </div>
         @endif

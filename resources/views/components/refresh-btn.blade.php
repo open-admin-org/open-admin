@@ -1,5 +1,5 @@
 <li>
     <a onclick="admin.ajax.reload();" class="container-refresh">
-        <i class="fa fa-refresh"></i>
+        <i class="icon-sync-alt"></i>
     </a>
 </li>

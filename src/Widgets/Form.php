@@ -5,6 +5,7 @@ namespace OpenAdmin\Admin\Widgets;
 use Closure;
 use OpenAdmin\Admin\Facades\Admin;
 use OpenAdmin\Admin\Form as BaseForm;
+use OpenAdmin\Admin\Form\Concerns\HasFormAttributes;
 use OpenAdmin\Admin\Form\Field;
 use OpenAdmin\Admin\Layout\Content;
 use Illuminate\Contracts\Support\Arrayable;
@@ -67,6 +68,7 @@ use Illuminate\Validation\Validator;
 class Form implements Renderable
 {
     use BaseForm\Concerns\HandleCascadeFields;
+    use HasFormAttributes;
 
     /**
      * The title of form.
@@ -91,11 +93,6 @@ class Form implements Renderable
      * @var array
      */
     protected $data = [];
-
-    /**
-     * @var array
-     */
-    protected $attributes = [];
 
     /**
      * Available buttons.
@@ -211,106 +208,6 @@ class Form implements Renderable
         return $this;
     }
 
-    /**
-     * Initialize the form attributes.
-     */
-    protected function initFormAttributes()
-    {
-        $this->attributes = [
-            'id'             => 'widget-form-'.uniqid(),
-            'method'         => 'POST',
-            'action'         => '',
-            'class'          => 'form-horizontal',
-            'accept-charset' => 'UTF-8',
-            'pjax-container' => true,
-        ];
-    }
-
-    /**
-     * Add form attributes.
-     *
-     * @param string|array $attr
-     * @param string       $value
-     *
-     * @return $this
-     */
-    public function attribute($attr, $value = '')
-    {
-        if (is_array($attr)) {
-            foreach ($attr as $key => $value) {
-                $this->attribute($key, $value);
-            }
-        } else {
-            $this->attributes[$attr] = $value;
-        }
-
-        return $this;
-    }
-
-    /**
-     * Format form attributes form array to html.
-     *
-     * @param array $attributes
-     *
-     * @return string
-     */
-    public function formatAttribute($attributes = [])
-    {
-        $attributes = $attributes ?: $this->attributes;
-
-        if ($this->hasFile()) {
-            $attributes['enctype'] = 'multipart/form-data';
-        }
-
-        $html = [];
-        foreach ($attributes as $key => $val) {
-            $html[] = "$key=\"$val\"";
-        }
-
-        return implode(' ', $html) ?: '';
-    }
-
-    /**
-     * Action uri of the form.
-     *
-     * @param string $action
-     *
-     * @return $this
-     */
-    public function action($action)
-    {
-        return $this->attribute('action', $action);
-    }
-
-    /**
-     * Method of the form.
-     *
-     * @param string $method
-     *
-     * @return $this
-     */
-    public function method($method = 'POST')
-    {
-        if (strtolower($method) == 'put') {
-            $this->hidden('_method')->default($method);
-
-            return $this;
-        }
-
-        return $this->attribute('method', strtoupper($method));
-    }
-
-    /**
-     * Disable Pjax.
-     *
-     * @return $this
-     */
-    public function disablePjax()
-    {
-        Arr::forget($this->attributes, 'pjax-container');
-
-        return $this;
-    }
 
     /**
      * Disable reset button.

@@ -4,25 +4,22 @@ namespace OpenAdmin\Admin\Form\Field;
 
 class Icon extends Text
 {
-    protected $default = 'fa-pencil';
-
-    protected static $css = [
-        '/vendor/open-admin/fontawesome-iconpicker/dist/css/fontawesome-iconpicker.min.css',
-    ];
+    protected $default = '';
 
     protected static $js = [
-        '/vendor/open-admin/fontawesome-iconpicker/dist/js/fontawesome-iconpicker.min.js',
+        '/vendor/open-admin/fields/icon-picker/icon-picker.js',
     ];
 
     public function render()
     {
         $this->script = <<<EOT
-
-$('{$this->getElementClassSelector()}').iconpicker({placement:'bottomLeft'});
-
+new Iconpicker(document.querySelector("{$this->getElementClassSelector()}"),{
+    showSelectedIn: document.querySelector("{$this->getElementClassSelector()}-icon"),
+    defaultValue: '{$this->value}',
+});
 EOT;
 
-        $this->prepend('<i class="fa fa-pencil fa-fw"></i>');
+        $this->prepend('<span class="'.substr($this->getElementClassSelector(),1).'-icon"><i class="'.$this->value.'"></i></span>');
         $this->style("max-width","160px");
 
         return parent::render();

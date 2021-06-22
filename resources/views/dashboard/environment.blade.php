@@ -4,7 +4,7 @@
 
         <div class="card-tools pull-right">
             <button type="button" class="btn btn-box-tool" data-bs-toggle="collapse" href="#environment" role="button" aria-expanded="true" aria-controls="environment">
-                <i class="fa fa-minus"></i>
+                <i class="icon-minus"></i>
             </button>
         </div>
     </div>

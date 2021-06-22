@@ -1,6 +1,6 @@
 <div class="grid-dropdown-actions dropdown">
     <a href="#" style="padding: 0 10px;" class="dropdown-toggle grid-actions-dropdown" data-bs-toggle="dropdown">
-        <i class="fa fa-ellipsis-v"></i>
+        <i class="icon-ellipsis-v"></i>
     </a>
     <ul class="dropdown-menu grid-actions-menu" style="">
 

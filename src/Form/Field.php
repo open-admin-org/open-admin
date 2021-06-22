@@ -543,6 +543,7 @@ class Field implements Renderable
             return;
         }
 
+        $this->attribute("required",true);
         $this->setLabelClass(['asterisk']);
 
         // Only text field has `required` attribute.
@@ -570,6 +571,7 @@ class Field implements Renderable
             // Update page
             $rules = $this->updateRules ?: $this->rules;
         }
+
 
         $this->addRequiredAttribute($rules);
     }
@@ -871,7 +873,7 @@ class Field implements Renderable
      *
      * @return $this
      */
-    public function help($text = '', $icon = 'fa-info-circle'): self
+    public function help($text = '', $icon = 'icon-info-circle'): self
     {
         $this->help = compact('text', 'icon');
 
@@ -1013,7 +1015,11 @@ class Field implements Renderable
      */
     public function style($attr, $value): self
     {
-        return $this->attribute('style', "{$attr}: {$value}");
+        $add_style = "{$attr}: {$value};";
+        if (!empty($this->attributes['style'])){
+            $add_style = $this->attributes['style'].$add_style;
+        }
+        return $this->attribute('style', $add_style);
     }
 
     /**

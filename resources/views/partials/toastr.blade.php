@@ -6,8 +6,8 @@
         $options    = json_encode($toastr->get('options', []));
     @endphp
     <script>
-        $(function () {
-            toastr.{{$type}}('{!!  $message  !!}', null, {!! $options !!});
-        });
+        (function () {
+            admin.toastr.{{$type}}('{!!  $message  !!}', {!! $options !!});
+        }());
     </script>
 @endif

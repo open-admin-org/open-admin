@@ -5,7 +5,7 @@ namespace OpenAdmin\Admin\Form\Field;
 class Mobile extends Text
 {
     protected static $js = [
-        '/vendor/open-admin/AdminLTE/plugins/input-mask/jquery.inputmask.bundle.min.js',
+        '/vendor/open-admin/inputmask/inputmask.min.js',
     ];
 
     /**
@@ -21,7 +21,7 @@ class Mobile extends Text
     {
         $this->inputmask($this->options);
 
-        $this->prepend('<i class="fa fa-phone fa-fw"></i>');
+        $this->prepend('<i class="icon-phone fa-fw"></i>');
         $this->style("max-width","160px");
 
         return parent::render();

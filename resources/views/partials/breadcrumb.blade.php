@@ -7,7 +7,7 @@
         @if($loop->last)
         <li class="breadcrumb-item active">
                 @if (\Illuminate\Support\Arr::has($item, 'icon'))
-                    <i class="fa fa-{{ $item['icon'] }}"></i>
+                    <i class="icon-{{ $item['icon'] }}"></i>
                 @endif
                 {{ $item['text'] }}
             </li>
@@ -16,13 +16,13 @@
             @if (\Illuminate\Support\Arr::has($item, 'url'))
                 <a href="{{ admin_url(\Illuminate\Support\Arr::get($item, 'url')) }}">
                     @if (\Illuminate\Support\Arr::has($item, 'icon'))
-                        <i class="fa fa-{{ $item['icon'] }}"></i>
+                        <i class="icon-{{ $item['icon'] }}"></i>
                     @endif
                     {{ $item['text'] }}
                 </a>
             @else
                 @if (\Illuminate\Support\Arr::has($item, 'icon'))
-                    <i class="fa fa-{{ $item['icon'] }}"></i>
+                    <i class="icon-{{ $item['icon'] }}"></i>
                 @endif
                 {{ $item['text'] }}
             @endif

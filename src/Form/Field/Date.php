@@ -6,14 +6,6 @@ use Illuminate\Support\Arr;
 
 class Date extends Text
 {
-    protected static $css = [
-        '/vendor/open-admin/eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min.css',
-    ];
-
-    protected static $js = [
-        '/vendor/open-admin/moment/min/moment-with-locales.min.js',
-        '/vendor/open-admin/eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js',
-    ];
 
     protected $format = 'YYYY-MM-DD';
 
@@ -60,11 +52,9 @@ class Date extends Text
         $this->options['allowInputToggle'] = true;
         $this->check_format_options();
 
-
-
         $this->script = "flatpickr('{$this->getElementClassSelector()}',".json_encode($this->options).");";
 
-        $this->prepend('<i class="fa fa-calendar fa-fw"></i>');
+        $this->prepend('<i class="icon-calendar fa-fw"></i>');
         $this->style("max-width","160px");
 
 

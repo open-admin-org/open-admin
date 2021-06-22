@@ -277,24 +277,34 @@
                 admin.ajax.done(response);
             })
             .catch(function (error) {
-                console.log(error);
+                admin.ajax.error(error);
             })
             .then(function () {
                 NProgress.done();
-                admin.pages.init()
+                admin.pages.init();
             });
         },
 
+        // posts and load this into the page
+        loadPost : function(url,data){
+            let obj = {
+                method: "post",
+                data : data
+            }
+            obj.data._token = LA.token;
+            this.load(url,obj);
+        },
+
         post : function (url,data,result_function){
-            let post_defaults = {
+            let obj = {
                 method: "post",
                 data : data,
                 url : url,
             }
-            post_defaults.data._token = LA.token;
+            obj.data._token = LA.token;
 
             NProgress.start();
-            let axios_obj = merge_default(this.defaults,post_defaults);
+            let axios_obj = merge_default(this.defaults,obj);
 
             axios(axios_obj)
             .then( result_function )
@@ -308,11 +318,38 @@
 
         done : function(response){
 
+            if (window.location != response.request.responseURL){
+                this.setUrl(response.request.responseURL);
+            }
+
             main = document.getElementById("main");
-            main.innerHTML = response.data;
+            let data = response.data;
+            if (typeof(data) != 'string'){
+                data = JSON.stringify(data);
+            }
+            main.innerHTML = data;
             main.querySelectorAll("script").forEach(script => {
                 eval(script.innerText);
             })
+        },
+
+        error :function(error){
+
+            if (error.response) {
+                console.log(error.response.data);
+                console.log(error.response.status);
+                console.log(error.response.headers);
+
+                admin.ajax.done(error.response);
+            } else if (error.request) {
+                // The request was made but no response was received
+                // `error.request` is an instance of XMLHttpRequest in the browser and an instance of
+                // http.ClientRequest in node.js
+                console.log(error.request);
+            } else {
+                // Something happened in setting up the request that triggered an Error
+                console.log('Error', error.message);
+            }
         }
     };
 

@@ -10,7 +10,7 @@ namespace OpenAdmin\Admin\Form\Field;
 class Listbox extends MultipleSelect
 {
     protected $settings = [];
-
+    /*
     protected static $css = [
         '/vendor/open-admin/bootstrap-duallistbox/dist/bootstrap-duallistbox.min.css',
     ];
@@ -18,6 +18,7 @@ class Listbox extends MultipleSelect
     protected static $js = [
         '/vendor/open-admin/bootstrap-duallistbox/dist/jquery.bootstrap-duallistbox.min.js',
     ];
+    */
 
     public function settings(array $settings)
     {
@@ -35,6 +36,7 @@ class Listbox extends MultipleSelect
      */
     public function height($height = 200)
     {
+        return $this->style('height', $height."px");
         return $this->settings(['selectorMinimalHeight' => $height]);
     }
 
@@ -73,6 +75,7 @@ EOT;
 
     public function render()
     {
+        $this->style('width', "100%");
         $settings = array_merge([
             'infoText'              => trans('admin.listbox.text_total'),
             'infoTextEmpty'         => trans('admin.listbox.text_empty'),
@@ -85,8 +88,8 @@ EOT;
         $settings = json_encode($settings);
 
         $this->script .= <<<SCRIPT
-
-$("{$this->getElementClassSelector()}").bootstrapDualListbox($settings);
+//alert("make dualist implemenation");
+//$("{$this->getElementClassSelector()}").bootstrapDualListbox($settings);
 
 SCRIPT;
 

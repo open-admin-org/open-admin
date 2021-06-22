@@ -17,7 +17,7 @@ class BatchDelete extends BatchAction
         return <<<EOT
         document.querySelector('{$this->getElementClass()}').addEventListener("click",function(){
             let resource_url = '{$this->resource}/' + admin.grid.selected.join();
-            admin.resource.delete_batch(resource_url);
+            admin.resource.batch_delete(resource_url);
         });
 EOT;
     }

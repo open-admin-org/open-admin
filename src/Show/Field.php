@@ -317,14 +317,14 @@ class Field implements Renderable
             return <<<HTML
 <ul class="mailbox-attachments clearfix">
     <li style="margin-bottom: 0;">
-      <span class="mailbox-attachment-icon"><i class="fa {$field->getFileIcon($name)}"></i></span>
+      <span class="mailbox-attachment-icon"><i class="icon-{$field->getFileIcon($name)}"></i></span>
       <div class="mailbox-attachment-info">
         <div class="mailbox-attachment-name">
-            <i class="fa fa-paperclip"></i> {$name}
+            <i class="icon-paperclip"></i> {$name}
             </div>
             <span class="mailbox-attachment-size">
               {$size}&nbsp;
-              <a href="{$url}" class="btn btn-default btn-xs pull-right" target="_blank" $download><i class="fa fa-cloud-download"></i></a>
+              <a href="{$url}" class="btn btn-default btn-xs pull-right" target="_blank" $download><i class="icon-cloud-download"></i></a>
             </span>
       </div>
     </li>
@@ -365,7 +365,7 @@ HTML;
             }
 
             return collect((array) $value)->map(function ($name) use ($style) {
-                return "<span class='label label-{$style}'>$name</span>";
+                return "<span class='badge bg-{$style}'>$name</span>";
             })->implode('&nbsp;');
         });
     }

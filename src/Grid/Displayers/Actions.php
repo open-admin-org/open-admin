@@ -186,7 +186,7 @@ class Actions extends AbstractDisplayer
 
         $actions = array_merge($actions, $this->appends);
 
-        return implode('', $actions);
+        return "<div class='__actions__div'>".implode('', $actions)."</div>";
     }
 
     /**
@@ -198,7 +198,7 @@ class Actions extends AbstractDisplayer
     {
         return <<<EOT
 <a href="{$this->getResource()}/{$this->getRouteKey()}" class="{$this->grid->getGridRowName()}-view">
-    <i class="fa fa-eye"></i>
+    <i class="icon icon-eye"></i>
 </a>
 EOT;
     }
@@ -212,7 +212,7 @@ EOT;
     {
         return <<<EOT
 <a href="{$this->getResource()}/{$this->getRouteKey()}/edit" class="{$this->grid->getGridRowName()}-edit">
-    <i class="fa fa-edit"></i>
+    <i class="icon icon-edit"></i>
 </a>
 EOT;
     }
@@ -226,7 +226,7 @@ EOT;
     {
         return <<<EOT
 <a onclick="admin.resource.delete(event,this)" data-url="{$this->getResource()}/{$this->getKey()}" data-id="{$this->getKey()}" class="{$this->grid->getGridRowName()}-delete">
-    <i class="fa fa-trash"></i>
+    <i class="icon icon-trash"></i>
 </a>
 EOT;
     }

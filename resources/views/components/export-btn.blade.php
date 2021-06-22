@@ -1,5 +1,5 @@
-<div class="btn-group pull-right me-1">
-    <a href="{{$grid->getExportUrl('all')}}" target="_blank" class="btn btn-sm btn-primary" title="{{trans('admin.export')}}"><i class="fa fa-download"></i><span class="hidden-xs"> {{trans('admin.export')}}</span></a>
+<div class="btn-group me-1">
+    <a href="{{$grid->getExportUrl('all')}}" target="_blank" class="btn btn-sm btn-primary" title="{{trans('admin.export')}}"><i class="icon-download"></i><span class="hidden-xs"> {{trans('admin.export')}}</span></a>
     <button type="button" class="btn btn-sm btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
         <span class="caret"></span>
         <span class="sr-only">Toggle Dropdown</span>

@@ -3,7 +3,10 @@
 /*-------------------------------------------------------*/
 
 .input-group-text {
-    padding: 0.5rem;
+    justify-content: center;
+    min-width: 2.5rem;
+    padding: 0rem;
+    background-color: #f7f7f7;
 }
 
 /*-------------------------------------------------------*/
@@ -11,6 +14,7 @@
 /*-------------------------------------------------------*/
 
 .nav-tabs-custom {
+    margin-top: -1rem;
     > .nav-tabs {
         padding-left: 15px;
         border-radius: 0;
@@ -29,7 +33,7 @@
     }
 
     .tab-content {
-        padding: 2rem 0 1.25rem 0;
+        padding: 2rem 0 0.25rem 0;
     }
 }
 
@@ -110,10 +114,14 @@ body .choices {
 /*-------------------------------------------------------*/
 
 .form {
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+
     .form-switch {
         font-size: 1.2rem;
         margin-bottom: 0.8rem;
     }
+
     input[type="number"] {
         -webkit-appearance: textfield;
         -moz-appearance: textfield;
@@ -126,6 +134,14 @@ body .choices {
         -webkit-appearance: none;
         margin: 0;
     }
+
+    .form-group {
+        > label.asterisk::before {
+            content: "* ";
+            color: red;
+        }
+    }
+
     .input-group {
         .btn-light {
             border: 1px solid $input-border-color;
@@ -134,4 +150,38 @@ body .choices {
     .small-field {
         max-width: 160px;
     }
+    .form-value {
+        padding: 0.3rem 0;
+    }
+}
+
+@mixin form-validation-state-selector($state) {
+    @if ($state == "valid" or $state == "invalid") {
+        .was-validated.default-valid #{if(&, "&", "")}:#{$state},
+        #{if(&, "&", "")}.is-#{$state} {
+            @content;
+        }
+    } @else {
+        #{if(&, "&", "")}.is-#{$state} {
+            @content;
+        }
+    }
+}
+
+$state: "valid";
+$icon: none;
+$color: $input-border-color;
+@include form-validation-state(
+    $state,
+    $color,
+    $icon,
+    $tooltip-color: color-contrast($color),
+    $tooltip-bg-color: rgba($color, $form-feedback-tooltip-opacity),
+    $focus-box-shadow: 0 0 $input-btn-focus-blur $input-focus-width
+        rgba($color, $input-btn-focus-color-opacity)
+);
+
+.was-validated.default-valid .form-check-input:valid ~ .form-check-label,
+.form-check-input.is-valid ~ .form-check-label {
+    color: $body-color;
 }

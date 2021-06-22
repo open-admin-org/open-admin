@@ -53,7 +53,7 @@ class MakeCommand extends GeneratorCommand
         $this->controllerName = $this->getControllerName();
 
         if (!$this->modelExists()) {
-            $this->error('Model does not exists !');
+            $this->error('Model does not exists ! use, command like: artisan admin:controller \\App\\Models\\ModelName');
 
             return false;
         }

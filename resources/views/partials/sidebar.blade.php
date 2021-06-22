@@ -8,7 +8,7 @@
         <div class="pull-left info">
             <p>{{ Admin::user()->name }}</p>
             <!-- Status -->
-            <a href="#"><i class="fa fa-circle text-success"></i> {{ trans('admin.online') }}</a>
+            <a href="#"><i class="icon-circle text-success"></i> {{ trans('admin.online') }}</a>
         </div>
     </div>
     @endif
@@ -19,12 +19,12 @@
         <div class="input-group">
             <input type="text" autocomplete="off" class="form-control autocomplete" placeholder="Search...">
             <span class="input-group-btn">
-                <button type="submit" name="search" id="search-btn" class="btn btn-flat"><i class="fa fa-search"></i></button>
+                <button type="submit" name="search" id="search-btn" class="btn btn-flat"><i class="icon-search"></i></button>
             </span>
             <ul class="dropdown-menu" role="menu" style="min-width: 210px;max-height: 300px;overflow: auto;">
                 @foreach(Admin::menuLinks() as $link)
                 <li>
-                    <a href="{{ admin_url($link['uri']) }}"><i class="icon-{{ $link['icon'] }}"></i>{{ admin_trans($link['title']) }}</a>
+                    <a href="{{ admin_url($link['uri']) }}"><i class="{{ $link['icon'] }}"></i>{{ admin_trans($link['title']) }}</a>
                 </li>
                 @endforeach
             </ul>

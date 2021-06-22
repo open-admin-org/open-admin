@@ -4,7 +4,7 @@
         @foreach($tabObj->getTabs() as $tab)
             <li class="nav-item">
                 <a class="nav-link {{ $tab['active'] ? 'active' : '' }}" href="#tab-{{ $tab['id'] }}" data-bs-toggle="tab">
-                    {{ $tab['title'] }} <i class="fa fa-exclamation-circle text-red hide"></i>
+                    {{ $tab['title'] }} <i class="icon-exclamation-circle text-red hide"></i>
                 </a>
             </li>
         @endforeach

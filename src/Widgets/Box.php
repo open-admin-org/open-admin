@@ -56,7 +56,7 @@ class Box extends Widget implements Renderable
             $this->footer($footer);
         }
 
-        $this->class('box');
+        $this->class('card');
     }
 
     /**
@@ -117,7 +117,7 @@ class Box extends Widget implements Renderable
     public function collapsable()
     {
         $this->tools[] =
-            '<button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>';
+            '<button class="btn btn-box-tool" data-widget="collapse"><i class="icon-minus"></i></button>';
 
         return $this;
     }
@@ -150,7 +150,7 @@ SCRIPT;
     public function removable()
     {
         $this->tools[] =
-            '<button class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>';
+            '<button class="btn btn-box-tool" data-widget="remove"><i class="icon-times"></i></button>';
 
         return $this;
     }

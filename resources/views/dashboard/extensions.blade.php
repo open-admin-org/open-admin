@@ -14,7 +14,7 @@
 
         <div class="card-tools pull-right">
             <button type="button" class="btn btn-box-tool" data-bs-toggle="collapse" href="#extensions" role="button" aria-expanded="true" aria-controls="extensions">
-                <i class="fa fa-minus"></i>
+                <i class="icon-minus"></i>
             </button>
         </div>
     </div>
@@ -25,14 +25,14 @@
             @foreach($extensions as $extension)
             <li class="item">
                 <div class="product-img">
-                    <i class="fa fa-{{$extension['icon']}} fa-2x ext-icon"></i>
+                    <i class="icon-{{$extension['icon']}} fa-2x ext-icon"></i>
                 </div>
                 <div class="product-info">
                     <a href="{{ $extension['link'] }}" target="_blank" class="product-title">
                         {{ $extension['name'] }}
                     </a>
                     @if($extension['installed'])
-                        <span class="pull-right installed"><i class="fa fa-check"></i></span>
+                        <span class="pull-right installed"><i class="icon-check"></i></span>
                     @endif
                 </div>
             </li>

@@ -302,7 +302,7 @@ return Admin::grid(Post::class, function (Grid $grid) {
 
     $grid->comments('评论数')->display(function ($comments) {
         $count = count($comments);
-        return "<span class='label label-warning'>{$count}</span>";
+        return "<span class='badge bg-warning'>{$count}</span>";
     });
 
     $grid->created_at();
@@ -391,7 +391,7 @@ return Admin::grid(User::class, function (Grid $grid) {
     $grid->roles()->display(function ($roles) {
 
         $roles = array_map(function ($role) {
-            return "<span class='label label-success'>{$role['name']}</span>";
+            return "<span class='badge bg-success'>{$role['name']}</span>";
         }, $roles);
 
         return join('&nbsp;', $roles);

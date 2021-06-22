@@ -1,6 +1,6 @@
 <li>
     <a href="javascript:void(0);" class="nav-fullscreen">
-        <i class="fa fa-arrows-alt"></i>
+        <i class="icon-arrows-alt"></i>
     </a>
 </li>
 

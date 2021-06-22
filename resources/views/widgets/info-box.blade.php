@@ -5,10 +5,10 @@
         <p>{{ $name }}</p>
     </div>
     <div class="icon">
-        <i class="fa fa-{{ $icon }}"></i>
+        <i class="icon-{{ $icon }}"></i>
     </div>
     <a href="{{ $link }}" class="small-box-footer">
         {{ trans('admin.more') }}&nbsp;
-        <i class="fa fa-arrow-circle-right"></i>
+        <i class="icon-arrow-circle-right"></i>
     </a>
 </div>

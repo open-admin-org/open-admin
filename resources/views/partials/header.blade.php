@@ -3,12 +3,11 @@
     <a class="navbar-brand menu-width container-md bg-semi-dark text-center" href="{{ admin_url('/') }}">
         <span class="short">{!! config('admin.logo-mini', config('admin.name')) !!}</span><span class="long">{!! config('admin.logo', config('admin.name')) !!}</span>
     </a>
-    <div class="d-flex flex-fill flex-wrap">
-        <div class="flex-shrink order-1 order-sm-0 valign-header">
-            <a class="ms-4 link-secondary" type="button" id='menu-toggle' aria-controls="menu" aria-expanded="false" aria-label="Toggle navigation">
-                <i class="fa fa-bars "></i>
-            </a>
-        </div>
+    <div class="d-flex flex-fill flex-wrap header-items">
+
+        <a class="flex-shrink order-1 order-sm-0 valign-header px-4 link-secondary" type="button" id='menu-toggle' aria-controls="menu" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="icon-bars"></i>
+        </a>
 
         <ul class="nav navbar-nav hidden-sm visible-lg-block">
             {!! Admin::getNavbar()->render('left') !!}
@@ -23,7 +22,7 @@
             {!! Admin::getNavbar()->render() !!}
 
             <li class="nav-item">
-                <div class="dropdown user-menu px-3" href="#" role="button" id="user-menu-link" data-bs-toggle="dropdown" aria-expanded="false">
+                <div class="dropdown user-menu d-flex align-items-center px-3" href="#" role="button" id="user-menu-link" data-bs-toggle="dropdown" aria-expanded="false">
                     <span class="bg-light inline rounded-circle user-image">
                         <img src="{{ Admin::user()->avatar }}" alt="User Image">
                     </span>
@@ -32,7 +31,7 @@
                 <ul class="dropdown-menu dropdown-menu-end user-menu" aria-labelledby="user-menu-link">
                     <!-- The user image in the menu -->
                     <li class="user-header text-center bg-semi-dark p-3">
-                        <span class="bg-light inline rounded-circle user-image me-3">
+                        <span class="bg-light inline rounded-circle user-image medium">
                             <img src="{{ Admin::user()->avatar }}" alt="User Image">
                         </span>
                         <p>

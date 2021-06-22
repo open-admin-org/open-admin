@@ -14,7 +14,7 @@
             this.delete_do(resource_url,navigate_url);
         },
 
-        delete_batch : function (resource_url){
+        batch_delete : function (resource_url){
             this.delete_do(resource_url);
         },
 
@@ -52,5 +52,14 @@
                     }
                 }
             });
-        }
+        },
+
+        batch_edit : function (resource_url){
+            parts = resource_url.split(",");
+            edit_url = parts.shift()+"/edit";
+            if (parts.length){
+                edit_url += "?ids[]="+parts.join("&ids[]=");
+            }
+            admin.ajax.navigate(edit_url);
+        },
     }

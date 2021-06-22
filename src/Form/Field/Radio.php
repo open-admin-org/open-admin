@@ -11,6 +11,7 @@ class Radio extends Field
 
     protected $inline = true;
 
+    /*
     protected static $css = [
         '/vendor/open-admin/AdminLTE/plugins/iCheck/all.css',
     ];
@@ -18,11 +19,12 @@ class Radio extends Field
     protected static $js = [
         '/vendor/open-admin/AdminLTE/plugins/iCheck/icheck.min.js',
     ];
+    */
 
     /**
      * @var string
      */
-    protected $cascadeEvent = 'ifChecked';
+    protected $cascadeEvent = 'change';
 
     /**
      * Set options.
@@ -102,7 +104,7 @@ class Radio extends Field
      */
     public function render()
     {
-        $this->script = "$('{$this->getElementClassSelector()}').iCheck({radioClass:'iradio_minimal-blue'});";
+        //$this->script = "$('{$this->getElementClassSelector()}').iCheck({radioClass:'iradio_minimal-blue'});";
 
         $this->addCascadeScript();
 

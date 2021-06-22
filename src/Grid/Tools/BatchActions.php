@@ -39,6 +39,7 @@ class BatchActions extends AbstractTool
      */
     protected function appendDefaultAction()
     {
+        $this->add(new BatchEdit(trans('admin.batch_edit')));
         $this->add(new BatchDelete(trans('admin.batch_delete')));
     }
 

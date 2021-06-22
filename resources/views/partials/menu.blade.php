@@ -6,7 +6,7 @@
             @else
                  <a href="{{ admin_url($item['uri']) }}">
             @endif
-                <i class="icon-{{$item['icon']}}"></i>
+                <i class="{{$item['icon']}}"></i>
                 @if (Lang::has($titleTranslation = 'admin.menu_titles.' . trim(str_replace(' ', '_', strtolower($item['title'])))))
                     <span>{{ __($titleTranslation) }}</span>
                 @else
@@ -17,7 +17,7 @@
     @else
         <li class="treeview">
             <a href="#" class="has-subs" data-bs-toggle="collapse" data-bs-target="#collapse-{{$item['id']}}" aria-expanded="false">
-                <i class="icon-{{ $item['icon'] }}"></i>
+                <i class="{{ $item['icon'] }}"></i>
                 @if (Lang::has($titleTranslation = 'admin.menu_titles.' . trim(str_replace(' ', '_', strtolower($item['title'])))))
                     <span>{{ __($titleTranslation) }}</span>
                 @else

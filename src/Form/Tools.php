@@ -19,7 +19,7 @@ class Tools implements Renderable
      *
      * @var array
      */
-    protected $tools = ['delete', 'view', 'list'];
+    protected $tools = ['list','view', 'delete'];
 
     /**
      * Tools should be appends to default tools.
@@ -178,11 +178,11 @@ class Tools implements Renderable
     {
         $text = trans('admin.list');
 
-        return <<<EOT
-<div class="btn-group pull-right" style="margin-right: 5px">
-    <a href="{$this->getListPath()}" class="btn btn-sm btn-default btn-light" title="$text"><i class="fa fa-list"></i><span class="hidden-xs">&nbsp;$text</span></a>
+        return <<<HTML
+<div class="btn-group">
+    <a href="{$this->getListPath()}" class="btn btn-sm btn-default btn-light me-2" title="{$text}"><i class="icon-list"></i><span class="hidden-xs">&nbsp;{$text}</span></a>
 </div>
-EOT;
+HTML;
     }
 
     /**
@@ -195,9 +195,9 @@ EOT;
         $view = trans('admin.view');
 
         return <<<HTML
-<div class="btn-group pull-right" style="margin-right: 5px">
-    <a href="{$this->getViewPath()}" class="btn btn-sm btn-primary" title="{$view}">
-        <i class="fa fa-eye"></i><span class="hidden-xs"> {$view}</span>
+<div class="btn-group">
+    <a href="{$this->getViewPath()}" class="btn btn-sm btn-primary me-2" title="{$view}">
+        <i class="icon-eye"></i><span class="hidden-xs"> {$view}</span>
     </a>
 </div>
 HTML;
@@ -215,9 +215,9 @@ HTML;
         ];
 
         return <<<HTML
-<div class="btn-group pull-right">
+<div class="btn-group">
     <a  onclick="admin.resource.delete(event,this)" data-url="{$this->getDeletePath()}" data-list_url="{$this->getListPath()}" class="btn btn-sm btn-danger delete" title="{$trans['delete']}">
-        <i class="fa fa-trash"></i><span class="hidden-xs">  {$trans['delete']}</span>
+        <i class="icon-trash"></i><span class="hidden-xs">  {$trans['delete']}</span>
     </a>
 </div>
 HTML;

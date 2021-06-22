@@ -32,6 +32,7 @@ class MenuController extends Controller
                 $row->column(6, function (Column $column) {
                     $form = new \OpenAdmin\Admin\Widgets\Form();
                     $form->action(admin_url('auth/menu'));
+                    $form->enableValidate();
 
                     $menuModel = config('admin.database.menu_model');
                     $permissionModel = config('admin.database.permissions_model');
@@ -76,7 +77,7 @@ class MenuController extends Controller
         $tree->disableCreate();
 
         $tree->branch(function ($branch) {
-            $payload = "<i class='fa {$branch['icon']}'></i>&nbsp;<strong>{$branch['title']}</strong>";
+            $payload = "<i class='{$branch['icon']}'></i>&nbsp;<strong>{$branch['title']}</strong>";
 
             if (!isset($branch['children'])) {
                 if (url()->isValidUrl($branch['uri'])) {

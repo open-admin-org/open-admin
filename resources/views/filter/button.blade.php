@@ -1,6 +1,6 @@
 <div class="btn-group " style="margin-right: 5px">
     <label class="btn btn-sm btn-primary {{ $btn_class }} {{ $expand ? 'active' : '' }}" title="{{ trans('admin.filter') }}" data-bs-toggle="collapse" href="#{{ $filter_id }}" role="button" aria-expanded="false" aria-controls="{{ $filter_id }}">
-        <i class="fa fa-filter"></i><span class="hidden-xs">&nbsp;&nbsp;{{ trans('admin.filter') }}</span>
+        <i class="icon-filter"></i><span class="hidden-xs">&nbsp;&nbsp;{{ trans('admin.filter') }}</span>
     </label>
 
     @if($scopes->isNotEmpty())

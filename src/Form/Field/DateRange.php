@@ -6,14 +6,6 @@ use OpenAdmin\Admin\Form\Field;
 
 class DateRange extends Field
 {
-    protected static $css = [
-        '/vendor/open-admin/eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min.css',
-    ];
-
-    protected static $js = [
-        '/vendor/open-admin/moment/min/moment-with-locales.min.js',
-        '/vendor/open-admin/eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js',
-    ];
 
     protected $format = 'YYYY-MM-DD';
 
@@ -58,7 +50,8 @@ class DateRange extends Field
         $class = $this->getElementClassSelector();
 
         $this->script = <<<EOT
-            $('{$class['start']}').datetimepicker($startOptions);
+            alert("DateRange picker not working yet: Form/field/DateRange.php");
+            /*$('{$class['start']}').datetimepicker($startOptions);
             $('{$class['end']}').datetimepicker($endOptions);
             $("{$class['start']}").on("dp.change", function (e) {
                 $('{$class['end']}').data("DateTimePicker").minDate(e.date);
@@ -66,6 +59,7 @@ class DateRange extends Field
             $("{$class['end']}").on("dp.change", function (e) {
                 $('{$class['start']}').data("DateTimePicker").maxDate(e.date);
             });
+            */
 EOT;
 
         return parent::render();

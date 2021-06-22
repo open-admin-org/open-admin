@@ -41,20 +41,6 @@ class Tags extends Field
     protected $separators = [',', ';', '，', '；', ' '];
 
     /**
-     * @var array
-     */
-    protected static $css = [
-        '/vendor/open-admin/AdminLTE/plugins/select2/select2.min.css',
-    ];
-
-    /**
-     * @var array
-     */
-    protected static $js = [
-        '/vendor/open-admin/AdminLTE/plugins/select2/select2.full.min.js',
-    ];
-
-    /**
      * {@inheritdoc}
      */
     public function fill($data)

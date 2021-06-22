@@ -4,7 +4,7 @@
 
         <div class="card-tools">
             <button type="button" class="btn btn-box-tool" data-bs-toggle="collapse" href="#dependencies" role="button" aria-expanded="true" aria-controls="dependencies">
-                <i class="fa fa-minus"></i>
+                <i class="icon-minus"></i>
             </button>
         </div>
     </div>

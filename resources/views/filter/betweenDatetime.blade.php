@@ -1,9 +1,9 @@
 <div class="form-group row">
     <label class="col-sm-2 control-label">{{$label}}</label>
     <div class="col-sm-8" style="width: 390px">
-        <div class="input-group input-group-sm">
+        <div class="input-group">
             <div class="input-group-text">
-                <i class="fa fa-calendar"></i>
+                <i class="icon-calendar"></i>
             </div>
             <input type="text"
                    class="form-control"

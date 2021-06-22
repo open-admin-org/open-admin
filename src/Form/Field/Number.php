@@ -2,10 +2,14 @@
 
 namespace OpenAdmin\Admin\Form\Field;
 
+use  OpenAdmin\Admin\Form\Field\Traits\HasNumberModifiers;
+
 class Number extends Text
 {
+    use HasNumberModifiers;
+
     protected static $js = [
-        '/vendor/open-admin/bootstrap5/plugins/number-input.js',
+        '/vendor/open-admin/fields/number-input.js',
     ];
 
     protected $view = 'admin::form.number';
@@ -26,45 +30,5 @@ class Number extends Text
         return parent::render();
     }
 
-    /**
-     * Set min value of number field.
-     *
-     * @param int $value
-     *
-     * @return $this
-     */
-    public function min($value)
-    {
-        $this->attribute('min', $value);
 
-        return $this;
-    }
-
-    /**
-     * Set max value of number field.
-     *
-     * @param int $value
-     *
-     * @return $this
-     */
-    public function max($value)
-    {
-        $this->attribute('max', $value);
-
-        return $this;
-    }
-
-    /**
-     * Set max value of number field.
-     *
-     * @param int $value
-     *
-     * @return $this
-     */
-    public function step($value)
-    {
-        $this->attribute('step', $value);
-
-        return $this;
-    }
 }

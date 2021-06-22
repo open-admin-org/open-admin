@@ -13,12 +13,21 @@
             padding-bottom: 0;
         }
     }
+    .header-items{
+        > a:hover,
+        > ul > li:hover{
+            background: $extra-light;
+        }
+    }
 
-    .valign-header,
+    .valign-header > *,
     .navbar-brand,
-    ul.nav > li.nav-item > a,
-    ul.nav > li.nav-item > div {
+    .header-items > .nav{
         line-height: 56px;
+    }
+
+    ul.user-menu{
+        line-height:1.3em;
     }
 
     .navbar-brand {
@@ -29,6 +38,7 @@
         transition: all 0.3s;
         position: relative;
         background: var(--menu-active-bg);
+        padding:0;
 
         span {
             display: block;
@@ -39,6 +49,9 @@
 
         .short {
             display: none;
+        }
+        :hover{
+            background: var(--menu-darker-bg);
         }
     }
 
@@ -66,9 +79,10 @@
     }
 
     .container-refresh {
-        padding: 0 0.75rem;
+        padding: 0rem 1.23rem;
         color: $secondary;
         cursor: pointer;
+        display:inline-block;
     }
 }
 
@@ -91,10 +105,21 @@
     height: 40px;
     line-height: 36px;
     position: relative;
+    overflow: hidden;
+
+    &.medium {
+        margin-right: 0;
+        width: 80px;
+        height: 80px;
+        line-height: 76px;
+        border: 1px solid $light;
+        margin-top: 10px;
+    }
 
     img {
         width: 100%;
         height: 100%;
+        object-fit: cover;
     }
 }
 @media (min-width: 576px) {
@@ -439,6 +464,7 @@ main#main footer.fixed-bottom {
         border-radius: 0;
         min-width: 210px !important;
         margin-left: 12px;
+        margin-top: 30px;
     }
 
     .dropdown-menu > li > a {
@@ -472,6 +498,15 @@ main#main footer.fixed-bottom {
 /*-----------------------------------------------------*/
 /* main styles */
 /*-----------------------------------------------------*/
+
+#main{
+    .spinner{
+        margin:17px 5px 0 0;
+        padding-left:20px;
+        background: var(--main-bg);
+        background: linear-gradient(90deg, rgba(255,255,255,0) 0%, var(--main-bg) 50%);
+    }
+}
 
 main#main footer .pagination {
     margin: 0;

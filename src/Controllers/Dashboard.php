@@ -49,7 +49,7 @@ class Dashboard
             'helpers' => [
                 'name' => 'open-admin-ext/helpers',
                 'link' => 'https://github.com/open-admin-extensions/helpers',
-                'icon' => 'gears',
+                'icon' => 'cogs',
             ],
             'log-viewer' => [
                 'name' => 'open-admin-ext/log-viewer',
@@ -69,7 +69,7 @@ class Dashboard
             'api-tester' => [
                 'name' => 'open-admin-ext/api-tester',
                 'link' => 'https://github.com/open-admin-extensions/api-tester',
-                'icon' => 'sliders',
+                'icon' => 'sliders-h',
             ],
             'media-manager' => [
                 'name' => 'open-admin-ext/media-manager',
@@ -79,7 +79,7 @@ class Dashboard
             'scheduling' => [
                 'name' => 'open-admin-ext/scheduling',
                 'link' => 'https://github.com/open-admin-extensions/scheduling',
-                'icon' => 'clock-o',
+                'icon' => 'clock',
             ],
             'reporter' => [
                 'name' => 'open-admin-ext/reporter',

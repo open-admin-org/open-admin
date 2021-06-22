@@ -1,6 +1,6 @@
-<div class="dropdown pull-right grid-column-selector dropdown" id="grid-column-selector" data-defaults='{{ implode(",",$defaults) }}'>
+<div class="dropdown btn-group grid-column-selector dropdown" id="grid-column-selector" data-defaults='{{ implode(",",$defaults) }}'>
     <button type="button" class="btn btn-sm btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-        <i class="fa fa-table"></i>
+        <i class="icon-table"></i>
         <span class="caret"></span>
     </button>
     <ul class="dropdown-menu">

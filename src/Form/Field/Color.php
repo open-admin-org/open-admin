@@ -4,13 +4,15 @@ namespace OpenAdmin\Admin\Form\Field;
 
 class Color extends Text
 {
+    /*
     protected static $css = [
-        '/vendor/open-admin/AdminLTE/plugins/colorpicker/bootstrap-colorpicker.min.css',
+        '/vendor/open-admin/colr_pickr/colr_pickr.min.css',
     ];
 
     protected static $js = [
-        '/vendor/open-admin/AdminLTE/plugins/colorpicker/bootstrap-colorpicker.min.js',
+        '/vendor/open-admin/colr_pickr/colr_pickr.min.js',
     ];
+    */
 
     /**
      * Use `hex` format.
@@ -51,9 +53,13 @@ class Color extends Text
     {
         $options = json_encode($this->options);
 
-        $this->script = "$('{$this->getElementClassSelector()}').parent().colorpicker($options);";
+        $this->setElementClass("form-control-color");
+        $this->attribute("type","color");
 
-        $this->prepend('<i></i>');
+       // $this->script = "new ColorPicker(document.querySelector('{$this->getElementClassSelector()}'))";
+        //$this->script = "$('{$this->getElementClassSelector()}').parent().colorpicker($options);";
+
+        $this->prepend('<i class="icon-eyedropper"></i>');
         $this->style("max-width","160px");
 
         return parent::render();

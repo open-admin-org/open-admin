@@ -1,6 +1,6 @@
 <span class="grid-selector" data-bs-toggle="modal" data-target="#{{ $modal }}" key="{{ $key }}" data-val="{{ $original }}">
    <a href="javascript:void(0)" class="text-muted">
-       <i class="fa fa-check-square-o"></i>&nbsp;&nbsp;
+       <i class="icon-check-square-o"></i>&nbsp;&nbsp;
        <span class="text">{{ $value }}</span>
    </a>
 </span>
@@ -32,7 +32,7 @@
                 </div>
                 <div class="modal-body">
                     <div class="loading text-center">
-                        <i class="fa fa-spinner fa-pulse fa-3x fa-fw"></i>
+                        <i class="icon-spinner fa-pulse fa-3x fa-fw"></i>
                     </div>
                 </div>
                 <div class="modal-footer">

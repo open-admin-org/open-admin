@@ -94,7 +94,7 @@ trait ExtendDisplay
 
             $url = request()->fullUrlWithQuery($query);
 
-            return "<a href=\"{$url}\"><i class=\"fa fa-search\"></i></a>";
+            return "<a href=\"{$url}\"><i class=\"icon-search\"></i></a>";
         }, '&nbsp;&nbsp;');
 
         return $this;
@@ -234,7 +234,7 @@ trait ExtendDisplay
             $values = (array) $values;
 
             if (in_array($value, $values)) {
-                return '<i class="fa fa-refresh fa-spin text-primary"></i>';
+                return '<i class="icon-redo icon-spin text-primary"></i>';
             }
 
             return Arr::get($others, $value, $value);
@@ -252,15 +252,15 @@ trait ExtendDisplay
     public function icon(array $setting, $default = '')
     {
         return $this->display(function ($value) use ($setting, $default) {
-            $fa = '';
+            $icon = '';
 
             if (isset($setting[$value])) {
-                $fa = $setting[$value];
+                $icon = $setting[$value];
             } elseif ($default) {
-                $fa = $default;
+                $icon = $default;
             }
 
-            return "<i class=\"fa fa-{$fa}\"></i>";
+            return "<i class=\"icon-{$icon}\"></i>";
         });
     }
 
@@ -295,7 +295,7 @@ trait ExtendDisplay
         return $this->display(function ($value) use ($map, $default) {
             $bool = empty($map) ? boolval($value) : Arr::get($map, $value, $default);
 
-            return $bool ? '<i class="fa fa-check text-green"></i>' : '<i class="fa fa-close text-red"></i>';
+            return $bool ? '<i class="icon-check text-green"></i>' : '<i class="icons-close text-red"></i>';
         });
     }
 

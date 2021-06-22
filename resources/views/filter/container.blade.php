@@ -24,11 +24,11 @@
                         <div class="col-md-8">
                             <div class="btn-group pull-left">
                                 <button class="btn btn-primary submit btn-sm"><i
-                                            class="fa fa-search"></i>&nbsp;&nbsp;{{ trans('admin.search') }}</button>
+                                            class="icon-search"></i>&nbsp;&nbsp;{{ trans('admin.search') }}</button>
                             </div>
                             <div class="btn-group pull-left " style="margin-left: 10px;">
                                 <a href="{!! $action !!}" class="btn btn-lightbtn-sm"><i
-                                            class="fa fa-undo"></i>&nbsp;&nbsp;{{ trans('admin.reset') }}</a>
+                                            class="icon-undo"></i>&nbsp;&nbsp;{{ trans('admin.reset') }}</a>
                             </div>
                         </div>
                     </div>
