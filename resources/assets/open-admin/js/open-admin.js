@@ -139,13 +139,15 @@
             }
 
             var hideSearchMenu = function(){
-                hide(search_menu);
+                hide(search_menu);com
                 search_field.value = "";
             }
 
-            search_field.addEventListener("keyup",searchMenu);
-            search_field.addEventListener("focus",searchMenu);
-            document.addEventListener("click",hideSearchMenu);
+            if (search_field){
+                search_field.addEventListener("keyup",searchMenu);
+                search_field.addEventListener("focus",searchMenu);
+                document.addEventListener("click",hideSearchMenu);
+            }
 
         },
 
