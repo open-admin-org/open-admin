@@ -3,13 +3,11 @@
 <img src="https://open-admin.org/images/logo002.png" alt="open-admin">
 </a>
 
-<p align="center">⛵<code>open-admin</code> is administrative interface builder for laravel which can help you build CRUD backends just with few lines of code.</p>
+<p align="center"><code>open-admin</code> is administrative interface builder for laravel which can help you build CRUD backends just with few lines of code.</p>
 
 <p align="center">
 <a href="https://open-admin.org/docs">Documentation</a> |
-<a href="https://open-admin.org/docs/zh">中文文档</a> |
 <a href="https://demo.open-admin.org">Demo</a> |
-<a href="https://github.com/z-song/demo.open-admin.org">Demo source code</a> |
 <a href="#extensions">Extensions</a>
 </p>
 
@@ -20,50 +18,46 @@
     <a href="https://styleci.io/repos/48796179">
         <img src="https://styleci.io/repos/48796179/shield" alt="StyleCI">
     </a>
-    <a href="https://packagist.org/packages/encore/open-admin">
-        <img src="https://img.shields.io/packagist/l/encore/open-admin.svg?maxAge=2592000&&style=flat-square" alt="Packagist">
+    <a href="https://packagist.org/packages/open-admin/open-admin">
+        <img src="https://img.shields.io/packagist/l/open-admin/open-admin.svg?maxAge=2592000&&style=flat-square" alt="Packagist">
     </a>
-    <a href="https://packagist.org/packages/encore/open-admin">
-        <img src="https://img.shields.io/packagist/dt/encore/open-admin.svg?style=flat-square" alt="Total Downloads">
+    <a href="https://packagist.org/packages/open-admin/open-admin">
+        <img src="https://img.shields.io/packagist/dt/open-admin/open-admin.svg?style=flat-square" alt="Total Downloads">
     </a>
-    <a href="https://github.com/z-song/open-admin">
+    <a href="https://github.com/wishbone-productions/open-admin">
         <img src="https://img.shields.io/badge/Awesome-Laravel-brightgreen.svg?style=flat-square" alt="Awesome Laravel">
     </a>
+<!--
     <a href="#backers" alt="sponsors on Open Collective">
         <img src="https://opencollective.com/open-admin/backers/badge.svg?style=flat-square" />
     </a>
-    <a href="https://www.paypal.me/zousong" alt="Paypal donate">
+    <a href="https://www.paypal.me/wishbone-prductions" alt="Paypal donate">
         <img src="https://img.shields.io/badge/Donate-Paypal-green.svg?style=flat-square" />
-    </a>
+    </a>-->
 </div>
 
 <p align="center">
-    Inspired by <a href="https://github.com/sleeping-owl/admin" target="_blank">SleepingOwlAdmin</a> and <a href="https://github.com/zofe/rapyd-laravel" target="_blank">rapyd-laravel</a>.
+    Forked from <a href="https://github.com/zsong/laravel-admin">Laravel-admin</a> Much thanks to Z-song for all the effort & great setup!
 </p>
 
-Sponsor
-------------
 
-<a href="https://ter.li/32ifxj">
-<img src="https://user-images.githubusercontent.com/1479100/102449272-dc356880-406e-11eb-9079-169c8c2af81c.png" alt="open-admin" width="200px;">
-</a>
 
 
 Requirements
 ------------
  - PHP >= 7.0.0
- - Laravel >= 5.5.0
+ - Laravel >= 7.0.0
  - Fileinfo PHP Extension
 
 Installation
 ------------
 
-> This package requires PHP 7+ and Laravel 5.5, for old versions please refer to [1.4](https://open-admin.org/docs/v1.4/#/)
+> This package requires PHP 7+ and Laravel 7.0
 
-First, install laravel 5.5, and make sure that the database connection settings are correct.
+First, install laravel 7.0, and make sure that the database connection settings are correct.
 
 ```
-composer require encore/open-admin
+composer require open-admin/open-admin
 ```
 
 Then run these commands to publish assets and config：
@@ -119,45 +113,22 @@ The file `config/admin.php` contains an array of configurations, you can find th
 | [google-authenticator](https://github.com/ylic/open-admin-google-authenticator) | Google authenticator |~1.6 |
 
 
-
 ## Contributors
  This project exists thanks to all the people who contribute. [[Contribute](CONTRIBUTING.md)].
 <a href="graphs/contributors"><img src="https://opencollective.com/open-admin/contributors.svg?width=890&button=false" /></a>
  ## Backers
  Thank you to all our backers! 🙏 [[Become a backer](https://opencollective.com/open-admin#backer)]
  <a href="https://opencollective.com/open-admin#backers" target="_blank"><img src="https://opencollective.com/open-admin/backers.svg?width=890"></a>
- ## Sponsors
- Support this project by becoming a sponsor. Your logo will show up here with a link to your website. [[Become a sponsor](https://opencollective.com/open-admin#sponsor)]
- <a href="https://opencollective.com/open-admin/sponsor/0/website" target="_blank"><img src="https://opencollective.com/open-admin/sponsor/0/avatar.svg"></a>
-<a href="https://opencollective.com/open-admin/sponsor/1/website" target="_blank"><img src="https://opencollective.com/open-admin/sponsor/1/avatar.svg"></a>
-<a href="https://opencollective.com/open-admin/sponsor/2/website" target="_blank"><img src="https://opencollective.com/open-admin/sponsor/2/avatar.svg"></a>
-<a href="https://opencollective.com/open-admin/sponsor/3/website" target="_blank"><img src="https://opencollective.com/open-admin/sponsor/3/avatar.svg"></a>
-<a href="https://opencollective.com/open-admin/sponsor/4/website" target="_blank"><img src="https://opencollective.com/open-admin/sponsor/4/avatar.svg"></a>
-<a href="https://opencollective.com/open-admin/sponsor/5/website" target="_blank"><img src="https://opencollective.com/open-admin/sponsor/5/avatar.svg"></a>
-<a href="https://opencollective.com/open-admin/sponsor/6/website" target="_blank"><img src="https://opencollective.com/open-admin/sponsor/6/avatar.svg"></a>
-<a href="https://opencollective.com/open-admin/sponsor/7/website" target="_blank"><img src="https://opencollective.com/open-admin/sponsor/7/avatar.svg"></a>
-<a href="https://opencollective.com/open-admin/sponsor/8/website" target="_blank"><img src="https://opencollective.com/open-admin/sponsor/8/avatar.svg"></a>
-<a href="https://opencollective.com/open-admin/sponsor/9/website" target="_blank"><img src="https://opencollective.com/open-admin/sponsor/9/avatar.svg"></a>
 
 Other
 ------------
 `open-admin` based on following plugins or services:
 
 + [Laravel](https://laravel.com/)
-+ [AdminLTE](https://adminlte.io/)
-+ [Datetimepicker](http://eonasdan.github.io/bootstrap-datetimepicker/)
-+ [font-awesome](http://fontawesome.io)
-+ [moment](http://momentjs.com/)
++ [Font-awesome](http://fontawesome.io)
++ [Moment](http://momentjs.com/)
 + [Google map](https://www.google.com/maps)
-+ [Tencent map](http://lbs.qq.com/)
-+ [bootstrap-fileinput](https://github.com/kartik-v/bootstrap-fileinput)
-+ [jquery-pjax](https://github.com/defunkt/jquery-pjax)
-+ [Nestable](http://dbushell.github.io/Nestable/)
-+ [toastr](http://codeseven.github.io/toastr/)
-+ [X-editable](http://github.com/vitalets/x-editable)
-+ [bootstrap-number-input](https://github.com/wpic/bootstrap-number-input)
-+ [fontawesome-iconpicker](https://github.com/itsjavi/fontawesome-iconpicker)
-+ [sweetalert2](https://github.com/sweetalert2/sweetalert2)
++ [Sweetalert2](https://github.com/sweetalert2/sweetalert2)
 
 License
 ------------
