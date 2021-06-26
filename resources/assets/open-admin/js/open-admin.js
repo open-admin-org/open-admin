@@ -139,7 +139,7 @@
             }
 
             var hideSearchMenu = function(){
-                hide(search_menu);com
+                hide(search_menu);
                 search_field.value = "";
             }
 

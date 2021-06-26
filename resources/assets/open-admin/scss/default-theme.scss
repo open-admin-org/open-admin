@@ -2,119 +2,119 @@
 /* colors */
 /*-------------------------------------------------------*/
 
-:root {
-    --sidebar-width: 280px;
-    --primary-color: #{$primary};
-    --success-color: #{$green};
-    --menu-bg: #263544;
-    --menu-active-bg: #212d3a;
-    --menu-darker-bg: #1c2631;
-    --menu-text: #a7a7be;
-    --menu-width: 280px;
-    --menu-closed-width: 55px;
-    --negative-menu-width: -280px;
-    --main-bg: #ecf0f5;
-    --text-color: #515151;
-    --table-color: var(--text-color);
-}
+    :root {
+        --sidebar-width: 280px;
+        --primary-color: #{$primary};
+        --success-color: #{$green};
+        --menu-bg: #263544;
+        --menu-active-bg: #212d3a;
+        --menu-darker-bg: #1c2631;
+        --menu-text: #a7a7be;
+        --menu-width: 280px;
+        --menu-closed-width: 55px;
+        --negative-menu-width: -280px;
+        --main-bg: #ecf0f5;
+        --text-color: #515151;
+        --table-color: var(--text-color);
+    }
 
-.table {
-    color: var(--table-color);
-    --bs-table-bg: transparent;
-    --bs-table-striped-color: var(--table-color);
-    --bs-table-striped-bg: rgba(0, 0, 0, 0.02);
-    --bs-table-active-color: var(--table-color);
-    --bs-table-active-bg: rgba(0, 0, 0, 0.04);
-    --bs-table-hover-color: var(--table-color);
-    --bs-table-hover-bg: rgba(95, 127, 175, 0.05);
-    --table-border-color: rgb(241, 241, 241);
-    --bs-table-selected-color: var(--table-color);
-    --bs-table-selected-bg: rgb(255, 255, 213);
-}
+    .table {
+        color: var(--table-color);
+        --bs-table-bg: transparent;
+        --bs-table-striped-color: var(--table-color);
+        --bs-table-striped-bg: rgba(0, 0, 0, 0.02);
+        --bs-table-active-color: var(--table-color);
+        --bs-table-active-bg: rgba(0, 0, 0, 0.04);
+        --bs-table-hover-color: var(--table-color);
+        --bs-table-hover-bg: rgba(95, 127, 175, 0.05);
+        --table-border-color: rgb(241, 241, 241);
+        --bs-table-selected-color: var(--table-color);
+        --bs-table-selected-bg: rgb(255, 255, 213);
+    }
 
-.bg-semi-dark {
-    background: #263544;
-}
+    .bg-semi-dark {
+        background: #263544;
+    }
 
 /*-------------------------------------------------------*/
 /* fonts */
 /*-------------------------------------------------------*/
 
-@font-face {
-    font-family: "Open Sans";
-    src: url("../fonts/Open Sans Bold.eot");
-    src: local("OpenSans-Bold"), local(Open Sans Bold),
-        url("../fonts/Open Sans Bold.eot?#iefix") format("embedded-opentype"),
-        url("../fonts/Open Sans Bold.woff2") format("woff2"),
-        url("../fonts/Open Sans Bold.woff") format("woff"),
-        url("../fonts/Open Sans Bold.svg#Open Sans Bold") format("svg");
-    font-weight: 700;
-    font-style: normal;
-    font-stretch: normal;
-    unicode-range: U+0020-2074;
-    font-display: swap;
-}
+    @font-face {
+        font-family: "Open Sans";
+        src: url("../fonts/Open Sans Bold.eot");
+        src: local("OpenSans-Bold"), local(Open Sans Bold),
+            url("../fonts/Open Sans Bold.eot?#iefix") format("embedded-opentype"),
+            url("../fonts/Open Sans Bold.woff2") format("woff2"),
+            url("../fonts/Open Sans Bold.woff") format("woff"),
+            url("../fonts/Open Sans Bold.svg#Open Sans Bold") format("svg");
+        font-weight: 700;
+        font-style: normal;
+        font-stretch: normal;
+        unicode-range: U+0020-2074;
+        font-display: swap;
+    }
 
-@font-face {
-    font-family: "Open Sans";
-    src: url("../fonts/Open Sans Italic.eot");
-    src: local("OpenSans-Italic"), local(Open Sans Italic),
-        url("../fonts/Open Sans Italic.eot?#iefix") format("embedded-opentype"),
-        url("../fonts/Open Sans Italic.woff2") format("woff2"),
-        url("../fonts/Open Sans Italic.woff") format("woff"),
-        url("../fonts/Open Sans Italic.svg#Open Sans Italic") format("svg");
-    font-weight: 400;
-    font-style: italic;
-    font-stretch: normal;
-    unicode-range: U+0020-2074;
-    font-display: swap;
-}
+    @font-face {
+        font-family: "Open Sans";
+        src: url("../fonts/Open Sans Italic.eot");
+        src: local("OpenSans-Italic"), local(Open Sans Italic),
+            url("../fonts/Open Sans Italic.eot?#iefix") format("embedded-opentype"),
+            url("../fonts/Open Sans Italic.woff2") format("woff2"),
+            url("../fonts/Open Sans Italic.woff") format("woff"),
+            url("../fonts/Open Sans Italic.svg#Open Sans Italic") format("svg");
+        font-weight: 400;
+        font-style: italic;
+        font-stretch: normal;
+        unicode-range: U+0020-2074;
+        font-display: swap;
+    }
 
-@font-face {
-    font-family: "Open Sans";
-    src: url("../fonts/Open Sans Light.eot");
-    src: local("OpenSans-Light"), local(Open Sans Light),
-        url("../fonts/Open Sans Light.eot?#iefix") format("embedded-opentype"),
-        url("../fonts/Open Sans Light.woff2") format("woff2"),
-        url("../fonts/Open Sans Light.woff") format("woff"),
-        url("../fonts/Open Sans Light.svg#Open Sans Light") format("svg");
-    font-weight: 200;
-    font-style: normal;
-    font-stretch: normal;
-    unicode-range: U+0020-2074;
-    font-display: swap;
-}
+    @font-face {
+        font-family: "Open Sans";
+        src: url("../fonts/Open Sans Light.eot");
+        src: local("OpenSans-Light"), local(Open Sans Light),
+            url("../fonts/Open Sans Light.eot?#iefix") format("embedded-opentype"),
+            url("../fonts/Open Sans Light.woff2") format("woff2"),
+            url("../fonts/Open Sans Light.woff") format("woff"),
+            url("../fonts/Open Sans Light.svg#Open Sans Light") format("svg");
+        font-weight: 200;
+        font-style: normal;
+        font-stretch: normal;
+        unicode-range: U+0020-2074;
+        font-display: swap;
+    }
 
-@font-face {
-    font-family: "Open Sans";
-    src: url("../fonts/Open Sans Regular.eot");
-    src: local("OpenSans-Regular"), local(Open Sans Regular),
-        url("../fonts/Open Sans Regular.eot?#iefix") format("embedded-opentype"),
-        url("../fonts/Open Sans Regular.woff2") format("woff2"),
-        url("../fonts/Open Sans Regular.woff") format("woff"),
-        url("../fonts/Open Sans Regular.svg#Open Sans Regular") format("svg");
-    font-weight: 400;
-    font-style: normal;
-    font-stretch: normal;
-    unicode-range: U+0020-2212;
-    font-display: swap;
-}
+    @font-face {
+        font-family: "Open Sans";
+        src: url("../fonts/Open Sans Regular.eot");
+        src: local("OpenSans-Regular"), local(Open Sans Regular),
+            url("../fonts/Open Sans Regular.eot?#iefix") format("embedded-opentype"),
+            url("../fonts/Open Sans Regular.woff2") format("woff2"),
+            url("../fonts/Open Sans Regular.woff") format("woff"),
+            url("../fonts/Open Sans Regular.svg#Open Sans Regular") format("svg");
+        font-weight: 400;
+        font-style: normal;
+        font-stretch: normal;
+        unicode-range: U+0020-2212;
+        font-display: swap;
+    }
 
 /*-------------------------------------------------------*/
 /* body */
 /*-------------------------------------------------------*/
 
-html {
-    height: 100%;
-}
+    html {
+        height: 100%;
+    }
 
-body {
-    min-height: 100%;
-    height: 100%;
-    font-family: "Open Sans", sans-serif !important;
-    background-color: var(--main-bg);
-}
+    body {
+        min-height: 100%;
+        height: 100%;
+        font-family: "Open Sans", sans-serif !important;
+        background-color: var(--main-bg);
+    }
 
-body label {
-    font-weight: normal;
-}
+    body label {
+        font-weight: normal;
+    }
