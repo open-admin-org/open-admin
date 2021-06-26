@@ -76,7 +76,7 @@ class AdminTablesSeeder extends Seeder
                 'parent_id' => 0,
                 'order'     => 1,
                 'title'     => 'Dashboard',
-                'icon'      => 'icon-bar-chart',
+                'icon'      => 'icon-chart-bar',
                 'uri'       => '/',
             ],
             [
