@@ -12,14 +12,11 @@
 </p>
 
 <p align="center">
-    <a href="https://travis-ci.org/open-admin-org/open-admin">
-        <img src="https://travis-ci.org/open-admin-org/open-admin.svg?branch=main" alt="Build Status">
-    </a>
-    <a href="https://styleci.io/repos/48796179">
-        <img src="https://styleci.io/repos/48796179/shield" alt="StyleCI">
+    <a href="https://styleci.io/repos/365864806">
+        <img src="https://styleci.io/repos/365864806/shield" alt="StyleCI">
     </a>
     <a href="https://packagist.org/packages/open-admin-org/open-admin">
-        <img src="https://img.shields.io/packagist/l/open-admin-org/open-admin.svg?maxAge=2592000&&style=flat-square" alt="Packagist">
+        <img src="https://img.shields.io/github/license/open-admin-org/open-admin.svg?style=flat-square&color=brightgreen" alt="Packagist">
     </a>
     <a href="https://packagist.org/packages/open-admin-org/open-admin">
         <img src="https://img.shields.io/packagist/dt/open-admin-org/open-admin.svg?style=flat-square" alt="Total Downloads">
