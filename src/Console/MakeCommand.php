@@ -50,14 +50,13 @@ class MakeCommand extends GeneratorCommand
     public function handle()
     {
         $this->modelName = $this->getModelName();
-        $this->controllerName = $this->getControllerName();
 
         if (!$this->modelExists()) {
             $this->error('Model does not exists ! use, command like: artisan admin:controller \\App\\Models\\ModelName');
-
             return false;
         }
 
+        $this->controllerName = $this->getControllerName();
         $stub = $this->option('stub');
 
         if ($stub and !is_file($stub)) {

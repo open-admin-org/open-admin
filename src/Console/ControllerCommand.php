@@ -11,6 +11,7 @@ class ControllerCommand extends MakeCommand
      */
     protected $signature = 'admin:controller {model}
         {--title=}
+        {--name=}
         {--stub= : Path to the custom stub file. }
         {--namespace=}
         {--O|output}';
@@ -37,6 +38,9 @@ class ControllerCommand extends MakeCommand
      */
     protected function getControllerName()
     {
+        if (!empty($this->option('name'))){
+            return $this->option('name');
+        }
         $name = (new \ReflectionClass($this->modelName))->getShortName();
 
         return $name.'Controller';
