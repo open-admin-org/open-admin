@@ -29,6 +29,5 @@
 - [Custom authentication](/en/custom-authentication.md)
 - [Custom Navbar](/en/custom-navbar.md)
 - [Custom chart](/en/custom-chart.md)
-- [Helpers](/en/helpers.md)
 - [Upgrade precautions](/en/upgrade.md)
 - [Change log](/en/change-log.md)

@@ -14,19 +14,24 @@ CREATE TABLE `users` (
   UNIQUE KEY `users_email_unique` (`email`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci
 ```
-And the model for this table is `App\User.php`
+And the model for this table is `App\Models\User.php`
 
 You can follow these steps to setup `CRUD` interfaces of table `users`:
 
 ## Add controller
 
-Use the following command to create a controller for `App\User` model
+Use the following command to create a controller for `App\Models\User` model
 
 ```php
-php artisan admin:make UserController --model=App\\User
+// create admin controller
+php artisan admin:controller UserController App\\Models\\User
 
-// under windows use:
-php artisan admin:make UserController --model=App\User
+// options
+php artisan admin:controller {model}
+        {--title=}
+        {--stub=Path to the custom stub file. }
+        {--namespace=}
+        {--O|output}';        
 ```
 The above command will create the controller in `app/Admin/Controllers/UserController.php`.
 
