@@ -2,10 +2,10 @@
 
 namespace OpenAdmin\Admin\Grid\Column;
 
-use OpenAdmin\Admin\Grid\Column;
-use OpenAdmin\Admin\Grid\Model;
 use Illuminate\Contracts\Support\Htmlable;
 use Illuminate\Contracts\Support\Renderable;
+use OpenAdmin\Admin\Grid\Column;
+use OpenAdmin\Admin\Grid\Model;
 
 trait HasHeader
 {

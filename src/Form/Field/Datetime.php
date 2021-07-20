@@ -8,7 +8,7 @@ class Datetime extends Date
 
     public function render()
     {
-        $this->style("max-width","160px");
+        $this->style('max-width', '160px');
 
         return parent::render();
     }

@@ -2,9 +2,9 @@
 
 namespace OpenAdmin\Admin\Form\Field;
 
+use Illuminate\Support\Arr;
 use OpenAdmin\Admin\Form;
 use OpenAdmin\Admin\Form\Field;
-use Illuminate\Support\Arr;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 class MultipleFile extends Field

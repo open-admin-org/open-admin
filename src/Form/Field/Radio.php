@@ -2,8 +2,8 @@
 
 namespace OpenAdmin\Admin\Form\Field;
 
-use OpenAdmin\Admin\Form\Field;
 use Illuminate\Contracts\Support\Arrayable;
+use OpenAdmin\Admin\Form\Field;
 
 class Radio extends Field
 {

@@ -2,9 +2,9 @@
 
 namespace OpenAdmin\Admin\Grid\Tools;
 
+use Illuminate\Support\Collection;
 use OpenAdmin\Admin\Admin;
 use OpenAdmin\Admin\Grid;
-use Illuminate\Support\Collection;
 
 class ColumnSelector extends AbstractTool
 {

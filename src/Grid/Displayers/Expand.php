@@ -2,9 +2,9 @@
 
 namespace OpenAdmin\Admin\Grid\Displayers;
 
+use Illuminate\Contracts\Support\Renderable;
 use OpenAdmin\Admin\Admin;
 use OpenAdmin\Admin\Grid\Simple;
-use Illuminate\Contracts\Support\Renderable;
 
 class Expand extends AbstractDisplayer
 {

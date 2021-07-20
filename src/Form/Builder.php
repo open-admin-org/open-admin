@@ -2,13 +2,13 @@
 
 namespace OpenAdmin\Admin\Form;
 
-use OpenAdmin\Admin\Admin;
-use OpenAdmin\Admin\Form;
-use OpenAdmin\Admin\Form\Field\Hidden;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\URL;
 use Illuminate\Support\Str;
+use OpenAdmin\Admin\Admin;
+use OpenAdmin\Admin\Form;
+use OpenAdmin\Admin\Form\Field\Hidden;
 
 /**
  * Class Builder.
@@ -471,9 +471,9 @@ class Builder
         }
 
         $set_previous = $previous;
-        $ids = request("ids");
-        if (!empty($ids)){
-            $set_previous = $current."?ids[]=".implode("&ids[]=",$ids);
+        $ids = request('ids');
+        if (!empty($ids)) {
+            $set_previous = $current.'?ids[]='.implode('&ids[]=', $ids);
         }
 
         if (Str::contains($previous, url($this->getResource()))) {
@@ -489,7 +489,7 @@ class Builder
      * @return string
      */
     public function open($options = []): string
-   {
+    {
         if ($this->isMode(self::MODE_EDIT)) {
             $this->addHiddenField((new Hidden('_method'))->value('PUT'));
         }
@@ -504,6 +504,7 @@ class Builder
         }
 
         $attributes_str = $this->form->formatAttribute($attributes);
+
         return '<form '.$attributes_str.'>';
     }
 
@@ -519,7 +520,7 @@ class Builder
 
         $attributes['action'] = $this->getAction();
         $attributes['method'] = Arr::get($options, 'method', 'post');
-        $attributes['class'] = implode(' ', ['form-horizontal','form', $this->formClass]);
+        $attributes['class'] = implode(' ', ['form-horizontal', 'form', $this->formClass]);
         $attributes['autocomplete'] = 'off';
         $attributes['accept-charset'] = 'UTF-8';
 
@@ -646,7 +647,6 @@ SCRIPT;
         $this->removeReservedFields();
 
         $tabObj = $this->form->setTab();
-
 
         $this->addCascadeScript();
 

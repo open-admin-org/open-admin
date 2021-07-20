@@ -2,10 +2,10 @@
 
 namespace OpenAdmin\Admin\Grid\Tools;
 
-use OpenAdmin\Admin\Grid;
 use Illuminate\Contracts\Support\Htmlable;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Database\Query\Builder;
+use OpenAdmin\Admin\Grid;
 
 class Footer extends AbstractTool
 {

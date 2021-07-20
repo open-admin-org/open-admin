@@ -2,8 +2,8 @@
 
 namespace OpenAdmin\Admin\Controllers;
 
-use OpenAdmin\Admin\Admin;
 use Illuminate\Support\Arr;
+use OpenAdmin\Admin\Admin;
 
 class Dashboard
 {

@@ -2,10 +2,10 @@
 
 namespace OpenAdmin\Admin\Middleware;
 
-use OpenAdmin\Admin\Auth\Permission as Checker;
-use OpenAdmin\Admin\Facades\Admin;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
+use OpenAdmin\Admin\Auth\Permission as Checker;
+use OpenAdmin\Admin\Facades\Admin;
 
 class Permission
 {

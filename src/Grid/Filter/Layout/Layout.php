@@ -2,8 +2,8 @@
 
 namespace OpenAdmin\Admin\Grid\Filter\Layout;
 
-use OpenAdmin\Admin\Grid\Filter;
 use Illuminate\Support\Collection;
+use OpenAdmin\Admin\Grid\Filter;
 
 class Layout
 {

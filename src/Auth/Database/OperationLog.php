@@ -2,9 +2,9 @@
 
 namespace OpenAdmin\Admin\Auth\Database;
 
-use OpenAdmin\Admin\Traits\DefaultDatetimeFormat;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use OpenAdmin\Admin\Traits\DefaultDatetimeFormat;
 
 class OperationLog extends Model
 {

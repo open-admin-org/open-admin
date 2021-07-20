@@ -3,9 +3,9 @@
 namespace OpenAdmin\Admin\Layout;
 
 use Closure;
-use OpenAdmin\Admin\Facades\Admin;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Support\Arr;
+use OpenAdmin\Admin\Facades\Admin;
 
 class Content implements Renderable
 {
@@ -140,29 +140,31 @@ class Content implements Renderable
         return true;
     }
 
-   /**
+    /**
      * Set css_files for content.
      *
      * @param array $css_file
      *
      * @return $this
      */
-    public function css_file(String $css_file)
+    public function css_file(string $css_file)
     {
         $this->css_files[] = $css_file;
+
         return $this;
     }
 
-   /**
+    /**
      * Set css for content.
      *
      * @param array $css
      *
      * @return $this
      */
-    public function css(String $css)
+    public function css(string $css)
     {
         $this->css .= $css;
+
         return $this;
     }
 

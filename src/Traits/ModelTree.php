@@ -2,11 +2,11 @@
 
 namespace OpenAdmin\Admin\Traits;
 
-use OpenAdmin\Admin\Tree;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Request;
+use OpenAdmin\Admin\Tree;
 
 trait ModelTree
 {

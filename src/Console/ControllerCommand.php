@@ -38,7 +38,7 @@ class ControllerCommand extends MakeCommand
      */
     protected function getControllerName()
     {
-        if (!empty($this->option('name'))){
+        if (!empty($this->option('name'))) {
             return $this->option('name');
         }
         $name = (new \ReflectionClass($this->modelName))->getShortName();

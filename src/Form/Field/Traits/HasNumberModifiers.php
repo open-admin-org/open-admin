@@ -2,8 +2,8 @@
 
 namespace OpenAdmin\Admin\Form\Field\Traits;
 
-trait HasNumberModifiers{
-
+trait HasNumberModifiers
+{
     /**
      * Set min value of number field.
      *

@@ -2,7 +2,6 @@
 
 namespace OpenAdmin\Admin\Form;
 
-use OpenAdmin\Admin\Facades\Admin;
 use Illuminate\Contracts\Support\Htmlable;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Support\Collection;
@@ -19,7 +18,7 @@ class Tools implements Renderable
      *
      * @var array
      */
-    protected $tools = ['list','view', 'delete'];
+    protected $tools = ['list', 'view', 'delete'];
 
     /**
      * Tools should be appends to default tools.

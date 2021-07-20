@@ -2,9 +2,9 @@
 
 namespace OpenAdmin\Admin\Console;
 
-use OpenAdmin\Admin\Admin;
 use Illuminate\Console\Command;
 use Illuminate\Support\Arr;
+use OpenAdmin\Admin\Admin;
 
 class ImportCommand extends Command
 {

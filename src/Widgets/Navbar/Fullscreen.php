@@ -2,8 +2,8 @@
 
 namespace OpenAdmin\Admin\Widgets\Navbar;
 
-use OpenAdmin\Admin\Admin;
 use Illuminate\Contracts\Support\Renderable;
+use OpenAdmin\Admin\Admin;
 
 /**
  * Class FullScreen.

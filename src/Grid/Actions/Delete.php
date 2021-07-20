@@ -2,10 +2,10 @@
 
 namespace OpenAdmin\Admin\Grid\Actions;
 
-use OpenAdmin\Admin\Actions\Response;
-use OpenAdmin\Admin\Actions\RowAction;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
+use OpenAdmin\Admin\Actions\Response;
+use OpenAdmin\Admin\Actions\RowAction;
 
 class Delete extends RowAction
 {

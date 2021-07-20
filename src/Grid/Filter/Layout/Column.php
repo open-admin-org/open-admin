@@ -2,8 +2,8 @@
 
 namespace OpenAdmin\Admin\Grid\Filter\Layout;
 
-use OpenAdmin\Admin\Grid\Filter\AbstractFilter;
 use Illuminate\Support\Collection;
+use OpenAdmin\Admin\Grid\Filter\AbstractFilter;
 
 class Column
 {

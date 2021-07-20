@@ -19,8 +19,8 @@ new Iconpicker(document.querySelector("{$this->getElementClassSelector()}"),{
 });
 EOT;
 
-        $this->prepend('<span class="'.substr($this->getElementClassSelector(),1).'-icon"><i class="'.$this->value.'"></i></span>');
-        $this->style("max-width","160px");
+        $this->prepend('<span class="'.substr($this->getElementClassSelector(), 1).'-icon"><i class="'.$this->value.'"></i></span>');
+        $this->style('max-width', '160px');
 
         return parent::render();
     }

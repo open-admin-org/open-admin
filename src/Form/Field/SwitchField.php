@@ -2,12 +2,11 @@
 
 namespace OpenAdmin\Admin\Form\Field;
 
-use OpenAdmin\Admin\Form\Field;
 use Illuminate\Support\Arr;
+use OpenAdmin\Admin\Form\Field;
 
 class SwitchField extends Field
 {
-
     protected $size = 'small';
 
     public function setSize($size)
@@ -28,7 +27,7 @@ class SwitchField extends Field
 
     public function prepare($value)
     {
-        if ($value == "on"){
+        if ($value == 'on') {
             $value = 1;
         }
 

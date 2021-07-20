@@ -2,9 +2,9 @@
 
 namespace OpenAdmin\Admin\Widgets;
 
-use OpenAdmin\Admin\Widgets\Navbar\RefreshButton;
 use Illuminate\Contracts\Support\Htmlable;
 use Illuminate\Contracts\Support\Renderable;
+use OpenAdmin\Admin\Widgets\Navbar\RefreshButton;
 
 class Navbar implements Renderable
 {

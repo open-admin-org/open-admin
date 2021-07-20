@@ -2,8 +2,8 @@
 
 namespace OpenAdmin\Admin\Controllers;
 
-use OpenAdmin\Admin\Layout\Content;
 use Illuminate\Routing\Controller;
+use OpenAdmin\Admin\Layout\Content;
 
 class AdminController extends Controller
 {

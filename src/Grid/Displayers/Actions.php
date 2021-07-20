@@ -2,8 +2,6 @@
 
 namespace OpenAdmin\Admin\Grid\Displayers;
 
-use OpenAdmin\Admin\Admin;
-
 class Actions extends AbstractDisplayer
 {
     /**
@@ -186,7 +184,7 @@ class Actions extends AbstractDisplayer
 
         $actions = array_merge($actions, $this->appends);
 
-        return "<div class='__actions__div'>".implode('', $actions)."</div>";
+        return "<div class='__actions__div'>".implode('', $actions).'</div>';
     }
 
     /**

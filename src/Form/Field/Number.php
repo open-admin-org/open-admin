@@ -16,7 +16,6 @@ class Number extends Text
 
     public function render()
     {
-
         $this->defaultAttribute('type', 'number');
         $this->append("<i class='icon-plus plus'></i>");
         $this->prepend("<i class='icon-minus minus'></i>");
@@ -25,10 +24,8 @@ class Number extends Text
         new NumberInput(document.querySelector('{$this->getElementClassSelector()}'));
         EOT;
 
-        $this->style("max-width","120px");
+        $this->style('max-width', '120px');
 
         return parent::render();
     }
-
-
 }

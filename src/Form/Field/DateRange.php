@@ -6,7 +6,6 @@ use OpenAdmin\Admin\Form\Field;
 
 class DateRange extends Field
 {
-
     protected $format = 'YYYY-MM-DD';
 
     /**

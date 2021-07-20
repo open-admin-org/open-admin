@@ -2,11 +2,11 @@
 
 namespace OpenAdmin\Admin\Console;
 
-use OpenAdmin\Admin\Admin;
-use OpenAdmin\Admin\Facades\Admin as AdminFacade;
 use Illuminate\Console\Command;
 use Illuminate\Support\Str;
 use MatthiasMullie\Minify;
+use OpenAdmin\Admin\Admin;
+use OpenAdmin\Admin\Facades\Admin as AdminFacade;
 
 class MinifyCommand extends Command
 {

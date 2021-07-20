@@ -22,7 +22,6 @@ class ExportButton extends AbstractTool
         $this->grid = $grid;
     }
 
-
     /**
      * Render Export button.
      *
@@ -37,7 +36,7 @@ class ExportButton extends AbstractTool
 
         return Admin::component('admin::components.export-btn', [
             'page'   => $page,
-            'grid' => $this->grid,
+            'grid'   => $this->grid,
         ]);
     }
 }

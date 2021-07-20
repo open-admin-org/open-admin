@@ -2,8 +2,8 @@
 
 namespace OpenAdmin\Admin\Grid\Tools;
 
-use OpenAdmin\Admin\Grid;
 use Illuminate\Support\Collection;
+use OpenAdmin\Admin\Grid;
 
 class FixColumns
 {

@@ -2,10 +2,10 @@
 
 namespace OpenAdmin\Admin\Controllers;
 
+use Illuminate\Support\Str;
 use OpenAdmin\Admin\Form;
 use OpenAdmin\Admin\Grid;
 use OpenAdmin\Admin\Show;
-use Illuminate\Support\Str;
 
 class PermissionController extends AdminController
 {

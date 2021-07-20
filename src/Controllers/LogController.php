@@ -2,9 +2,9 @@
 
 namespace OpenAdmin\Admin\Controllers;
 
+use Illuminate\Support\Arr;
 use OpenAdmin\Admin\Auth\Database\OperationLog;
 use OpenAdmin\Admin\Grid;
-use Illuminate\Support\Arr;
 
 class LogController extends AdminController
 {

@@ -3,9 +3,9 @@
 namespace OpenAdmin\Admin;
 
 use Closure;
-use OpenAdmin\Admin\Tree\Tools;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Database\Eloquent\Model;
+use OpenAdmin\Admin\Tree\Tools;
 
 class Tree implements Renderable
 {
@@ -219,7 +219,6 @@ class Tree implements Renderable
      */
     protected function script()
     {
-
         $nestableOptions = json_encode($this->nestableOptions);
 
         $url = url($this->path);

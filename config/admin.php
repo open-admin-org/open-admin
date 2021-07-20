@@ -46,7 +46,6 @@ return [
     */
     'bootstrap' => app_path('Admin/bootstrap.php'),
 
-
     /*
     |--------------------------------------------------------------------------
     | Open-admin route settings

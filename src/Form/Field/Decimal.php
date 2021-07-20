@@ -23,7 +23,7 @@ class Decimal extends Text
         $this->inputmask($this->options);
 
         $this->prepend('<i class="'.$this->icon.'"></i>');
-        $this->style("max-width","160px");
+        $this->style('max-width', '160px');
 
         return parent::render();
     }

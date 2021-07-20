@@ -2,11 +2,11 @@
 
 namespace OpenAdmin\Admin\Auth\Database;
 
-use OpenAdmin\Admin\Traits\DefaultDatetimeFormat;
-use OpenAdmin\Admin\Traits\ModelTree;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Support\Facades\DB;
+use OpenAdmin\Admin\Traits\DefaultDatetimeFormat;
+use OpenAdmin\Admin\Traits\ModelTree;
 
 /**
  * Class Menu.
