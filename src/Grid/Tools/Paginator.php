@@ -2,8 +2,8 @@
 
 namespace OpenAdmin\Admin\Grid\Tools;
 
-use OpenAdmin\Admin\Grid;
 use Illuminate\Pagination\LengthAwarePaginator;
+use OpenAdmin\Admin\Grid;
 
 class Paginator extends AbstractTool
 {
@@ -16,7 +16,6 @@ class Paginator extends AbstractTool
      * @var bool
      */
     protected $perPageSelector = true;
-
 
     /**
      * Create a new Paginator instance.
@@ -101,12 +100,11 @@ class Paginator extends AbstractTool
         }
 
         $vars = [
-            'range' => $this->paginationRanger(),
-            'links' => $this->paginationLinks(),
+            'range'    => $this->paginationRanger(),
+            'links'    => $this->paginationLinks(),
             'per_page' => $this->perPageSelector(),
         ];
 
-        return view("admin::grid.pagination", $vars)->render();
-
+        return view('admin::grid.pagination', $vars)->render();
     }
 }

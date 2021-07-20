@@ -2,7 +2,6 @@
 
 namespace OpenAdmin\Admin\Form;
 
-use OpenAdmin\Admin\Admin;
 use Illuminate\Contracts\Support\Renderable;
 
 class Footer implements Renderable
@@ -173,7 +172,6 @@ class Footer implements Renderable
      */
     public function render()
     {
-
         $submitRedirects = [
             1 => 'continue_editing',
             2 => 'continue_creating',

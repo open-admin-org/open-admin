@@ -2,11 +2,11 @@
 
 namespace OpenAdmin\Admin\Form\Field;
 
+use Illuminate\Support\Arr;
+use Illuminate\Support\Str;
 use OpenAdmin\Admin\Form\EmbeddedForm;
 use OpenAdmin\Admin\Form\Field;
 use OpenAdmin\Admin\Widgets\Form as WidgetForm;
-use Illuminate\Support\Arr;
-use Illuminate\Support\Str;
 
 class Embeds extends Field
 {

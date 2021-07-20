@@ -35,7 +35,6 @@ class Checkbox extends MultipleSelect
         return $this;
     }
 
-
     /**
      * Set checked.
      *
@@ -83,7 +82,6 @@ class Checkbox extends MultipleSelect
      */
     public function render()
     {
-
         $this->addVariables([
             'checked'     => $this->checked,
             'inline'      => $this->inline,

@@ -5,8 +5,8 @@
 
 namespace OpenAdmin\Admin\Form\Layout;
 
-use OpenAdmin\Admin\Form\Field;
 use Illuminate\Support\Collection;
+use OpenAdmin\Admin\Form\Field;
 
 class Column
 {

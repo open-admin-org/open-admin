@@ -6,7 +6,6 @@ use Illuminate\Support\Arr;
 
 trait HasFormAttributes
 {
-
     /**
      * @var array
      */
@@ -18,7 +17,7 @@ trait HasFormAttributes
     protected $form_classes = [];
 
     /**
-     * @var boolean
+     * @var bool
      */
     protected $validateClientSide = false;
 
@@ -36,7 +35,7 @@ trait HasFormAttributes
             'accept-charset' => 'UTF-8',
             'pjax-container' => true,
         ];
-        $this->form_classes = ['form-horizontal','form', 'default-valid'];
+        $this->form_classes = ['form-horizontal', 'form', 'default-valid'];
     }
 
     /**
@@ -70,6 +69,7 @@ trait HasFormAttributes
     public function removeAttribute($attr)
     {
         unset($this->attributes[$attr]);
+
         return $this;
     }
 
@@ -82,55 +82,55 @@ trait HasFormAttributes
      */
     public function formatAttribute($attributes = [])
     {
+        $attributes = array_merge($this->attributes, $attributes);
 
-        $attributes = array_merge($this->attributes,$attributes);
-
-        if (method_exists($this,'hasFile') && $this->hasFile()) {
+        if (method_exists($this, 'hasFile') && $this->hasFile()) {
             $attributes['enctype'] = 'multipart/form-data';
         }
 
-        if (!empty($attributes['class'])){
+        if (!empty($attributes['class'])) {
             $this->form_classes[] = $attributes['class'];
         }
-        $attributes['class'] = implode(" ",$this->form_classes);
+        $attributes['class'] = implode(' ', $this->form_classes);
 
         $html = [];
         foreach ($attributes as $key => $val) {
             $html[] = "$key=\"$val\"";
         }
+
         return implode(' ', $html) ?: '';
     }
 
-    public function addFormClass($class){
-
+    public function addFormClass($class)
+    {
         $this->form_classes[] = $class;
 
         return $this;
     }
 
-    public function removeFormClass($class){
-
-        $this->form_classes = Arr::except($this->form_classes,[$class]);
+    public function removeFormClass($class)
+    {
+        $this->form_classes = Arr::except($this->form_classes, [$class]);
 
         return $this;
     }
 
     /**
-     * Enable client side validation
+     * Enable client side validation.
      *
      * @return $this
      */
     public function enableValidate()
     {
         $this->validateClientSide = true;
-        $this->attribute('novalidate',true);
+        $this->attribute('novalidate', true);
         $this->addFormClass('needs-validation');
 
         return $this;
     }
 
     /**
-     * disable client side validation
+     * disable client side validation.
      *
      * @return $this
      */

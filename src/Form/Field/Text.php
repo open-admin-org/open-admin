@@ -42,7 +42,6 @@ class Text extends Field
     {
         $this->initPlainInput();
 
-
         if (!$this->withoutIcon) {
             $this->prepend('<i class="'.$this->icon.'"></i>');
         }

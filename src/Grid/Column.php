@@ -3,14 +3,14 @@
 namespace OpenAdmin\Admin\Grid;
 
 use Closure;
-use OpenAdmin\Admin\Actions\RowAction;
-use OpenAdmin\Admin\Grid;
-use OpenAdmin\Admin\Grid\Displayers\AbstractDisplayer;
 use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Database\Eloquent\Model as BaseModel;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
+use OpenAdmin\Admin\Actions\RowAction;
+use OpenAdmin\Admin\Grid;
+use OpenAdmin\Admin\Grid\Displayers\AbstractDisplayer;
 
 class Column
 {

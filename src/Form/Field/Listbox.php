@@ -36,7 +36,8 @@ class Listbox extends MultipleSelect
      */
     public function height($height = 200)
     {
-        return $this->style('height', $height."px");
+        return $this->style('height', $height.'px');
+
         return $this->settings(['selectorMinimalHeight' => $height]);
     }
 
@@ -75,7 +76,7 @@ EOT;
 
     public function render()
     {
-        $this->style('width', "100%");
+        $this->style('width', '100%');
         $settings = array_merge([
             'infoText'              => trans('admin.listbox.text_total'),
             'infoTextEmpty'         => trans('admin.listbox.text_empty'),

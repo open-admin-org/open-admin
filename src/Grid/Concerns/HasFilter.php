@@ -3,8 +3,8 @@
 namespace OpenAdmin\Admin\Grid\Concerns;
 
 use Closure;
-use OpenAdmin\Admin\Grid\Filter;
 use Illuminate\Support\Collection;
+use OpenAdmin\Admin\Grid\Filter;
 
 trait HasFilter
 {

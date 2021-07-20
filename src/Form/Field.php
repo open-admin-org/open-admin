@@ -3,14 +3,14 @@
 namespace OpenAdmin\Admin\Form;
 
 use Closure;
-use OpenAdmin\Admin\Admin;
-use OpenAdmin\Admin\Form;
-use OpenAdmin\Admin\Widgets\Form as WidgetForm;
 use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
 use Illuminate\Support\Traits\Macroable;
+use OpenAdmin\Admin\Admin;
+use OpenAdmin\Admin\Form;
+use OpenAdmin\Admin\Widgets\Form as WidgetForm;
 
 /**
  * Class Field.
@@ -543,7 +543,7 @@ class Field implements Renderable
             return;
         }
 
-        $this->attribute("required",true);
+        $this->attribute('required', true);
         $this->setLabelClass(['asterisk']);
 
         // Only text field has `required` attribute.
@@ -571,7 +571,6 @@ class Field implements Renderable
             // Update page
             $rules = $this->updateRules ?: $this->rules;
         }
-
 
         $this->addRequiredAttribute($rules);
     }
@@ -1016,9 +1015,10 @@ class Field implements Renderable
     public function style($attr, $value): self
     {
         $add_style = "{$attr}: {$value};";
-        if (!empty($this->attributes['style'])){
+        if (!empty($this->attributes['style'])) {
             $add_style = $this->attributes['style'].$add_style;
         }
+
         return $this->attribute('style', $add_style);
     }
 
@@ -1386,17 +1386,17 @@ class Field implements Renderable
     public function variables(): array
     {
         return array_merge($this->variables, [
-            'id'          => $this->id,
-            'name'        => $this->elementName ?: $this->formatName($this->column),
-            'help'        => $this->help,
-            'class'       => $this->getElementClassString(),
-            'value'       => $this->value(),
-            'label'       => $this->label,
-            'viewClass'   => $this->getViewElementClasses(),
-            'column'      => $this->column,
-            'errorKey'    => $this->getErrorKey(),
-            'attributes'  => $this->formatAttributes(),
-            'placeholder' => $this->getPlaceholder(),
+            'id'              => $this->id,
+            'name'            => $this->elementName ?: $this->formatName($this->column),
+            'help'            => $this->help,
+            'class'           => $this->getElementClassString(),
+            'value'           => $this->value(),
+            'label'           => $this->label,
+            'viewClass'       => $this->getViewElementClasses(),
+            'column'          => $this->column,
+            'errorKey'        => $this->getErrorKey(),
+            'attributes'      => $this->formatAttributes(),
+            'placeholder'     => $this->getPlaceholder(),
             'attributes_obj'  => $this->attributes,
         ]);
     }

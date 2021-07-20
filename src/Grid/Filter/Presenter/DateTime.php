@@ -2,8 +2,8 @@
 
 namespace OpenAdmin\Admin\Grid\Filter\Presenter;
 
-use OpenAdmin\Admin\Admin;
 use Illuminate\Support\Arr;
+use OpenAdmin\Admin\Admin;
 
 class DateTime extends Presenter
 {
@@ -42,13 +42,12 @@ class DateTime extends Presenter
         $options['enableTime'] = Arr::get($options, 'enableTime', true);
         $options['allowInput'] = Arr::get($options, 'allowInput', true);
 
-
         return $options;
     }
 
     protected function prepare()
     {
-        $script = "flatpickr('#{$this->filter->getId()}',".json_encode($this->options).");";
+        $script = "flatpickr('#{$this->filter->getId()}',".json_encode($this->options).');';
         Admin::script($script);
     }
 

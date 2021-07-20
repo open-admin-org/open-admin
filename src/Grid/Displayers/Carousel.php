@@ -2,9 +2,9 @@
 
 namespace OpenAdmin\Admin\Grid\Displayers;
 
-use OpenAdmin\Admin\Widgets\Carousel as CarouselWidget;
 use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Support\Facades\Storage;
+use OpenAdmin\Admin\Widgets\Carousel as CarouselWidget;
 
 class Carousel extends AbstractDisplayer
 {

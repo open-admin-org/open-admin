@@ -2,9 +2,9 @@
 
 namespace OpenAdmin\Admin\Grid\Filter;
 
-use OpenAdmin\Admin\Admin;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Collection;
+use OpenAdmin\Admin\Admin;
 
 class Group extends AbstractFilter
 {

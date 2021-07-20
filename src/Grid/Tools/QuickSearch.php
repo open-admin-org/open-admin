@@ -2,8 +2,8 @@
 
 namespace OpenAdmin\Admin\Grid\Tools;
 
-use OpenAdmin\Admin\Grid\Concerns\HasQuickSearch;
 use Illuminate\Support\Arr;
+use OpenAdmin\Admin\Grid\Concerns\HasQuickSearch;
 
 class QuickSearch extends AbstractTool
 {

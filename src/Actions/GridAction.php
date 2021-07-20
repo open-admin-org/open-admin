@@ -2,9 +2,9 @@
 
 namespace OpenAdmin\Admin\Actions;
 
-use OpenAdmin\Admin\Grid;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Http\Request;
+use OpenAdmin\Admin\Grid;
 
 /**
  * Class GridAction.

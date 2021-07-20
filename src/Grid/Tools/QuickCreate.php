@@ -2,14 +2,14 @@
 
 namespace OpenAdmin\Admin\Grid\Tools;
 
+use Illuminate\Contracts\Support\Renderable;
+use Illuminate\Support\Collection;
 use OpenAdmin\Admin\Admin;
 use OpenAdmin\Admin\Form\Field;
 use OpenAdmin\Admin\Form\Field\MultipleSelect;
 use OpenAdmin\Admin\Form\Field\Select;
 use OpenAdmin\Admin\Form\Field\Text;
 use OpenAdmin\Admin\Grid;
-use Illuminate\Contracts\Support\Renderable;
-use Illuminate\Support\Collection;
 
 class QuickCreate implements Renderable
 {

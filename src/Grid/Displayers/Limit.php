@@ -2,8 +2,8 @@
 
 namespace OpenAdmin\Admin\Grid\Displayers;
 
-use OpenAdmin\Admin\Facades\Admin;
 use Illuminate\Support\Str;
+use OpenAdmin\Admin\Facades\Admin;
 
 class Limit extends AbstractDisplayer
 {

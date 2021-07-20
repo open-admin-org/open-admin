@@ -24,7 +24,7 @@ class Ip extends Text
         $this->inputmask($this->options);
 
         $this->prepend('<i class="icon-laptop fa-fw"></i>');
-        $this->style("max-width","160px");
+        $this->style('max-width', '160px');
 
         return parent::render();
     }

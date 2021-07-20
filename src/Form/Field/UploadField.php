@@ -2,10 +2,10 @@
 
 namespace OpenAdmin\Admin\Form\Field;
 
-use OpenAdmin\Admin\Form;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\URL;
+use OpenAdmin\Admin\Form;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 trait UploadField

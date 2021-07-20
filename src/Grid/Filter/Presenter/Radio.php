@@ -2,8 +2,8 @@
 
 namespace OpenAdmin\Admin\Grid\Filter\Presenter;
 
-use OpenAdmin\Admin\Facades\Admin;
 use Illuminate\Contracts\Support\Arrayable;
+use OpenAdmin\Admin\Facades\Admin;
 
 class Radio extends Presenter
 {

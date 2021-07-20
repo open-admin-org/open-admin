@@ -2,10 +2,10 @@
 
 namespace OpenAdmin\Admin\Controllers;
 
+use Illuminate\Support\Facades\Hash;
 use OpenAdmin\Admin\Form;
 use OpenAdmin\Admin\Grid;
 use OpenAdmin\Admin\Show;
-use Illuminate\Support\Facades\Hash;
 
 class UserController extends AdminController
 {
