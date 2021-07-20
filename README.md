@@ -1,6 +1,6 @@
 <p align="center">
 <a href="https://open-admin.org/">
-<img src="https://open-admin.org/images/logo002.png" alt="open-admin">
+<img src="https://open-admin.org/gfx/logo.png" alt="open-admin" style="height:200px;">
 </a>
 
 <p align="center"><code>open-admin</code> is administrative interface builder for laravel which can help you build CRUD backends just with few lines of code.</p>
@@ -12,19 +12,19 @@
 </p>
 
 <p align="center">
-    <a href="https://travis-ci.org/z-song/open-admin">
-        <img src="https://travis-ci.org/z-song/open-admin.svg?branch=master" alt="Build Status">
+    <a href="https://travis-ci.org/open-admin-org/open-admin">
+        <img src="https://travis-ci.org/open-admin-org/open-admin.svg?branch=main" alt="Build Status">
     </a>
     <a href="https://styleci.io/repos/48796179">
         <img src="https://styleci.io/repos/48796179/shield" alt="StyleCI">
     </a>
-    <a href="https://packagist.org/packages/open-admin/open-admin">
-        <img src="https://img.shields.io/packagist/l/open-admin/open-admin.svg?maxAge=2592000&&style=flat-square" alt="Packagist">
+    <a href="https://packagist.org/packages/open-admin-org/open-admin">
+        <img src="https://img.shields.io/packagist/l/open-admin-org/open-admin.svg?maxAge=2592000&&style=flat-square" alt="Packagist">
     </a>
-    <a href="https://packagist.org/packages/open-admin/open-admin">
-        <img src="https://img.shields.io/packagist/dt/open-admin/open-admin.svg?style=flat-square" alt="Total Downloads">
+    <a href="https://packagist.org/packages/open-admin-org/open-admin">
+        <img src="https://img.shields.io/packagist/dt/open-admin-org/open-admin.svg?style=flat-square" alt="Total Downloads">
     </a>
-    <a href="https://github.com/wishbone-productions/open-admin">
+    <a href="https://github.com/open-admin-org/open-admin">
         <img src="https://img.shields.io/badge/Awesome-Laravel-brightgreen.svg?style=flat-square" alt="Awesome Laravel">
     </a>
 <!--
@@ -45,19 +45,19 @@
 
 Requirements
 ------------
- - PHP >= 7.0.0
+ - PHP >= 7.3.0
  - Laravel >= 7.0.0
  - Fileinfo PHP Extension
 
 Installation
 ------------
 
-> This package requires PHP 7+ and Laravel 7.0
+> This package requires PHP 7.3+ and Laravel 7.0 or up
 
-First, install laravel 7.0, and make sure that the database connection settings are correct.
+First, install laravel (7.0 / 8.0 or up), and make sure that the database connection settings are correct.
 
 ```
-composer require open-admin/open-admin
+composer require open-admin-org/open-admin
 ```
 
 Then run these commands to publish assets and config：
@@ -79,11 +79,16 @@ Configurations
 The file `config/admin.php` contains an array of configurations, you can find the default configurations in there.
 
 ## Extensions
+<a href="https://laravel-admin.org/docs/en/extension-development">Extention development</a>
+
+More coming soon
+
 
 | Extension                                        | Description                              | open-admin                              |
 | ------------------------------------------------ | ---------------------------------------- |---------------------------------------- |
-| [helpers](https://github.com/open-admin-extensions/helpers)             | Several tools to help you in development | ~1.5 |
-| [media-manager](https://github.com/open-admin-extensions/media-manager) | Provides a web interface to manage local files          | ~1.5 |
+| [helpers](https://github.com/open-admin-org/helpers)             | Several tools to help you in development | ~1.0 |
+| [media-manager](https://github.com/open-admin-org/media-manager) | Provides a web interface to manage local files          | ~1.0 |
+<!--
 | [api-tester](https://github.com/open-admin-extensions/api-tester) | Help you to test the local laravel APIs          |~1.5 |
 | [scheduling](https://github.com/open-admin-extensions/scheduling) | Scheduling task manager for open-admin          |~1.5 |
 | [redis-manager](https://github.com/open-admin-extensions/redis-manager) | Redis manager for open-admin          |~1.5 |
@@ -101,7 +106,6 @@ The file `config/admin.php` contains an array of configurations, you can find th
 | [json-editor](https://github.com/open-admin-extensions/json-editor) | JSON Editor for Open-admin          |~1.6 |
 | [grid-lightbox](https://github.com/open-admin-extensions/grid-lightbox) | Turn your grid into a lightbox & gallery          |~1.6 |
 | [daterangepicker](https://github.com/open-admin-extensions/daterangepicker) | Integrates daterangepicker into open-admin          |~1.6 |
-| [material-ui](https://github.com/open-admin-extensions/material-ui) | Material-UI extension for open-admin          |~1.6 |
 | [sparkline](https://github.com/open-admin-extensions/sparkline) | Integrates jQuery sparkline into open-admin          |~1.6 |
 | [chartjs](https://github.com/open-admin-extensions/chartjs) | Use Chartjs in open-admin          |~1.6 |
 | [echarts](https://github.com/open-admin-extensions/echarts) | Use Echarts in open-admin          |~1.6 |
@@ -111,24 +115,31 @@ The file `config/admin.php` contains an array of configurations, you can find th
 | [data-table](https://github.com/open-admin-extensions/data-table) | Advanced table widget for open-admin |~1.6 |
 | [watermark](https://github.com/open-admin-extensions/watermark) | Text watermark for open-admin |~1.6 |
 | [google-authenticator](https://github.com/ylic/open-admin-google-authenticator) | Google authenticator |~1.6 |
+-->
 
-
-## Contributors
- This project exists thanks to all the people who contribute. [[Contribute](CONTRIBUTING.md)].
-<a href="graphs/contributors"><img src="https://opencollective.com/open-admin/contributors.svg?width=890&button=false" /></a>
- ## Backers
- Thank you to all our backers! 🙏 [[Become a backer](https://opencollective.com/open-admin#backer)]
- <a href="https://opencollective.com/open-admin#backers" target="_blank"><img src="https://opencollective.com/open-admin/backers.svg?width=890"></a>
+## Contribute?
+ we are looking for active contributors:
+ - testing
+ - extension development
+ - translating documentation
+ - financing
 
 Other
 ------------
 `open-admin` based on following plugins or services:
 
 + [Laravel](https://laravel.com/)
++ [Axios](https://github.com/axios/axios)
++ [Bootstrap5](https://getbootstrap.com/docs/5.0/getting-started/introduction/)
++ [Choicesjs](https://github.com/Choices-js/Choices)
 + [Font-awesome](http://fontawesome.io)
 + [Moment](http://momentjs.com/)
-+ [Google map](https://www.google.com/maps)
++ [Google maps](https://www.google.com/maps)
 + [Sweetalert2](https://github.com/sweetalert2/sweetalert2)
++ [Toastify](https://github.com/apvarun/toastify-js)
++ [Flatpickr](https://github.com/flatpickr/flatpickr)
++ [Sortablejs](https://github.com/SortableJS/Sortable)
++ [Nprogress](https://ricostacruz.com/nprogress/)
 
 License
 ------------
