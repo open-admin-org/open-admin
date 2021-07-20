@@ -383,7 +383,8 @@
         init : function(){
             this.setTitle();
             admin.grid.init();
-            admin.form.init();
+            admin.form.init();            
+            this.initBootstrap();
         },
 
         setTitle : function() {
@@ -391,6 +392,17 @@
             if (h1_title) {
                 document.title = "Admin | " + h1_title;
             }
+        },
+        
+        initBootstrap : function(){
+            
+          // popovers
+            var popoverTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="popover"]'))
+            var popoverList = popoverTriggerList.map(function (popoverTriggerEl) {
+                return new bootstrap.Popover(popoverTriggerEl)
+            });
+
+        
         }
 
     }
