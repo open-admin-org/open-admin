@@ -70,7 +70,7 @@ class Currency extends Text
         $this->inputmask($this->options);
 
         $this->prepend($this->symbol);
-        $this->style("max-width","160px");
+        $this->style('max-width', '160px');
 
         return parent::render();
     }

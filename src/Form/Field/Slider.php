@@ -12,6 +12,7 @@ class Slider extends Field
     public function render()
     {
         $this->attribute('value', old($this->elementName ?: $this->column, $this->value()));
+
         return parent::render();
     }
 }

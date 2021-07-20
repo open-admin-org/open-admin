@@ -3,10 +3,10 @@
 namespace OpenAdmin\Admin\Grid\Column;
 
 use Carbon\Carbon;
+use Illuminate\Support\Arr;
 use OpenAdmin\Admin\Grid\Column;
 use OpenAdmin\Admin\Grid\Displayers;
 use OpenAdmin\Admin\Grid\Model;
-use Illuminate\Support\Arr;
 
 /**
  * Trait ExtendDisplay.

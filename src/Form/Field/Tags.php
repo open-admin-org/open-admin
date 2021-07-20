@@ -2,11 +2,11 @@
 
 namespace OpenAdmin\Admin\Form\Field;
 
-use OpenAdmin\Admin\Facades\Admin;
-use OpenAdmin\Admin\Form\Field;
 use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Collection;
+use OpenAdmin\Admin\Facades\Admin;
+use OpenAdmin\Admin\Form\Field;
 
 class Tags extends Field
 {

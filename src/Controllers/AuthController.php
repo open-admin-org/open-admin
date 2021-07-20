@@ -2,15 +2,15 @@
 
 namespace OpenAdmin\Admin\Controllers;
 
-use OpenAdmin\Admin\Facades\Admin;
-use OpenAdmin\Admin\Form;
-use OpenAdmin\Admin\Layout\Content;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Lang;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Validator;
+use OpenAdmin\Admin\Facades\Admin;
+use OpenAdmin\Admin\Form;
+use OpenAdmin\Admin\Layout\Content;
 
 class AuthController extends Controller
 {

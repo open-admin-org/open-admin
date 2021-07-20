@@ -2,9 +2,9 @@
 
 namespace OpenAdmin\Admin\Auth\Database;
 
-use OpenAdmin\Admin\Traits\DefaultDatetimeFormat;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use OpenAdmin\Admin\Traits\DefaultDatetimeFormat;
 
 class Role extends Model
 {

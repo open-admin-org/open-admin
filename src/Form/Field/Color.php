@@ -53,14 +53,14 @@ class Color extends Text
     {
         $options = json_encode($this->options);
 
-        $this->setElementClass("form-control-color");
-        $this->attribute("type","color");
+        $this->setElementClass('form-control-color');
+        $this->attribute('type', 'color');
 
-       // $this->script = "new ColorPicker(document.querySelector('{$this->getElementClassSelector()}'))";
+        // $this->script = "new ColorPicker(document.querySelector('{$this->getElementClassSelector()}'))";
         //$this->script = "$('{$this->getElementClassSelector()}').parent().colorpicker($options);";
 
         $this->prepend('<i class="icon-eyedropper"></i>');
-        $this->style("max-width","160px");
+        $this->style('max-width', '160px');
 
         return parent::render();
     }

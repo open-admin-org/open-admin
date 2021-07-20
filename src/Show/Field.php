@@ -2,8 +2,6 @@
 
 namespace OpenAdmin\Admin\Show;
 
-use OpenAdmin\Admin\Show;
-use OpenAdmin\Admin\Widgets\Carousel;
 use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Database\Eloquent\Model;
@@ -13,6 +11,8 @@ use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use Illuminate\Support\Traits\Macroable;
+use OpenAdmin\Admin\Show;
+use OpenAdmin\Admin\Widgets\Carousel;
 
 class Field implements Renderable
 {

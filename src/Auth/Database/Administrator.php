@@ -2,12 +2,12 @@
 
 namespace OpenAdmin\Admin\Auth\Database;
 
-use OpenAdmin\Admin\Traits\DefaultDatetimeFormat;
 use Illuminate\Auth\Authenticatable;
 use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Support\Facades\Storage;
+use OpenAdmin\Admin\Traits\DefaultDatetimeFormat;
 
 /**
  * Class Administrator.

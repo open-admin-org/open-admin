@@ -2,8 +2,8 @@
 
 namespace OpenAdmin\Admin\Grid\Tools;
 
-use OpenAdmin\Admin\Grid;
 use Illuminate\Contracts\Support\Renderable;
+use OpenAdmin\Admin\Grid;
 
 abstract class AbstractTool implements Renderable
 {

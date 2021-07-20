@@ -97,7 +97,6 @@ trait HasAssets
         'vendor/open-admin/open-admin/js/helpers.js',
     ];
 
-
     /**
      * @var array
      */
@@ -324,7 +323,6 @@ trait HasAssets
 
         return static::getManifestData('js');
     }
-
 
     /**
      * @param $component

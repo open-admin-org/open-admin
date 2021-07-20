@@ -2,8 +2,8 @@
 
 namespace OpenAdmin\Admin\Form;
 
-use OpenAdmin\Admin\Form;
 use Illuminate\Contracts\Support\Renderable;
+use OpenAdmin\Admin\Form;
 
 class Row implements Renderable
 {

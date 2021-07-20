@@ -3,6 +3,11 @@
 namespace OpenAdmin\Admin;
 
 use Closure;
+use Illuminate\Database\Eloquent\Model as Eloquent;
+use Illuminate\Database\Eloquent\Relations;
+use Illuminate\Support\Collection;
+use Illuminate\Support\Str;
+use Illuminate\Support\Traits\Macroable;
 use OpenAdmin\Admin\Exception\Handler;
 use OpenAdmin\Admin\Grid\Column;
 use OpenAdmin\Admin\Grid\Concerns;
@@ -11,11 +16,6 @@ use OpenAdmin\Admin\Grid\Model;
 use OpenAdmin\Admin\Grid\Row;
 use OpenAdmin\Admin\Grid\Tools;
 use OpenAdmin\Admin\Traits\ShouldSnakeAttributes;
-use Illuminate\Database\Eloquent\Model as Eloquent;
-use Illuminate\Database\Eloquent\Relations;
-use Illuminate\Support\Collection;
-use Illuminate\Support\Str;
-use Illuminate\Support\Traits\Macroable;
 
 class Grid
 {

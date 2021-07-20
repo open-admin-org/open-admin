@@ -2,8 +2,8 @@
 
 namespace OpenAdmin\Admin\Form;
 
-use OpenAdmin\Admin\Form;
 use Illuminate\Support\Collection;
+use OpenAdmin\Admin\Form;
 
 class Tab
 {

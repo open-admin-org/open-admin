@@ -2,10 +2,10 @@
 
 namespace OpenAdmin\Admin\Grid\Column;
 
-use OpenAdmin\Admin\Grid\Column;
-use OpenAdmin\Admin\Grid\Model;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Support\Arr;
+use OpenAdmin\Admin\Grid\Column;
+use OpenAdmin\Admin\Grid\Model;
 
 class Filter implements Renderable
 {

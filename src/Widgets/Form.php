@@ -3,17 +3,17 @@
 namespace OpenAdmin\Admin\Widgets;
 
 use Closure;
-use OpenAdmin\Admin\Facades\Admin;
-use OpenAdmin\Admin\Form as BaseForm;
-use OpenAdmin\Admin\Form\Concerns\HasFormAttributes;
-use OpenAdmin\Admin\Form\Field;
-use OpenAdmin\Admin\Layout\Content;
 use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
 use Illuminate\Support\MessageBag;
 use Illuminate\Validation\Validator;
+use OpenAdmin\Admin\Facades\Admin;
+use OpenAdmin\Admin\Form as BaseForm;
+use OpenAdmin\Admin\Form\Concerns\HasFormAttributes;
+use OpenAdmin\Admin\Form\Field;
+use OpenAdmin\Admin\Layout\Content;
 
 /**
  * Class Form.
@@ -207,7 +207,6 @@ class Form implements Renderable
 
         return $this;
     }
-
 
     /**
      * Disable reset button.

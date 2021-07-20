@@ -2,8 +2,8 @@
 
 namespace OpenAdmin\Admin\Form\Concerns;
 
-use OpenAdmin\Admin\Form\Field;
 use Illuminate\Support\Arr;
+use OpenAdmin\Admin\Form\Field;
 
 /**
  * @method Field\Text           text($column, $label = '')
@@ -198,7 +198,6 @@ trait HasFields
      */
     public static function collectFieldAssets(): array
     {
-
         if (!empty(static::$collectedAssets)) {
             return static::$collectedAssets;
         }
@@ -216,7 +215,6 @@ trait HasFields
             $css->push(Arr::get($assets, 'css'));
             $js->push(Arr::get($assets, 'js'));
         }
-
 
         return static::$collectedAssets = [
             'css' => $css->flatten()->unique()->filter()->toArray(),

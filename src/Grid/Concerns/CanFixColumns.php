@@ -2,8 +2,8 @@
 
 namespace OpenAdmin\Admin\Grid\Concerns;
 
-use OpenAdmin\Admin\Grid\Tools\FixColumns;
 use Illuminate\Support\Collection;
+use OpenAdmin\Admin\Grid\Tools\FixColumns;
 
 trait CanFixColumns
 {

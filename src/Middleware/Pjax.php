@@ -3,9 +3,9 @@
 namespace OpenAdmin\Admin\Middleware;
 
 use Closure;
-use OpenAdmin\Admin\Facades\Admin;
 use Illuminate\Http\Request;
 use Illuminate\Support\MessageBag;
+use OpenAdmin\Admin\Facades\Admin;
 use Symfony\Component\DomCrawler\Crawler;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -22,7 +22,6 @@ class Pjax
     public function handle($request, Closure $next)
     {
         $response = $next($request);
-
 
         if (!$request->pjax() || $response->isRedirection() || Admin::guard()->guest()) {
             return $response;

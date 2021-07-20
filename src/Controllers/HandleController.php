@@ -2,17 +2,17 @@
 
 namespace OpenAdmin\Admin\Controllers;
 
-use OpenAdmin\Admin\Actions\Action;
-use OpenAdmin\Admin\Actions\GridAction;
-use OpenAdmin\Admin\Actions\Response;
-use OpenAdmin\Admin\Actions\RowAction;
-use OpenAdmin\Admin\Widgets\Form;
 use Exception;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Collection;
+use OpenAdmin\Admin\Actions\Action;
+use OpenAdmin\Admin\Actions\GridAction;
+use OpenAdmin\Admin\Actions\Response;
+use OpenAdmin\Admin\Actions\RowAction;
+use OpenAdmin\Admin\Widgets\Form;
 
 class HandleController extends Controller
 {

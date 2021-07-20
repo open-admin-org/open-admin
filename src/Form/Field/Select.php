@@ -2,12 +2,12 @@
 
 namespace OpenAdmin\Admin\Form\Field;
 
-use OpenAdmin\Admin\Facades\Admin;
-use OpenAdmin\Admin\Form\Field;
 use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
+use OpenAdmin\Admin\Facades\Admin;
+use OpenAdmin\Admin\Form\Field;
 
 class Select extends Field
 {
@@ -43,7 +43,7 @@ class Select extends Field
     protected $cascadeEvent = 'change';
 
     /**
-     * @var boolean
+     * @var bool
      */
     protected $native = true;
 
@@ -374,27 +374,31 @@ EOT;
     }
 
     /**
-     * Set use browser native selectbox
+     * Set use browser native selectbox.
+     *
      * @return $this
      */
     public function useNative()
     {
         $this->native = true;
+
         return $this;
     }
 
     /**
-     * Set use browser native selectbox
+     * Set use browser native selectbox.
+     *
      * @return $this
      */
     public function useChoicesjs()
     {
         $this->native = false;
+
         return $this;
     }
 
     /**
-     * Set config for Choicesjs
+     * Set config for Choicesjs.
      *
      * all configurations see https://github.com/jshjohnson/Choices
      *
@@ -411,13 +415,14 @@ EOT;
     }
 
     /**
-     * Set as readonly (actual dissable with backup hidden field)
+     * Set as readonly (actual dissable with backup hidden field).
      */
     public function readOnly()
     {
         $this->useNative();
-        $this->config("readonly",true);
+        $this->config('readonly', true);
         $this->attribute('disabled', true);
+
         return parent::readOnly();
     }
 

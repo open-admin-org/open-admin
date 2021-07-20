@@ -2,8 +2,8 @@
 
 namespace OpenAdmin\Admin\Layout;
 
-use OpenAdmin\Admin\Grid;
 use Illuminate\Contracts\Support\Renderable;
+use OpenAdmin\Admin\Grid;
 
 class Column implements Buildable
 {

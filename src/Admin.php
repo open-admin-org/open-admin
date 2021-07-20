@@ -3,15 +3,15 @@
 namespace OpenAdmin\Admin;
 
 use Closure;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\Auth;
+use InvalidArgumentException;
 use OpenAdmin\Admin\Auth\Database\Menu;
 use OpenAdmin\Admin\Controllers\AuthController;
 use OpenAdmin\Admin\Layout\Content;
 use OpenAdmin\Admin\Traits\HasAssets;
 use OpenAdmin\Admin\Widgets\Navbar;
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Arr;
-use Illuminate\Support\Facades\Auth;
-use InvalidArgumentException;
 
 /**
  * Class Admin.
@@ -383,7 +383,6 @@ class Admin
         $this->fireBootedCallbacks();
     }
 
-
     /**
      * Add JS & CSS assets to pages.
      */
@@ -415,7 +414,6 @@ class Admin
         }
     }
 
-
     public static function asset($asset)
     {
         return url('/vendor/open-admin/'.$asset);
@@ -424,8 +422,7 @@ class Admin
     public static function js_trans()
     {
         $lang_array = json_encode(__('admin'));
+
         return '<script>var admin_lang_arr = '.$lang_array.'</script>';
     }
-
-
 }

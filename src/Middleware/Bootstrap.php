@@ -3,8 +3,8 @@
 namespace OpenAdmin\Admin\Middleware;
 
 use Closure;
-use OpenAdmin\Admin\Facades\Admin;
 use Illuminate\Http\Request;
+use OpenAdmin\Admin\Facades\Admin;
 
 class Bootstrap
 {

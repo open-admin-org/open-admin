@@ -2,13 +2,13 @@
 
 namespace OpenAdmin\Admin\Controllers;
 
+use Illuminate\Routing\Controller;
 use OpenAdmin\Admin\Form;
 use OpenAdmin\Admin\Layout\Column;
 use OpenAdmin\Admin\Layout\Content;
 use OpenAdmin\Admin\Layout\Row;
 use OpenAdmin\Admin\Tree;
 use OpenAdmin\Admin\Widgets\Box;
-use Illuminate\Routing\Controller;
 
 class MenuController extends Controller
 {

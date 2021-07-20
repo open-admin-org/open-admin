@@ -4,7 +4,6 @@ namespace OpenAdmin\Admin\Form\Field;
 
 class DateMultiple extends Text
 {
-
     protected $format = 'YYYY-MM-DD';
 
     public function format($format)
@@ -28,8 +27,8 @@ class DateMultiple extends Text
         $this->options['format'] = $this->format;
         $this->options['locale'] = array_key_exists('locale', $this->options) ? $this->options['locale'] : config('app.locale');
         $this->options['allowInputToggle'] = true;
-        $this->options['dateFormat'] = "Y-m-d";
-        $this->options['mode'] = "multiple";
+        $this->options['dateFormat'] = 'Y-m-d';
+        $this->options['mode'] = 'multiple';
         $this->options['plugins'] = "[
             ShortcutButtonsPlugin({
               button: {
@@ -42,7 +41,7 @@ class DateMultiple extends Text
             })
           ]";
 
-        $this->script = "flatpickr('{$this->getElementClassSelector()}',".json_encode($this->options).");";
+        $this->script = "flatpickr('{$this->getElementClassSelector()}',".json_encode($this->options).');';
 
         $this->prepend('<i class="icon-calendar fa-fw"></i>')
             ->defaultAttribute('style', 'width: 100%');

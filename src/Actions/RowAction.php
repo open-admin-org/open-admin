@@ -2,8 +2,8 @@
 
 namespace OpenAdmin\Admin\Actions;
 
-use OpenAdmin\Admin\Grid\Column;
 use Illuminate\Http\Request;
+use OpenAdmin\Admin\Grid\Column;
 
 abstract class RowAction extends GridAction
 {
