@@ -1,14 +1,14 @@
 {
-    "name": "wishbone-productions/open-admin",
+    "name": "open-admin-org/open-admin",
     "description": "open-admin. Open-source Laravel Admin panel. No pro or paid package, free & open. Based on open-admin, with special thanks to z-song",
     "type": "library",
     "keywords": ["laravel", "admin", "grid", "form", "open-admin","open","free"],
-    "homepage": "https://github.com/wishbone-productions/open-admin",
+    "homepage": "https://github.com/open-admin-org/open-admin",
     "license": "MIT",
     "authors": [
         {
-            "name": "Sjors Broersen",
-            "email": "sjors@wishbone.nl"
+            "name": "Sjors Broersen | Open-Admin.org",
+            "email": "info@open-admin.org"
         }
     ],
     "require": {
