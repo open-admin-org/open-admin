@@ -2,12 +2,12 @@
 /* main init */
 /*-------------------------------------------------*/
 
-    var admin = new Object();
+    let admin = {};
 
-    admin.ajax = new Object(); // ajax loading
-    admin.pages = new Object(); // shared logic for pages
-    admin.form = new Object(); // form in page
-    admin.grid = new Object(); // grid / lister
+    admin.ajax = {}; // ajax loading
+    admin.pages = {}; // shared logic for pages
+    admin.form = {}; // form in page
+    admin.grid = {}; // grid / lister
 
     document.addEventListener("DOMContentLoaded", function() {
         admin.init();
@@ -29,7 +29,7 @@
 
             let menuToggle = document.getElementById('menu-toggle');
 
-            menuToggle.addEventListener('click', function (event) {
+            menuToggle.addEventListener('click', function () {
                 if (!document.body.classList.contains("side-menu-closed")){
                     admin.menu.close();
                 }
@@ -58,7 +58,7 @@
 
             let elements = document.querySelectorAll(".custom-menu > ul > li > a");
             for (let i = 0; i < elements.length; i++) {
-                elements[i].addEventListener('click', function(e){
+                elements[i].addEventListener('click', function(){
                     admin.menu.close();
                     removeActiveClass();
                     this.parentNode.classList.add("active");
@@ -71,26 +71,30 @@
             let open_list = document.getElementById("menu").getElementsByClassName("show");
             for (let is_open of open_list) {
                 is_open.previousElementSibling.click();
-            };
+            }
         },
 
         initSearch: function (){
 
             let search_menu = document.querySelector('.sidebar-form .dropdown-menu');
             let search_field = document.querySelector(".sidebar-form .autocomplete");
-            let selectedIndex = 0;
+            let selectedIndex = -1;
 
-            searchMenu = function (event) {
+            let searchMenu = function (event) {
 
-                if(event.keyCode == 38 || event.keyCode == 40) {
-                    up = (event.keyCode == 38);
+                if(event.key === "ArrowUp" || event.key === "ArrowDown") {
+                    let up = (event.key === "ArrowUp" );
                     menuItemSelect(up)
                     event.preventDefault();
                     return false;
-                }else if(event.keyCode == 13) {
+                }else if(event.key === "Enter" ) {
                     search_menu.querySelector("a.selected").click();
                 }else{
                     selectedIndex = -1;
+                    let selectedItems = search_menu.querySelector("a.selected");
+                    if(selectedItems){
+                        selectedItems.classList.remove("selected");
+                    }
                 }
 
                 let text = this.value;
@@ -100,11 +104,11 @@
                     return;
                 }
 
-                var regex = new RegExp(text, 'i');
-                var matched = false;
+                let regex = new RegExp(text, 'i');
+                let matched = false;
 
                 search_menu.querySelectorAll('li').forEach(li => {
-                    a = li.querySelector('a');
+                    let a = li.querySelector('a');
                     if (!regex.test(a.textContent)) {
                         hide(li);
                         li.classList.remove("shown");
@@ -122,23 +126,32 @@
             }
 
             function menuItemSelect(up){
+
+                let shownItem = search_menu.querySelectorAll("li.shown");
                 if (up){
                     selectedIndex --;
                 }else{
                     selectedIndex ++;
                 }
+                if (selectedIndex > shownItem.length){
+                    selectedIndex = 0;
+                }
+                if (selectedIndex < 0){
+                    selectedIndex = shownItem.length;
+                }
                 let i = 0;
-                search_menu.querySelectorAll("li.shown").forEach(li =>{
-                    a = li.querySelector("a");
+
+                shownItem.forEach(li => {
+                    let a = li.querySelector("a");
                     a.classList.remove("selected");
-                    if (i == selectedIndex){
+                    if (i === selectedIndex){
                         a.classList.add("selected");
                     }
                     i ++;
                 });
             }
 
-            var hideSearchMenu = function(){
+            let hideSearchMenu = function(){
                 hide(search_menu);
                 search_field.value = "";
             }
@@ -155,17 +168,17 @@
 
             let menuItems = document.querySelectorAll("#menu a");
             menuItems.forEach(a =>{
-                li = a.parentNode;
+                let li = a.parentNode;
                 li.classList.remove("active");
                 a.blur();
-                if (a.attributes.href.value == url){
+                if (a.attributes['href'].value === url){
 
-                    parent = li.parentNode;
+                    let parent = li.parentNode;
 
                     if (!parent.classList.contains("show")){
                         li.parentNode.classList.add("show");
                     }
-                    if (parent.id == "menu"){
+                    if (parent.id === "menu"){
                         admin.menu.close();
                     }else{
                         li.parentNode.parentNode.classList.add("active");
@@ -180,6 +193,8 @@
 /* page loading */
 /*-------------------------------------------------*/
 
+    let preventPopState;
+
     admin.ajax = {
 
         defaults : {
@@ -190,7 +205,7 @@
         init : function (){
 
             // history back
-            window.onpopstate = function(event) {
+            window.onpopstate = function() {
                 preventPopState = true;
                 admin.ajax.navigate(document.location,preventPopState);
             };
@@ -199,10 +214,10 @@
             document.addEventListener('click', function(event) {
 
                 if (event.target.matches('a[href], a[href] *')) {
-                    a = event.target.closest('a');
+                    let a = event.target.closest('a');
                     let url = a.getAttribute("href");
 
-                    if (url.charAt(0) != "#" && url != "" && !a.classList.contains('no-ajax') && a.getAttribute("target") != "_blank"){
+                    if (url.charAt(0) !== "#" && url !== "" && !a.classList.contains('no-ajax') && a.getAttribute("target") !== "_blank"){
                         preventPopState = false;
                         admin.ajax.navigate(url,preventPopState);
                         event.preventDefault();
@@ -210,17 +225,17 @@
                 }
             }, false);
 
-            // forms that should be submited with ajax
+            // forms that should be submitted with ajax
             document.addEventListener('submit', function(event) {
                 if (event.target.getAttribute("pjax-container") != null){
                     let method = event.target.getAttribute("method");
-                    let url = new String(event.target.getAttribute("action")).split("?")[0];
+                    let url = String(event.target.getAttribute("action")).split("?")[0];
                     let obj = {};
                     //let data = Object.fromEntries(new FormData(event.target).entries()); this doesn't get arrays
-                    var data = new FormData(event.target);
+                    let data = new FormData(event.target);
 
-                    if (method == "get"){
-                       let searchParams = new URLSearchParams(data);
+                    if (method === "get"){
+                       let searchParams = new URLSearchParams(String(data));
                        let query_str =  searchParams.toString();
                        url += "?"+query_str;
                        admin.ajax.setUrl(url);
@@ -264,6 +279,10 @@
         // use load for loading without history state
         // and don't refresh the url
         load: function(url,obj){
+            this.request(url,obj);
+        },
+
+        request : function (url,obj,result_function){
 
             if (typeof(obj) == "undefined"){
                 obj = {};
@@ -275,16 +294,22 @@
             let axios_obj = merge_default(this.defaults,obj);
 
             axios(axios_obj)
-            .then(function (response) {
-                admin.ajax.done(response);
-            })
-            .catch(function (error) {
-                admin.ajax.error(error);
-            })
-            .then(function () {
-                NProgress.done();
-                admin.pages.init();
-            });
+                .then(function (response) {
+                    if (typeof(result_function) !== 'undefined'){
+                        result_function(response);
+                    }else {
+                        admin.ajax.done(response);
+                    }
+                })
+                .catch(function (error) {
+                    admin.ajax.error(error);
+                })
+                .then(function () {
+                    NProgress.done();
+                    if (typeof(result_function) == 'undefined') {
+                        admin.pages.init();
+                    }
+                });
         },
 
         // posts and load this into the page
@@ -294,9 +319,17 @@
                 data : data
             }
             obj.data._token = LA.token;
-            this.load(url,obj);
+            this.request(url,obj);
         },
 
+        /*
+            NOTICE: axios automatically converts data to json string if its an object.
+            also NOTE: axios.delete doesn't support _POST data. (dont use formData in combination with delete, just grab the vars from the json payload from the request)
+            to send application/x-www-form-urlencoded data use formData object:
+
+            const formData = new FormData();
+            formData.append('name', value);
+         */
         post : function (url,data,result_function){
             let obj = {
                 method: "post",
@@ -304,35 +337,26 @@
                 url : url,
             }
             obj.data._token = LA.token;
-
-            NProgress.start();
-            let axios_obj = merge_default(this.defaults,obj);
-
-            axios(axios_obj)
-            .then( result_function )
-            .catch(function (error) {
-                console.log(error);
-            })
-            .then(function () {
-                NProgress.done();
-            });
+            this.request(url,obj,result_function);
         },
 
         done : function(response){
 
-            if (window.location != response.request.responseURL){
+            if (window.location !== response.request.responseURL){
                 this.setUrl(response.request.responseURL);
             }
 
-            main = document.getElementById("main");
+            let main = document.getElementById("main");
             let data = response.data;
             if (typeof(data) != 'string'){
                 data = JSON.stringify(data);
             }
             main.innerHTML = data;
+
             main.querySelectorAll("script").forEach(script => {
                 eval(script.innerText);
             })
+            admin.pages.setTitle();
         },
 
         error :function(error){
@@ -357,7 +381,16 @@
 
     admin.pages = {
         init : function(){
+            this.setTitle();
             admin.grid.init();
             admin.form.init();
+        },
+
+        setTitle : function() {
+            let h1_title = document.querySelector("main h1").innerText;
+            if (h1_title) {
+                document.title = "Admin | " + h1_title;
+            }
         }
+
     }

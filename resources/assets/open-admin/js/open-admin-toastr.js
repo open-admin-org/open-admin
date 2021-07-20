@@ -26,7 +26,6 @@ admin.toastr = {
             options.text = message;
         }
         options.className = this.className;
-
         let toastOptions = merge_default(this.defaults,options);
         Toastify(toastOptions).showToast();
     },
