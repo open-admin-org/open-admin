@@ -496,13 +496,16 @@ main#main footer.fixed-bottom {
 }
 
 /*-----------------------------------------------------*/
-/* main styles */
+/* main styles  */
 /*-----------------------------------------------------*/
 
+
 #main{
+
+    // nprogress
     .spinner{
         margin:17px 5px 0 0;
-        padding-left:20px;
+        padding:0 10px 0 20px;
         background: var(--main-bg);
         background: linear-gradient(90deg, rgba(255,255,255,0) 0%, var(--main-bg) 50%);
     }

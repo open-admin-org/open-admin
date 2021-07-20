@@ -75,8 +75,13 @@
     font-size: 0.8rem;
 }
 
-.table tr th:first-child,
-.table tr td:first-child {
+.table tr th,
+.table tr td {
+    padding-left: 11px;
+}
+
+.table tr th.column-__row_selector__,
+.table tr td.column-__row_selector__ {
     padding-left: 17px;
 }
 
@@ -98,7 +103,7 @@
     background-color: var(--bs-table-selected-bg);
 }
 
-.table tr td:last-child a {
+.table tr td:last-child .__actions__div a {
     margin-left: 5px;
     border-radius: var(--field-border-radius);
     color: var(--table-color);
