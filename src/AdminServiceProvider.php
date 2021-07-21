@@ -80,16 +80,9 @@ class AdminServiceProvider extends ServiceProvider
         }
 
         $this->registerPublishing();
-
         $this->compatibleBlade();
-
-        Blade::directive('box', function ($title) {
-            return "<?php \$box = new \OpenAdmin\Admin\Widgets\Box({$title}, '";
-        });
-
-        Blade::directive('endbox', function ($expression) {
-            return "'); echo \$box->render(); ?>";
-        });
+        $this->bladeDirectives();
+       
     }
 
     /**
@@ -117,6 +110,7 @@ class AdminServiceProvider extends ServiceProvider
             $this->publishes([__DIR__.'/../resources/lang' => resource_path('lang')], 'open-admin-lang');
             $this->publishes([__DIR__.'/../database/migrations' => database_path('migrations')], 'open-admin-migrations');
             $this->publishes([__DIR__.'/../resources/assets' => public_path('vendor/open-admin')], 'open-admin-assets');
+            $this->publishes([__DIR__.'/../resources/assets/test' => public_path('vendor/open-admin-test')], 'open-admin-test');
         }
     }
 
@@ -200,5 +194,21 @@ class AdminServiceProvider extends ServiceProvider
         foreach ($this->middlewareGroups as $key => $middleware) {
             app('router')->middlewareGroup($key, $middleware);
         }
+    }
+
+    /**
+     * Register the blade box directive
+     *
+     * @return void
+     */
+    public function bladeDirectives()
+    {
+        Blade::directive('box', function ($title) {
+            return "<?php \$box = new \OpenAdmin\Admin\Widgets\Box({$title}, '";
+        });
+
+        Blade::directive('endbox', function ($expression) {
+            return "'); echo \$box->render(); ?>";
+        });
     }
 }

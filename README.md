@@ -85,6 +85,7 @@ More coming soon
 | ------------------------------------------------ | ---------------------------------------- |---------------------------------------- |
 | [helpers](https://github.com/open-admin-org/helpers)             | Several tools to help you in development | ~1.0 |
 | [media-manager](https://github.com/open-admin-org/media-manager) | Provides a web interface to manage local files          | ~1.0 |
+| [config](https://github.com/open-admin-org/config) | Config manager for open-admin          |~1.0 |
 <!--
 | [api-tester](https://github.com/open-admin-extensions/api-tester) | Help you to test the local laravel APIs          |~1.5 |
 | [scheduling](https://github.com/open-admin-extensions/scheduling) | Scheduling task manager for open-admin          |~1.5 |
