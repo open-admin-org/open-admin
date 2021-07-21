@@ -1,6 +1,6 @@
 {
     "name": "open-admin-org/open-admin",
-    "description": "open-admin. Open-source Laravel Admin panel. No pro or paid package, free & open. Based on open-admin, with special thanks to z-song",
+    "description": "open-admin. Open-source Laravel Admin panel. No pro or paid package, free & open. Based on laravel-admin, with special thanks to z-song",
     "type": "library",
     "keywords": ["laravel", "admin", "grid", "form", "open-admin","open","free"],
     "homepage": "https://github.com/open-admin-org/open-admin",
