@@ -27,7 +27,7 @@
                                             class="icon-search"></i>&nbsp;&nbsp;{{ trans('admin.search') }}</button>
                             </div>
                             <div class="btn-group pull-left " style="margin-left: 10px;">
-                                <a href="{!! $action !!}" class="btn btn-lightbtn-sm"><i
+                                <a href="{!! $action !!}" class="btn btn-light btn-sm"><i
                                             class="icon-undo"></i>&nbsp;&nbsp;{{ trans('admin.reset') }}</a>
                             </div>
                         </div>
