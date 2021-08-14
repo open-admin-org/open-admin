@@ -231,16 +231,16 @@
                     let method = event.target.getAttribute("method");
                     let url = String(event.target.getAttribute("action")).split("?")[0];
                     let obj = {};
-                    //let data = Object.fromEntries(new FormData(event.target).entries()); this doesn't get arrays
-                    let data = new FormData(event.target);
-
+                    
                     if (method === "get"){
-                       let searchParams = new URLSearchParams(String(data));
+                       let data = Object.fromEntries(new FormData(event.target).entries()); //this doesn't get arrays                        
+                       console.log(data)
+                       let searchParams = new URLSearchParams(data);
                        let query_str =  searchParams.toString();
                        url += "?"+query_str;
                        admin.ajax.setUrl(url);
                     }else{
-                        obj.data = data;
+                        obj.data = new FormData(event.target);;
                         obj.method = method;
                     }
                     admin.ajax.load(url,obj);
