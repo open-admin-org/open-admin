@@ -81,8 +81,7 @@ class AdminServiceProvider extends ServiceProvider
 
         $this->registerPublishing();
         $this->compatibleBlade();
-        $this->bladeDirectives();
-       
+        $this->bladeDirectives();       
     }
 
     /**
@@ -197,7 +196,7 @@ class AdminServiceProvider extends ServiceProvider
     }
 
     /**
-     * Register the blade box directive
+     * Register the blade box directive.
      *
      * @return void
      */
