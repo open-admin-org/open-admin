@@ -43,11 +43,7 @@
     },
     "scripts": {
         "sass": "sass --watch resources/assets/open-admin/scss/styles.scss:resources/assets/open-admin/css/styles.css resources/assets/open-admin/scss/pages:resources/assets/open-admin/css/pages --style compressed",
-        "test": "./vendor/bin/phpunit",
-        "post-update-cmd": [
-            "@php artisan vendor:publish --tag=open-admin-assets",
-            "@php artisan vendor:publish --tag=open-admin-test"
-        ]
+        "test": "./vendor/bin/phpunit"
     },
     "suggest": {
         "intervention/image": "Required to handling and manipulation upload images (~2.3).",

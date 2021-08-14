@@ -71,6 +71,13 @@ php artisan admin:install
 
 Open `http://localhost/admin/` in browser,use username `admin` and password `admin` to login.
 
+Updating
+------------
+Updating to a new version of open-admin may require updating assets you can publish them using:
+``` 
+php artisan vendor:publish --tag=open-admin-assets --force
+```
+
 Configurations
 ------------
 The file `config/admin.php` contains an array of configurations, you can find the default configurations in there.
