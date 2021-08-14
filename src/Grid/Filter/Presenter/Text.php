@@ -65,7 +65,7 @@ class Text extends Presenter
      */
     public function url(): self
     {
-        return $this->inputmask(['alias' => 'url'], 'internet-explorer');
+        return $this->inputmask(['alias' => 'url'], 'link');
     }
 
     /**

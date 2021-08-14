@@ -8,7 +8,7 @@ class Url extends Text
 
     public function render()
     {
-        $this->prepend('<i class="icon-internet-explorer fa-fw"></i>')
+        $this->prepend('<i class="icon-link fa-fw"></i>')
             ->defaultAttribute('type', 'url');
 
         return parent::render();
