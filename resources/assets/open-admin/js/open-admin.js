@@ -165,7 +165,7 @@
         },
 
         setActivePage : function(url){
-
+            console.log(url);
             let menuItems = document.querySelectorAll("#menu a");
             menuItems.forEach(a =>{
                 let li = a.parentNode;
@@ -381,7 +381,8 @@
 
     admin.pages = {
         init : function(){
-            this.setTitle();
+            this.setTitle();            
+            admin.menu.setActivePage(window.location.href);
             admin.grid.init();
             admin.form.init();            
             this.initBootstrap();
