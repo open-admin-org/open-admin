@@ -81,7 +81,7 @@ class AdminServiceProvider extends ServiceProvider
 
         $this->registerPublishing();
         $this->compatibleBlade();
-        $this->bladeDirectives();       
+        $this->bladeDirectives();
     }
 
     /**
