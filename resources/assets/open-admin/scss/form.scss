@@ -153,6 +153,19 @@ body .choices {
     .form-value {
         padding: 0.3rem 0;
     }
+
+    .form-control::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+        color: #b5b5b5;
+        opacity: 1; /* Firefox */
+    }
+      
+    .form-control:-ms-input-placeholder { /* Internet Explorer 10-11 */
+        color: #b5b5b5;
+    }
+      
+    .form-control::-ms-input-placeholder { /* Microsoft Edge */
+        color: #b5b5b5;
+    }
 }
 
 @mixin form-validation-state-selector($state) {
