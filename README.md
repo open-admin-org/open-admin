@@ -37,7 +37,12 @@
     Forked from <a href="https://github.com/zsong/laravel-admin">Laravel-admin</a> Much thanks to Z-song for all the effort & great setup!
 </p>
 
-
+Work-in-progress
+------------
+ - Still updating field types (removing jQuery)
+ - Fixing inline-edit
+ - Updating documentation
+ - Wanne help? please create a branch / fork and let me know your changes
 
 
 Requirements
