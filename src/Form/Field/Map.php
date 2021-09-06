@@ -39,8 +39,8 @@ class Map extends Field
                 $js = '//api-maps.yandex.ru/2.1/?lang=ru_RU';
                 break;
             default:
-                $css = ['/vendor/open-admin/leaflet/leaflet.css','/vendor/open-admin/leaflet/leaflet-geosearch.css'];
-                $js = ['/vendor/open-admin/leaflet/leaflet.js','/vendor/open-admin/leaflet/leaflet-geosearch.js'];
+                $css = ['/vendor/open-admin/leaflet/leaflet.css', '/vendor/open-admin/leaflet/leaflet-geosearch.css'];
+                $js = ['/vendor/open-admin/leaflet/leaflet.js', '/vendor/open-admin/leaflet/leaflet-geosearch.js'];
         }
 
         return compact('js', 'css');
@@ -50,7 +50,6 @@ class Map extends Field
     {
         $this->column['lat'] = (string) $column;
         $this->column['lng'] = (string) $arguments[0];
-
 
         array_shift($arguments);
 
