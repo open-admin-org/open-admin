@@ -88,13 +88,16 @@ trait HasAssets
         'vendor/open-admin/choicesjs/scripts/choices.min.js',
         'vendor/open-admin/sortablejs/Sortable.min.js',
 
+        'vendor/open-admin/open-admin/js/polyfills.js',
+        'vendor/open-admin/open-admin/js/helpers.js',
         'vendor/open-admin/open-admin/js/open-admin.js',
         'vendor/open-admin/open-admin/js/open-admin-grid.js',
+        'vendor/open-admin/open-admin/js/open-admin-grid-inline-edit.js',
         'vendor/open-admin/open-admin/js/open-admin-form.js',
         'vendor/open-admin/open-admin/js/open-admin-toastr.js',
         'vendor/open-admin/open-admin/js/open-admin-resource.js',
         'vendor/open-admin/open-admin/js/open-admin-tree.js',
-        'vendor/open-admin/open-admin/js/helpers.js',
+
     ];
 
     /**

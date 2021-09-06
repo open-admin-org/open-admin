@@ -159,3 +159,39 @@
         padding-right: 5.2rem;
     }
 }
+
+/*---------------------------------------------------------*/
+/* inline edit */
+/*---------------------------------------------------------*/
+
+.ie-wrap>a {
+    padding: 3px;
+    border-radius: 3px;
+    color:#777;    
+    cursor:pointer;
+}
+
+.ie-wrap>a:hover {
+    text-decoration: none;
+    background-color: #ddd;
+    color:#777;
+}
+
+.ie-wrap>a:hover i {
+    visibility: visible !important;
+}
+
+.ie-action button {
+    margin: 10px 0 10px 10px;
+    float: right;
+}
+
+.ie-container  {
+    width: 250px;
+    position: relative;
+}
+
+.ie-container .error {
+    color: #dd4b39;
+    font-weight: 700;
+}

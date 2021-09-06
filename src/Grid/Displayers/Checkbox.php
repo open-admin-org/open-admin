@@ -13,7 +13,7 @@ class Checkbox extends AbstractDisplayer
             'key'      => $this->getKey(),
             'name'     => $this->getPayloadName(),
             'resource' => $this->getResource(),
-            'trigger'  => "ie-trigger-{$this->getClassName()}",
+            'trigger'  => "ie-trigger-{$this->getClassName()}-{$this->getKey()}",
             'target'   => "ie-content-{$this->getClassName()}-{$this->getKey()}",
             'value'    => json_encode($this->getValue()),
             'display'  => implode(';', Arr::only($options, $this->getValue())),

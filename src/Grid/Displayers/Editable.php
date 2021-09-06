@@ -196,7 +196,7 @@ class Editable extends AbstractDisplayer
 }
 STR;
 
-        Admin::script("$('.$class').editable($options);");
+        //Admin::script("$('.$class').editable($options);");
 
         $this->value = htmlentities($this->value);
 

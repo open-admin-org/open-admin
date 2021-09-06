@@ -1,5 +1,7 @@
 @extends('admin::grid.inline-edit.comm')
-
+@php
+    $type = "radio";
+@endphp
 @section('field')
     @foreach($options as $option => $label)
         <div class="radio icheck">

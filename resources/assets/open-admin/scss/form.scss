@@ -115,7 +115,7 @@ body .choices {
 
 .form {
     padding-top: 1rem;
-    padding-bottom: 1rem;
+    padding-bottom: 1rem;    
 
     .form-switch {
         font-size: 1.2rem;
@@ -140,6 +140,11 @@ body .choices {
             content: "* ";
             color: red;
         }
+    }
+
+    .form-field-helper{
+        border: 1px solid $input-border-color;
+        @include border-radius($form-select-border-radius, 0);
     }
 
     .input-group {

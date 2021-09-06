@@ -1,4 +1,7 @@
 @extends('admin::grid.inline-edit.comm')
+@php
+    $type = "textarea";
+@endphp
 
 @section('field')
     <textarea class="form-control ie-input" rows="{{ $rows }}"></textarea>
