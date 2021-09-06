@@ -165,7 +165,7 @@
         },
 
         setActivePage : function(url){
-            console.log(url);
+            
             let menuItems = document.querySelectorAll("#menu a");
             menuItems.forEach(a =>{
                 let li = a.parentNode;
@@ -217,7 +217,7 @@
                     let a = event.target.closest('a');
                     let url = a.getAttribute("href");
 
-                    if (url.charAt(0) !== "#" && url !== "" && !a.classList.contains('no-ajax') && a.getAttribute("target") !== "_blank"){
+                    if (url.charAt(0) !== "#" && url.substring(0,11) !== "javascript:" && url !== "" && !a.classList.contains('no-ajax') && a.getAttribute("target") !== "_blank"){
                         preventPopState = false;
                         admin.ajax.navigate(url,preventPopState);
                         event.preventDefault();
@@ -259,7 +259,7 @@
                 document.body.classList.remove("side-menu-open");
             }
 
-            if (!preventPopState){
+            if (!preventPopState && url != document.location.href){
                 this.setUrl(url)
             }
 
@@ -268,7 +268,9 @@
         },
 
         setUrl : function(url){
-            history.pushState({}, url, url);
+            if (url != document.location.href){
+                history.pushState({}, url, url);
+            }
         },
 
         reload : function(){
@@ -381,9 +383,11 @@
 
     admin.pages = {
         init : function(){
+            
             this.setTitle();            
             admin.menu.setActivePage(window.location.href);
             admin.grid.init();
+            admin.grid.inline_edit.init();
             admin.form.init();            
             this.initBootstrap();
         },
@@ -398,12 +402,13 @@
         initBootstrap : function(){
             
           // popovers
-            var popoverTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="popover"]'))
+            
+            var popoverTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="popover"]:not(.ie)'))
             var popoverList = popoverTriggerList.map(function (popoverTriggerEl) {
                 return new bootstrap.Popover(popoverTriggerEl)
             });
-
-        
+            
+       
         }
 
     }

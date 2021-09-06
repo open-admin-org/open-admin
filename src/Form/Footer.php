@@ -173,9 +173,10 @@ class Footer implements Renderable
     public function render()
     {
         $submitRedirects = [
-            1 => 'continue_editing',
-            2 => 'continue_creating',
-            3 => 'view',
+            'continue_editing' => 'continue_editing',
+            'continue_creating' => 'continue_creating',
+            'view' => 'view',
+            //'exit' => 'exit', // can be exit as well when doing ajax request
         ];
 
         $data = [

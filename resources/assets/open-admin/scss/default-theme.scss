@@ -15,7 +15,8 @@
         --negative-menu-width: -280px;
         --main-bg: #ecf0f5;
         --text-color: #515151;
-        --table-color: var(--text-color);
+        --table-color: var(--text-color);        
+        --field-border-color: #CCC;
     }
 
     .table {
@@ -29,7 +30,7 @@
         --bs-table-hover-bg: rgba(95, 127, 175, 0.05);
         --table-border-color: rgb(241, 241, 241);
         --bs-table-selected-color: var(--table-color);
-        --bs-table-selected-bg: rgb(255, 255, 213);
+        --bs-table-selected-bg: rgb(255, 255, 213);        
     }
 
     .bg-semi-dark {

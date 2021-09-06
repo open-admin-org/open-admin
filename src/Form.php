@@ -42,7 +42,7 @@ class Form implements Renderable
     /**
      * Remove flag in `has many` form.
      */
-    const REMOVE_FLAG_NAME = '_remove_';
+    public const REMOVE_FLAG_NAME = '_remove_';
 
     /**
      * Eloquent model of the form.
@@ -600,15 +600,19 @@ class Form implements Renderable
      */
     protected function redirectAfterSaving($resourcesPath, $key)
     {
-        if (request('after-save') == 1) {
+        if (request('after-save') == 'continue_editing') {
             // continue editing
             $url = rtrim($resourcesPath, '/')."/{$key}/edit";
-        } elseif (request('after-save') == 2) {
+        } elseif (request('after-save') == 'continue_creating') {
             // continue creating
             $url = rtrim($resourcesPath, '/').'/create';
-        } elseif (request('after-save') == 3) {
+        } elseif (request('after-save') == 'view') {
             // view resource
             $url = rtrim($resourcesPath, '/')."/{$key}";
+        } elseif (request('after-save') == 'exit') {
+            // return message
+            return trans('admin.save_succeeded');
+            exit;
         } elseif (strpos(request('_previous_'), 'ids')) {
             $url = (new BatchEdit(trans('admin.batch_edit')))->buildBatchUrl($resourcesPath);
         } else {

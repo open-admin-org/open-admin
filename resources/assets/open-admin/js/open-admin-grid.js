@@ -11,11 +11,14 @@
             let trs = document.querySelectorAll(".select-table tr");
             trs.forEach(tr => {
                 tr.addEventListener('click', function(event) {
-                    if (!event.target.classList.contains("form-check-input") && !event.target.classList.contains("icon") && !event.target.classList.contains("prevent-tr")){
+                    
+                    //if (!event.target.classList.contains("form-check-input") && !event.target.classList.contains("icon") && !event.target.classList.contains("prevent-tr")){                    if (event.target.tagName == "TD" && !event.target.classList.contains("form-check-input") && !event.target.classList.contains("icon") && !event.target.classList.contains("prevent-tr")){
+                    // only td is probably enought
+                    if (event.target.tagName == "TD"){               
                         
                         input = event.target.closest("tr").getElementsByClassName("form-check-input")[0];
                         if (input){
-                            input.checked  ^= 1;
+                            input.checked ^= 1;
                             admin.grid.check_status();
                         }
                     }
