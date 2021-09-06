@@ -17,7 +17,7 @@ abstract class Interactor
     public static $elements = [
         'success', 'error', 'warning', 'info', 'question', 'confirm',
         'text', 'email', 'integer', 'ip', 'url', 'password', 'mobile',
-        'textarea', 'select', 'multipleSelect', 'checkbox', 'radio',
+        'textarea','map', 'select', 'multipleSelect', 'checkbox', 'radio',
         'file', 'image', 'date', 'datetime', 'time', 'hidden', 'multipleImage',
         'multipleFile', 'modalLarge', 'modalSmall',
     ];

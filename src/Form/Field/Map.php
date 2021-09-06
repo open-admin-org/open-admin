@@ -7,8 +7,8 @@ use OpenAdmin\Admin\Form\Field;
 class Map extends Field
 {
     protected $value = [
-        'lat' => null,
-        'lng' => null,
+        'lat' => 52.378900135815,
+        'lng' => 4.9005728960037,
     ];
 
     /**
@@ -27,19 +27,23 @@ class Map extends Field
     {
         switch (config('admin.map_provider')) {
             case 'tencent':
+                $css = '';
                 $js = '//map.qq.com/api/js?v=2.exp&key='.env('TENCENT_MAP_API_KEY');
                 break;
             case 'google':
+                $css = '';
                 $js = '//maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&key='.env('GOOGLE_API_KEY');
                 break;
             case 'yandex':
+                $css = '';
                 $js = '//api-maps.yandex.ru/2.1/?lang=ru_RU';
                 break;
             default:
-                $js = '//maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&key='.env('GOOGLE_API_KEY');
+                $css = ['/vendor/open-admin/leaflet/leaflet.css','/vendor/open-admin/leaflet/leaflet-geosearch.css'];
+                $js = ['/vendor/open-admin/leaflet/leaflet.js','/vendor/open-admin/leaflet/leaflet-geosearch.js'];
         }
 
-        return compact('js');
+        return compact('js', 'css');
     }
 
     public function __construct($column, $arguments)
@@ -47,10 +51,13 @@ class Map extends Field
         $this->column['lat'] = (string) $column;
         $this->column['lng'] = (string) $arguments[0];
 
+
         array_shift($arguments);
 
         $this->label = $this->formatLabel($arguments);
-        $this->id = $this->formatId($this->column);
+
+        $this->name = $this->formatId($this->column);
+        $this->id = $this->formatId($column);
 
         /*
          * Google map is blocked in mainland China
@@ -67,8 +74,58 @@ class Map extends Field
                 $this->useYandexMap();
                 break;
             default:
-                $this->useGoogleMap();
+                $this->useOpenstreetmap();
         }
+    }
+
+    public function useOpenstreetmap()
+    {
+        $this->script = <<<EOT
+        (function() {
+            function initOpenstreetMap(name) {                
+                
+                var lat = document.querySelector('#{$this->name['lat']}');
+                var lng = document.querySelector('#{$this->name['lng']}');
+                
+                var map = L.map(name).setView([lat.value, lng.value], 13);
+
+                L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+                }).addTo(map);
+                
+                var marker = L.marker([lat.value, lng.value], {draggable:'true'}).addTo(map)
+                marker.on('dragend', function(event){
+                    var marker = event.target;
+                    var position = marker.getLatLng();
+                    lat.value = position.lat;
+                    lng.value = position.lng;
+                }); 
+                
+                const provider = new window.GeoSearch.OpenStreetMapProvider();
+                const search = new GeoSearch.GeoSearchControl({
+                    provider: provider,
+                    style: 'bar',
+                    showMarker: true,
+                    updateMap: true,
+                    autoClose: true
+                });
+                map.on('geosearch/showlocation', function(e){
+                    lat.value = e.location.y;
+                    lng.value = e.location.x;                                        
+                    marker.setLatLng([lat.value, lng.value]).update(); 
+
+                });
+                
+                map.addControl(search);
+            }
+
+            function testMap(res){
+                alert(res)
+            }
+
+            initOpenstreetMap('map_{$this->name['lat']}{$this->name['lng']}');
+        })();
+EOT;
     }
 
     public function useGoogleMap()
@@ -76,10 +133,10 @@ class Map extends Field
         $this->script = <<<EOT
         (function() {
             function initGoogleMap(name) {
-                var lat = $('#{$this->id['lat']}');
-                var lng = $('#{$this->id['lng']}');
+                var lat = document.querySelector('#{$this->name['lat']}');
+                var lng = document.querySelector('#{$this->name['lng']}');
 
-                var LatLng = new google.maps.LatLng(lat.val(), lng.val());
+                var LatLng = new google.maps.LatLng(lat.value, lng.value);
 
                 var options = {
                     zoom: 13,
@@ -101,12 +158,12 @@ class Map extends Field
                 });
 
                 google.maps.event.addListener(marker, 'dragend', function (event) {
-                    lat.val(event.latLng.lat());
-                    lng.val(event.latLng.lng());
+                    lat.value = event.latLng.lat();
+                    lng.value = event.latLng.lng();
                 });
             }
 
-            initGoogleMap('{$this->id['lat']}{$this->id['lng']}');
+            initGoogleMap('{$this->name['lat']}{$this->name['lng']}');
         })();
 EOT;
     }
@@ -116,8 +173,8 @@ EOT;
         $this->script = <<<EOT
         (function() {
             function initTencentMap(name) {
-                var lat = $('#{$this->id['lat']}');
-                var lng = $('#{$this->id['lng']}');
+                var lat = document.querySelector('#{$this->name['lat']}');
+                var lng = document.querySelector('#{$this->name['lng']}');
 
                 var center = new qq.maps.LatLng(lat.val(), lng.val());
 
@@ -150,12 +207,12 @@ EOT;
 
                 qq.maps.event.addListener(marker, 'position_changed', function(event) {
                     var position = marker.getPosition();
-                    lat.val(position.getLat());
-                    lng.val(position.getLng());
+                    lat.value = position.getLat();
+                    lng.value = position.getLng();
                 });
             }
 
-            initTencentMap('{$this->id['lat']}{$this->id['lng']}');
+            initTencentMap('{$this->name['lat']}{$this->name['lng']}');
         })();
 EOT;
     }
@@ -167,8 +224,8 @@ EOT;
             function initYandexMap(name) {
                 ymaps.ready(function(){
 
-                    var lat = $('#{$this->id['lat']}');
-                    var lng = $('#{$this->id['lng']}');
+                    var lat = document.querySelector('#{$this->name['lat']}');
+                    var lng = document.querySelector('#{$this->name['lng']}');
 
                     var myMap = new ymaps.Map("map_"+name, {
                         center: [lat.val(), lng.val()],
@@ -191,7 +248,7 @@ EOT;
 
             }
 
-            initYandexMap('{$this->id['lat']}{$this->id['lng']}');
+            initYandexMap('{$this->name['lat']}{$this->name['lng']}');
         })();
 EOT;
     }

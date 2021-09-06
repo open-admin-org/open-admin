@@ -93,6 +93,7 @@ trait HasFields
         'mobile'            => Field\Mobile::class,
         'month'             => Field\Month::class,
         'multipleSelect'    => Field\MultipleSelect::class,
+        'map'               => Field\Map::class,
         'number'            => Field\Number::class,
         'password'          => Field\Password::class,
         'radio'             => Field\Radio::class,
@@ -177,6 +178,7 @@ trait HasFields
      */
     public static function findFieldClass($method)
     {
+
         // If alias exists.
         if (isset(static::$fieldAlias[$method])) {
             $method = static::$fieldAlias[$method];

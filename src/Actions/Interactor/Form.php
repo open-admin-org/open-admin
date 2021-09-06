@@ -172,6 +172,21 @@ class Form extends Interactor
      * @param string $column
      * @param string $label
      *
+     * @return Field\Textarea
+     */
+    public function map($lat, $lng, $label = '')
+    {
+        $field = new Field\Map($lat, $lng, $this->formatLabel($label));
+
+        $this->addField($field);
+
+        return $field;
+    }
+
+    /**
+     * @param string $column
+     * @param string $label
+     *
      * @return Field\Select
      */
     public function select($column, $label = '')
