@@ -1,0 +1,27 @@
+.file-upload-preview-div{
+    padding:20px 0 0 20px;
+    margin-bottom: 10px;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.file-upload-preview-div .card{
+    border:1px solid var(--field-border-color);
+    width:200px; 
+    margin: 0 20px 20px 0;
+    
+}
+.file-upload-preview-div .card-image{
+    width:180px;
+    height:140px;    
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin:10px;
+}
+
+.file-upload-preview-div .card-image img{
+    max-width:160px;
+    max-height:120px;
+    border:1px solid var(--field-border-color);
+}

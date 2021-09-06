@@ -11,21 +11,13 @@ class File extends Field
     use UploadField;
     use HasValuePicker;
 
-    /**
-     * Css.
-     *
-     * @var array
-     */
-    /*
     protected static $css = [
-        '/vendor/open-admin/bootstrap-fileinput/css/fileinput.min.css?v=5.0.0',
+        '/vendor/open-admin/fields/file-upload/file-upload.css',
     ];
 
     protected static $js = [
-        '/vendor/open-admin/bootstrap-fileinput/js/plugins/canvas-to-blob.min.js',
-        '/vendor/open-admin/bootstrap-fileinput/js/fileinput.min.js?v=5.0.0',
+        '/vendor/open-admin/fields/file-upload/file-upload.js',
     ];
-    */
 
     /**
      * Create a new File instance.
@@ -182,12 +174,23 @@ class File extends Field
         return [$config];
     }
 
-    /**
-     * @param string $options
-     */
     protected function setupScripts($options)
     {
         $this->script = <<<EOT
+        new FileUpload(document.querySelector('{$this->getElementClassSelector()}'));
+        EOT;
+    }
+
+
+    /**
+     * @param string $options
+     */
+
+    /*
+    protected function setupScripts($options)
+    {
+        $this->script = <<<EOT
+
 $("input{$this->getElementClassSelector()}").fileinput({$options});
 EOT;
 
@@ -224,12 +227,14 @@ $("input{$this->getElementClassSelector()}").on('filebeforedelete', function() {
 EOT;
         }
     }
+    */
 
     /**
      * Render file upload field.
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
+
     public function render()
     {
         if ($this->picker) {
@@ -241,8 +246,8 @@ EOT;
         $this->setupDefaultOptions();
 
         if (!empty($this->value)) {
-            $this->attribute('data-initial-preview', $this->preview());
-            $this->attribute('data-initial-caption', $this->initialCaption($this->value));
+            $this->attribute('data-files', $this->preview());
+            $this->attribute('data-file-captions', $this->initialCaption($this->value));
 
             $this->setupPreviewOptions();
             /*

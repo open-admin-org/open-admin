@@ -11,24 +11,14 @@ class MultipleFile extends Field
 {
     use UploadField;
 
-    /**
-     * Css.
-     *
-     * @var array
-     */
-    /*
-    protected static $css = [
-        '/vendor/open-admin/bootstrap-fileinput/css/fileinput.min.css?v=5.0.0',
-    ];
 
+    protected static $css = [
+        '/vendor/open-admin/fields/file-upload/file-upload.css',
+    ];
 
     protected static $js = [
-        '/vendor/open-admin/bootstrap-fileinput/js/plugins/canvas-to-blob.min.js',
-        '/vendor/open-admin/bootstrap-fileinput/js/fileinput.min.js?v==5.0.0',
-        '/vendor/open-admin/bootstrap-fileinput/js/plugins/sortable.min.js?v==5.0.0',
+        '/vendor/open-admin/fields/file-upload/file-upload.js',
     ];
-    */
-
     /**
      * Create a new File instance.
      *
@@ -163,6 +153,8 @@ class MultipleFile extends Field
         if (empty($this->original)) {
             return [];
         }
+        $this->original = $this->fixIfJsonString($this->original);
+
 
         return $this->original;
     }
@@ -191,8 +183,17 @@ class MultipleFile extends Field
     protected function preview()
     {
         $files = $this->value ?: [];
+        $files = $this->fixIfJsonString($files);
 
         return array_values(array_map([$this, 'objectUrl'], $files));
+    }
+
+    public function fixIfJsonString($files)
+    {
+        if (!empty($files) && !is_array($files)) {
+            $files = json_decode($files);
+        }
+        return $files;
     }
 
     /**
@@ -219,6 +220,7 @@ class MultipleFile extends Field
     protected function initialPreviewConfig()
     {
         $files = $this->value ?: [];
+        $files = $this->fixIfJsonString($files);
 
         $config = [];
 
@@ -265,68 +267,78 @@ class MultipleFile extends Field
         return $this;
     }
 
-    /**
-     * @param string $options
-     */
     protected function setupScripts($options)
     {
         $this->script = <<<EOT
+        new FileUpload(document.querySelector('{$this->getElementClassSelector()}'));
+        EOT;
+    }
+
+    /**
+     * @param string $options
+     */
+
+    /*
+    protected function setupScripts($options)
+    {
+       $this->script = <<<EOT
 $("input{$this->getElementClassSelector()}").fileinput({$options});
 EOT;
 
-        if ($this->fileActionSettings['showRemove']) {
-            $text = [
-                'title'   => trans('admin.delete_confirm'),
-                'confirm' => trans('admin.confirm'),
-                'cancel'  => trans('admin.cancel'),
-            ];
+       if ($this->fileActionSettings['showRemove']) {
+           $text = [
+               'title'   => trans('admin.delete_confirm'),
+               'confirm' => trans('admin.confirm'),
+               'cancel'  => trans('admin.cancel'),
+           ];
 
-            $this->script .= <<<EOT
+           $this->script .= <<<EOT
 $("input{$this->getElementClassSelector()}").on('filebeforedelete', function() {
 
     return new Promise(function(resolve, reject) {
 
-        var remove = resolve;
+       var remove = resolve;
 
-        swal({
-            title: "{$text['title']}",
-            type: "warning",
-            showCancelButton: true,
-            confirmButtonColor: "#DD6B55",
-            confirmButtonText: "{$text['confirm']}",
-            showLoaderOnConfirm: true,
-            cancelButtonText: "{$text['cancel']}",
-            preConfirm: function() {
-                return new Promise(function(resolve) {
-                    resolve(remove());
-                });
-            }
-        });
+       swal({
+           title: "{$text['title']}",
+           type: "warning",
+           showCancelButton: true,
+           confirmButtonColor: "#DD6B55",
+           confirmButtonText: "{$text['confirm']}",
+           showLoaderOnConfirm: true,
+           cancelButtonText: "{$text['cancel']}",
+           preConfirm: function() {
+               return new Promise(function(resolve) {
+                   resolve(remove());
+               });
+           }
+       });
     });
 });
 EOT;
-        }
+       }
 
-        if ($this->fileActionSettings['showDrag']) {
-            $this->addVariables([
-                'sortable'  => true,
-                'sort_flag' => static::FILE_SORT_FLAG,
-            ]);
+       if ($this->fileActionSettings['showDrag']) {
+           $this->addVariables([
+               'sortable'  => true,
+               'sort_flag' => static::FILE_SORT_FLAG,
+           ]);
 
-            $this->script .= <<<EOT
+           $this->script .= <<<EOT
 $("input{$this->getElementClassSelector()}").on('filesorted', function(event, params) {
 
     var order = [];
 
     params.stack.forEach(function (item) {
-        order.push(item.key);
+       order.push(item.key);
     });
 
     $("input{$this->getElementClassSelector()}_sort").val(order);
 });
 EOT;
-        }
+       }
     }
+    */
 
     /**
      * Render file upload field.
