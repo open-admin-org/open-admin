@@ -11,7 +11,6 @@ class MultipleFile extends Field
 {
     use UploadField;
 
-
     protected static $css = [
         '/vendor/open-admin/fields/file-upload/file-upload.css',
     ];
@@ -19,6 +18,7 @@ class MultipleFile extends Field
     protected static $js = [
         '/vendor/open-admin/fields/file-upload/file-upload.js',
     ];
+
     /**
      * Create a new File instance.
      *
@@ -155,7 +155,6 @@ class MultipleFile extends Field
         }
         $this->original = $this->fixIfJsonString($this->original);
 
-
         return $this->original;
     }
 
@@ -193,6 +192,7 @@ class MultipleFile extends Field
         if (!empty($files) && !is_array($files)) {
             $files = json_decode($files);
         }
+
         return $files;
     }
 
