@@ -42,7 +42,7 @@ Work-in-progress
  - Still updating field types (removing jQuery)
  - Fixing inline-edit
  - Updating documentation
- - Wanne help? please create a branch / fork and let me know your changes
+ - Want to help? please create a branch / fork and let me know your changes
 
 
 Requirements
@@ -79,7 +79,7 @@ Open `http://localhost/admin/` in browser,use username `admin` and password `adm
 Updating
 ------------
 Updating to a new version of open-admin may require updating assets you can publish them using:
-``` 
+```
 php artisan vendor:publish --tag=open-admin-assets --force
 ```
 
