@@ -28,7 +28,7 @@ class BatchEdit extends BatchAction
         }
         $url = rtrim($resourcesPath, '/')."/{$next_id}/edit";
         if (count($ids)) {
-            $url .= '?ids[]='.implode('&ids[]', $ids);
+            $url .= '?ids[]='.implode('&ids[]=', $ids);
         }
 
         return $url;
