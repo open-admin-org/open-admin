@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model as BaseModel;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Schema;
 use OpenAdmin\Admin\Actions\RowAction;
 use OpenAdmin\Admin\Grid;
 use OpenAdmin\Admin\Grid\Displayers\AbstractDisplayer;
@@ -18,9 +19,9 @@ class Column
     use Column\InlineEditing;
     use Column\ExtendDisplay;
 
-    const SELECT_COLUMN_NAME = '__row_selector__';
+    public const SELECT_COLUMN_NAME = '__row_selector__';
 
-    const ACTION_COLUMN_NAME = '__actions__';
+    public const ACTION_COLUMN_NAME = '__actions__';
 
     /**
      * @var Grid
@@ -110,7 +111,6 @@ class Column
     public function __construct($name, $label)
     {
         $this->name = $name;
-
         $this->label = $this->formatLabel($label);
 
         $this->initAttributes();

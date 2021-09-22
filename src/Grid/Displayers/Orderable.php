@@ -17,10 +17,10 @@ class Orderable extends AbstractDisplayer
         return <<<EOT
 
 <div class="btn-group">
-    <button type="button" class="btn btn-xs btn-info {$this->grid->getGridRowName()}-orderable" data-id="{$this->getKey()}" data-direction="1">
+    <button type="button" class="btn btn-xs btn-light {$this->grid->getGridRowName()}-orderable" data-id="{$this->getKey()}" data-direction="1">
         <i class="icon-caret-up fa-fw"></i>
     </button>
-    <button type="button" class="btn btn-xs btn-default {$this->grid->getGridRowName()}-orderable" data-id="{$this->getKey()}" data-direction="0">
+    <button type="button" class="btn btn-xs btn-light {$this->grid->getGridRowName()}-orderable" data-id="{$this->getKey()}" data-direction="0">
         <i class="icon-caret-down fa-fw"></i>
     </button>
 </div>
@@ -32,16 +32,25 @@ EOT;
     {
         return <<<EOT
 
-$('.{$this->grid->getGridRowName()}-orderable').on('click', function() {
+document.querySelectorAll('.{$this->grid->getGridRowName()}-orderable').forEach(el => {
+    el.addEventListener('click', function(event) {
 
-    var key = $(this).data('id');
-    var direction = $(this).data('direction');
+        var key = this.dataset.id;
+        var direction = this.dataset.direction;
+        var url = '{$this->getResource()}/' + key;
+        var data = {
+            _method:'PUT',
+            _token:LA.token,
+            _orderable:direction
+        };
 
-    $.post('{$this->getResource()}/' + key, {_method:'PUT', _token:LA.token, _orderable:direction}, function(data){
-        if (data.status) {
-            $.pjax.reload('#pjax-container');
-            toastr.success(data.message);
-        }
+        admin.ajax.post(url, data, function(data){
+
+            if (data.status) {
+                admin.ajax.reload();
+                admin.toastr.success(data.message);
+            }
+        });
     });
 
 });

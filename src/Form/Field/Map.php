@@ -81,25 +81,25 @@ class Map extends Field
     {
         $this->script = <<<EOT
         (function() {
-            function initOpenstreetMap(name) {                
-                
+            function initOpenstreetMap(name) {
+
                 var lat = document.querySelector('#{$this->name['lat']}');
                 var lng = document.querySelector('#{$this->name['lng']}');
-                
+
                 var map = L.map(name).setView([lat.value, lng.value], 13);
 
                 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
                     attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
                 }).addTo(map);
-                
+
                 var marker = L.marker([lat.value, lng.value], {draggable:'true'}).addTo(map)
                 marker.on('dragend', function(event){
                     var marker = event.target;
                     var position = marker.getLatLng();
                     lat.value = position.lat;
                     lng.value = position.lng;
-                }); 
-                
+                });
+
                 const provider = new window.GeoSearch.OpenStreetMapProvider();
                 const search = new GeoSearch.GeoSearchControl({
                     provider: provider,
@@ -110,16 +110,12 @@ class Map extends Field
                 });
                 map.on('geosearch/showlocation', function(e){
                     lat.value = e.location.y;
-                    lng.value = e.location.x;                                        
-                    marker.setLatLng([lat.value, lng.value]).update(); 
+                    lng.value = e.location.x;
+                    marker.setLatLng([lat.value, lng.value]).update();
 
                 });
-                
-                map.addControl(search);
-            }
 
-            function testMap(res){
-                alert(res)
+                map.addControl(search);
             }
 
             initOpenstreetMap('map_{$this->name['lat']}{$this->name['lng']}');

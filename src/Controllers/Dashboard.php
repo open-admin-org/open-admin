@@ -91,6 +91,11 @@ class Dashboard
                 'link' => 'https://github.com/open-admin-org/redis-manager',
                 'icon' => 'flask',
             ],
+            'grid-sortable' => [
+                'name' => 'open-admin-ext/grid-sortable',
+                'link' => 'https://github.com/open-admin-org/grid-sortable',
+                'icon' => 'arrows-alt-v',
+            ],
         ];
 
         foreach ($extensions as &$extension) {
