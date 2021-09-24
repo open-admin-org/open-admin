@@ -3,7 +3,6 @@
 namespace OpenAdmin\Admin;
 
 use Closure;
-
 use Illuminate\Database\Eloquent\Model as Eloquent;
 use Illuminate\Database\Eloquent\Relations;
 use Illuminate\Support\Collection;
@@ -192,7 +191,6 @@ class Grid
 
         $this->columns = Collection::make();
         $this->rows = Collection::make();
-
 
         $this->initTools()
             ->initFilter();
