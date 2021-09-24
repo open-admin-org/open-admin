@@ -8,7 +8,6 @@ use Illuminate\Database\Eloquent\Model as BaseModel;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
-use Illuminate\Support\Facades\Schema;
 use OpenAdmin\Admin\Actions\RowAction;
 use OpenAdmin\Admin\Grid;
 use OpenAdmin\Admin\Grid\Displayers\AbstractDisplayer;
