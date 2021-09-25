@@ -1,5 +1,5 @@
 .file-upload-preview-div{
-    padding:20px 0 0 20px;
+    padding:16px 0 0 16px;
     margin-bottom: 10px;
     display: flex;
     flex-wrap: wrap;
@@ -7,21 +7,22 @@
 
 .file-upload-preview-div .card{
     border:1px solid var(--field-border-color);
-    width:200px; 
-    margin: 0 20px 20px 0;
-    
+    width:180px;
+    margin: 0 16px 16px 0;
+
 }
 .file-upload-preview-div .card-image{
-    width:180px;
-    height:140px;    
+    width:160px;
+    height:120px;
     display: flex;
     align-items: center;
     justify-content: center;
     margin:10px;
+    cursor: zoom-in;
 }
 
 .file-upload-preview-div .card-image img{
-    max-width:160px;
-    max-height:120px;
+    max-width:140px;
+    max-height:100px;
     border:1px solid var(--field-border-color);
 }

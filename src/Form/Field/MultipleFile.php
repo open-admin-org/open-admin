@@ -141,7 +141,6 @@ class MultipleFile extends Field
                 return [$this->pathColumn => $target];
             }, $targets);
         }
-
         return array_merge($this->original(), $targets);
     }
 
@@ -184,7 +183,7 @@ class MultipleFile extends Field
         $files = $this->value ?: [];
         $files = $this->fixIfJsonString($files);
 
-        return array_values(array_map([$this, 'objectUrl'], $files));
+        return implode(",", array_values(array_map([$this, 'objectUrl'], $files)));
     }
 
     public function fixIfJsonString($files)
@@ -352,7 +351,11 @@ EOT;
         $this->setupDefaultOptions();
 
         if (!empty($this->value)) {
-            $this->options(['initialPreview' => $this->preview()]);
+            $this->attribute('data-files', $this->preview());
+            //$this->attribute('data-file-captions', $this->initialCaption($this->value));
+
+
+            //$this->options(['initialPreview' => $this->preview()]);
             $this->setupPreviewOptions();
         }
 

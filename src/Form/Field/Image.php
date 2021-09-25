@@ -31,7 +31,7 @@ class Image extends File
             return parent::prepare($image);
         }
 
-        if (request()->has(static::FILE_DELETE_FLAG)) {
+        if (request()->filled($this->column.static::FILE_DELETE_FLAG)) {
             return $this->destroy();
         }
 

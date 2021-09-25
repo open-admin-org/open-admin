@@ -43,7 +43,7 @@ trait UploadField
      *
      * @var bool
      */
-    protected $useSequenceName = false;
+    protected $useSequenceName = true;
 
     /**
      * Retain file when delete record from DB.
@@ -471,7 +471,7 @@ trait UploadField
     {
         $index = 1;
         $extension = $file->getClientOriginalExtension();
-        $original = $file->getClientOriginalName();
+        $original = str_replace(".".$extension, "", $file->getClientOriginalName());
         $new = sprintf('%s_%s.%s', $original, $index, $extension);
 
         while ($this->storage->exists("{$this->getDirectory()}/$new")) {

@@ -119,6 +119,14 @@ class Form implements Renderable
     protected $isSoftDeletes = false;
 
     /**
+     * Deletable files in fiels.
+     * $deletedFieldFiles[$field_key] = array(filename)
+     *
+     * @var array
+     */
+    public $deletedFieldFiles = [];
+
+    /**
      * Create a new form instance.
      *
      * @param $model
@@ -312,7 +320,6 @@ class Form implements Renderable
             return $field instanceof Field\File;
         })->each(function (Field\File $file) use ($data) {
             $file->setOriginal($data);
-
             $file->destroy();
         });
     }
@@ -511,6 +518,7 @@ class Form implements Renderable
 
         $isEditable = $this->isEditable($data);
 
+
         if (($data = $this->handleColumnUpdates($id, $data)) instanceof Response) {
             return $data;
         }
@@ -541,6 +549,7 @@ class Form implements Renderable
 
         DB::transaction(function () {
             $updates = $this->prepareUpdate($this->updates);
+            $updates = $this->handleFileDeleteUpdate($updates);
 
             foreach ($updates as $column => $value) {
                 /* @var Model $this ->model */
@@ -689,14 +698,57 @@ class Form implements Renderable
      */
     protected function handleFileDelete(array $input = []): array
     {
-        if (array_key_exists(Field::FILE_DELETE_FLAG, $input)) {
-            $input[Field::FILE_DELETE_FLAG] = $input['key'];
-            unset($input['key']);
+        //dd($input);
+        foreach ($input as $key => $value) {
+            if (strpos($key, Field::FILE_DELETE_FLAG) !== false) {
+                if (!empty($value)) {
+                    $update_key = str_replace(Field::FILE_DELETE_FLAG, "", $key);
+                    if (!isset($this->deletedFieldFiles[$update_key])) {
+                        $this->deletedFieldFiles[$update_key] = [];
+                    }
+                    foreach (explode(",", $value) as $remove_me) {
+                        if (!empty($remove_me)) {
+                            $this->deletedFieldFiles[$update_key][] = $remove_me;
+                        }
+                    }
+                }
+            }
         }
-
-        request()->replace($input);
+        //request()->replace($input);
 
         return $input;
+    }
+
+    protected function handleFileDeleteUpdate($updates)
+    {
+        foreach ($this->deletedFieldFiles as $key => $value) {
+            $field = $this->getFieldByColumn($key);
+            $original = $field->original();
+
+            if (!is_array($original)) { // single files
+                $originalObjectUrl = $field->objectUrl($original);
+                if ($originalObjectUrl == $value[0]) {
+                    $field->destroy();
+                    if (empty($updates[$key])) { // only when no new file
+                        $updates[$key] = '';
+                    }
+                }
+            } else { // multi - upload files
+                $originalObjectUrl = $field->objectUrl($original[0]);
+                $dir = str_replace($original[0], "", $originalObjectUrl);
+
+                $original_flipped = array_flip($original);
+
+                foreach ($value as $remove_me) {
+                    $remove_me = str_replace($dir, "", $remove_me);
+                    $file_key = $original_flipped[$remove_me];
+                    $field->destroy($file_key);
+                    unset($original_flipped[$remove_me]);
+                }
+                $updates[$key] = array_keys($original_flipped);
+            }
+        }
+        return $updates;
     }
 
     /**
@@ -870,7 +922,6 @@ class Form implements Renderable
                 Arr::set($prepared, $columns, $value);
             }
         }
-
         return $prepared;
     }
 

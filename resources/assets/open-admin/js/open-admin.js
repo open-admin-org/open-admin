@@ -165,7 +165,7 @@
         },
 
         setActivePage : function(url){
-            
+
             let menuItems = document.querySelectorAll("#menu a");
             menuItems.forEach(a =>{
                 let li = a.parentNode;
@@ -231,9 +231,9 @@
                     let method = event.target.getAttribute("method");
                     let url = String(event.target.getAttribute("action")).split("?")[0];
                     let obj = {};
-                    
+
                     if (method === "get"){
-                       let data = Object.fromEntries(new FormData(event.target).entries()); //this doesn't get arrays                        
+                       let data = Object.fromEntries(new FormData(event.target).entries()); //this doesn't get arrays
                        console.log(data)
                        let searchParams = new URLSearchParams(data);
                        let query_str =  searchParams.toString();
@@ -259,12 +259,14 @@
                 document.body.classList.remove("side-menu-open");
             }
 
-            if (!preventPopState && url != document.location.href){
-                this.setUrl(url)
-            }
+            if (url != document.location.href){
+                if (!preventPopState){
+                    this.setUrl(url);
+                }
 
-            admin.menu.setActivePage(url);
-            this.load(url);
+                admin.menu.setActivePage(url);
+                this.load(url);
+            }
         },
 
         setUrl : function(url){
@@ -383,12 +385,12 @@
 
     admin.pages = {
         init : function(){
-            
-            this.setTitle();            
+
+            this.setTitle();
             admin.menu.setActivePage(window.location.href);
             admin.grid.init();
             admin.grid.inline_edit.init();
-            admin.form.init();            
+            admin.form.init();
             this.initBootstrap();
         },
 
@@ -398,17 +400,17 @@
                 document.title = "Admin | " + h1_title;
             }
         },
-        
+
         initBootstrap : function(){
-            
+
           // popovers
-            
+
             var popoverTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="popover"]:not(.ie)'))
             var popoverList = popoverTriggerList.map(function (popoverTriggerEl) {
                 return new bootstrap.Popover(popoverTriggerEl)
             });
-            
-       
+
+
         }
 
     }
