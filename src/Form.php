@@ -120,7 +120,7 @@ class Form implements Renderable
 
     /**
      * Deletable files in fiels.
-     * $deletedFieldFiles[$field_key] = array(filename)
+     * $deletedFieldFiles[$field_key] = array(filename).
      *
      * @var array
      */
@@ -518,7 +518,6 @@ class Form implements Renderable
 
         $isEditable = $this->isEditable($data);
 
-
         if (($data = $this->handleColumnUpdates($id, $data)) instanceof Response) {
             return $data;
         }
@@ -702,11 +701,11 @@ class Form implements Renderable
         foreach ($input as $key => $value) {
             if (strpos($key, Field::FILE_DELETE_FLAG) !== false) {
                 if (!empty($value)) {
-                    $update_key = str_replace(Field::FILE_DELETE_FLAG, "", $key);
+                    $update_key = str_replace(Field::FILE_DELETE_FLAG, '', $key);
                     if (!isset($this->deletedFieldFiles[$update_key])) {
                         $this->deletedFieldFiles[$update_key] = [];
                     }
-                    foreach (explode(",", $value) as $remove_me) {
+                    foreach (explode(',', $value) as $remove_me) {
                         if (!empty($remove_me)) {
                             $this->deletedFieldFiles[$update_key][] = $remove_me;
                         }
@@ -735,12 +734,12 @@ class Form implements Renderable
                 }
             } else { // multi - upload files
                 $originalObjectUrl = $field->objectUrl($original[0]);
-                $dir = str_replace($original[0], "", $originalObjectUrl);
+                $dir = str_replace($original[0], '', $originalObjectUrl);
 
                 $original_flipped = array_flip($original);
 
                 foreach ($value as $remove_me) {
-                    $remove_me = str_replace($dir, "", $remove_me);
+                    $remove_me = str_replace($dir, '', $remove_me);
                     $file_key = $original_flipped[$remove_me];
                     $field->destroy($file_key);
                     unset($original_flipped[$remove_me]);
@@ -748,6 +747,7 @@ class Form implements Renderable
                 $updates[$key] = array_keys($original_flipped);
             }
         }
+
         return $updates;
     }
 
@@ -922,6 +922,7 @@ class Form implements Renderable
                 Arr::set($prepared, $columns, $value);
             }
         }
+
         return $prepared;
     }
 
