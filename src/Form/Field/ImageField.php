@@ -121,7 +121,7 @@ trait ImageField
 
     /**
      * @param string|array $name
-     * @param callable          $function
+     * @param callable     $function
      *
      * @return $this
      */

@@ -27,7 +27,6 @@ class Select extends Field
         //'/vendor/open-admin/tom-select/tom-select.complete.min.js',
     ];
 
-
     /**
      * @var array
      */
