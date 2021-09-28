@@ -7,8 +7,8 @@
 
 <p align="center">
 <a href="https://open-admin.org/docs">Documentation</a> |
-<a href="https://demo.open-admin.org">Demo</a> |
-<a href="#extensions">Extensions</a>
+<a href="https://github.com/open-admin-org/open-admin">Download</a> |
+<a href="https://github.com/open-admin-org">Extensions</a>
 </p>
 
 <p align="center">
@@ -98,6 +98,7 @@ More coming soon
 | [helpers](https://github.com/open-admin-org/helpers)             | Several tools to help you in development | ~1.0 |
 | [media-manager](https://github.com/open-admin-org/media-manager) | Provides a web interface to manage local files          | ~1.0 |
 | [config](https://github.com/open-admin-org/config) | Config manager for open-admin          |~1.0 |
+| [grid-sortable](https://github.com/open-admin-org/grid-sortable) | Sortable grids          |~1.0 |
 <!--
 | [api-tester](https://github.com/open-admin-extensions/api-tester) | Help you to test the local laravel APIs          |~1.5 |
 | [scheduling](https://github.com/open-admin-extensions/scheduling) | Scheduling task manager for open-admin          |~1.5 |
@@ -136,7 +137,7 @@ More coming soon
 
 Other
 ------------
-`open-admin` based on following plugins or services:
+`open-admin` based on the following plugins or services:
 
 + [Laravel](https://laravel.com/)
 + [Axios](https://github.com/axios/axios)
@@ -144,7 +145,8 @@ Other
 + [Choicesjs](https://github.com/Choices-js/Choices)
 + [Font-awesome](http://fontawesome.io)
 + [Moment](http://momentjs.com/)
-+ [Google maps](https://www.google.com/maps)
++ [LeafletJS](https://leafletjs.com/)
++ [OpenStreetMaps](https://www.openstreetmap.org/)
 + [Sweetalert2](https://github.com/sweetalert2/sweetalert2)
 + [Toastify](https://github.com/apvarun/toastify-js)
 + [Flatpickr](https://github.com/flatpickr/flatpickr)
