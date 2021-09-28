@@ -263,10 +263,11 @@
                 if (!preventPopState){
                     this.setUrl(url);
                 }
-
                 admin.menu.setActivePage(url);
-                this.load(url);
             }
+
+            this.load(url);
+
         },
 
         setUrl : function(url){
