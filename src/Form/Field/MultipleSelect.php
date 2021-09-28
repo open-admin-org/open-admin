@@ -15,6 +15,13 @@ class MultipleSelect extends Select
      */
     protected $otherKey;
 
+
+    public function __construct($column, $arguments = [])
+    {
+        $this->config["removeItemButton"] = true;
+
+        parent::__construct($column, $arguments);
+    }
     /**
      * Get other key for this many-to-many relation.
      *

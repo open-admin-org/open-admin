@@ -17,15 +17,16 @@ class Select extends Field
      * @var array
      */
     protected static $css = [
-        '/vendor/open-admin/choicesjs/styles/choices.min.css',
+        //'/vendor/open-admin/tom-select/tom-select.css',
     ];
 
     /**
      * @var array
      */
     protected static $js = [
-        '/vendor/open-admin/choicesjs/scripts/choices.min.js',
+        //'/vendor/open-admin/tom-select/tom-select.complete.min.js',
     ];
+
 
     /**
      * @var array
@@ -45,7 +46,7 @@ class Select extends Field
     /**
      * @var bool
      */
-    protected $native = true;
+    protected $native = false;
 
     /**
      * Set options.
@@ -136,8 +137,8 @@ class Select extends Field
 
         $script = <<<EOT
 
-
-
+            console.log('select: load not ported yet');
+            /*
             $(document).off('change', "{$this->getElementClassSelector()}");
             $(document).on('change', "{$this->getElementClassSelector()}", function () {
                 var target = $(this).closest('.fields-group').find(".$class");
@@ -158,6 +159,7 @@ class Select extends Field
                     $(target).trigger('change');
                 });
             });
+            */
 
 EOT;
 
@@ -189,6 +191,9 @@ EOT;
         $strAllowClear = var_export($allowClear, true);
 
         $script = <<<EOT
+
+        console.log('select: loads not ported yet');
+        /*
 var fields = '$fieldsStr'.split('.');
 var urls = '$urlsStr'.split('^');
 
@@ -217,6 +222,7 @@ $(document).on('change', "{$this->getElementClassSelector()}", function () {
         promises.push(refreshOptions(urls[index] + "?q="+ _this.value, target));
     });
 });
+*/
 EOT;
 
         Admin::script($script);
@@ -293,6 +299,8 @@ EOT;
 
         $this->script = <<<EOT
 
+        console.log('select: LoadRemote not ported yet');
+        /*
 $.ajax($ajaxOptions).done(function(data) {
 
   $("{$this->getElementClassSelector()}").each(function(index, element) {
@@ -307,6 +315,7 @@ $.ajax($ajaxOptions).done(function(data) {
       }
   });
 });
+*/
 
 EOT;
 
@@ -335,6 +344,8 @@ EOT;
 
         $this->script = <<<EOT
 
+        console.log('select: ajax not ported yet');
+        /*
 $("{$this->getElementClassSelector()}").select2({
   ajax: {
     url: "$url",
@@ -367,6 +378,7 @@ $("{$this->getElementClassSelector()}").select2({
       return markup;
   }
 });
+*/
 
 EOT;
 
@@ -442,8 +454,7 @@ EOT;
         $configs = json_encode($configs);
 
         if (!$this->native) {
-            $this->script = "const choices = new Choices('{$this->getElementClassSelector()}',{$configs});";
-            //$this->script = "$(\"{$this->getElementClassSelector()}\").select2($configs);";
+            $this->script = "new Choices('{$this->getElementClassSelector()}',{$configs});";
         }
 
         if ($this->options instanceof \Closure) {
