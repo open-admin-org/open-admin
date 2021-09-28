@@ -120,6 +120,19 @@ trait ImageField
     }
 
     /**
+     * @param string|array $name
+     * @param callable          $function
+     *
+     * @return $this
+     */
+    public function thumbnailFunction($name, \Closure $function)
+    {
+        $this->thumbnails[$name] = $function;
+
+        return $this;
+    }
+
+    /**
      * Destroy original thumbnail files.
      *
      * @return void.
@@ -178,7 +191,7 @@ trait ImageField
      */
     protected function uploadAndDeleteOriginalThumbnail(UploadedFile $file)
     {
-        foreach ($this->thumbnails as $name => $size) {
+        foreach ($this->thumbnails as $name => $size_or_closure) {
             // We need to get extension type ( .jpeg , .png ...)
             $ext = pathinfo($this->name, PATHINFO_EXTENSION);
 
@@ -191,11 +204,16 @@ trait ImageField
             /** @var \Intervention\Image\Image $image */
             $image = InterventionImage::make($file);
 
-            $action = $size[2] ?? 'resize';
-            // Resize image with aspect ratio
-            $image->$action($size[0], $size[1], function (Constraint $constraint) {
-                $constraint->aspectRatio();
-            })->resizeCanvas($size[0], $size[1], 'center', false, '#ffffff');
+            if ($size_or_closure instanceof \Closure) {
+                $image = $size_or_closure->call($this, $image);
+            } else {
+                $size = $size_or_closure;
+                $action = $size[2] ?? 'resize';
+                // Resize image with aspect ratio
+                $image->$action($size[0], $size[1], function (Constraint $constraint) {
+                    $constraint->aspectRatio();
+                })->resizeCanvas($size[0], $size[1], 'center', false, '#ffffff');
+            }
 
             if (!is_null($this->storagePermission)) {
                 $this->storage->put("{$this->getDirectory()}/{$path}", $image->encode(), $this->storagePermission);
