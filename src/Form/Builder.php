@@ -18,7 +18,7 @@ class Builder
     /**
      *  Previous url key.
      */
-    const PREVIOUS_URL_KEY = '_previous_';
+    public const PREVIOUS_URL_KEY = '_previous_';
 
     /**
      * @var mixed
@@ -48,8 +48,8 @@ class Builder
     /**
      * Modes constants.
      */
-    const MODE_EDIT = 'edit';
-    const MODE_CREATE = 'create';
+    public const MODE_EDIT = 'edit';
+    public const MODE_CREATE = 'create';
 
     /**
      * Form action mode, could be create|view|edit.
@@ -560,10 +560,10 @@ class Builder
         ];
 
         $script = <<<SCRIPT
-$('form.{$this->formClass} button[type=submit]').click(function (e) {
+document.querySelector('form.{$this->formClass} button[type=submit]').addEventListener("click",function (e) {
     e.preventDefault();
-    var form = $(this).parents('form');
-    swal({
+    var form = e.target.closest('form');
+    Swal.fire({
         title: "$message",
         type: "warning",
         showCancelButton: true,
@@ -571,12 +571,16 @@ $('form.{$this->formClass} button[type=submit]').click(function (e) {
         confirmButtonText: "{$trans['confirm']}",
         cancelButtonText: "{$trans['cancel']}",
     }).then(function (result) {
-        if (result.value) {
-          form.submit();
+        if (result.value == true) {
+            if (admin.form.validate(form)){
+                form.dispatchEvent(new Event('submit', { cancelable: true }));
+            }
         }
     });
+
 });
 SCRIPT;
+
 
         Admin::script($script);
     }

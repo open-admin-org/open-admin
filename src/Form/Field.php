@@ -622,6 +622,7 @@ class Field implements Renderable
      */
     public function rules($rules = null, $messages = []): self
     {
+        $this->form->enableValidate();
         $this->rules = $this->mergeRules($rules, $this->rules);
 
         $this->setValidationMessages('default', $messages);
@@ -1043,6 +1044,7 @@ class Field implements Renderable
      */
     public function pattern($regexp): self
     {
+        $this->form->enableValidate();
         return $this->attribute('pattern', $regexp);
     }
 
@@ -1055,6 +1057,7 @@ class Field implements Renderable
      */
     public function required($isLabelAsterisked = true): self
     {
+        $this->form->enableValidate();
         if ($isLabelAsterisked) {
             $this->setLabelClass(['asterisk']);
         }

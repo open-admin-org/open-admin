@@ -430,16 +430,23 @@ class Form implements Renderable
 
         $script = <<<SCRIPT
 
-$('form#{$id}').off('submit').on('submit', function (e) {
-    e.preventDefault();
-    var form = this;
-    $.admin.swal($settings).then(function (result) {
-        if (result.value == true) {
-            form.submit();
-        }
-    });
-    return false;
-});
+        var confirmSubmit = function(e) {
+            e.preventDefault();
+
+            var form = e.target.closest('form');
+            Swal.fire($settings).then(function (result) {
+                if (result.value == true) {
+                    if (admin.form.validate(form)){
+                        form.dispatchEvent(new Event('submit', { cancelable: true }));
+                    }
+                }
+            });
+            return false;
+
+        };
+        document.querySelector('form#{$id} button[type=submit]').removeEventListener("click", confirmSubmit);
+        document.querySelector('form#{$id} button[type=submit]').addEventListener("click", confirmSubmit);
+
 SCRIPT;
 
         Admin::script($script);

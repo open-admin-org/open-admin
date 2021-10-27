@@ -9,10 +9,56 @@ admin.form = {
 
     init : function(){
 
+        this.addAjaxSubmit();
         this.footer();
         this.tabs();
-        this.validation()
+        this.initValidation()
     },
+
+    addAjaxSubmit : function(){
+
+        // forms that should be submitted with ajax
+
+        Array.from(document.getElementsByTagName("form")).forEach(form => {
+
+            if (form.getAttribute("pjax-container") != null && !form.classList.contains("has-ajax-handler")){
+                form.addEventListener('submit', function(event) {
+                    admin.form.submit(event.target);
+                    event.preventDefault();
+                    return false;
+                });
+                form.classList.add("has-ajax-handler");
+            }
+        });
+    },
+
+    submit : function(form){
+
+        let method = form.getAttribute("method");
+        let url = String(form.getAttribute("action")).split("?")[0];
+        let obj = {};
+
+        if (admin.form.validate(form)){
+
+            if (method === "get"){
+                let data = Object.fromEntries(new FormData(form).entries()); //this doesn't get arrays
+                //console.log(data)
+                let searchParams = new URLSearchParams(data);
+                let query_str =  searchParams.toString();
+                url += "?"+query_str;
+                admin.ajax.setUrl(url);
+            }else{
+                obj.data = new FormData(form);
+                obj.method = method;
+            }
+            admin.ajax.load(url,obj);
+
+        }else{
+            console.log('Form still has errors');
+        }
+
+    },
+
 
     footer : function(){
         document.querySelectorAll(".after-submit").forEach(check => {
@@ -74,18 +120,27 @@ admin.form = {
         });
     },
 
-    validation : function(){
+    initValidation : function(){
 
         var forms = document.querySelectorAll('.needs-validation');
         forms.forEach(function (form) {
             form.addEventListener('submit', function (event) {
-                if (!form.checkValidity()) {
-                    event.preventDefault()
-                    event.stopPropagation()
+                if (!admin.form.validate(form)) {
+                    event.preventDefault();
+                    event.stopPropagation();
                 }
-                form.classList.add('was-validated');
-                admin.form.check_tab_errors();
+                return false;
             }, false)
         });
-    }
+    },
+
+    validate : function(form){
+        let res = true;
+        if (form.classList.contains("needs-validation")){
+            res = form.checkValidity();
+            form.classList.add('was-validated');
+            admin.form.check_tab_errors();
+        }
+        return res;
+    },
 }

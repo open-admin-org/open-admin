@@ -32,7 +32,6 @@ class MenuController extends Controller
                 $row->column(6, function (Column $column) {
                     $form = new \OpenAdmin\Admin\Widgets\Form();
                     $form->action(admin_url('auth/menu'));
-                    $form->enableValidate();
 
                     $menuModel = config('admin.database.menu_model');
                     $permissionModel = config('admin.database.permissions_model');

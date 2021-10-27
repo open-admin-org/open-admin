@@ -226,27 +226,8 @@
             }, false);
 
             // forms that should be submitted with ajax
-            document.addEventListener('submit', function(event) {
-                if (event.target.getAttribute("pjax-container") != null){
-                    let method = event.target.getAttribute("method");
-                    let url = String(event.target.getAttribute("action")).split("?")[0];
-                    let obj = {};
-
-                    if (method === "get"){
-                       let data = Object.fromEntries(new FormData(event.target).entries()); //this doesn't get arrays
-                       console.log(data)
-                       let searchParams = new URLSearchParams(data);
-                       let query_str =  searchParams.toString();
-                       url += "?"+query_str;
-                       admin.ajax.setUrl(url);
-                    }else{
-                        obj.data = new FormData(event.target);;
-                        obj.method = method;
-                    }
-                    admin.ajax.load(url,obj);
-                    event.preventDefault();
-                }
-            });
+            // now handled by admin.form.initAjax()
+            // also needs to work for widgets
 
             NProgress.configure({ parent: '#main' });
         },
@@ -396,9 +377,11 @@
         },
 
         setTitle : function() {
-            let h1_title = document.querySelector("main h1").innerText;
-            if (h1_title) {
-                document.title = "Admin | " + h1_title;
+            if (document.querySelector("main h1")){
+                let h1_title = document.querySelector("main h1").innerText;
+                if (h1_title) {
+                    document.title = "Admin | " + h1_title;
+                }
             }
         },
 
