@@ -1045,6 +1045,7 @@ class Field implements Renderable
     public function pattern($regexp): self
     {
         $this->form->enableValidate();
+
         return $this->attribute('pattern', $regexp);
     }
 
