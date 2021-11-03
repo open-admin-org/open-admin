@@ -162,8 +162,6 @@ class Text extends Presenter
     {
         $options = json_encode($options);
 
-        //Admin::script("$('#{$this->filter->getFilterBoxId()} input.{$this->filter->getId()}').inputmask($options);");
-
         Admin::script("Inputmask({$options}).mask(document.querySelector(\"#{$this->filter->getFilterBoxId()} input.{$this->filter->getId()}\"));");
 
         $this->icon = $icon;
