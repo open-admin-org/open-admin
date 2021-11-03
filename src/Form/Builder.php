@@ -581,7 +581,6 @@ document.querySelector('form.{$this->formClass} button[type=submit]').addEventLi
 });
 SCRIPT;
 
-
         Admin::script($script);
     }
 
