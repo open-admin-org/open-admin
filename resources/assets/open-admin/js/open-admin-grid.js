@@ -11,14 +11,14 @@
             let trs = document.querySelectorAll(".select-table tr");
             trs.forEach(tr => {
                 tr.addEventListener('click', function(event) {
-                    
-                    //if (!event.target.classList.contains("form-check-input") && !event.target.classList.contains("icon") && !event.target.classList.contains("prevent-tr")){                    if (event.target.tagName == "TD" && !event.target.classList.contains("form-check-input") && !event.target.classList.contains("icon") && !event.target.classList.contains("prevent-tr")){
-                    // only td is probably enought
-                    if (event.target.tagName == "TD"){               
-                        
+
+                    if (event.target.tagName == "TD"){
                         input = event.target.closest("tr").getElementsByClassName("form-check-input")[0];
                         if (input){
-                            input.checked ^= 1;
+                            id = input.dataset.id;
+                            document.querySelectorAll(".row-"+id+" .form-check-input").forEach( input =>{
+                                input.checked ^= 1;
+                            } );
                             admin.grid.check_status();
                         }
                     }
@@ -63,9 +63,11 @@
                     all_select = false;
                     box.closest("tr").classList.remove("selected");
                 }else{
-                    admin.grid.selected.push(box.dataset.id);
                     box.closest("tr").classList.add("selected");
-                    num_selected ++;
+                    if (!admin.grid.selected.includes(box.dataset.id)){
+                        admin.grid.selected.push(box.dataset.id);
+                        num_selected ++;
+                    }
                 }
             })
 

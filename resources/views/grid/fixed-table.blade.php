@@ -1,34 +1,10 @@
-<div class="card">
-    @if(isset($title))
-    <div class="card-header with-border">
-        <h3 class="card-title"> {{ $title }}</h3>
-    </div>
-    @endif
-
-    @if ( $grid->showTools() || $grid->showExportBtn() || $grid->showCreateBtn() )
-    <div class="card-header with-border">
-        <div class="pull-right">
-            {!! $grid->renderColumnSelector() !!}
-            {!! $grid->renderExportButton() !!}
-            {!! $grid->renderCreateButton() !!}
-        </div>
-        @if ( $grid->showTools() )
-        <div class="pull-left">
-            {!! $grid->renderHeaderTools() !!}
-        </div>
-        @endif
-    </div>
-    @endif
-
-    {!! $grid->renderFilter() !!}
-
-    {!! $grid->renderHeader() !!}
+@include("admin::grid.table-header")
 
     <!-- /.box-header -->
     <div class="card-body table-responsive no-padding">
         <div class="tables-container">
             <div class="table-wrap table-main">
-                <table class="table grid-table" id="{{ $grid->tableID }}">
+                <table class="table grid-table select-table" id="{{ $grid->tableID }}">
                     <thead>
                         <tr>
                             @foreach($grid->visibleColumns() as $column)
@@ -57,7 +33,7 @@
 
             @if($grid->leftVisibleColumns()->isNotEmpty())
             <div class="table-wrap table-fixed table-fixed-left">
-                <table class="table grid-table">
+                <table class="table grid-table select-table">
                     <thead>
                     <tr>
                         @foreach($grid->leftVisibleColumns() as $column)
@@ -89,7 +65,7 @@
 
             @if($grid->rightVisibleColumns()->isNotEmpty())
             <div class="table-wrap table-fixed table-fixed-right">
-                <table class="table grid-table">
+                <table class="table grid-table select-table">
                     <thead>
                     <tr>
                         @foreach($grid->rightVisibleColumns() as $column)
@@ -130,6 +106,36 @@
     <!-- /.box-body -->
 </div>
 
+<script>
+    //var theadHeight = getOuterHeigt(document.querySelector('.table-main thead tr'));
+    var tableMain = document.querySelector('.table-main');
+    var theadHeight = tableMain.querySelector('thead tr').clientHeight;
+    document.querySelectorAll('.table-fixed thead tr').forEach(tr=>{
+        tr.style.height = theadHeight+"px";
+    })
+
+    let tfoot = tableMain.querySelector('tfoot tr');
+    if (tfoot){
+        var tfootHeight = tfoot.clientHeight;
+        document.querySelectorAll('.table-fixed tfoot tr').forEach(tr=>{
+            tr.style.height = tfootHeight+"px";
+        })
+    }
+
+
+    let left_trs = document.querySelectorAll('.table-fixed-left tbody tr');
+    let right_trs = document.querySelectorAll('.table-fixed-right tbody tr');
+    tableMain.querySelectorAll('tbody tr').forEach((tr,i)=>{
+        var height = tr.clientHeight;
+        left_trs[i].style.height = height+"px";
+        right_trs[i].style.height = height+"px";
+    });
+
+    if (tableMain.clientWidth >= tableMain.scrollWidth) {
+        hide(document.querySelectorAll('.table-fixed'));
+    }
+
+</script>
 
 <style>
     .tables-container {
@@ -170,75 +176,3 @@
         box-shadow: -5px 0 5px -5px rgba(0,0,0,.12);
     }
 </style>
-
-<script>
-    var theadHeight = $('.table-main thead tr').outerHeight();
-    $('.table-fixed thead tr').outerHeight(theadHeight);
-
-    var tfootHeight = $('.table-main tfoot tr').outerHeight();
-    $('.table-fixed tfoot tr').outerHeight(tfootHeight);
-
-    $('.table-main tbody tr').each(function(i, obj) {
-        var height = $(obj).outerHeight();
-
-        $('.table-fixed-left tbody tr').eq(i).outerHeight(height);
-        $('.table-fixed-right tbody tr').eq(i).outerHeight(height);
-    });
-
-    if ($('.table-main').width() >= $('.table-main').prop('scrollWidth')) {
-        $('.table-fixed').hide();
-    }
-
-    $('.table-wrap tbody tr').on('mouseover', function () {
-        var index = $(this).index();
-
-        $('.table-main tbody tr').eq(index).addClass('active');
-        $('.table-fixed-left tbody tr').eq(index).addClass('active');
-        $('.table-fixed-right tbody tr').eq(index).addClass('active');
-    });
-
-    $('.table-wrap tbody tr').on('mouseout', function () {
-        var index = $(this).index();
-
-        $('.table-main tbody tr').eq(index).removeClass('active');
-        $('.table-fixed-left tbody tr').eq(index).removeClass('active');
-        $('.table-fixed-right tbody tr').eq(index).removeClass('active');
-    });
-
-    $('.{{ $rowName }}-checkbox').iCheck({checkboxClass:'icheckbox_minimal-blue'}).on('ifChanged', function () {
-
-        var id = $(this).data('id');
-        var index = $(this).closest('tr').index();
-
-        if (this.checked) {
-        $.admin.grid.select(id);
-            $('.table-main tbody tr').eq(index).css('background-color', '#ffffd5');
-            $('.table-fixed-left tbody tr').eq(index).css('background-color', '#ffffd5');
-            $('.table-fixed-right tbody tr').eq(index).css('background-color', '#ffffd5');
-        } else {
-        $.admin.grid.unselect(id);
-            $('.table-main tbody tr').eq(index).css('background-color', '');
-            $('.table-fixed-left tbody tr').eq(index).css('background-color', '');
-            $('.table-fixed-right tbody tr').eq(index).css('background-color', '');
-        }
-    }).on('ifClicked', function () {
-
-        var id = $(this).data('id');
-
-        if (this.checked) {
-            $.admin.grid.unselect(id);
-        } else {
-            $.admin.grid.select(id);
-        }
-
-        var selected = $.admin.grid.selected().length;
-
-        if (selected > 0) {
-            $('.{{ $allName }}-btn').show();
-        } else {
-            $('.{{ $allName }}-btn').hide();
-        }
-
-        $('.{{ $allName }}-btn .selected').html("{{ trans('admin.grid_items_selected') }}".replace('{n}', selected));
-    });
-</script>
