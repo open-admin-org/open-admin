@@ -51,6 +51,7 @@ class Row
 
         $this->attributes = [
             'data-key' => $key,
+            'class' => 'row-'.$key,
         ];
     }
 

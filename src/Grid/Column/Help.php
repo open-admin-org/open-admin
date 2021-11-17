@@ -29,14 +29,14 @@ class Help implements Renderable
     public function render()
     {
         $data = [
-            'toggle'    => 'tooltip',
-            'placement' => 'right',
-            'html'      => 'true',
+            'data-bs-toggle'    => 'tooltip',
+            'data-bs-placement' => 'top',
+            'data-bs-html'      => 'true',
             'title'     => $this->message,
         ];
 
         $data = collect($data)->map(function ($val, $key) {
-            return "data-{$key}=\"{$val}\"";
+            return "{$key}=\"{$val}\"";
         })->implode(' ');
 
         return <<<HELP
