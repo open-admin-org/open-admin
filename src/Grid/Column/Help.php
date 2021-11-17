@@ -32,7 +32,7 @@ class Help implements Renderable
             'data-bs-toggle'    => 'tooltip',
             'data-bs-placement' => 'top',
             'data-bs-html'      => 'true',
-            'title'     => $this->message,
+            'title'             => $this->message,
         ];
 
         $data = collect($data)->map(function ($val, $key) {
