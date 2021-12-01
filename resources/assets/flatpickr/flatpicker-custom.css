@@ -823,7 +823,7 @@ span.flatpickr-day.nextMonthDay {
     border-radius: 0 !important;
     border: 1px solid #e9e9e9;
     max-width: none;
-    border-right-color: transparent;
+    border-right-color: transparent !important;
 }
 span.flatpickr-day:nth-child(n + 8),
 span.flatpickr-day.prevMonthDay:nth-child(n + 8),

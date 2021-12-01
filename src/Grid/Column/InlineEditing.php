@@ -61,9 +61,21 @@ trait InlineEditing
      *
      * @return $this
      */
-    public function datetime($format = 'YYYY-MM-DD HH:mm:ss')
+    public function datetime($options = [])
     {
-        return $this->displayUsing(Displayers\Datetime::class, [$format]);
+        $default_options = [
+            "inline" => true,
+            'time_24hr' => true
+        ];
+        if (empty($options['format'])) {
+            $options['format'] = 'YYYY-MM-DD HH:mm:ss';
+        }
+        if ($options['format'] == 'YYYY-MM-DD HH:mm:ss') {
+            $default_options['enableTime'] = true;
+            $default_options['enableSeconds'] = true;
+        }
+        $options = array_merge($default_options, $options);
+        return $this->displayUsing(Displayers\Datetime::class, [$options]);
     }
 
     /**
@@ -75,7 +87,7 @@ trait InlineEditing
      */
     public function date()
     {
-        return $this->datetime('YYYY-MM-DD');
+        return $this->datetime(['format'=>'YYYY-MM-DD']);
     }
 
     /**
@@ -87,38 +99,9 @@ trait InlineEditing
      */
     public function time()
     {
-        return $this->datetime('HH:mm:ss');
+        return $this->datetime(['format'=>'HH:mm:ss','enableTime' => true,'enableSeconds' => true,'noCalendar' => true]);
     }
 
-    /**
-     * Grid inline year picker.
-     *
-     * @return $this
-     */
-    public function year()
-    {
-        return $this->datetime('YYYY');
-    }
-
-    /**
-     * Grid inline month picker.
-     *
-     * @return $this
-     */
-    public function month()
-    {
-        return $this->datetime('MM');
-    }
-
-    /**
-     * Grid inline day picker.
-     *
-     * @return $this
-     */
-    public function day()
-    {
-        return $this->datetime('DD');
-    }
 
     /**
      * Grid inline input.

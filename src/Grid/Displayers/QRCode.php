@@ -9,23 +9,8 @@ use OpenAdmin\Admin\Facades\Admin;
  */
 class QRCode extends AbstractDisplayer
 {
-    protected function addScript()
-    {
-        $script = <<<'SCRIPT'
-$('.grid-column-qrcode').popover({
-    html: true,
-    container: 'body',
-    trigger: 'focus'
-});
-SCRIPT;
-
-        Admin::script($script);
-    }
-
     public function display($formatter = null, $width = 150, $height = 150)
     {
-        $this->addScript();
-
         $content = $this->getColumn()->getOriginal();
 
         if ($formatter instanceof \Closure) {
@@ -40,11 +25,15 @@ SCRIPT;
             $height,
             $width
         );
+        $value = $this->getValue();
+        if (empty($value)) {
+            return "";
+        }
 
         return <<<HTML
-<a href="javascript:void(0);" class="grid-column-qrcode text-muted" data-content="{$img}" data-bs-toggle='popover' tabindex='0'>
+<a href="javascript:void(0);" class="grid-column-qrcode text-muted" data-bs-content="{$img}" data-bs-html="true" data-bs-toggle='popover' data-bs-trigger="focus" tabindex='0'>
     <i class="icon-qrcode"></i>
-</a>&nbsp;{$this->getValue()}
+</a>&nbsp;{$value}
 HTML;
     }
 }

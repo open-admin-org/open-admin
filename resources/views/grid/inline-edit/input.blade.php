@@ -1,4 +1,4 @@
-asd
+
 @extends('admin::grid.inline-edit.comm')
 
 @section('field')
@@ -6,27 +6,23 @@ asd
 @endsection
 
 @section('assert')
-asdf
-    <script>
-        @component('admin::grid.inline-edit.partials.popover', compact('trigger'))
-            @slot('content')
-            //$template.find('input').attr('value', $trigger.data('value'));
-            @endslot
-            @slot('shown')
-                //$popover.find('.ie-input').focus();
-                @if($mask)
-                //$popover.find('.ie-input').inputmask(@json($mask));
-                @endif
-            @endslot
-        @endcomponent
-    </script>
+ <script>
 
-    {{--after submit--}}
-    <script>
-    @component('admin::grid.inline-edit.partials.submit', compact('resource', 'name'))
-        //$popover.data('display').html(val);
-    @endcomponent
-    </script>
+    admin.grid.inline_edit.functions['{{ $trigger }}'] = {
+        content : function(trigger,content){
+            content.querySelector('input').value = trigger.dataset.value;
+        },
+        shown : function(trigger,content){
+            let field = content.querySelector('input');
+            field.focus();
+            @if($mask)
+            Inputmask(@json($mask)).mask(field);
+            @endif
+
+        }
+    }
+
+</script>
 @endsection
 
 

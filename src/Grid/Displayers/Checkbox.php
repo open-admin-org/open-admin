@@ -15,8 +15,8 @@ class Checkbox extends AbstractDisplayer
             'resource' => $this->getResource(),
             'trigger'  => "ie-trigger-{$this->getClassName()}-{$this->getKey()}",
             'target'   => "ie-content-{$this->getClassName()}-{$this->getKey()}",
-            'value'    => json_encode($this->getValue()),
-            'display'  => implode(';', Arr::only($options, $this->getValue())),
+            'value'    => $this->getValue(),
+            'display'  => implode(',', Arr::only($options, json_decode($this->getValue()))),
             'options'  => $options,
         ]);
     }

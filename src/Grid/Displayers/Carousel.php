@@ -13,12 +13,10 @@ class Carousel extends AbstractDisplayer
         if ($this->value instanceof Arrayable) {
             $this->value = $this->value->toArray();
         }
-
-        $this->value = array_values($this->value);
-
         if (empty($this->value)) {
             return '';
         }
+        $this->value = array_values($this->value);
 
         $images = collect((array) $this->value)->filter()->map(function ($path) use ($server) {
             if (url()->isValidUrl($path) || strpos($path, 'data:image') === 0) {

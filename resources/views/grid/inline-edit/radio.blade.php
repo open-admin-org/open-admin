@@ -1,7 +1,5 @@
 @extends('admin::grid.inline-edit.comm')
-@php
-    $type = "radio";
-@endphp
+
 @section('field')
     @foreach($options as $option => $label)
         <div class="radio icheck">
@@ -15,7 +13,7 @@
 @section('assert')
     <style>
         .icheck.radio {
-            margin: 5px 0 5px 20px;
+            margin: 0 0 10px 0px;
         }
 
         .ie-content-{{ $name }} .ie-container  {
@@ -25,28 +23,26 @@
     </style>
 
     <script>
-        @component('admin::grid.inline-edit.partials.popover', compact('trigger'))
-            @slot('content')
-                $template.find('input[type=radio]').each(function (index, radio) {
-                    if ($(radio).attr('value') == $trigger.data('value')) {
-                        $(radio).attr('checked', true);
+     admin.grid.inline_edit.functions['{{ $trigger }}'] = {
+            content : function(trigger,content){
+                let fields = content.querySelectorAll('input');
+                fields.forEach(el=>{
+                    if (trigger.dataset.value == el.value){
+                        el.checked = true;
                     }
-                });
-            @endslot
-        @endcomponent
+                })
+            },
+            shown : function(trigger,content){
+            },
+            returnValue : function(trigger,content){
+                let field = content.querySelector('input:checked');
+                console.log(field);
+                return  {'val':field.value,'label':field.dataset.label}
+            }
+        }
+
     </script>
 
-    <script>
-    @component('admin::grid.inline-edit.partials.submit', compact('resource', 'name'))
 
-        @slot('val')
-            var val = $popover.find('.ie-input:checked').val();
-            var label = $popover.find('.ie-input:checked').data('label');
-        @endslot
-
-        $popover.data('display').html(label);
-
-    @endcomponent
-    </script>
 @endsection
 

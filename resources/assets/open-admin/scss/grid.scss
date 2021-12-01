@@ -23,6 +23,14 @@
         }
     }
 }
+.dropdown-menu{
+    li{
+        list-style:none;
+        .btn{
+            font-size:0.9em;
+        }
+    }
+}
 
 .grid-actions-menu {
     left: -30px !important;
@@ -52,6 +60,30 @@
             margin-bottom: 0;
         }
     }
+}
+.btn-filter {
+
+    .icon-angle-up{
+        display:inline;
+    }
+    .icon-angle-down{
+        display:none;
+    }
+
+    &.collapsed{
+        .icon-angle-up{
+            display:none;
+        }
+        .icon-angle-down{
+            display:inline;
+        }
+    }
+}
+.popover .flatpickr-calendar, .dropdown-menu .flatpickr-calendar{
+    box-shadow:none;
+    border: 1px solid #CCC;
+    border-radius: 4px;
+    margin-bottom:10px;
 }
 
 /*---------------------------------------------------------*/
@@ -96,6 +128,9 @@
     white-space: nowrap;
     height: 4rem;
     font-weight: lighter;
+}
+.table tr td td{
+    height:auto;
 }
 
 .table tr.selected td {
@@ -165,16 +200,18 @@
 /*---------------------------------------------------------*/
 
 .ie-wrap>a {
-    padding: 3px;
+    margin-left:-3px;
+    padding: 3px 4px 3px 6px;
     border-radius: 3px;
-    color:#777;    
+    color: var(--table-color);
     cursor:pointer;
+    text-decoration-style: dotted;
 }
 
 .ie-wrap>a:hover {
     text-decoration: none;
-    background-color: #ddd;
-    color:#777;
+    background-color: #d7dbe8;
+    color: var(--table-color);
 }
 
 .ie-wrap>a:hover i {

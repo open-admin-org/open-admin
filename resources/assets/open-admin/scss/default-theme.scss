@@ -15,11 +15,12 @@
         --negative-menu-width: -280px;
         --main-bg: #ecf0f5;
         --text-color: #515151;
-        --table-color: var(--text-color);        
+        --table-color: var(--text-color);
         --field-border-color: #CCC;
     }
 
     .table {
+
         color: var(--table-color);
         --bs-table-bg: transparent;
         --bs-table-striped-color: var(--table-color);
@@ -30,7 +31,12 @@
         --bs-table-hover-bg: rgba(95, 127, 175, 0.05);
         --table-border-color: rgb(241, 241, 241);
         --bs-table-selected-color: var(--table-color);
-        --bs-table-selected-bg: rgb(255, 255, 213);        
+        --bs-table-selected-bg: rgb(255, 255, 213);
+    }
+
+    .table .table{
+        background: #FFF;
+        border-radius: 4px;
     }
 
     .bg-semi-dark {

@@ -7,7 +7,7 @@
     @foreach($options as $option => $label)
         <div class="checkbox">
             <label>
-                <input type="checkbox" name='radio-{{ $name }}[]' class="minimal ie-input" value="{{ $option }}" data-label="{{ $label }}"/>&nbsp;{{$label}}&nbsp;&nbsp;
+                <input type="checkbox" name='radio-{{ $name }}[]' class="minimal ie-input" value="{{ $option }}" data-label="{{ $label }}"/> {{$label}}
             </label>
         </div>
     @endforeach
@@ -24,36 +24,37 @@
             position: relative;
         }
     </style>
-
-
     <script>
-    
-        @component('admin::grid.inline-edit.partials.popover', compact('trigger'))
-            @slot('content')
+        admin.grid.inline_edit.functions['{{ $trigger }}'] = {
+            content : function(trigger,content){
 
-            @endslot
-        @endcomponent
+                try{
+                    let valArr = JSON.parse(trigger.dataset.value);
+                }
+                catch(err){}
+                if (typeof(valArr) != 'Array'){
+                    valArr = [];
+                }
+                let fields = content.querySelectorAll('input');
+                fields.forEach(el=>{
+                    if (valArr.includes(el.value)){
+                        el.checked = true;
+                    }
+                })
+            },
+            shown : function(trigger,content){
+            },
+            returnValue : function(trigger,content){
+                let fields = content.querySelectorAll('input:checked');
+                let obj = {'val':[],'label':[]}
+                fields.forEach(el=>{
+                    obj.val.push(el.value);
+                    obj.label.push(el.dataset.label);
+                })
+                return obj;
+            }
+        }
     </script>
 
-@if (1==2)
-    <script>
-    @component('admin::grid.inline-edit.partials.submit', compact('resource', 'name'))
-
-        @slot('val')
-            /*
-            var val = [];
-            var label = [];
-            $popover.find('.ie-input:checked').each(function(){
-                val.push($(this).val());
-                label.push($(this).data('label'));
-            });
-            */
-        @endslot
-
-        //$popover.data('display').html(label.join(';'));
-
-    @endcomponent
-    </script>
-@endif
 @endsection
 

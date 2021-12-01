@@ -4,6 +4,9 @@ namespace OpenAdmin\Admin\Grid\Displayers;
 
 use Illuminate\Support\Arr;
 use OpenAdmin\Admin\Admin;
+use OpenAdmin\Admin\Grid;
+use OpenAdmin\Admin\Grid\Column;
+use PDO;
 
 class Editable extends AbstractDisplayer
 {
@@ -25,7 +28,7 @@ class Editable extends AbstractDisplayer
      * @var array
      */
     protected $options = [
-        'emptytext'  => '<i class="icon-pencil-alt"></i>',
+        'emptytext'  => '<i class="icon-pencil"></i>',
     ];
 
     /**
@@ -53,113 +56,6 @@ class Editable extends AbstractDisplayer
         $this->attributes = array_merge($this->attributes, $attributes);
     }
 
-    /**
-     * Text type editable.
-     */
-    public function text()
-    {
-    }
-
-    /**
-     * Textarea type editable.
-     */
-    public function textarea()
-    {
-    }
-
-    /**
-     * Select type editable.
-     *
-     * @param array|\Closure $options
-     */
-    public function select($options = [])
-    {
-        $useClosure = false;
-
-        if ($options instanceof \Closure) {
-            $useClosure = true;
-            $options = $options->call($this, $this->row);
-        }
-
-        $source = [];
-
-        foreach ($options as $value => $text) {
-            $source[] = compact('value', 'text');
-        }
-
-        if ($useClosure) {
-            $this->addAttributes(['data-source' => json_encode($source)]);
-        } else {
-            $this->addOptions(compact('source'));
-        }
-    }
-
-    /**
-     * Date type editable.
-     */
-    public function date()
-    {
-        $this->combodate();
-    }
-
-    /**
-     * Datetime type editable.
-     */
-    public function datetime()
-    {
-        $this->combodate('YYYY-MM-DD HH:mm:ss');
-    }
-
-    /**
-     * Year type editable.
-     */
-    public function year()
-    {
-        $this->combodate('YYYY');
-    }
-
-    /**
-     * Month type editable.
-     */
-    public function month()
-    {
-        $this->combodate('MM');
-    }
-
-    /**
-     * Day type editable.
-     */
-    public function day()
-    {
-        $this->combodate('DD');
-    }
-
-    /**
-     * Time type editable.
-     */
-    public function time()
-    {
-        $this->combodate('HH:mm:ss');
-    }
-
-    /**
-     * Combodate type editable.
-     *
-     * @param string $format
-     */
-    public function combodate($format = 'YYYY-MM-DD')
-    {
-        $this->type = 'combodate';
-
-        $this->addOptions([
-            'format'     => $format,
-            'viewformat' => $format,
-            'template'   => $format,
-            'combodate'  => [
-                'maxYear' => 2035,
-            ],
-        ]);
-    }
 
     /**
      * @param array $arguments
@@ -174,6 +70,7 @@ class Editable extends AbstractDisplayer
     /**
      * @return string
      */
+
     public function display()
     {
         $this->options['name'] = $column = $this->getName();
@@ -184,41 +81,9 @@ class Editable extends AbstractDisplayer
 
         $options = json_encode($this->options);
 
-        $options = substr($options, 0, -1).<<<'STR'
-    ,
-    "success":function(response, newValue){
-        if (response.status){
-            $.admin.toastr.success(response.message, '', {positionClass:"toast-top-center"});
-        } else {
-            $.admin.toastr.error(response.message, '', {positionClass:"toast-top-center"});
-        }
-    }
-}
-STR;
-
-        //Admin::script("$('.$class').editable($options);");
-
-        $this->value = htmlentities($this->value);
-
-        $attributes = [
-            'href'       => '#',
-            'class'      => "$class",
-            'data-type'  => $this->type,
-            'data-pk'    => "{$this->getKey()}",
-            'data-url'   => "{$this->getResource()}/{$this->getKey()}",
-            'data-value' => "{$this->value}",
-        ];
-
-        if (!empty($this->attributes)) {
-            $attributes = array_merge($attributes, $this->attributes);
-        }
-
-        $attributes = collect($attributes)->map(function ($attribute, $name) {
-            return "$name='$attribute'";
-        })->implode(' ');
-
-        $html = $this->type === 'select' ? '' : $this->value;
-
-        return "<a $attributes>{$html}</a>";
+        $class = '\OpenAdmin\Admin\Grid\Displayers\\'.ucfirst($this->type);
+        $displayer = new $class($this->value, $this->grid, $this->column, $this->row);
+        $displayer->options = $this->options;
+        return $displayer->display();
     }
 }

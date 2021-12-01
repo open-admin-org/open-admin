@@ -272,18 +272,16 @@ abstract class Action implements Renderable
         $parameters = json_encode($this->parameters());
 
         $script = <<<SCRIPT
-
-(function ($) {
-    $('{$this->selector($this->selectorPrefix)}').off('{$this->event}').on('{$this->event}', function() {
-        var data = $(this).data();
-        var target = $(this);
+document.querySelectorAll('{$this->selector($this->selectorPrefix)}').forEach(el=>{
+    el.addEventListener('{$this->event}',function(){
+        var data = el.dataset;
+        var target = el;
         Object.assign(data, {$parameters});
         {$this->actionScript()}
         {$this->buildActionPromise()}
         {$this->handleActionPromise()}
-    });
-})(jQuery);
-
+    })
+})
 SCRIPT;
 
         Admin::script($script);
@@ -306,7 +304,6 @@ SCRIPT;
         var process = new Promise(function (resolve,reject) {
 
             Object.assign(data, {
-                _token: admin.token,
                 _action: '{$this->getCalledClass()}',
             });
 
@@ -333,12 +330,12 @@ SCRIPT;
         $resolve = <<<'SCRIPT'
 var actionResolver = function (data) {
 
-            var response = data[0];
+            var response = data[0].data;
             var target   = data[1];
-
             if (typeof response !== 'object') {
                 return Swal.fire({type: 'error', title: 'Oops!'});
             }
+
 
             var then = function (then) {
                 if (then.action == 'refresh') {
@@ -363,7 +360,7 @@ var actionResolver = function (data) {
             };
 
             if (typeof response.html === 'string') {
-                target.html(response.html);
+                target.innerHTML = response.html;
             }
 
             if (typeof response.swal === 'object') {

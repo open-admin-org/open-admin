@@ -6,43 +6,22 @@
 
 @section('assert')
     <style>
-        .ie-content-{{ $name }} .ie-container  {
-            height: 290px;
-        }
-
         .ie-content-{{ $name }} .ie-input {
             display: none;
         }
+        .ie-content-{{ $name }} {
+            width:310px;
+        }
     </style>
-
     <script>
-        @component('admin::grid.inline-edit.partials.popover', compact('trigger'))
-            @slot('content')
-            $template.find('input').attr('value', $trigger.data('value'));
-            @endslot
-            @slot('shown')
-            var $input  = $popover.find('.ie-input');
-
-            $popover.find('.ie-container').datetimepicker({
-                inline: true,
-                format: '{{ $format }}',
-                date: $input.val(),
-                locale: '{{ $locale }}'
-            }).on('dp.change', function (event) {
-                var date = event.date.format('{{ $format }}');
-                $input.val(date);
-            });
-            @endslot
-        @endcomponent
+        admin.grid.inline_edit.functions['{{ $trigger }}'] = {
+            content : function(trigger,content){
+                content.querySelector('input').value = trigger.dataset.value;
+            },
+            shown : function(trigger,content){
+                let field = content.querySelector('input');
+                flatpickr(field,{!!$options!!});
+            },
+        }
     </script>
-
-    {{--after submit--}}
-    <script>
-    @component('admin::grid.inline-edit.partials.submit', compact('resource', 'name'))
-        $popover.data('display').html(val);
-    @endcomponent
-    </script>
-
 @endsection
-
-

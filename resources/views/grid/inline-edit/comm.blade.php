@@ -5,12 +5,15 @@
         id="{{ $trigger }}"
         class="ie"
         data-bs-toggle="popover"
-        data-target="{{ $target }}"        
+        data-target="{{ $target }}"
         data-value="{{ $value }}"
         data-original="{{ $value }}"
         data-key="{{ $key }}"
         data-name="{{ $name }}"
+        data-resource="{{ $resource }}"
+        @isset($type)
         data-type="{{ $type }}"
+        @endisset
         data-init="0"
     >
         <span class="ie-display">{{ $display }}</span>

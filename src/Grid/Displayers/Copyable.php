@@ -14,18 +14,22 @@ class Copyable extends AbstractDisplayer
     protected function addScript()
     {
         $script = <<<SCRIPT
-$('#{$this->grid->tableID}').on('click','.grid-column-copyable',(function (e) {
-    var content = $(this).data('content');
+document.querySelectorAll('#{$this->grid->tableID} .grid-column-copyable').forEach( el => {
+    el.addEventListener("click",function(e){
 
-    var temp = $('<input>');
+        var content = el.dataset.content;
 
-    $("body").append(temp);
-    temp.val(content).select();
-    document.execCommand("copy");
-    temp.remove();
-
-    $(this).tooltip('show');
-}));
+        let tmp_input = document.createElement('input');
+        tmp_input.setAttribute('type', 'text');
+        tmp_input.setAttribute('value', content);
+        document.body.appendChild(tmp_input);
+        tmp_input.focus();
+        tmp_input.select();
+        document.execCommand("copy");
+        tmp_input.remove();
+        admin.toastr.toast("Added to clipboard");
+    });
+});
 SCRIPT;
 
         Admin::script($script);

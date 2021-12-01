@@ -24,6 +24,7 @@ use OpenAdmin\Admin\Grid\Model;
  * @method $this modal($title, $callback = null)
  * @method $this carousel(int $width = 300, int $height = 200, $server = '')
  * @method $this downloadable($server = '')
+ * @method $this DatetimeFormat($formt = 'Y-m-d')
  * @method $this copyable()
  * @method $this qrcode($formatter = null, $width = 150, $height = 150)
  * @method $this prefix($prefix, $delimiter = '&nbsp;')
@@ -53,6 +54,7 @@ trait ExtendDisplay
         'modal'         => Displayers\Modal::class,
         'carousel'      => Displayers\Carousel::class,
         'downloadable'  => Displayers\Downloadable::class,
+        'dateFormat'    => Displayers\DateFormat::class,
         'copyable'      => Displayers\Copyable::class,
         'qrcode'        => Displayers\QRCode::class,
         'prefix'        => Displayers\Prefix::class,
@@ -234,7 +236,7 @@ trait ExtendDisplay
             $values = (array) $values;
 
             if (in_array($value, $values)) {
-                return '<i class="icon-redo icon-spin text-primary"></i>';
+                return '<i class="icon-hourglass icon-spin text-primary"></i>';
             }
 
             return Arr::get($others, $value, $value);
@@ -295,7 +297,7 @@ trait ExtendDisplay
         return $this->display(function ($value) use ($map, $default) {
             $bool = empty($map) ? boolval($value) : Arr::get($map, $value, $default);
 
-            return $bool ? '<i class="icon-check text-green"></i>' : '<i class="icons-close text-red"></i>';
+            return $bool ? '<i class="icon-check text-success"></i>' : '<i class="icon-times text-danger"></i>';
         });
     }
 
@@ -330,7 +332,7 @@ trait ExtendDisplay
                 $style = Arr::get($options, $original, $default);
             }
 
-            return "<span class=\"label-{$style}\" style='width: 8px;height: 8px;padding: 0;border-radius: 50%;display: inline-block;'></span>";
+            return "<span class=\"bg-{$style}\" style='width: 8px;height: 8px;padding: 0;border-radius: 50%;display: inline-block;'></span>";
         }, '&nbsp;&nbsp;');
     }
 }
