@@ -64,8 +64,8 @@ trait InlineEditing
     public function datetime($options = [])
     {
         $default_options = [
-            "inline" => true,
-            'time_24hr' => true
+            'inline'    => true,
+            'time_24hr' => true,
         ];
         if (empty($options['format'])) {
             $options['format'] = 'YYYY-MM-DD HH:mm:ss';
@@ -75,6 +75,7 @@ trait InlineEditing
             $default_options['enableSeconds'] = true;
         }
         $options = array_merge($default_options, $options);
+
         return $this->displayUsing(Displayers\Datetime::class, [$options]);
     }
 
@@ -99,9 +100,8 @@ trait InlineEditing
      */
     public function time()
     {
-        return $this->datetime(['format'=>'HH:mm:ss','enableTime' => true,'enableSeconds' => true,'noCalendar' => true]);
+        return $this->datetime(['format'=>'HH:mm:ss', 'enableTime' => true, 'enableSeconds' => true, 'noCalendar' => true]);
     }
-
 
     /**
      * Grid inline input.

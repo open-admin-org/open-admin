@@ -3,10 +3,6 @@
 namespace OpenAdmin\Admin\Grid\Displayers;
 
 use Illuminate\Support\Arr;
-use OpenAdmin\Admin\Admin;
-use OpenAdmin\Admin\Grid;
-use OpenAdmin\Admin\Grid\Column;
-use PDO;
 
 class Editable extends AbstractDisplayer
 {
@@ -56,7 +52,6 @@ class Editable extends AbstractDisplayer
         $this->attributes = array_merge($this->attributes, $attributes);
     }
 
-
     /**
      * @param array $arguments
      */
@@ -70,7 +65,6 @@ class Editable extends AbstractDisplayer
     /**
      * @return string
      */
-
     public function display()
     {
         $this->options['name'] = $column = $this->getName();
@@ -84,6 +78,7 @@ class Editable extends AbstractDisplayer
         $class = '\OpenAdmin\Admin\Grid\Displayers\\'.ucfirst($this->type);
         $displayer = new $class($this->value, $this->grid, $this->column, $this->row);
         $displayer->options = $this->options;
+
         return $displayer->display();
     }
 }

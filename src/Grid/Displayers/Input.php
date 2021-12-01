@@ -10,7 +10,7 @@ class Input extends AbstractDisplayer
     {
         return Admin::component('admin::grid.inline-edit.input', [
             'key'      => $this->getKey(),
-            'type'     => "text",
+            'type'     => 'text',
             'value'    => $this->getValue(),
             'display'  => $this->getValue(),
             'name'     => $this->getPayloadName(),

@@ -60,12 +60,12 @@ class InputFilter extends Filter
     protected function addDateTimeScript()
     {
         $options = [
-                'locale'           => config('app.locale'),
-                'inline'           => true,
-                'allowInputToggle' => true,
-                'allowInput'       => true,
-                'time_24hr'        => true
-            ];
+            'locale'           => config('app.locale'),
+            'inline'           => true,
+            'allowInputToggle' => true,
+            'allowInput'       => true,
+            'time_24hr'        => true,
+        ];
 
         if ($this->type == 'date') {
             $options['format'] = 'YYYY-MM-DD';
@@ -94,7 +94,7 @@ class InputFilter extends Filter
      */
     public function render()
     {
-        $script = <<<SCRIPT
+        $script = <<<'SCRIPT'
 document.querySelectorAll('.dropdown-menu input, .flatpickr-month').forEach(el =>{
     el.addEventListener("click",function(e) {
         e.stopPropagation();
@@ -103,9 +103,9 @@ document.querySelectorAll('.dropdown-menu input, .flatpickr-month').forEach(el =
 SCRIPT;
         Admin::script($script);
 
-        if ($this->type == 'date' || $this->type == 'datetime' ||$this->type == 'time') {
+        if ($this->type == 'date' || $this->type == 'datetime' || $this->type == 'time') {
             $this->addDateTimeScript();
-            $this->addition_classes .= "d-none";
+            $this->addition_classes .= 'd-none';
         }
 
         $value = $this->getFilterValue();

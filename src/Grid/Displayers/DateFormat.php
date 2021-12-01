@@ -2,7 +2,6 @@
 
 namespace OpenAdmin\Admin\Grid\Displayers;
 
-use OpenAdmin\Admin\Admin;
 use Carbon\Carbon;
 
 class DateFormat extends AbstractDisplayer
