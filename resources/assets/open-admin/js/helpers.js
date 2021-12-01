@@ -7,9 +7,16 @@
 			var list = [list];
 		}
 		list.forEach(elm => {
-			elm.style.display = 'block';
+			showElm(elm);
 		});
 	};
+	function showElm(elm){
+		if(elm.tagName == "TR"){
+			elm.style.display = "table-row";
+		}else{
+			elm.style.display = 'block';
+		}
+	}
 
 	var hide = function (list) {
 		if (!isNodeList(list)){
@@ -26,11 +33,12 @@
 			var list = [list];
 		}
 		list.forEach(elm => {
-			if (window.getComputedStyle(elm).display === 'block') {
+			let calculatedStyle = window.getComputedStyle(elm).display;
+			if (calculatedStyle === 'block' || calculatedStyle === 'table-row') {
 				elm.style.display = 'none';
 				return;
 			}
-			elm.style.display = 'block';
+			showElm(elm);
 		});
 	};
 
