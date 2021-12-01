@@ -12,6 +12,7 @@ class Date extends Text
         'enableSeconds' => true,
         'enableTime'    => false,
         'allowInput'    => true,
+        'noCalendar'    => false
     ];
 
     public function format($format)

@@ -452,7 +452,7 @@ EOT;
 
         $configs = json_encode($configs);
 
-        if (!$this->native) {
+        if (!$this->native && (get_class($this) == 'OpenAdmin\Admin\Form\Field\Select' || get_class($this) == 'OpenAdmin\Admin\Form\Field\MultiSelect')) {
             $this->script = "new Choices('{$this->getElementClassSelector()}',{$configs});";
         }
 

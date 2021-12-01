@@ -62,12 +62,14 @@ class MultipleSelect extends Select
         $relations = Arr::get($data, $key);
 
         if (is_string($relations)) {
-            $this->value = explode(',', $relations);
+            $this->value = json_decode($relations);
+            if (!is_array($this->value)) {
+                $this->value = explode(',', $relations);
+            }
         }
 
         if (!is_array($relations)) {
             $this->applyCascadeConditions();
-
             return;
         }
 
