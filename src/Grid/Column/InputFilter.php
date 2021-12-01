@@ -21,6 +21,7 @@ class InputFilter extends Filter
     {
         $this->type = $type;
         $this->class = uniqid('column-filter-');
+        $this->addition_classes = '';
     }
 
     /**
@@ -56,26 +57,34 @@ class InputFilter extends Filter
      *
      * @return void
      */
-    protected function addScript()
+    protected function addDateTimeScript()
     {
         $options = [
-            'locale'           => config('app.locale'),
-            'allowInputToggle' => true,
-        ];
+                'locale'           => config('app.locale'),
+                'inline'           => true,
+                'allowInputToggle' => true,
+                'allowInput'       => true,
+                'time_24hr'        => true
+            ];
 
         if ($this->type == 'date') {
             $options['format'] = 'YYYY-MM-DD';
-        } elseif ($this->type == 'time') {
-            $options['format'] = 'HH:mm:ss';
         } elseif ($this->type == 'datetime') {
             $options['format'] = 'YYYY-MM-DD HH:mm:ss';
+            $options['enableSeconds'] = true;
+            $options['enableTime'] = true;
+        } elseif ($this->type == 'time') {
+            $options['format'] = 'HH:mm:ss';
+            $options['enableSeconds'] = true;
+            $options['enableTime'] = true;
+            $options['noCalendar'] = true;
         } else {
             return;
         }
 
         $options = json_encode($options);
 
-        Admin::script("$('.{$this->class}').datetimepicker($options);");
+        Admin::script("flatpickr('.{$this->class}',{$options});");
     }
 
     /**
@@ -85,33 +94,37 @@ class InputFilter extends Filter
      */
     public function render()
     {
-        $script = <<<'SCRIPT'
-$('.dropdown-menu input').click(function(e) {
-    e.stopPropagation();
+        $script = <<<SCRIPT
+document.querySelectorAll('.dropdown-menu input, .flatpickr-month').forEach(el =>{
+    el.addEventListener("click",function(e) {
+        e.stopPropagation();
+    })
 });
 SCRIPT;
         Admin::script($script);
 
-        $this->addScript();
+        if ($this->type == 'date' || $this->type == 'datetime' ||$this->type == 'time') {
+            $this->addDateTimeScript();
+            $this->addition_classes .= "d-none";
+        }
 
         $value = $this->getFilterValue();
-
         $active = empty($value) ? '' : 'text-yellow';
 
         return <<<EOT
 <span class="dropdown">
-    <form action="{$this->getFormAction()}" pjax-container style="display: inline-block;">
-    <a href="javascript:void(0);" class="dropdown-toggle {$active}" data-bs-toggle="dropdown">
+    <form action="{$this->getFormAction()}" pjax-container="true" method="get" style="display: inline-block;">
+    <a href="javascript:void(0);" class="dropdown-toggle {$active}" data-bs-toggle="dropdown" data-bs-auto-close="outside" >
         <i class="icon-filter"></i>
     </a>
-    <ul class="dropdown-menu" role="menu" style="padding: 10px;box-shadow: 0 2px 3px 0 rgba(0,0,0,.2);left: -70px;border-radius: 0;">
+    <ul class="dropdown-menu" role="menu" style="padding: 10px;box-shadow: 0 2px 3px 0 rgba(0,0,0,.2);left: -70px;">
         <li>
-            <input type="text" name="{$this->getColumnName()}" value="{$this->getFilterValue()}" class="form-control input-sm {$this->class}" autocomplete="off"/>
+            <input type="text" name="{$this->getColumnName()}" value="{$this->getFilterValue()}" class="form-control input-sm {$this->class} {$this->addition_classes}" autocomplete="off"/>
         </li>
-        <li class="divider"></li>
+        <li class="divider"><hr class="dropdown-divider"></li>
         <li class="text-right">
-            <button class="btn btn-sm btn-flat btn-primary column-filter-submit pull-left" data-loading-text="{$this->trans('search')}..."><i class="icon-search"></i>&nbsp;&nbsp;{$this->trans('search')}</button>
-            <span><a href="{$this->getFormAction()}" class="btn btn-sm btn-default btn-flat column-filter-all"><i class="icon-undo"></i></a></span>
+            <button class="btn btn-sm btn-primary column-filter-submit pull-left" data-loading-text="{$this->trans('search')}..."><i class="icon-search"></i>&nbsp;&nbsp;{$this->trans('search')}</button>
+            <span><a href="{$this->getFormAction()}" class="btn btn-sm btn-light column-filter-all"><i class="icon-undo"></i></a></span>
         </li>
     </ul>
     </form>

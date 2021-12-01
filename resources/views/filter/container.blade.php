@@ -1,5 +1,5 @@
 <div class="with-border collapse {{ $expand?'show':'' }} filter-box" id="{{ $filterID }}">
-    <form action="{!! $action !!}" class="form-horizontal" pjax-container method="get">
+    <form action="{!! $action !!}" class="form pt-0 form-horizontal" pjax-container method="get" autocomplete="off">
 
         <div class="row mb-0">
             @foreach($layout->columns() as $column)

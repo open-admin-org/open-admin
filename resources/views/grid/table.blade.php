@@ -1,6 +1,6 @@
 @include("admin::grid.table-header")
 
-        <form class="table-responsive" autocomplete="off">
+        <div class="table-responsive" autocomplete="off">
             <table class="table table-sm table-hover select-table" id="{{ $grid->tableID }}">
 
                 <thead>

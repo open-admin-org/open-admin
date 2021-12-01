@@ -111,20 +111,24 @@ class Between extends AbstractFilter
     {
         $options['format'] = Arr::get($options, 'format', 'YYYY-MM-DD HH:mm:ss');
         $options['locale'] = Arr::get($options, 'locale', config('app.locale'));
+        $options['allowInput'] = Arr::get($options, 'allowInput', true);
 
         $startOptions = json_encode($options);
         $endOptions = json_encode($options + ['useCurrent' => false]);
 
-        $script = <<<EOT
-            $('#{$this->id['start']}').datetimepicker($startOptions);
-            $('#{$this->id['end']}').datetimepicker($endOptions);
-            $("#{$this->id['start']}").on("dp.change", function (e) {
-                $('#{$this->id['end']}').data("DateTimePicker").minDate(e.date);
-            });
-            $("#{$this->id['end']}").on("dp.change", function (e) {
-                $('#{$this->id['start']}').data("DateTimePicker").maxDate(e.date);
-            });
-EOT;
+        $script = <<<SCRIPT
+        let inst_{$this->id['start']} = flatpickr('#{$this->id['start']}',$startOptions);
+        let inst_{$this->id['end']} = flatpickr('#{$this->id['end']}',$endOptions);
+
+        inst_{$this->id['start']}.config.onChange.push(function(selectedDates, dateStr, instance) {
+            inst_{$this->id['end']}.set("minDate",dateStr);
+        });
+
+        inst_{$this->id['end']}.config.onChange.push(function(selectedDates, dateStr, instance) {
+            inst_{$this->id['start']}.set("maxDate",dateStr);
+        });
+
+SCRIPT;
 
         Admin::script($script);
     }

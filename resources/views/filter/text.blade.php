@@ -5,12 +5,11 @@
         <input type="hidden" name="{{ $id }}_group" class="{{ $group_name }}-operation" value="0"/>
         <button type="button" class="btn btn-light dropdown-toggle" data-bs-toggle="dropdown" style="min-width: 32px;">
             <span class="{{ $group_name }}-label">{{ $default['label'] }}</span>
-            &nbsp;&nbsp;
-            <span class="icon-caret-down"></span>
+
         </button>
         <ul class="dropdown-menu {{ $group_name }}">
             @foreach($group as $index => $item)
-            <li><a href="#" data-index="{{ $index }}"> {{ $item['label'] }} </a></li>
+            <li><a class="dropdown-item" href="#" data-index="{{ $index }}"> {{ $item['label'] }} </a></li>
             @endforeach
         </ul>
     </div>

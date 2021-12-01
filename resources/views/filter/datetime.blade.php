@@ -18,5 +18,5 @@
     <div class="input-group-text">
         <i class="icon-calendar"></i>
     </div>
-    <input class="form-control " id="{{$id}}" placeholder="{{$label}}" name="{{$name}}" value="{{ request($name, $value) }}">
+    <input class="form-control" id="{{$id}}" placeholder="{{$label}}" name="{{$name}}" value="{{ request($name, $value) }}">
 </div>

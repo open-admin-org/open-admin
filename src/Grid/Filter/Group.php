@@ -285,9 +285,16 @@ class Group extends AbstractFilter
     protected function injectScript()
     {
         $script = <<<SCRIPT
-$(".{$this->name} li a").click(function(){
-    $(".{$this->name}-label").text($(this).text());
-    $(".{$this->name}-operation").val($(this).data('index'));
+document.querySelectorAll(".{$this->name} li a").forEach(el=>{
+    el.addEventListener("click",function(e){
+
+        document.querySelector(".{$this->name}-label").innerText = el.innerText;
+        document.querySelector(".{$this->name}-operation").value = el.dataset.index;
+
+        e.preventDefault();
+        return false;
+    });
+
 });
 SCRIPT;
 
