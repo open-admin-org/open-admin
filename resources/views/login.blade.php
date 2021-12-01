@@ -51,7 +51,7 @@
 
 						@if(config('admin.auth.remember'))
 						<div class="mb-3 form-check">
-							<input type="checkbox" class="form-check-input" id="remember" value="1"  {{ (old('remember')) ? 'checked="checked"' : '' }}>
+							<input type="checkbox" class="form-check-input" name="remember" id="remember" value="1"  {{ (old('remember')) ? 'checked="checked"' : '' }}>
 							<label class="form-check-label" for="remember">{{ __('admin.remember_me') }}</label>
 						</div>
 						@endif
