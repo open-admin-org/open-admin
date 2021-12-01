@@ -40,16 +40,17 @@ admin.form = {
 
         if (admin.form.validate(form)){
 
-            if (method === "get"){
-                let data = Object.fromEntries(new FormData(form).entries()); //this doesn't get arrays
-                //console.log(data)
+
+            if (method === "post"){
+                obj.data = new FormData(form);
+                obj.method = method;
+            }else{
+                //let data = Object.fromEntries(new FormData(form).entries()); //this doesn't get arrays, not sure why used in the first place
+                let data = new FormData(form);
                 let searchParams = new URLSearchParams(data);
                 let query_str =  searchParams.toString();
                 url += "?"+query_str;
                 admin.ajax.setUrl(url);
-            }else{
-                obj.data = new FormData(form);
-                obj.method = method;
             }
             admin.ajax.load(url,obj);
 
