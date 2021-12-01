@@ -34,13 +34,12 @@
 </div>
 
 <p align="center">
-    Forked from <a href="https://github.com/zsong/laravel-admin">Laravel-admin</a> Much thanks to Z-song for all the effort & great setup!
+    Forked from <a href="https://github.com/z-song/laravel-admin">Laravel-admin</a> Much thanks to Z-song for all the effort & great setup!
 </p>
 
 Work-in-progress
 ------------
- - Still updating field types (removing jQuery)
- - Fixing inline-edit
+ - Still updating field types & removing jQuery
  - Updating documentation
  - Want to help? please create a branch / fork and let me know your changes
 
