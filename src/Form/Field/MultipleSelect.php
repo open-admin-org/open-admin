@@ -70,6 +70,7 @@ class MultipleSelect extends Select
 
         if (!is_array($relations)) {
             $this->applyCascadeConditions();
+
             return;
         }
 

@@ -2,8 +2,6 @@
 
 namespace OpenAdmin\Admin\Grid\Displayers;
 
-use OpenAdmin\Admin\Facades\Admin;
-
 /**
  * Class QRCode.
  */
@@ -27,7 +25,7 @@ class QRCode extends AbstractDisplayer
         );
         $value = $this->getValue();
         if (empty($value)) {
-            return "";
+            return '';
         }
 
         return <<<HTML

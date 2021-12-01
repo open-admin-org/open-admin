@@ -328,7 +328,7 @@ abstract class AbstractFilter
      */
     public function time()
     {
-        return $this->datetime(['format' => 'HH:mm:ss','noCalendar'=>true]);
+        return $this->datetime(['format' => 'HH:mm:ss', 'noCalendar'=>true]);
     }
 
     /**
@@ -338,7 +338,7 @@ abstract class AbstractFilter
      */
     public function day()
     {
-        return $this->inputmask(['mask'=>'99','rightAlign'=> false], 'calendar');
+        return $this->inputmask(['mask'=>'99', 'rightAlign'=> false], 'calendar');
     }
 
     /**
@@ -348,7 +348,7 @@ abstract class AbstractFilter
      */
     public function month()
     {
-        return $this->inputmask(['mask'=>'99','rightAlign'=> false], 'calendar');
+        return $this->inputmask(['mask'=>'99', 'rightAlign'=> false], 'calendar');
     }
 
     /**
@@ -358,7 +358,7 @@ abstract class AbstractFilter
      */
     public function year()
     {
-        return $this->inputmask(['mask'=>'9999','rightAlign'=> false], 'calendar');
+        return $this->inputmask(['mask'=>'9999', 'rightAlign'=> false], 'calendar');
     }
 
     /**

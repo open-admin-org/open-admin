@@ -57,7 +57,7 @@ class RangeFilter extends Filter
             $options = [
                 'locale'           => config('app.locale'),
                 'allowInputToggle' => true,
-                'allowInput'       => true
+                'allowInput'       => true,
             ];
 
             if ($this->type == 'date') {
