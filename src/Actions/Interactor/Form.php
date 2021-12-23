@@ -11,8 +11,6 @@ use OpenAdmin\Admin\Actions\RowAction;
 use OpenAdmin\Admin\Admin;
 use OpenAdmin\Admin\Form\Field;
 use Symfony\Component\DomCrawler\Crawler;
-use OpenAdmin\Admin\Form\Concerns\HasFormAttributes;
-use OpenAdmin\Admin\Form as RealForm;
 
 class Form extends Interactor
 {
@@ -37,12 +35,12 @@ class Form extends Interactor
     public $form;
 
     /**
-     * @var boolean
+     * @var bool
      */
     public $multipart = false;
 
     /**
-     * @var boolean
+     * @var bool
      */
     public $addValues = true;
 
@@ -50,7 +48,6 @@ class Form extends Interactor
      * @var string
      */
     protected $confirm = '';
-
 
     /**
      * @return array
@@ -84,7 +81,7 @@ class Form extends Interactor
     }
 
     /**
-     * @param boolean $set
+     * @param bool $set
      *
      * @return array
      */
@@ -459,7 +456,7 @@ class Form extends Interactor
      */
     protected function addField(Field $field)
     {
-        $elementClass = array_merge(['form-control','action',$this->getModalId()], $field->getElementClass());
+        $elementClass = array_merge(['form-control', 'action', $this->getModalId()], $field->getElementClass());
         $field->addElementClass($elementClass);
         $this->checkUploadFiel($field);
 
@@ -486,6 +483,7 @@ class Form extends Interactor
     public function hasTrait($object, $traitName)
     {
         $reflection = new \ReflectionObject($object);
+
         return in_array($traitName, $reflection->getTraitNames());
     }
 
@@ -493,6 +491,7 @@ class Form extends Interactor
     {
         $reflection = new \ReflectionObject($object);
         $parent = $reflection->getParentClass();
+
         return $parent->name == $check;
     }
 
@@ -571,7 +570,7 @@ class Form extends Interactor
         $name = strtolower(array_pop($path));
 
         if (!View::exists("admin::form.{$name}")) {
-            $name = "input";
+            $name = 'input';
         }
 
         return "admin::form.{$name}";
@@ -589,19 +588,18 @@ class Form extends Interactor
             $field_scripts .= $field->getScript();
         }
 
-
         $data = [
-            'field_html' => $field_html,
+            'field_html'    => $field_html,
             'field_scripts' => $field_scripts,
-            'multipart'  => $this->multipart,
-            'title'      => $this->action->name(),
-            'modal_id'   => $this->getModalId(),
-            'modal_size' => $this->modalSize,
-            'method'     => $this->action->getMethod(),
-            'url'        => $this->action->getHandleRoute(),
-            '_key'       => $this->getKey(),
-            '_action'    => $this->action->getCalledClass(),
-            '_model'     => $this->action->parameters()['_model'],
+            'multipart'     => $this->multipart,
+            'title'         => $this->action->name(),
+            'modal_id'      => $this->getModalId(),
+            'modal_size'    => $this->modalSize,
+            'method'        => $this->action->getMethod(),
+            'url'           => $this->action->getHandleRoute(),
+            '_key'          => $this->getKey(),
+            '_action'       => $this->action->getCalledClass(),
+            '_model'        => $this->action->parameters()['_model'],
         ];
 
         $modal = view('admin::actions.form.modal', $data)->render();
@@ -646,7 +644,6 @@ class Form extends Interactor
             call_user_func([$this->action, 'form']);
         }
         $this->addModalHtml();
-
 
         $this->action->attribute('modal', $this->getModalId());
         $ajaxMethod = strtolower($this->action->getMethod());

@@ -5,8 +5,8 @@ namespace OpenAdmin\Admin\Grid;
 use Illuminate\Contracts\Support\Htmlable;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Support\Collection;
-use OpenAdmin\Admin\Actions\GridAction;
 use OpenAdmin\Admin\Actions\Action;
+use OpenAdmin\Admin\Actions\GridAction;
 use OpenAdmin\Admin\Grid;
 use OpenAdmin\Admin\Grid\Tools\AbstractTool;
 use OpenAdmin\Admin\Grid\Tools\BatchActions;
@@ -67,14 +67,13 @@ class Tools implements Renderable
         if ($tool instanceof Action) {
             $model = $this->grid->model()->getOriginalModel();
             $model_str = str_replace('\\', '_', get_class($model));
-            $tool->parameter("_model", $model_str);
+            $tool->parameter('_model', $model_str);
         }
 
         $this->tools->push($tool);
 
         return $this;
     }
-
 
     /**
      * Prepend a tool.

@@ -2,8 +2,6 @@
 
 namespace OpenAdmin\Admin\Actions\Interactor;
 
-use OpenAdmin\Admin\Admin;
-
 class Dialog extends Interactor
 {
     /**
@@ -146,6 +144,7 @@ class Dialog extends Interactor
     {
         call_user_func([$this->action, 'dialog']);
         $settings = $this->formatSettings();
+
         return <<<SCRIPT
         Swal.fire({
             {$settings},

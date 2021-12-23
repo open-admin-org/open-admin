@@ -99,7 +99,7 @@ abstract class Action implements Renderable
     /**
      * @var string
      */
-    public $icon = "icon-file";
+    public $icon = 'icon-file';
 
     /**
      * Action constructor.
@@ -138,7 +138,7 @@ abstract class Action implements Renderable
     }
 
     /**
-     * Get batch icon
+     * Get batch icon.
      *
      * @return string
      */
@@ -146,7 +146,6 @@ abstract class Action implements Renderable
     {
         return "<i class='{$this->icon}'></i>";
     }
-
 
     /**
      * @param string $prefix
@@ -295,6 +294,7 @@ abstract class Action implements Renderable
         if ($this->interactor instanceof Interactor\Form) {
             $this->interactor->validate($request);
         }
+
         return $this;
     }
 

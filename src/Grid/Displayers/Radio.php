@@ -17,7 +17,6 @@ class Radio extends AbstractDisplayer
             $display = $value;
         }
 
-
         return Admin::component('admin::grid.inline-edit.radio', [
             'key'      => $this->getKey(),
             'name'     => $this->getPayloadName(),
