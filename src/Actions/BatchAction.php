@@ -11,8 +11,6 @@ abstract class BatchAction extends GridAction
      */
     public $selectorPrefix = '.grid-batch-action-';
 
-
-
     /**
      * @param Request $request
      *
@@ -55,12 +53,10 @@ abstract class BatchAction extends GridAction
 
         $icon = $this->getIcon();
 
-
         $res = $this->html();
         if (!empty($res)) {
             return $res;
         }
-
 
         return sprintf(
             "<a href='javascript:void(0);' class='%s dropdown-item batch-action' %s>{$icon}%s</a>",

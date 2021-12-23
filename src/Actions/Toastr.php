@@ -57,6 +57,7 @@ class Toastr
     {
         return $this->options('position', $position);
     }
+
     /**
      * @param $position
      *
@@ -66,21 +67,23 @@ class Toastr
     {
         return $this->options('gravity', $position);
     }
+
     /**
-       * @param $style
-       *
-       * @return Toastr
-       */
+     * @param $style
+     *
+     * @return Toastr
+     */
     protected function style($style)
     {
         return $this->options('style', $style);
     }
+
     /**
      * @return Toastr
      */
     public function topCenter()
     {
-        return $this->position('center')->gravity("top");
+        return $this->position('center')->gravity('top');
     }
 
     /**
@@ -88,7 +91,7 @@ class Toastr
      */
     public function topLeft()
     {
-        return $this->position('left')->gravity("top");
+        return $this->position('left')->gravity('top');
     }
 
     /**
@@ -96,7 +99,7 @@ class Toastr
      */
     public function topRight()
     {
-        return $this->position('right')->gravity("top");
+        return $this->position('right')->gravity('top');
     }
 
     /**
@@ -104,7 +107,7 @@ class Toastr
      */
     public function bottomLeft()
     {
-        return $this->position('left')->gravity("bottom");
+        return $this->position('left')->gravity('bottom');
     }
 
     /**
@@ -112,7 +115,7 @@ class Toastr
      */
     public function bottomCenter()
     {
-        return $this->position('center')->gravity("bottom");
+        return $this->position('center')->gravity('bottom');
     }
 
     /**
@@ -120,7 +123,7 @@ class Toastr
      */
     public function bottomRight()
     {
-        return $this->position('right')->gravity("bottom");
+        return $this->position('right')->gravity('bottom');
     }
 
     /**
@@ -128,7 +131,7 @@ class Toastr
      */
     public function topFullWidth()
     {
-        return $this->position('full')->gravity("top");
+        return $this->position('full')->gravity('top');
     }
 
     /**
@@ -136,7 +139,7 @@ class Toastr
      */
     public function bottomFullWidth()
     {
-        return $this->position('full')->gravity("bottom");
+        return $this->position('full')->gravity('bottom');
     }
 
     /**

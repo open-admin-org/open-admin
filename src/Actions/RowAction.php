@@ -27,7 +27,6 @@ abstract class RowAction extends GridAction
      */
     protected $asColumn = false;
 
-
     /**
      * Get primary key value of current row.
      *

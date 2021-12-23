@@ -61,7 +61,6 @@ class Actions extends AbstractDisplayer
      */
     protected $trans = [];
 
-
     /**
      * Get route key name of current row.
      *
@@ -71,7 +70,6 @@ class Actions extends AbstractDisplayer
     {
         return $this->row->{$this->row->getRouteKeyName()};
     }
-
 
     /**
      * Disable all actions.
@@ -86,7 +84,7 @@ class Actions extends AbstractDisplayer
     }
 
     /**
-     * Show hide Labels
+     * Show hide Labels.
      *
      * @return $this
      */
@@ -251,11 +249,11 @@ class Actions extends AbstractDisplayer
         $this->prependDefaultActions();
 
         $variables = [
-            'default' => $this->default,
-            'custom'  => $this->custom,
-            'showLabels'  => $this->showLabels,
+            'default'           => $this->default,
+            'custom'            => $this->custom,
+            'showLabels'        => $this->showLabels,
             'hideActionsColumn' => $this->hideActionsColumn,
-            'key'  => $this->getRouteKey(),
+            'key'               => $this->getRouteKey(),
         ];
 
         if (empty($variables['default']) && empty($variables['custom'])) {
