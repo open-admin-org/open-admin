@@ -377,10 +377,10 @@ return [
 
     /*
     |--------------------------------------------------------------------------
-    | The global Grid action display class. (DropdownActions or Actions)
+    | The global Grid action display class. (Actions::class, DropdownActions:class or ContextMenuActions::class)
     |--------------------------------------------------------------------------
     */
-    'grid_action_class' => \OpenAdmin\Admin\Grid\Displayers\Actions::class,
+    'grid_action_class' => \OpenAdmin\Admin\Grid\Displayers\Actions\Actions::class,
 
     /*
     |--------------------------------------------------------------------------

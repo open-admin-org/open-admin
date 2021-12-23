@@ -67,6 +67,13 @@
     max-width: fit-content;
     max-width: -moz-fit-content;
 }
+.toastify-full {
+    margin-left: auto;
+    margin-right: auto;
+    left: 0;
+    right: 0;
+    max-width: calc(100% - 14px);
+}
 
 @media only screen and (max-width: 360px) {
     .toastify-right, .toastify-left {

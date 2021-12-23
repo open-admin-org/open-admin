@@ -32,14 +32,14 @@ admin.form = {
         });
     },
 
-    submit : function(form){
+    submit : function(form,result_function){
 
-        let method = form.getAttribute("method");
+
+        let method = form.getAttribute("method").toLowerCase();
         let url = String(form.getAttribute("action")).split("?")[0];
         let obj = {};
 
         if (admin.form.validate(form)){
-
 
             if (method === "post"){
                 obj.data = new FormData(form);
@@ -50,16 +50,21 @@ admin.form = {
                 let searchParams = new URLSearchParams(data);
                 let query_str =  searchParams.toString();
                 url += "?"+query_str;
-                admin.ajax.setUrl(url);
+                console.log(typeof(result_function));
+                if (typeof(result_function) !== 'function'){
+                    admin.ajax.setUrl(url);
+                }
             }
-            admin.ajax.load(url,obj);
+            if (typeof(result_function) === 'function'){
+                admin.ajax.request(url,obj,result_function);
+            }else {
+                admin.ajax.load(url,obj);
+            }
 
         }else{
             console.log('Form still has errors');
         }
-
     },
-
 
     footer : function(){
         document.querySelectorAll(".after-submit").forEach(check => {

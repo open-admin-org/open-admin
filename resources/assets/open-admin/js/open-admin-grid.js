@@ -73,14 +73,20 @@
 
             document.getElementById("grid-select-all").checked = all_select;
 
-            let el = document.querySelector(".grid-select-all-btn");
-            if(num_selected){
-                el.classList.remove("d-none");
-            }else{
-                el.classList.add("d-none");
-            }
-            let str = el.querySelectorAll(".selected")[0].getAttribute("data");
-            el.querySelectorAll(".selected")[0].innerHTML = str.replace('{n}',num_selected);
+            let elms = document.querySelectorAll(".show-on-rows-selected");
+            elms.forEach(el=>{
+                if(num_selected){
+                    el.classList.remove("d-none");
+                }else{
+                    el.classList.add("d-none");
+                }
+                let el_selected = el.querySelectorAll(".selected");
+                if (el_selected.length){
+                    let str = el_selected[0].getAttribute("data");
+                    el.querySelectorAll(".selected")[0].innerHTML = str.replace('{n}',num_selected);
+                }
+            });
+
         },
 
         export_selected_row : function(event){

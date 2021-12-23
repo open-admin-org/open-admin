@@ -6,6 +6,8 @@ use Illuminate\Support\Facades\URL;
 
 class BatchEdit extends BatchAction
 {
+    public $icon = "icon-pen";
+
     public function __construct($title)
     {
         $this->title = $title;

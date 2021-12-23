@@ -1,5 +1,5 @@
 @if(!$holdAll)
-<div class="btn-group {{ $all }}-btn d-none">
+    <div class="btn-group {{ $all }}-holder show-on-rows-selected d-none me-1">
     <button type="button" class="btn btn-sm btn-primary dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-expanded="false">
         <span class="selected hidden-xs" data="{{ trans('admin.grid_items_selected') }}"></span>
       <span class="visually-hidden">Toggle Dropdown</span>
@@ -10,7 +10,7 @@
             @if($action instanceof \OpenAdmin\Admin\Actions\BatchAction)
                 <li>{!! $action->render() !!}</li>
             @else
-                <li><a href="#" class="{{ $action->getElementClass(false) }} dropdown-item">{!! $action->render() !!} </a></li>
+                <li><a href="#" class="{{ $action->getElementClass(false) }} dropdown-item"><i class="{{$action->icon}}"></i>{!! $action->render() !!} </a></li>
             @endif
         @endforeach
     </ul>

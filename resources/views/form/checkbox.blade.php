@@ -9,6 +9,4 @@
 
     @endforeach
 
-    <input type="hidden" name="{{$name}}[]">
-
 @include("admin::form._footer")

@@ -6,6 +6,7 @@ use OpenAdmin\Admin\Actions\RowAction;
 
 class Edit extends RowAction
 {
+    public $icon = "icon-pen";
     /**
      * @return array|null|string
      */

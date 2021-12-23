@@ -622,7 +622,9 @@ class Field implements Renderable
      */
     public function rules($rules = null, $messages = []): self
     {
-        $this->form->enableValidate();
+        if (!empty($form)) {
+            $this->form->enableValidate();
+        }
         $this->rules = $this->mergeRules($rules, $this->rules);
 
         $this->setValidationMessages('default', $messages);

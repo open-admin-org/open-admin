@@ -140,7 +140,6 @@ class FileUpload {
     }
 
     downloadImage = function(btn){
-        console.log(btn);
         window.open(btn.downloadUrl);
     }
 

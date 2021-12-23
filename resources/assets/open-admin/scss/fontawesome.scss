@@ -38,3 +38,9 @@ $fa-css-prefix: "icon";
     /* Uncomment for 3D effect */
     /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */
 }
+
+/* icons in dropdown menu's */
+.dropdown-item i[class^="icon-"]:before,
+.dropdown-item i[class*=" icon-"]:before {
+    margin-right:8px;
+}

@@ -37,6 +37,7 @@
                 trigger: 'manual',
                 placement: 'top',
                 content : function () {
+
                     var content = document.querySelector("template#"+target).cloneNode(true);
 
                     if(typeof(admin.grid.inline_edit.functions[triggerId]) != 'undefined'){

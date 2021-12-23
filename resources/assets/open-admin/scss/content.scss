@@ -173,3 +173,19 @@
     #app > .content{
         margin-bottom: 64px;
     }
+
+/*---------------------------------------------------------*/
+/* context menu */
+/*---------------------------------------------------------*/
+
+    .context-menu{
+        position:absolute;
+        display:none;
+
+        ul.dropdown-menu{
+            list-style: none;
+            display:block;
+            min-width: none;
+        }
+    }
+

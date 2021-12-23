@@ -9,13 +9,13 @@ abstract class Interactor
     /**
      * @var Action
      */
-    protected $action;
+    public $action;
 
     /**
      * @var array
      */
     public static $elements = [
-        'success', 'error', 'warning', 'info', 'question', 'confirm',
+        'addValues','getRow','success', 'error', 'warning', 'info', 'question', 'confirm',
         'text', 'email', 'integer', 'ip', 'url', 'password', 'mobile',
         'textarea', 'map', 'select', 'multipleSelect', 'checkbox', 'radio',
         'file', 'image', 'date', 'datetime', 'time', 'hidden', 'multipleImage',

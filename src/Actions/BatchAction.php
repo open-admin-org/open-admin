@@ -11,24 +11,7 @@ abstract class BatchAction extends GridAction
      */
     public $selectorPrefix = '.grid-batch-action-';
 
-    /**
-     * {@inheritdoc}
-     */
-    public function actionScript()
-    {
-        $warning = __('No data selected!');
 
-        return <<<SCRIPT
-        var key = admin.grid.selected;
-
-        if (key.length === 0) {
-            admin.toastr.warning('{$warning}');
-            return ;
-        }
-
-        Object.assign(data, {_key:key});
-SCRIPT;
-    }
 
     /**
      * @param Request $request
@@ -37,7 +20,7 @@ SCRIPT;
      */
     public function retrieveModel(Request $request)
     {
-        if (!$key = $request->get('_key')) {
+        if (!$key = $request->input('_key')) {
             return false;
         }
 
@@ -62,7 +45,6 @@ SCRIPT;
         $this->addScript();
 
         $modalId = '';
-
         if ($this->interactor instanceof Interactor\Form) {
             $modalId = $this->interactor->getModalId();
 
@@ -71,8 +53,17 @@ SCRIPT;
             }
         }
 
+        $icon = $this->getIcon();
+
+
+        $res = $this->html();
+        if (!empty($res)) {
+            return $res;
+        }
+
+
         return sprintf(
-            "<a href='javascript:void(0);' class='%s' %s>%s</a>",
+            "<a href='javascript:void(0);' class='%s dropdown-item batch-action' %s>{$icon}%s</a>",
             $this->getElementClass(),
             $modalId ? "modal='{$modalId}'" : '',
             $this->name()

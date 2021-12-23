@@ -8,6 +8,7 @@
     admin.pages = {}; // shared logic for pages
     admin.form = {}; // form in page
     admin.grid = {}; // grid / lister
+    admin.action = {}; // actions
 
     document.addEventListener("DOMContentLoaded", function() {
         admin.init();
@@ -235,6 +236,7 @@
         // use navigate when you want history working
         // and the url to be changed
         navigate : function(url,preventPopState){
+            admin.collectGarbage();
             if (window.innerWidth < 540){
                 document.body.classList.remove("side-menu-closed")
                 document.body.classList.remove("side-menu-open");
@@ -281,7 +283,7 @@
 
             axios(axios_obj)
                 .then(function (response) {
-                    if (typeof(result_function) !== 'undefined'){
+                    if (typeof(result_function) === 'function'){
                         result_function(response);
                     }else {
                         admin.ajax.done(response);
@@ -360,7 +362,7 @@
                 console.log(error.request);
             } else {
                 // Something happened in setting up the request that triggered an Error
-                console.log('Error', error.message);
+                console.log('Error', error);
             }
         }
     };
@@ -400,3 +402,10 @@
             })
         }
     }
+
+    admin.collectGarbage = function (){
+        document.querySelectorAll('.flatpickr-calendar').forEach(cal =>{
+            cal.remove();
+        })
+    }
+

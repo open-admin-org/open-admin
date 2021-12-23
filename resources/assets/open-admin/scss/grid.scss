@@ -129,38 +129,63 @@
     height: 4rem;
     font-weight: lighter;
 }
-.table tr td td{
-    height:auto;
+
+
+.table tr {
+
+    &.selected {
+        td {
+            color: var(--bs-table-selected-color);
+            background-color: var(--bs-table-selected-bg);
+        }
+    }
+
+    td{
+        td{
+            height:auto;
+        }
+
+        &:last-child .__actions__div a {
+            margin-left: 5px;
+            border-radius: var(--field-border-radius);
+            color: var(--table-color);
+            padding: 5px 10px;
+            display: inline-block;
+            width: 35px;
+        }
+
+        &:last-child .__actions__div.with-labels a {
+            width:auto;
+
+        }
+
+        &:last-child a.wider {
+            width: auto;
+        }
+
+        &:last-child a .fa:after {
+            font-family: "open_sansregular", "Helvetica Neue", Helvetica, Arial,
+                sans-serif;
+            padding-left: 5px;
+        }
+
+        &.column-__actions__ {
+            overflow:auto;
+        }
+
+        .__actions__div .label{
+            display:none;
+        }
+
+        .__actions__div.with-labels .label{
+            display:inline-block;
+        }
+
+    }
 }
 
-.table tr.selected td {
-    color: var(--bs-table-selected-color);
-    background-color: var(--bs-table-selected-bg);
-}
-
-.table tr td:last-child .__actions__div a {
-    margin-left: 5px;
-    border-radius: var(--field-border-radius);
-    color: var(--table-color);
-    padding: 5px 10px;
-    display: inline-block;
-    width: 35px;
-}
-
-.table tr td:last-child a.wider {
-    width: auto;
-}
-
-.table tr td:last-child a .fa:after {
-    font-family: "open_sansregular", "Helvetica Neue", Helvetica, Arial,
-        sans-serif;
-    padding-left: 5px;
-}
 
 .table-responsive {
-    th.column-__actions__ {
-        min-width: 160px;
-    }
 
     td {
         overflow: hidden;
@@ -189,6 +214,8 @@
     }
 
     th.column-__actions__ {
+
+        min-width: 160px;
         min-width: 11rem;
         text-align: right;
         padding-right: 5.2rem;

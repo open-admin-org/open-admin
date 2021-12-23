@@ -36,8 +36,8 @@
                 <div id="app">
                     @yield('content')
                 </div>
-                {!! Admin::script() !!}
                 {!! Admin::html() !!}
+                {!! Admin::script() !!}
             </div>
         </div>
     </div>

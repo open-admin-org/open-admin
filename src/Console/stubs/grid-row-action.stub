@@ -9,6 +9,8 @@ class DummyClass extends RowAction
 {
     public $name = 'DummyName';
 
+    public $icon = 'icon-DummyName';
+
     public function handle(Model $model)
     {
         // $model ...

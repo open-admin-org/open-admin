@@ -91,6 +91,7 @@ trait HasAssets
         'vendor/open-admin/open-admin/js/polyfills.js',
         'vendor/open-admin/open-admin/js/helpers.js',
         'vendor/open-admin/open-admin/js/open-admin.js',
+        'vendor/open-admin/open-admin/js/open-admin-actions.js',
         'vendor/open-admin/open-admin/js/open-admin-grid.js',
         'vendor/open-admin/open-admin/js/open-admin-grid-inline-edit.js',
         'vendor/open-admin/open-admin/js/open-admin-form.js',
@@ -381,10 +382,20 @@ trait HasAssets
                     }
 
                     if ($child->tagName == 'template') {
+
+                        /*
+                        // this will render the template tags right into the dom. Don't think we want this
                         $html = '';
                         foreach ($child->childNodes as $childNode) {
                             $html .= $child->ownerDocument->saveHTML($childNode);
                         }
+                        */
+
+                        // this leaves the template tags in place, so they won't get rendered right away
+                        $doc = new \DOMDocument();
+                        $doc->appendChild($doc->importNode($child, true));
+                        $html = $doc->saveHTML();
+
                         $html && static::html($html);
                         continue;
                     }

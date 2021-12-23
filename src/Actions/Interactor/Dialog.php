@@ -7,11 +7,6 @@ use OpenAdmin\Admin\Admin;
 class Dialog extends Interactor
 {
     /**
-     * @var bool
-     */
-    protected $uploadFile = false;
-
-    /**
      * @var array
      */
     protected $settings;
@@ -25,7 +20,7 @@ class Dialog extends Interactor
      */
     public function success($title, $text = '', $options = [])
     {
-        return $this->addSettings($title, __FUNCTION__, $text, $options);
+        return $this->addSettings($title, 'success', $text, $options);
     }
 
     /**
@@ -37,7 +32,7 @@ class Dialog extends Interactor
      */
     public function error($title, $text = '', $options = [])
     {
-        return $this->addSettings($title, __FUNCTION__, $text, $options);
+        return $this->addSettings($title, 'error', $text, $options);
     }
 
     /**
@@ -49,7 +44,7 @@ class Dialog extends Interactor
      */
     public function warning($title, $text = '', $options = [])
     {
-        return $this->addSettings($title, __FUNCTION__, $text, $options);
+        return $this->addSettings($title, 'warning', $text, $options);
     }
 
     /**
@@ -61,7 +56,7 @@ class Dialog extends Interactor
      */
     public function info($title, $text = '', $options = [])
     {
-        return $this->addSettings($title, __FUNCTION__, $text, $options);
+        return $this->addSettings($title, 'info', $text, $options);
     }
 
     /**
@@ -73,7 +68,7 @@ class Dialog extends Interactor
      */
     public function question($title, $text = '', $options = [])
     {
-        return $this->addSettings($title, __FUNCTION__, $text, $options);
+        return $this->addSettings($title, 'question', $text, $options);
     }
 
     /**
@@ -139,128 +134,28 @@ class Dialog extends Interactor
         return trim(substr(json_encode($settings, JSON_PRETTY_PRINT), 1, -1));
     }
 
+    public function addScript()
+    {
+        return '';
+    }
+
     /**
      * @return void
      */
-    public function addScript()
-    {
-        $parameters = json_encode($this->action->parameters());
-
-        $script = <<<SCRIPT
-
-(function ($) {
-    $('{$this->action->selector($this->action->selectorPrefix)}').off('{$this->action->event}').on('{$this->action->event}', function() {
-        var data = $(this).data();
-        var target = $(this);
-        Object.assign(data, {$parameters});
-        {$this->action->actionScript()}
-        {$this->buildActionPromise()}
-        {$this->action->handleActionPromise()}
-    });
-})(jQuery);
-
-SCRIPT;
-
-        Admin::script($script);
-    }
-
-    /**
-     * @return string
-     */
-    protected function buildActionPromise()
+    public function preScript()
     {
         call_user_func([$this->action, 'dialog']);
-
-        $route = $this->action->getHandleRoute();
         $settings = $this->formatSettings();
-        $calledClass = $this->action->getCalledClass();
-
-        if ($this->uploadFile) {
-            return $this->buildUploadFileActionPromise($settings, $calledClass, $route);
-        }
-
-        return <<<PROMISE
-        var process = $.admin.swal({
+        return <<<SCRIPT
+        Swal.fire({
             {$settings},
-            preConfirm: function(input) {
-                return new Promise(function(resolve, reject) {
-                    Object.assign(data, {
-                        _token: $.admin.token,
-                        _action: '$calledClass',
-                        _input: input,
-                    });
-
-                    $.ajax({
-                        method: '{$this->action->getMethod()}',
-                        url: '$route',
-                        data: data,
-                        success: function (data) {
-                            resolve(data);
-                        },
-                        error:function(request){
-                            reject(request);
-                        }
-                    });
-                });
-            }
-        }).then(function(result) {
-            if (typeof result.dismiss !== 'undefined') {
-                return Promise.reject();
-            }
-
-            if (typeof result.status === "boolean") {
-                var response = result;
-            } else {
-                var response = result.value;
-            }
-
-            return [response, target];
-        });
-PROMISE;
-    }
-
-    /**
-     * @param string $settings
-     * @param string $calledClass
-     * @param string $route
-     *
-     * @return string
-     */
-    protected function buildUploadFileActionPromise($settings, $calledClass, $route)
-    {
-        return <<<PROMISE
-var process = $.admin.swal({
-    {$settings}
-}).then(function (file) {
-    return new Promise(function (resolve) {
-        var data = {
-            _token: $.admin.token,
-            _action: '$calledClass',
-        };
-
-        var formData = new FormData();
-        for ( var key in data ) {
-            formData.append(key, data[key]);
-        }
-
-        formData.append('_input', file.value, file.value.name);
-
-        $.ajax({
-            url: '{$route}',
-            type: 'POST',
-            data: formData,
-            processData: false,
-            contentType: false,
-            enctype: 'multipart/form-data',
-            success: function (data) {
-                resolve([response, target]);
-            },
-            error:function(request){
-                reject(request);
+        }).then(function (result) {
+            if (result.isConfirmed){
+                resolve(result);
+            }else{
+                reject();
             }
         });
-    });
-})
-PROMISE;
+        SCRIPT;
     }
 }
