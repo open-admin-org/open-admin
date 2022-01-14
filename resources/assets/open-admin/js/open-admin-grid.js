@@ -135,4 +135,78 @@
 
             }
         },
+
+        hotkeys : function() {
+
+            document.removeEventListener("keydown", admin.grid.hotkeys_handle,false);
+            document.addEventListener("keydown", admin.grid.hotkeys_handle,false);
+        },
+
+        hotkeys_handle : function (e){
+
+            var tag = e.target.tagName.toLowerCase();
+
+            if (tag == 'input' || tag == 'textarea' || e.ctrlKey || e.metaKey || e.altKey || e.shiftKey) {
+                return;
+            }
+
+            var current_page = document.querySelector('.pagination .page-item.active');
+
+            switch(e.which) {
+
+                case 82: // `r` for reload
+                    admin.ajax.reload();
+                    admin.toastr.success(__('refresh_succeeded'), {positionClass:"toast-top-center"});
+                    break;
+
+                case 83: // `s` for search
+                    let qs = document.querySelector('input.grid-quick-search');
+                    if (qs == null){
+                        console.log('Quick search not enabled');
+                    }else{
+                        qs.focus();
+                    }
+                    break;
+
+                case 70: // `f` for open filter
+                    var myCollapse = document.getElementById('filter-box')
+                    var bsCollapse = new bootstrap.Collapse(myCollapse, {
+                        toggle: false
+                    })
+                    bsCollapse.toggle();
+                    break;
+
+                case 67: // `c` go to create page
+                    document.querySelector('.grid-create-btn').click();
+                    break;
+
+                case 37: // `left` for go to prev page
+                    if (current_page.previousElementSibling.querySelector("a") != null){
+                        current_page.previousElementSibling.querySelector("a").click();
+                    }
+                    break;
+
+                case 39: // `right` for go to next page
+                    if (current_page.nextElementSibling.querySelector("a") != null){
+                        current_page.nextElementSibling.querySelector("a").click();
+                    }
+                    break;
+
+                case 46: // `delete` batch delete
+                    if (admin.grid.selected.length){
+                        document.querySelector(".batch-action.BatchDelete").click();
+                    }
+                    break;
+
+                case 69: // `e` batch edit
+                    if (admin.grid.selected.length){
+                        document.querySelector(".batch-action.BatchEdit").click();
+                    }
+                    break;
+
+                default: return;
+            }
+            e.preventDefault();
+
+        }
     }
