@@ -4,44 +4,59 @@ namespace OpenAdmin\Admin\Form\Field;
 
 class Color extends Text
 {
-    /*
     protected static $css = [
-        '/vendor/open-admin/colr_pickr/colr_pickr.min.css',
+        '/vendor/open-admin/coloris/coloris.min.css',
     ];
 
     protected static $js = [
-        '/vendor/open-admin/colr_pickr/colr_pickr.min.js',
+        '/vendor/open-admin/coloris/coloris.min.js',
     ];
-    */
 
     /**
-     * Use `hex` format.
+     * @var array
+     */
+    protected $options = [];
+
+    /**
+     * Use `format` format.
+     *   // * hex: outputs #RRGGBB or #RRGGBBAA (default).
+     *   // * rgb: outputs rgb(R, G, B) or rgba(R, G, B, A).
+     *   // * hsl: outputs hsl(H, S, L) or hsla(H, S, L, A).
+     *   // * auto: guesses the format from the active input field. Defaults to hex if it fails.
+     *   // * mixed: outputs #RRGGBB when alpha is 1; otherwise rgba(R, G, B, A).
      *
      * @return $this
      */
-    public function hex()
+    public function format($format= 'hex')
     {
-        return $this->options(['format' => 'hex']);
+        return $this->options(['format'=> $format]);
     }
 
     /**
-     * Use `rgb` format.
-     *
+     * Set using alpha
+     * @param boolean $set
      * @return $this
      */
-    public function rgb()
+    public function alpha($set = true)
     {
-        return $this->options(['format' => 'rgb']);
+        return $this->options(['alpha'=> $set]);
     }
 
     /**
-     * Use `rgba` format.
+     * Set config for coloris.
+     *
+     * all configurations see https://github.com/mdbassit/Coloris/
+     *
+     * @param string $key
+     * @param mixed  $val
      *
      * @return $this
      */
-    public function rgba()
+    public function options($options = [])
     {
-        return $this->options(['format' => 'rgba']);
+        $this->options = array_merge($options, $this->options);
+
+        return $this;
     }
 
     /**
@@ -51,16 +66,20 @@ class Color extends Text
      */
     public function render()
     {
-        $options = json_encode($this->options);
+        $options = array_merge([
+            'el'    => $this->getElementClassSelector(),
+            'theme' =>'polaroid',
+            'focusInput' => false,
 
-        $this->setElementClass('form-control-color');
-        $this->attribute('type', 'color');
+        ], $this->options);
+        $options = json_encode($options);
 
-        // $this->script = "new ColorPicker(document.querySelector('{$this->getElementClassSelector()}'))";
-        //$this->script = "$('{$this->getElementClassSelector()}').parent().colorpicker($options);";
+        //$this->setElementClass('form-control');
 
-        $this->prepend('<i class="icon-eyedropper"></i>');
-        $this->style('max-width', '160px');
+        $this->script = "Coloris($options);";
+
+        $this->prepend('<i class="icon-eye-dropper"></i>');
+        //$this->style('max-width', '160px');
 
         return parent::render();
     }
