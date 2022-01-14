@@ -2,13 +2,10 @@
 
         @foreach($options as $option => $label)
 
-            {!! $inline ? '<span class="icheck">' : '<div class="radio icheck">'  !!}
-
-                <label @if($inline)class="radio-inline"@endif>
-                    <input type="radio" name="{{$name}}" value="{{$option}}" class="minimal {{$class}}" {{ ($option == old($column, $value)) || ($value === null && in_array($label, $checked)) ?'checked':'' }} {!! $attributes !!} />&nbsp;{{$label}}&nbsp;&nbsp;
-                </label>
-
-            {!! $inline ? '</span>' :  '</div>' !!}
+            <div class="form-check @if(!$stacked)form-check-inline @endif">
+                <input class="form-check-input {{$class}}" type="radio" id="{{$name}}-{{$option}}" name="{{$name}}" value="{{$option}}" {{ ($option == old($column, $value)) || ($value === null && in_array($label, $checked)) ?'checked':'' }} {!! $attributes !!} />
+                <label class="form-check-label" for="{{$name}}-{{$option}}">{{$label}}</label>
+            </div>
 
         @endforeach
 

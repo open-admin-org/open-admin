@@ -42,6 +42,7 @@
     .row {
         width: 100%;
         margin-bottom: 0;
+        padding-left:0.3rem;
     }
 }
 
@@ -74,22 +75,33 @@ body .choices[data-type*="select-one"] {
         background-repeat: no-repeat;
         background-position: 0 0;
         background-size: 16px 12px;
-        margin-top: -5px;
+        margin-top: -6px;
     }
 
     &.is-open:after {
         transform: rotate(180deg);
+        margin-top: -6px;
     }
 }
 
 body .choices {
     margin-bottom: 0;
+    min-width:140px;
+
+    &.form-control-sm{
+        padding:0;
+        .choices__inner {
+            padding: .18rem .5rem !important;
+        }
+    }
 
     .choices__input{
         background: #fff;
+        margin-bottom:0;
+        min-height:30px;
     }
     .choices__list--single {
-        padding: 1px;
+        padding: 0px;
     }
     .choices__inner {
         background: #fff;
@@ -114,6 +126,7 @@ body .choices {
         }
     }
 
+
     .choices__list--multiple .choices__item {
         color: $input-focus-color;
         background-color: #f7f7f7;
@@ -123,6 +136,26 @@ body .choices {
         font-size:1rem;
     }
 
+    &.form-control-sm{
+        .choices__inner {
+            padding: 0.2rem .3rem !important;
+            line-height:0;
+        }
+
+        .choices__list--multiple .choices__item {
+            font-size:0.9rem;
+            margin: 0.1rem 0.3rem 0.1rem 0;
+            padding: 0.05rem 0.15rem;
+        }
+        .choices__list--multiple ~ .choices__input{
+            margin-bottom:0;
+            padding:0;
+        }
+    }
+
+    &[data-type*="select-one"] .choices__button{
+        margin-right:2.1rem;
+    }
     &[data-type*="select-multiple"] .choices__button,
     &[data-type*="text"] .choices__button{
 
@@ -203,35 +236,120 @@ body .choices {
     .form-control::-ms-input-placeholder { /* Microsoft Edge */
         color: #b5b5b5;
     }
-}
-
-@mixin form-validation-state-selector($state) {
-    @if ($state == "valid" or $state == "invalid") {
-        .was-validated.default-valid #{if(&, "&", "")}:#{$state},
-        #{if(&, "&", "")}.is-#{$state} {
-            @content;
-        }
-    } @else {
-        #{if(&, "&", "")}.is-#{$state} {
-            @content;
-        }
+    .form-border{
+        background:none;
+        border-bottom: 1px solid $card-border-color;
+        opacity: 1;
+    }
+    .form-range{
+        margin-top:0.5rem;
     }
 }
 
-$state: "valid";
-$icon: none;
-$color: $input-border-color;
-@include form-validation-state(
-    $state,
-    $color,
-    $icon,
-    $tooltip-color: color-contrast($color),
-    $tooltip-bg-color: rgba($color, $form-feedback-tooltip-opacity),
-    $focus-box-shadow: 0 0 $input-btn-focus-blur $input-focus-width
-        rgba($color, $input-btn-focus-color-opacity)
-);
+/*-------------------------------------------------------*/
+/* validation extra's  */
+/*-------------------------------------------------------*/
 
-.was-validated.default-valid .form-check-input:valid ~ .form-check-label,
-.form-check-input.is-valid ~ .form-check-label {
-    color: $body-color;
-}
+    @mixin form-validation-state-selector($state) {
+        @if ($state == "valid" or $state == "invalid") {
+            .was-validated.default-valid #{if(&, "&", "")}:#{$state},
+            #{if(&, "&", "")}.is-#{$state} {
+                @content;
+            }
+        } @else {
+            #{if(&, "&", "")}.is-#{$state} {
+                @content;
+            }
+        }
+    }
+
+    $state: "valid";
+    $icon: none;
+    $color: $input-border-color;
+    @include form-validation-state(
+        $state,
+        $color,
+        $icon,
+        $tooltip-color: color-contrast($color),
+        $tooltip-bg-color: rgba($color, $form-feedback-tooltip-opacity),
+        $focus-box-shadow: 0 0 $input-btn-focus-blur $input-focus-width
+            rgba($color, $input-btn-focus-color-opacity)
+    );
+
+    .was-validated.default-valid .form-check-input:valid ~ .form-check-label,
+    .form-check-input.is-valid ~ .form-check-label {
+        color: $body-color;
+    }
+
+/*-------------------------------------------------------*/
+/* has-many forms */
+/*-------------------------------------------------------*/
+
+    .has-many-head{
+        padding:0 1rem;
+        h4{
+            font-size:1.2rem;
+            margin: 1.5rem 0 0 0;
+        }
+    }
+    .form-delete-group,
+    .has-many-footer{
+        display:flex;
+        @media (min-width:576px) {
+            .btn{
+                margin-left:0.3rem;
+            }
+        }
+    }
+
+/*-------------------------------------------------------*/
+/* dual-list */
+/*-------------------------------------------------------*/
+
+    .dual-list{
+        display:flex;
+        align-items: flex-start;
+
+        li{
+            list-style: none !important;
+        }
+
+        div{
+            width: calc(50% - 2.5rem);
+        }
+
+        .list-group{
+            border: $list-group-border-width solid $list-group-border-color;
+            height:200px;
+            overflow-y: auto;
+            li,li.active{
+                border-left:0;
+                border-right:0;
+                border-bottom:1px solid #ececec !important;
+                cursor: pointer;
+            }
+            .list-group-item + .list-group-item.active{
+                margin-top:0;
+                border-top-width:0;
+            }
+            li:first-child{
+                border-top:0px;
+            }
+            li:last-child{
+                border-radius: 0;
+            }
+        }
+
+        div.btn-group-vertical{
+            width:3rem;
+            margin:0 1rem;
+            margin-top:5.3rem;
+
+        }
+
+        .list-group-form-label{
+            width:100%;
+            font-weight:bold;
+            line-height:3rem;
+        }
+    }

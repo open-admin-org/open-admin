@@ -122,14 +122,19 @@
 .table > :not(:last-child) > :last-child > * {
     border-color: var(--table-border-color);
 }
-
-.table tr td {
+.grid-table tr td {
     vertical-align: middle !important;
-    white-space: nowrap;
     height: 4rem;
     font-weight: lighter;
 }
 
+.table tr td{
+    white-space: nowrap;
+}
+
+.table > :not(:first-child){
+    border-top: 2px solid rgba(0, 0, 0, 0.1);
+}
 
 .table tr {
 
@@ -191,6 +196,12 @@
         overflow: hidden;
         text-overflow: ellipsis;
     }
+    thead {
+        td {
+            overflow: auto;
+        }
+    }
+
 
     .column-__actions__ {
         width: auto;
@@ -198,7 +209,7 @@
     }
 
     .__actions__div {
-        margin-top: -2rem;
+        margin-top: -1.98rem;
         height: 3.9rem;
         line-height: 3.2rem;
         padding-right: 0.75rem;

@@ -1,12 +1,11 @@
 
-<div class="row">
-    <div class="{{$viewClass['label']}}"><h4 class="pull-right">{{ $label }}</h4></div>
-    <div class="{{$viewClass['field']}}"></div>
+<div class="row has-many-head {{$column}}">
+    <h4>{{ $label }}</h4>
 </div>
 
-<hr style="margin-top: 0px;">
+<hr class="form-border">
 
-<div id="has-many-{{$column}}" class="has-many-{{$column}}">
+<div id="has-many-{{$column}}" class="has-many-body has-many-{{$column}}">
 
     <div class="has-many-{{$column}}-forms">
 
@@ -19,15 +18,16 @@
                 @endforeach
 
                 @if($options['allowDelete'])
-                <div class="form-group">
+                <div class="form-group form-delete-group">
                     <label class="{{$viewClass['label']}} form-label"></label>
                     <div class="{{$viewClass['field']}}">
                         <div class="remove btn btn-warning btn-sm pull-right"><i class="icon-trash">&nbsp;</i>{{ trans('admin.remove') }}</div>
                     </div>
                 </div>
                 @endif
-                <hr>
+                <hr class="form-border">
             </div>
+
 
         @endforeach
     </div>
@@ -38,18 +38,19 @@
 
             {!! $template !!}
 
-            <div class="form-group">
+            <div class="form-group form-delete-group">
                 <label class="{{$viewClass['label']}} form-label"></label>
                 <div class="{{$viewClass['field']}}">
                     <div class="remove btn btn-warning btn-sm pull-right"><i class="icon-trash"></i>&nbsp;{{ trans('admin.remove') }}</div>
                 </div>
+                <hr class="form-border">
             </div>
-            <hr>
+
         </div>
     </template>
 
     @if($options['allowCreate'])
-    <div class="form-group">
+    <div class="has-many-footer form-group">
         <label class="{{$viewClass['label']}} form-label"></label>
         <div class="{{$viewClass['field']}}">
             <div class="add btn btn-success btn-sm"><i class="icon-save"></i>&nbsp;{{ trans('admin.new') }}</div>

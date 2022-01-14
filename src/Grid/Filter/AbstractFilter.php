@@ -24,7 +24,7 @@ use OpenAdmin\Admin\Grid\Filter\Presenter\Text;
  * @method Text percentage($options = [])
  * @method Text ip()
  * @method Text mac()
- * @method Text mobile($mask = '19999999999')
+ * @method Text phonenumber($mask = '19999999999')
  * @method Text inputmask($options = [], $icon = '')
  * @method Text placeholder($placeholder = '')
  */

@@ -94,6 +94,8 @@ return [
     'time'                  => 'Time',
     'size'                  => 'Size',
     'listbox'               => [
+        'title_available'     => 'Available',
+        'title_selected'      => 'Selected',
         'text_total'         => 'Showing all {0}',
         'text_empty'         => 'Empty list',
         'filtered'           => '{0} / {1}',

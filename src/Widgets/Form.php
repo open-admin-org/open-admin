@@ -35,7 +35,7 @@ use OpenAdmin\Admin\Layout\Content;
  * @method Field\Url            url($name, $label = '')
  * @method Field\Color          color($name, $label = '')
  * @method Field\Email          email($name, $label = '')
- * @method Field\Mobile         mobile($name, $label = '')
+ * @method Field\PhoneNumber    phonenumber($name, $label = '')
  * @method Field\Slider         slider($name, $label = '')
  * @method Field\File           file($name, $label = '')
  * @method Field\Image          image($name, $label = '')

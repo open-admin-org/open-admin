@@ -24,7 +24,7 @@ use OpenAdmin\Admin\Widgets\Form as WidgetForm;
  * @method Field\Url            url($column, $label = '')
  * @method Field\Color          color($column, $label = '')
  * @method Field\Email          email($column, $label = '')
- * @method Field\Mobile         mobile($column, $label = '')
+ * @method Field\PhoneNumber    phonenumber($column, $label = '')
  * @method Field\Slider         slider($column, $label = '')
  * @method Field\Map            map($latitude, $longitude, $label = '')
  * @method Field\Editor         editor($column, $label = '')
@@ -54,11 +54,11 @@ use OpenAdmin\Admin\Widgets\Form as WidgetForm;
  */
 class NestedForm
 {
-    const DEFAULT_KEY_NAME = '__LA_KEY__';
+    public const DEFAULT_KEY_NAME = '__LA_KEY__';
 
-    const REMOVE_FLAG_NAME = '_remove_';
+    public const REMOVE_FLAG_NAME = '_remove_';
 
-    const REMOVE_FLAG_CLASS = 'fom-removed';
+    public const REMOVE_FLAG_CLASS = 'fom-removed';
 
     /**
      * @var mixed

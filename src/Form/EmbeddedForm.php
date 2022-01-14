@@ -22,7 +22,7 @@ use OpenAdmin\Admin\Widgets\Form as WidgetForm;
  * @method Field\Url            url($column, $label = '')
  * @method Field\Color          color($column, $label = '')
  * @method Field\Email          email($column, $label = '')
- * @method Field\Mobile         mobile($column, $label = '')
+ * @method Field\PhoneNumber    phonenumber($column, $label = '')
  * @method Field\Slider         slider($column, $label = '')
  * @method Field\Map            map($latitude, $longitude, $label = '')
  * @method Field\Editor         editor($column, $label = '')

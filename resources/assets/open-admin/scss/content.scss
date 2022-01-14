@@ -89,6 +89,12 @@
         }
     }
 }
+.card{
+    .card{
+        margin:0;
+        box-shadow: none;
+    }
+}
 
 /*---------------------------------------------------------*/
 /* breadcrumb */
@@ -139,6 +145,12 @@
         margin-bottom: 0.75rem;
     }
 
+    table{
+        .form-label {
+            text-align: left;
+        }
+    }
+
     .form-label {
         padding-top: 0.3rem;
         margin-bottom: 0;
@@ -146,6 +158,18 @@
     }
     .form-check {
         padding-top: 0.3rem;
+    }
+}
+@media (max-width:576px) {
+
+    .form-group{
+        padding:0 1rem;
+    }
+
+    .form-horizontal {
+        .form-label{
+            text-align:left;
+        }
     }
 }
 
@@ -189,3 +213,11 @@
         }
     }
 
+/*---------------------------------------------------------*/
+/* additional buttons styles */
+/*---------------------------------------------------------*/
+
+    .btn-group > .btn:not(:first-child), .btn-group > .btn-group:not(:first-child) {
+        border-left: 1px solid rgba(255,255,255,0.2);
+        min-width: 2.2em;
+    }

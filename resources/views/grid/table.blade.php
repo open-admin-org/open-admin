@@ -1,7 +1,7 @@
 @include("admin::grid.table-header")
 
         <div class="table-responsive" autocomplete="off">
-            <table class="table table-sm table-hover select-table" id="{{ $grid->tableID }}">
+            <table class="table grid-table table-sm table-hover select-table" id="{{ $grid->tableID }}">
 
                 <thead>
                     <tr>

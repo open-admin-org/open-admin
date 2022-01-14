@@ -2,7 +2,7 @@
 
 namespace OpenAdmin\Admin\Form\Field;
 
-class Mobile extends Text
+class PhoneNumber extends Text
 {
     protected static $js = [
         '/vendor/open-admin/inputmask/inputmask.min.js',

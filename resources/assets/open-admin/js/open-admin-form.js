@@ -98,7 +98,7 @@ admin.form = {
     },
 
     check_tab_errors(){
-        let errors = document.querySelectorAll('.has-error, .was-validated .form-control:invalid');
+        let errors = document.querySelectorAll('.tab-pane .has-error, .was-validated .tab-pane .form-control:invalid');
         if (this.tabs_ref.length && errors){
             let first_tab = false;
             errors.forEach(error => {
@@ -148,5 +148,5 @@ admin.form = {
             admin.form.check_tab_errors();
         }
         return res;
-    },
+    }
 }

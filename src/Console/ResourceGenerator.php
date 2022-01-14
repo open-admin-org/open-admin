@@ -35,14 +35,14 @@ class ResourceGenerator
      * @var array
      */
     protected $fieldTypeMapping = [
-        'ip'       => 'ip',
-        'email'    => 'email|mail',
-        'password' => 'password|pwd',
-        'url'      => 'url|link|src|href',
-        'mobile'   => 'mobile|phone',
-        'color'    => 'color|rgb',
-        'image'    => 'image|img|avatar|pic|picture|cover',
-        'file'     => 'file|attachment',
+        'ip'          => 'ip',
+        'email'       => 'email|mail',
+        'password'    => 'password|pwd',
+        'url'         => 'url|link|src|href',
+        'phonenumber' => 'mobile|phone',
+        'color'       => 'color|rgb',
+        'image'       => 'image|img|avatar|pic|picture|cover',
+        'file'        => 'file|attachment',
     ];
 
     /**

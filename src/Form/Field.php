@@ -220,6 +220,13 @@ class Field implements Renderable
     protected $horizontal = true;
 
     /**
+     * If the form horizontal layout.
+     *
+     * @var bool
+     */
+    protected $inline = false;
+
+    /**
      * column data format.
      *
      * @var \Closure
@@ -392,13 +399,17 @@ class Field implements Renderable
 
         if (is_array($this->column)) {
             foreach ($this->column as $key => $column) {
-                $this->value[$key] = Arr::get($data, $column);
+                if (empty($this->value[$key])) {
+                    $this->value[$key] = Arr::get($data, $column);
+                }
             }
 
             return;
         }
 
-        $this->value = Arr::get($data, $this->column);
+        if (empty($this->value)) {
+            $this->value = Arr::get($data, $this->column);
+        }
 
         $this->formatValue();
     }
@@ -1173,6 +1184,15 @@ class Field implements Renderable
     }
 
     /**
+     * @return $this
+     */
+    public function setInline($set = true): self
+    {
+        $this->inline = $set;
+        return $this;
+    }
+
+    /**
      * @return array
      */
     public function getViewElementClasses(): array
@@ -1395,6 +1415,7 @@ class Field implements Renderable
             'id'              => $this->id,
             'name'            => $this->elementName ?: $this->formatName($this->column),
             'help'            => $this->help,
+            'inline'          => $this->inline,
             'class'           => $this->getElementClassString(),
             'value'           => $this->value(),
             'label'           => $this->label,

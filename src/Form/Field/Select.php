@@ -47,6 +47,8 @@ class Select extends Field
      */
     protected $native = false;
 
+    public $additional_script = '';
+
     /**
      * Set options.
      *
@@ -118,7 +120,7 @@ class Select extends Field
      *
      * @return $this
      */
-    public function load($field, $sourceUrl, $idField = 'id', $textField = 'text', bool $allowClear = true)
+    public function load($field, $url, $idField = 'id', $textField = 'text', bool $allowClear = true)
     {
         if (Str::contains($field, '.')) {
             $field = $this->formatName($field);
@@ -127,42 +129,30 @@ class Select extends Field
             $class = $field;
         }
 
-        $placeholder = json_encode([
-            'id'   => '',
-            'text' => trans('admin.choose'),
-        ]);
 
-        $strAllowClear = var_export($allowClear, true);
+        $this->additional_script .= <<<EOT
 
-        $script = <<<EOT
-
-            console.log('select: load not ported yet');
-            /*
-            $(document).off('change', "{$this->getElementClassSelector()}");
-            $(document).on('change', "{$this->getElementClassSelector()}", function () {
-                var target = $(this).closest('.fields-group').find(".$class");
-                $.get("$sourceUrl",{q : this.value}, function (data) {
-                    target.find("option").remove();
-                    $(target).select2({
-                        placeholder: $placeholder,
-                        allowClear: $strAllowClear,
-                        data: $.map(data, function (d) {
-                            d.id = d.$idField;
-                            d.text = d.$textField;
-                            return d;
-                        })
-                    });
-                    if (target.data('value')) {
-                        $(target).val(target.data('value'));
+            let elm = document.querySelector("{$this->getElementClassSelector()}");
+            var lookupTimeout;
+            elm.addEventListener('change', function(event) {
+                var query = {$this->choicesObjName()}.getValue().value;
+                var current_value = {$this->choicesObjName($field)}.getValue().value;
+                admin.ajax.post("{$url}",{query:query},function(data){
+                    let found = false;
+                    for (i in data.data){
+                        if (data.data[i].id == current_value){
+                            data.data[i].selected = true;
+                            found = true;
+                        }
                     }
-                    $(target).trigger('change');
-                });
+                    if (!found){
+                        data.data.push({'{$idField}':'','{$textField}':'','selected':true});
+                    }
+                    {$this->choicesObjName($field)}.setChoices(data.data, '{$idField}', '{$textField}', true);
+                })
             });
-            */
-
 EOT;
 
-        Admin::script($script);
 
         return $this;
     }
@@ -191,7 +181,7 @@ EOT;
 
         $script = <<<EOT
 
-        console.log('select: loads not ported yet');
+        console.log('select: loads not ported yet, not sure if needed');
         /*
 var fields = '$fieldsStr'.split('.');
 var urls = '$urlsStr'.split('^');
@@ -280,42 +270,17 @@ EOT;
      */
     protected function loadRemoteOptions($url, $parameters = [], $options = [])
     {
-        $ajaxOptions = [
-            'url' => $url.'?'.http_build_query($parameters),
-        ];
-        $configs = array_merge([
-            'allowClear'         => true,
-            'placeholder'        => [
-                'id'        => '',
-                'text'      => trans('admin.choose'),
-            ],
+        $this->config = array_merge([
+            'removeItems'        => true,
+            'removeItemButton'   => true,
         ], $this->config);
 
-        $configs = json_encode($configs);
-        $configs = substr($configs, 1, strlen($configs) - 2);
+        $parameters_json = json_encode($parameters);
 
-        $ajaxOptions = json_encode(array_merge($ajaxOptions, $options));
-
-        $this->script = <<<EOT
-
-        console.log('select: LoadRemote not ported yet');
-        /*
-$.ajax($ajaxOptions).done(function(data) {
-
-  $("{$this->getElementClassSelector()}").each(function(index, element) {
-      $(element).select2({
-        data: data,
-        $configs
-      });
-      var value = $(element).data('value') + '';
-      if (value) {
-        value = value.split(',');
-        $(element).select2('val', value);
-      }
-  });
-});
-*/
-
+        $this->additional_script .= <<<EOT
+        admin.ajax.post("{$url}",{$parameters_json},function(data){
+            {$this->choicesObjName()}.setChoices(data.data, 'id', 'text', true);
+        });
 EOT;
 
         return $this;
@@ -332,54 +297,29 @@ EOT;
      */
     public function ajax($url, $idField = 'id', $textField = 'text')
     {
-        $configs = array_merge([
-            'allowClear'         => true,
-            'placeholder'        => $this->label,
-            'minimumInputLength' => 1,
+        $this->config = array_merge([
+            'removeItems'        => true,
+            'removeItemButton'   => true,
+            'placeholder'        => $this->label
         ], $this->config);
 
-        $configs = json_encode($configs);
-        $configs = substr($configs, 1, strlen($configs) - 2);
+        $this->additional_script = <<<EOT
+            let elm = document.querySelector("{$this->getElementClassSelector()}");
+            var lookupTimeout;
+            elm.addEventListener('search', function(event) {
+                clearTimeout(lookupTimeout);
+                lookupTimeout = setTimeout(function(){
+                    var query = {$this->choicesObjName()}.input.value;
+                    admin.ajax.post("{$url}",{query:query},function(data){
+                        {$this->choicesObjName()}.setChoices(data.data, '{$idField}', '{$textField}', true);
+                    })
+                }, 250);
+            });
 
-        $this->script = <<<EOT
-
-        console.log('select: ajax not ported yet');
-        /*
-$("{$this->getElementClassSelector()}").select2({
-  ajax: {
-    url: "$url",
-    dataType: 'json',
-    delay: 250,
-    data: function (params) {
-      return {
-        q: params.term,
-        page: params.page
-      };
-    },
-    processResults: function (data, params) {
-      params.page = params.page || 1;
-
-      return {
-        results: $.map(data.data, function (d) {
-                   d.id = d.$idField;
-                   d.text = d.$textField;
-                   return d;
-                }),
-        pagination: {
-          more: data.next_page_url
-        }
-      };
-    },
-    cache: true
-  },
-  $configs,
-  escapeMarkup: function (markup) {
-      return markup;
-  }
-});
-*/
-
-EOT;
+            elm.addEventListener('choice', function(event) {
+                {$this->choicesObjName()}.setChoices([], '{$idField}', '{$textField}', true);
+            });
+        EOT;
 
         return $this;
     }
@@ -437,23 +377,36 @@ EOT;
         return parent::readOnly();
     }
 
+    public function choicesObjName($field = false)
+    {
+        if (empty($field)) {
+            $field = $this->getElementClassString();
+        }
+        return "choices_".$field;
+    }
+
     /**
      * {@inheritdoc}
      */
     public function render()
     {
         $configs = array_merge([
-            'allowClear'  => true,
+            'removeItems'        => true,
+            'removeItemButton'   => true,
             'placeholder' => [
                 'id'   => '',
                 'text' => $this->label,
             ],
+            'classNames' => [
+                'containerOuter' => 'choices '.$this->getElementClassString()
+            ],
         ], $this->config);
-
         $configs = json_encode($configs);
 
-        if (!$this->native && (get_class($this) == 'OpenAdmin\Admin\Form\Field\Select' || get_class($this) == 'OpenAdmin\Admin\Form\Field\MultiSelect')) {
-            $this->script = "new Choices('{$this->getElementClassSelector()}',{$configs});";
+
+        if (!$this->native && (get_class($this) == 'OpenAdmin\Admin\Form\Field\Select' || get_class($this) == 'OpenAdmin\Admin\Form\Field\MultipleSelect')) {
+            $this->script .= "var ".$this->choicesObjName()." = new Choices('{$this->getElementClassSelector()}',{$configs});";
+            $this->script .= $this->additional_script;
         }
 
         if ($this->options instanceof \Closure) {

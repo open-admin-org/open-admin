@@ -657,7 +657,7 @@ span.flatpickr-weekday {
     border: 0;
     border-bottom: 1px solid #eee;
     padding: 0px 12px;
-    margin: 0;
+    margin: -1px 0;
 }
 .flatpickr-weekwrapper span.flatpickr-day:first-child {
     border-top: 1px solid #eee;

@@ -9,7 +9,7 @@ class Radio extends Field
 {
     use CanCascadeFields;
 
-    protected $inline = true;
+    protected $stacked = false;
 
     /*
     protected static $css = [
@@ -70,7 +70,7 @@ class Radio extends Field
      */
     public function inline()
     {
-        $this->inline = true;
+        $this->stacked = false;
 
         return $this;
     }
@@ -82,7 +82,7 @@ class Radio extends Field
      */
     public function stacked()
     {
-        $this->inline = false;
+        $this->stacked = true;
 
         return $this;
     }
@@ -108,7 +108,7 @@ class Radio extends Field
 
         $this->addCascadeScript();
 
-        $this->addVariables(['options' => $this->options, 'checked' => $this->checked, 'inline' => $this->inline]);
+        $this->addVariables(['options' => $this->options, 'checked' => $this->checked, 'stacked' => $this->stacked]);
 
         return parent::render();
     }

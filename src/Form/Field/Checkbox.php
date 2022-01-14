@@ -6,7 +6,7 @@ use Illuminate\Contracts\Support\Arrayable;
 
 class Checkbox extends MultipleSelect
 {
-    protected $inline = false;
+    protected $stacked = false;
 
     /**
      * @var string
@@ -60,7 +60,7 @@ class Checkbox extends MultipleSelect
      */
     public function inline()
     {
-        $this->inline = true;
+        $this->stacked = false;
 
         return $this;
     }
@@ -72,7 +72,7 @@ class Checkbox extends MultipleSelect
      */
     public function stacked()
     {
-        $this->inline = false;
+        $this->stacked = true;
 
         return $this;
     }
@@ -84,7 +84,7 @@ class Checkbox extends MultipleSelect
     {
         $this->addVariables([
             'checked'     => $this->checked,
-            'inline'      => $this->inline,
+            'stacked'      => $this->stacked,
         ]);
 
         return parent::render();

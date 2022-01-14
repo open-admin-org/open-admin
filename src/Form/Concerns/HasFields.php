@@ -22,7 +22,7 @@ use OpenAdmin\Admin\Form\Field;
  * @method Field\Url            url($column, $label = '')
  * @method Field\Color          color($column, $label = '')
  * @method Field\Email          email($column, $label = '')
- * @method Field\Mobile         mobile($column, $label = '')
+ * @method Field\PhoneNumber    phonenumber($column, $label = '')
  * @method Field\Slider         slider($column, $label = '')
  * @method Field\File           file($column, $label = '')
  * @method Field\Image          image($column, $label = '')
@@ -90,7 +90,7 @@ trait HasFields
         'id'                => Field\Id::class,
         'image'             => Field\Image::class,
         'ip'                => Field\Ip::class,
-        'mobile'            => Field\Mobile::class,
+        'phonenumber'       => Field\PhoneNumber::class,
         'month'             => Field\Month::class,
         'multipleSelect'    => Field\MultipleSelect::class,
         'map'               => Field\Map::class,

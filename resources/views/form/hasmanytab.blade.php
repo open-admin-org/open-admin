@@ -1,36 +1,21 @@
-<style>
-    .nav-tabs > li:hover > i{
-        display: inline;
-    }
-    .close-tab {
-        position: absolute;
-        font-size: 10px;
-        top: 2px;
-        right: 5px;
-        color: #94A6B0;
-        cursor: pointer;
-        display: none;
-    }
-</style>
 <div id="has-many-{{$column}}" class="nav-tabs-custom has-many-{{$column}}">
-    <div class="row header">
-        <div class="col-md-2 {{$viewClass['label']}}"><h4 class="pull-right">{{ $label }}</h4></div>
-        <div class="col-md-8 {{$viewClass['field']}}">
-            <button type="button" class="btn btn-light btn-sm add"><i class="icon-plus-circle" style="font-size: large;"></i></button>
-        </div>
+    <div class="row header has-many-head ">
+        <h4>{{ $label }}</h4>
     </div>
 
-    <hr style="margin-top: 0px;">
+    <hr style="margin-top: 0px;" class="form-border m-0">
 
     <ul class="nav nav-tabs">
         @foreach($forms as $pk => $form)
-            <li class="@if ($form == reset($forms)) active @endif ">
-                <a href="#{{ $relationName . '_' . $pk }}" data-bs-toggle="tab">
+            <li id="tab_{{ $relationName . '_' . $pk }}" class="nav-item">
+                <a class="nav-link @if ($form == reset($forms)) active @endif " href="#{{ $relationName . '_' . $pk }}" data-bs-toggle="tab">
                     {{ $pk }} <i class="icon-exclamation-circle text-red hide"></i>
                 </a>
-                <i class="close-tab icon-times" ></i>
             </li>
         @endforeach
+        <li class="nav-item add-tab">
+            <button type="button" class="btn btn-light btn-sm add"><i class="icon-plus-circle" style="font-size: large;"></i></button>
+        </li>
 
     </ul>
 
@@ -41,21 +26,37 @@
                 @foreach($form->fields() as $field)
                     {!! $field->render() !!}
                 @endforeach
+
+                @if($options['allowDelete'])
+                <div class="form-group form-delete-group">
+                    <label class="{{$viewClass['label']}} form-label"></label>
+                    <div class="{{$viewClass['field']}}">
+                        <div class="remove btn btn-warning btn-sm pull-right"><i class="icon-trash">&nbsp;</i>{{ trans('admin.remove') }}</div>
+                    </div>
+                </div>
+                @endif
             </div>
         @endforeach
     </div>
 
-    <template class="nav-tab-tpl">
-        <li class="new">
-            <a href="#{{ $relationName . '_new_' . \OpenAdmin\Admin\Form\NestedForm::DEFAULT_KEY_NAME }}" data-bs-toggle="tab">
+    <template class="{{$column}}-tab-tpl">
+        <li class="new nav-item" id="tab_{{ $relationName . '_new_' . \OpenAdmin\Admin\Form\NestedForm::DEFAULT_KEY_NAME }}">
+            <a class="nav-link" href="#{{ $relationName . '_new_' . \OpenAdmin\Admin\Form\NestedForm::DEFAULT_KEY_NAME }}" data-bs-toggle="tab">
                 &nbsp;New {{ \OpenAdmin\Admin\Form\NestedForm::DEFAULT_KEY_NAME }} <i class="icon-exclamation-circle text-red hide"></i>
             </a>
-            <i class="close-tab icon-times" ></i>
         </li>
     </template>
-    <template class="pane-tpl">
+    <template  class="{{$column}}-tpl">
         <div class="tab-pane fields-group new" id="{{ $relationName . '_new_' . \OpenAdmin\Admin\Form\NestedForm::DEFAULT_KEY_NAME }}">
             {!! $template !!}
+            @if($options['allowDelete'])
+            <div class="form-group form-delete-group">
+                <label class="{{$viewClass['label']}} form-label"></label>
+                <div class="{{$viewClass['field']}}">
+                    <div class="remove btn btn-warning btn-sm pull-right"><i class="icon-trash">&nbsp;</i>{{ trans('admin.remove') }}</div>
+                </div>
+            </div>
+            @endif
         </div>
     </template>
 

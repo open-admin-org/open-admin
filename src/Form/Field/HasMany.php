@@ -489,24 +489,42 @@ class HasMany extends Field
          */
         $script = <<<EOT
 var index = 0;
-$('#has-many-{$this->column}').off('click', '.add').on('click', '.add', function () {
-
-    var tpl = $('template.{$this->column}-tpl');
-
+document.querySelector('#has-many-{$this->column} .add').addEventListener("click", function () {
     index++;
 
-    var template = tpl.html().replace(/{$defaultKey}/g, index);
-    $('.has-many-{$this->column}-forms').append(template);
+    var tpl = document.querySelector('template.{$this->column}-tpl').innerHTML;
+    tpl = tpl.replace(/{$defaultKey}/g, index);
+    var clone = htmlToElement(tpl);
+    addRemoveHasManyListener{$this->column}(clone.querySelector('.remove'));
+    document.querySelector('.has-many-{$this->column}-forms').appendChild(clone);
+
+    if (typeof(addHasManyTab{$this->column}) == 'function'){
+        addHasManyTab{$this->column}(index);
+    }
+
+
     {$templateScript}
     return false;
+
 });
 
-$('#has-many-{$this->column}').off('click', '.remove').on('click', '.remove', function () {
-    $(this).closest('.has-many-{$this->column}-form').find('input').removeAttr('required');
-    $(this).closest('.has-many-{$this->column}-form').hide();
-    $(this).closest('.has-many-{$this->column}-form').find('.$removeClass').val(1);
-    return false;
+document.querySelectorAll('#has-many-{$this->column} .remove').forEach(remove => {
+    addRemoveHasManyListener{$this->column}(remove);
 });
+
+function addRemoveHasManyListener{$this->column}(remove){
+    remove.addEventListener("click", function () {
+        let form = this.closest('.has-many-{$this->column}-form');
+        if (typeof(removeHasManyTab{$this->column}) == 'function'){
+            removeHasManyTab{$this->column}();
+        }
+        form.querySelectorAll('input').forEach(input => input.removeAttribute('required'));
+        hide(this.closest('.has-many-{$this->column}-form'));
+        this.closest('.has-many-{$this->column}-form').querySelector('.$removeClass').value = 1;
+
+        return false;
+    });
+}
 
 EOT;
 
@@ -525,45 +543,28 @@ EOT;
         $removeClass = NestedForm::REMOVE_FLAG_CLASS;
         $defaultKey = NestedForm::DEFAULT_KEY_NAME;
 
+        $this->setupScriptForDefaultView($templateScript);
+
         $script = <<<EOT
+        function removeHasManyTab{$this->column}(){
+            document.querySelector('#has-many-{$this->column} .nav-link.active').parentNode.remove();
+            let trigger = document.querySelector('#has-many-{$this->column} .nav-link:first-child');
+            console.log(trigger);
+            if (trigger){
+                bootstrap.Tab.getOrCreateInstance(trigger).show();
+            }
+        }
+        function addHasManyTab{$this->column}(index){
+            let tpl = document.querySelector('template.{$this->column}-tab-tpl').innerHTML;
+            tpl = tpl.replace(/{$defaultKey}/g, index);
+            let clone = htmlToElement(tpl);
+            let addTab = document.querySelector('.has-many-{$this->column} .add-tab')
+            document.querySelector('.has-many-{$this->column} > .nav').insertBefore(clone,addTab);
+            bootstrap.Tab.getOrCreateInstance(clone.querySelector("a")).show();
+        }
 
-$('#has-many-{$this->column} > .nav').off('click', 'i.close-tab').on('click', 'i.close-tab', function(){
-    var \$navTab = $(this).siblings('a');
-    var \$pane = $(\$navTab.attr('href'));
-    if( \$pane.hasClass('new') ){
-        \$pane.remove();
-    }else{
-        \$pane.removeClass('active').find('.$removeClass').val(1);
-    }
-    if(\$navTab.closest('li').hasClass('active')){
-        \$navTab.closest('li').remove();
-        $('#has-many-{$this->column} > .nav > li:nth-child(1) > a').tab('show');
-    }else{
-        \$navTab.closest('li').remove();
-    }
-});
-
-var index = 0;
-$('#has-many-{$this->column} > .header').off('click', '.add').on('click', '.add', function(){
-    index++;
-    var navTabHtml = $('#has-many-{$this->column} > template.nav-tab-tpl').html().replace(/{$defaultKey}/g, index);
-    var paneHtml = $('#has-many-{$this->column} > template.pane-tpl').html().replace(/{$defaultKey}/g, index);
-    $('#has-many-{$this->column} > .nav').append(navTabHtml);
-    $('#has-many-{$this->column} > .tab-content').append(paneHtml);
-    $('#has-many-{$this->column} > .nav > li:last-child a').tab('show');
-    {$templateScript}
-});
-
-if ($('.has-error').length) {
-    $('.has-error').parent('.tab-pane').each(function () {
-        var tabId = '#'+$(this).attr('id');
-        $('li a[href="'+tabId+'"] i').removeClass('hide');
-    });
-
-    var first = $('.has-error:first').parent().attr('id');
-    $('li a[href="#'+first+'"]').tab('show');
-}
 EOT;
+
 
         Admin::script($script);
     }
@@ -580,42 +581,10 @@ EOT;
         $removeClass = NestedForm::REMOVE_FLAG_CLASS;
         $defaultKey = NestedForm::DEFAULT_KEY_NAME;
 
-        /**
-         * When add a new sub form, replace all element key in new sub form.
-         *
-         * @example comments[new___key__][title]  => comments[new_{index}][title]
-         *
-         * {count} is increment number of current sub form count.
-         */
-        $script = <<<EOT
-var index = 0;
-$('#has-many-{$this->column}').on('click', '.add', function () {
+        $this->setupScriptForDefaultView($templateScript);
 
-    var tpl = $('template.{$this->column}-tpl');
-
-    index++;
-
-    var template = tpl.html().replace(/{$defaultKey}/g, index);
-    $('.has-many-{$this->column}-forms').append(template);
-    {$templateScript}
-    return false;
-});
-
-$('#has-many-{$this->column}').on('click', '.remove', function () {
-    var first_input_name = $(this).closest('.has-many-{$this->column}-form').find('input[name]:first').attr('name');
-    if (first_input_name.match('{$this->column}\\\[new_')) {
-        $(this).closest('.has-many-{$this->column}-form').remove();
-    } else {
-        $(this).closest('.has-many-{$this->column}-form').hide();
-        $(this).closest('.has-many-{$this->column}-form').find('.$removeClass').val(1);
-        $(this).closest('.has-many-{$this->column}-form').find('input').removeAttr('required');
-    }
-    return false;
-});
-
-EOT;
-
-        Admin::script($script);
+        // can use the same as the default
+        // no extra's needed
     }
 
     /**

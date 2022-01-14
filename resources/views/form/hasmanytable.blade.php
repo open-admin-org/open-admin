@@ -2,10 +2,24 @@
     td .form-group {
         margin-bottom: 0 !important;
     }
+    .table-has-many{
+        border: 1px solid var(--table-border-color);
+    }
+    .table-has-many td{
+        vertical-align:top;
+        padding-bottom:1rem;
+    }
+    .table-has-many td .remove{
+        margin-top:2rem;
+        margin-right:0.25rem;
+    }
 </style>
-
+<div class="row has-many-head {{$column}}">
+    <h4>{{ $label }}</h4>
+</div>
+<hr class="form-border">
 <div class="row">
-    <div class="{{$viewClass['label']}}"><h4 class="pull-right">{{ $label }}</h4></div>
+    <div class="{{$viewClass['label']}}"></div>
     <div class="{{$viewClass['field']}}">
         <div id="has-many-{{$column}}" style="margin-top: 15px;">
             <table class="table table-has-many has-many-{{$column}}">
@@ -75,5 +89,3 @@
         </div>
     </div>
 </div>
-
-<hr style="margin-top: 0px;">

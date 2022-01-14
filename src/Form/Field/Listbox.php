@@ -12,17 +12,19 @@ class Listbox extends MultipleSelect
     protected $settings = [];
     /*
     protected static $css = [
-        '/vendor/open-admin/bootstrap-duallistbox/dist/bootstrap-duallistbox.min.css',
-    ];
-
-    protected static $js = [
-        '/vendor/open-admin/bootstrap-duallistbox/dist/jquery.bootstrap-duallistbox.min.js',
+        '/vendor/open-admin/dual-listbox/dual-listbox.css',
+        // overwritten bootstrap styles
     ];
     */
 
+    protected static $js = [
+        '/vendor/open-admin/dual-listbox/dual-listbox-custom.js',
+    ];
+
+
     public function settings(array $settings)
     {
-        $this->settings = $settings;
+        $this->settings = array_merge($this->settings, $settings);
 
         return $this;
     }
@@ -36,65 +38,32 @@ class Listbox extends MultipleSelect
      */
     public function height($height = 200)
     {
-        return $this->style('height', $height.'px');
-
-        return $this->settings(['selectorMinimalHeight' => $height]);
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    protected function loadRemoteOptions($url, $parameters = [], $options = [])
-    {
-        $ajaxOptions = json_encode(array_merge([
-            'url' => $url.'?'.http_build_query($parameters),
-        ], $options));
-
-        $this->script = <<<EOT
-
-$.ajax($ajaxOptions).done(function(data) {
-
-  var listbox = $("{$this->getElementClassSelector()}");
-
-    var value = listbox.data('value') + '';
-
-    if (value) {
-      value = value.split(',');
-    }
-
-    for (var key in data) {
-        var selected =  ($.inArray(key, value) >= 0) ? 'selected' : '';
-        listbox.append('<option value="'+key+'" '+selected+'>'+data[key]+'</option>');
-    }
-
-    listbox.bootstrapDualListbox('refresh', true);
-});
-EOT;
-
+        $this->settings(['minHeight' => $height]);
         return $this;
     }
+
 
     public function render()
     {
         $this->style('width', '100%');
+
+
         $settings = array_merge([
-            'infoText'              => trans('admin.listbox.text_total'),
-            'infoTextEmpty'         => trans('admin.listbox.text_empty'),
-            'infoTextFiltered'      => trans('admin.listbox.filtered'),
-            'filterTextClear'       => trans('admin.listbox.filter_clear'),
-            'filterPlaceHolder'     => trans('admin.listbox.filter_placeholder'),
-            'selectorMinimalHeight' => 200,
+            'availableTitle'        => trans('admin.listbox.title_available'),
+            'selectedTitle'         => trans('admin.listbox.title_selected'),
+            'minHeight'             => 200,
         ], $this->settings);
+
 
         $settings = json_encode($settings);
 
         $this->script .= <<<SCRIPT
-//alert("make dualist implemenation");
-//$("{$this->getElementClassSelector()}").bootstrapDualListbox($settings);
+        let dualListbox = new DualListbox("{$this->getElementClassSelector()}",$settings);
+
 
 SCRIPT;
 
-        $this->attribute('data-value', implode(',', (array) $this->value()));
+        //$this->attribute('data-value', implode(',', (array) $this->value()));
 
         return parent::render();
     }
