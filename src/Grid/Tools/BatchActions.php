@@ -4,6 +4,7 @@ namespace OpenAdmin\Admin\Grid\Tools;
 
 use Illuminate\Support\Collection;
 use OpenAdmin\Admin\Admin;
+use OpenAdmin\Admin\Actions\BatchAction;
 
 class BatchActions extends AbstractTool
 {
@@ -39,8 +40,8 @@ class BatchActions extends AbstractTool
      */
     protected function appendDefaultAction()
     {
-        $this->add(new BatchEdit(trans('admin.batch_edit')));
-        $this->add(new BatchDelete(trans('admin.batch_delete')));
+        $this->add(new BatchEdit());
+        $this->add(new BatchDelete());
     }
 
     /**
@@ -72,19 +73,19 @@ class BatchActions extends AbstractTool
     /**
      * Add a batch action.
      *
-     * @param $title
+     * @param $name
      * @param BatchAction|null $action
      *
      * @return $this
      */
-    public function add($title, BatchAction $action = null)
+    public function add($name, BatchAction $action = null)
     {
         $id = $this->actions->count();
 
         if (func_num_args() == 1) {
-            $action = $title;
+            $action = $name;
         } elseif (func_num_args() == 2) {
-            $action->setTitle($title);
+            $action->setName($name);
         }
 
         if (method_exists($action, 'setId')) {
@@ -120,7 +121,9 @@ class BatchActions extends AbstractTool
     public function render()
     {
         if (!$this->enableDelete) {
-            $this->actions->shift();
+            $this->actions = $this->actions->filter(function ($action, $key) {
+                return get_class($action) != "OpenAdmin\Admin\Grid\Tools\BatchDelete";
+            });
         }
 
         $this->addActionScripts();

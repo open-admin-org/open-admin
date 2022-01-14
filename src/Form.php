@@ -347,6 +347,7 @@ class Form implements Renderable
 
             foreach ($inserts as $column => $value) {
                 $this->model->setAttribute($column, $value);
+                $this->fixColumnArrayValue($column);
             }
 
             $this->model->save();
@@ -363,6 +364,20 @@ class Form implements Renderable
         }
 
         return $this->redirectAfterStore();
+    }
+
+    /**
+     * Laravel bug: if a model doesn't exists yet (no id) array's can't be saved to a column
+     * Either use a modifier on the model or its gets automaticly encoded as json
+     *
+     * @param String $column
+     *
+     */
+    public function fixColumnArrayValue($column)
+    {
+        if (is_array($this->model->$column)) {
+            $this->model->$column = json_encode(($this->model->$column));
+        }
     }
 
     /**
@@ -420,6 +435,7 @@ class Form implements Renderable
             }
 
             $newValue = $this->model->fresh()->getAttribute($field->column());
+
 
             if ($newValue instanceof Arrayable) {
                 $newValue = $newValue->toArray();
@@ -697,7 +713,6 @@ class Form implements Renderable
      */
     protected function handleFileDelete(array $input = []): array
     {
-        //dd($input);
         foreach ($input as $key => $value) {
             if (strpos($key, Field::FILE_DELETE_FLAG) !== false) {
                 if (!empty($value)) {
@@ -962,7 +977,6 @@ class Form implements Renderable
                 unset($inserts[$column]);
                 continue;
             }
-
             $inserts[$column] = $field->prepare($value);
         }
 

@@ -2,19 +2,22 @@
 /* visual */
 /*--------------------------------------------------*/
 
-	var show = function (list) {
+	var show = function (list,display) {
+		if (typeof(display) === 'undefined'){
+			display = "block";
+		}
 		if (!isNodeList(list)){
 			var list = [list];
 		}
 		list.forEach(elm => {
-			showElm(elm);
+			showElm(elm,display);
 		});
 	};
-	function showElm(elm){
+	function showElm(elm,display){
 		if(elm.tagName == "TR"){
 			elm.style.display = "table-row";
 		}else{
-			elm.style.display = 'block';
+			elm.style.display = display;
 		}
 	}
 
@@ -34,7 +37,7 @@
 		}
 		list.forEach(elm => {
 			let calculatedStyle = window.getComputedStyle(elm).display;
-			if (calculatedStyle === 'block' || calculatedStyle === 'table-row') {
+			if (calculatedStyle === 'block' || calculatedStyle === 'flex' || calculatedStyle === 'table-row') {
 				elm.style.display = 'none';
 				return;
 			}
@@ -82,4 +85,25 @@
 			/^\[object (HTMLCollection|NodeList|Object)\]$/.test(stringRepr) &&
 			(typeof nodes.length === 'number') &&
 			(nodes.length === 0 || (typeof nodes[0] === "object" && nodes[0].nodeType > 0));
+	}
+
+	/**
+	 * @param {String} HTML representing a single element
+	 * @return {Element}
+	 */
+	function htmlToElement(html) {
+		var template = document.createElement('template');
+		html = html.trim(); // Never return a text node of whitespace as the result
+		template.innerHTML = html;
+		return template.content.firstChild;
+	}
+
+	/**
+	 * @param {String} HTML representing any number of sibling elements
+	 * @return {NodeList}
+	 */
+	function htmlToElements(html) {
+		var template = document.createElement('template');
+		template.innerHTML = html;
+		return template.content.childNodes;
 	}

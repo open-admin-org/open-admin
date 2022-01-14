@@ -31,7 +31,7 @@ abstract class GridAction extends Action
     public function setGrid(Grid $grid)
     {
         $this->parent = $grid;
-
+        $this->resource = $grid->resource();
         return $this;
     }
 

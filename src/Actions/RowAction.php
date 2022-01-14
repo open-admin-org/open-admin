@@ -135,8 +135,8 @@ abstract class RowAction extends GridAction
     public function render()
     {
         $linkClass = ($this->parent->getActionClass() != "OpenAdmin\Admin\Grid\Displayers\Actions\Actions") ? 'dropdown-item' : '';
-
         $icon = $this->getIcon();
+
         if ($href = $this->href()) {
             return "<a href='{$href}' class='{$linkClass}'>{$icon}<span class='label'>{$this->name()}</span></a>";
         }

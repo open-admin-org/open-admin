@@ -28,7 +28,6 @@ admin.actions = {
 
             el.addEventListener(action.event,function(){
 
-
                 var data = el.dataset;
                 var target = el;
                 Object.assign(data, action.parameters);
@@ -40,9 +39,12 @@ admin.actions = {
                 myPromise.then(function(){
 
                     Object.assign(data, {
-                        _action: action._action,
-                        _key: admin.grid.selected.join(),
+                        _action: action._action
                     });
+                    if (data["_key"] === undefined){
+                        data._key =admin.grid.selected.join();
+                    }
+
                     var url = action.url;
                     admin.ajax[action.method](url, data, function(data){
                         admin.actions.actionResolver([data,el]);
@@ -59,7 +61,9 @@ admin.actions = {
 
         var response = data[0].data;
         var target   = data[1];
-        if (typeof response !== 'object') {
+        if (typeof response === 'string') {
+            target.innerHTML = response;
+        }else if (typeof response !== 'object') {
 
             Swal.fire({type: 'error', title: 'Oops!'});
             console.log(response);

@@ -2,13 +2,15 @@
 
 namespace OpenAdmin\Admin\Grid\Tools;
 
+use OpenAdmin\Admin\Actions\BatchAction;
+
 class BatchDelete extends BatchAction
 {
     public $icon = 'icon-trash';
 
-    public function __construct($title)
+    public function __construct()
     {
-        $this->title = $title;
+        $this->name = trans('admin.batch_delete');
     }
 
     /**

@@ -9,8 +9,10 @@ use Illuminate\Validation\ValidationException;
 use Illuminate\Validation\Validator;
 use OpenAdmin\Admin\Actions\RowAction;
 use OpenAdmin\Admin\Admin;
+use OpenAdmin\Admin\Form as ModalForm;
 use OpenAdmin\Admin\Form\Field;
 use Symfony\Component\DomCrawler\Crawler;
+use Illuminate\Support\Arr;
 
 class Form extends Interactor
 {
@@ -90,316 +92,7 @@ class Form extends Interactor
         $this->addValues = $set;
     }
 
-    /**
-     * @param string $column
-     * @param string $label
-     *
-     * @return Field\Text
-     */
-    public function text($column, $label = '')
-    {
-        $field = new Field\Text($column, $this->formatLabel($label));
 
-        $this->addField($field);
-
-        return $field;
-    }
-
-    /**
-     * @param $column
-     * @param string   $label
-     * @param \Closure $builder
-     *
-     * @return Field\Table
-     */
-    public function table($column, $label = '', $builder = null)
-    {
-        $field = new Field\Table($column, [$label, $builder]);
-
-        $this->addField($field);
-
-        return $field;
-    }
-
-    /**
-     * @param string $column
-     * @param string $label
-     *
-     * @return Field\Text
-     */
-    public function email($column, $label = '')
-    {
-        $field = new Field\Email($column, $this->formatLabel($label));
-
-        $this->addField($field);
-
-        return $field->inputmask(['alias' => 'email']);
-    }
-
-    /**
-     * @param string $column
-     * @param string $label
-     *
-     * @return Field\Text
-     */
-    public function integer($column, $label = '')
-    {
-        return $this->text($column, $label)
-            ->width('200px')
-            ->inputmask(['alias' => 'integer']);
-    }
-
-    /**
-     * @param string $column
-     * @param string $label
-     *
-     * @return Field\Text
-     */
-    public function ip($column, $label = '')
-    {
-        return $this->text($column, $label)
-            ->width('200px')
-            ->inputmask(['alias' => 'ip']);
-    }
-
-    /**
-     * @param string $column
-     * @param string $label
-     *
-     * @return Field\Text
-     */
-    public function url($column, $label = '')
-    {
-        return $this->text($column, $label)
-            ->inputmask(['alias' => 'url'])
-            ->width('200px');
-    }
-
-    /**
-     * @param string $column
-     * @param string $label
-     *
-     * @return Field\Text
-     */
-    public function password($column, $label = '')
-    {
-        return $this->text($column, $label)
-            ->attribute('type', 'password');
-    }
-
-    /**
-     * @param string $column
-     * @param string $label
-     *
-     * @return Field\Text
-     */
-    public function mobile($column, $label = '')
-    {
-        return $this->text($column, $label)
-            ->inputmask(['mask' => '99999999999'])
-            ->width('100px');
-    }
-
-    /**
-     * @param string $column
-     * @param string $label
-     *
-     * @return Field\Textarea
-     */
-    public function textarea($column, $label = '')
-    {
-        $field = new Field\Textarea($column, $this->formatLabel($label));
-
-        $this->addField($field);
-
-        return $field;
-    }
-
-    /**
-     * @param string $column
-     * @param string $label
-     *
-     * @return Field\Textarea
-     */
-    public function map($lat, $lng, $label = '')
-    {
-        $field = new Field\Map($lat, $lng, $this->formatLabel($label));
-
-        $this->addField($field);
-
-        return $field;
-    }
-
-    /**
-     * @param string $column
-     * @param string $label
-     *
-     * @return Field\Select
-     */
-    public function select($column, $label = '')
-    {
-        $field = new Field\Select($column, $this->formatLabel($label));
-
-        $this->addField($field);
-
-        return $field;
-    }
-
-    /**
-     * @param string $column
-     * @param string $label
-     *
-     * @return Field\MultipleSelect
-     */
-    public function multipleSelect($column, $label = '')
-    {
-        $field = new Field\MultipleSelect($column, $this->formatLabel($label));
-
-        $this->addField($field);
-
-        return $field;
-    }
-
-    /**
-     * @param string $column
-     * @param string $label
-     *
-     * @return Field\Checkbox
-     */
-    public function checkbox($column, $label = '')
-    {
-        $field = new Field\Checkbox($column, $this->formatLabel($label));
-        $this->addField($field);
-
-        return $field;
-    }
-
-    /**
-     * @param string $column
-     * @param string $label
-     *
-     * @return Field\Radio
-     */
-    public function radio($column, $label = '')
-    {
-        $field = new Field\Radio($column, $this->formatLabel($label));
-
-        $this->addField($field);
-
-        return $field;
-    }
-
-    /**
-     * @param string $column
-     * @param string $label
-     *
-     * @return Field\File
-     */
-    public function file($column, $label = '')
-    {
-        $field = new Field\File($column, $this->formatLabel($label));
-
-        $this->addField($field);
-
-        return $field;
-    }
-
-    /**
-     * @param string $column
-     * @param string $label
-     *
-     * @return Field\MultipleFile
-     */
-    public function multipleFile($column, $label = '')
-    {
-        $field = new Field\MultipleFile($column, $this->formatLabel($label));
-
-        $this->addField($field);
-
-        return $field;
-    }
-
-    /**
-     * @param string $column
-     * @param string $label
-     *
-     * @return Field\Image
-     */
-    public function image($column, $label = '')
-    {
-        $field = new Field\Image($column, $this->formatLabel($label));
-
-        $this->addField($field);
-
-        return $field;
-    }
-
-    /**
-     * @param string $column
-     * @param string $label
-     *
-     * @return Field\MultipleImage
-     */
-    public function multipleImage($column, $label = '')
-    {
-        $field = new Field\MultipleImage($column, $this->formatLabel($label));
-
-        $this->addField($field);
-
-        return $field;
-    }
-
-    /**
-     * @param string $column
-     * @param string $label
-     *
-     * @return Field\Date
-     */
-    public function date($column, $label = '')
-    {
-        $field = new Field\Date($column, $this->formatLabel($label));
-
-        $this->addField($field);
-
-        return $field;
-    }
-
-    /**
-     * @param string $column
-     * @param string $label
-     *
-     * @return Field\Date
-     */
-    public function datetime($column, $label = '')
-    {
-        return $this->date($column, $label)->format('YYYY-MM-DD HH:mm:ss');
-    }
-
-    /**
-     * @param string $column
-     * @param string $label
-     *
-     * @return Field\Date
-     */
-    public function time($column, $label = '')
-    {
-        return $this->date($column, $label)->format('HH:mm:ss');
-    }
-
-    /**
-     * @param string $column
-     * @param string $label
-     *
-     * @return Field\Hidden
-     */
-    public function hidden($column, $label = '')
-    {
-        $field = new Field\Hidden($column, $this->formatLabel($label));
-
-        $this->addField($field);
-
-        return $field;
-    }
 
     /**
      * @param $message
@@ -679,5 +372,29 @@ class Form extends Interactor
         Admin::script($script);
 
         return ' ';
+    }
+
+    /**
+        * Add nested-form fields dynamically.
+        *
+        * @param string $method
+        * @param array  $arguments
+        *
+        * @return mixed
+        */
+    public function __call($method, $arguments)
+    {
+        if ($className = ModalForm::findFieldClass($method)) {
+            $column = Arr::get($arguments, 0, '');
+
+            /* @var Field $field */
+            $field = new $className($column, array_slice($arguments, 1));
+            $field->setForm($this->form);
+            $field = $this->addField($field);
+
+            return $field;
+        }
+
+        return $this;
     }
 }

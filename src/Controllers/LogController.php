@@ -46,7 +46,7 @@ class LogController extends AdminController
 
         $grid->column('created_at', trans('admin.created_at'));
 
-        $grid->actions(function (Grid\Displayers\Actions $actions) {
+        $grid->actions(function (Grid\Displayers\Actions\Actions $actions) {
             $actions->disableEdit();
             $actions->disableView();
         });

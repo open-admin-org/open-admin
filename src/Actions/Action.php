@@ -20,7 +20,7 @@ use OpenAdmin\Admin\Form\Field;
  * @method Field\Ip             ip($column, $label = '')
  * @method Field\Url            url($column, $label = '')
  * @method Field\Password       password($column, $label = '')
- * @method Field\Mobile         mobile($column, $label = '')
+ * @method Field\PhoneNumber    phonenumber($column, $label = '')
  * @method Field\Textarea       textarea($column, $label = '')
  * @method Field\Select         select($column, $label = '')
  * @method Field\MultipleSelect multipleSelect($column, $label = '')
@@ -138,12 +138,26 @@ abstract class Action implements Renderable
     }
 
     /**
+     * Get batch action title.
+     *
+     * @return string
+     */
+    public function setName($name)
+    {
+        $this->name = $name;
+        return $this;
+    }
+
+    /**
      * Get batch icon.
      *
      * @return string
      */
     public function getIcon()
     {
+        if (empty($this->icon)) {
+            return '';
+        }
         return "<i class='{$this->icon}'></i>";
     }
 

@@ -35,7 +35,7 @@ class UserController extends AdminController
         $grid->column('created_at', trans('admin.created_at'));
         $grid->column('updated_at', trans('admin.updated_at'));
 
-        $grid->actions(function (Grid\Displayers\Actions $actions) {
+        $grid->actions(function (Grid\Displayers\Actions\Actions $actions) {
             if ($actions->getKey() == 1) {
                 $actions->disableDelete();
             }

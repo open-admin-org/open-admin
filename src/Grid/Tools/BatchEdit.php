@@ -3,14 +3,15 @@
 namespace OpenAdmin\Admin\Grid\Tools;
 
 use Illuminate\Support\Facades\URL;
+use OpenAdmin\Admin\Actions\BatchAction;
 
 class BatchEdit extends BatchAction
 {
     public $icon = 'icon-pen';
 
-    public function __construct($title)
+    public function __construct()
     {
-        $this->title = $title;
+        $this->name = trans('admin.batch_edit');
     }
 
     public function buildBatchUrl($resourcesPath)

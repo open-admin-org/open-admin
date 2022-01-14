@@ -6,6 +6,7 @@ use Illuminate\Contracts\Support\Htmlable;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Support\Collection;
 use OpenAdmin\Admin\Actions\Action;
+use OpenAdmin\Admin\Actions\BatchAction;
 use OpenAdmin\Admin\Actions\GridAction;
 use OpenAdmin\Admin\Grid;
 use OpenAdmin\Admin\Grid\Tools\AbstractTool;
@@ -60,7 +61,7 @@ class Tools implements Renderable
      */
     public function append($tool)
     {
-        if ($tool instanceof GridAction) {
+        if ($tool instanceof GridAction || $tool instanceof BatchAction) {
             $tool->setGrid($this->grid);
         }
 

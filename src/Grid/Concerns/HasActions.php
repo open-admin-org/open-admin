@@ -52,7 +52,7 @@ trait HasActions
             return $class;
         }
 
-        return Grid\Displayers\Actions::class;
+        return Grid\Displayers\Acions\Actions::class;
     }
 
     /**

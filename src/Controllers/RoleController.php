@@ -36,7 +36,7 @@ class RoleController extends AdminController
         $grid->column('created_at', trans('admin.created_at'));
         $grid->column('updated_at', trans('admin.updated_at'));
 
-        $grid->actions(function (Grid\Displayers\Actions $actions) {
+        $grid->actions(function (Grid\Displayers\Actions\Actions $actions) {
             if ($actions->row->slug == 'administrator') {
                 $actions->disableDelete();
             }
