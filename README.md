@@ -151,6 +151,8 @@ Other
 + [Flatpickr](https://github.com/flatpickr/flatpickr)
 + [Sortablejs](https://github.com/SortableJS/Sortable)
 + [Nprogress](https://ricostacruz.com/nprogress/)
++ [Dual-Listbox](https://github.com/maykinmedia/dual-listbox/)
++ [Coloris](https://github.com/mdbassit/Coloris/)
 
 License
 ------------
