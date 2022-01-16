@@ -368,10 +368,9 @@ class Form implements Renderable
 
     /**
      * Laravel bug: if a model doesn't exists yet (no id) array's can't be saved to a column
-     * Either use a modifier on the model or its gets automaticly encoded as json
+     * Either use a modifier on the model or its gets automaticly encoded as json.
      *
-     * @param String $column
-     *
+     * @param string $column
      */
     public function fixColumnArrayValue($column)
     {
@@ -435,7 +434,6 @@ class Form implements Renderable
             }
 
             $newValue = $this->model->fresh()->getAttribute($field->column());
-
 
             if ($newValue instanceof Arrayable) {
                 $newValue = $newValue->toArray();

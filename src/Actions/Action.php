@@ -145,6 +145,7 @@ abstract class Action implements Renderable
     public function setName($name)
     {
         $this->name = $name;
+
         return $this;
     }
 
@@ -158,6 +159,7 @@ abstract class Action implements Renderable
         if (empty($this->icon)) {
             return '';
         }
+
         return "<i class='{$this->icon}'></i>";
     }
 

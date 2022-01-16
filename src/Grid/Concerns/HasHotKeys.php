@@ -12,7 +12,7 @@ trait HasHotKeys
 
         $refreshMessage = __('admin.refresh_succeeded');
 
-        $script = <<<SCRIPT
+        $script = <<<'SCRIPT'
 
             admin.grid.hotkeys();
 

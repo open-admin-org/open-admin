@@ -3,6 +3,7 @@
 namespace OpenAdmin\Admin\Actions\Interactor;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\MessageBag;
 use Illuminate\Validation\ValidationException;
@@ -12,7 +13,6 @@ use OpenAdmin\Admin\Admin;
 use OpenAdmin\Admin\Form as ModalForm;
 use OpenAdmin\Admin\Form\Field;
 use Symfony\Component\DomCrawler\Crawler;
-use Illuminate\Support\Arr;
 
 class Form extends Interactor
 {
@@ -91,8 +91,6 @@ class Form extends Interactor
     {
         $this->addValues = $set;
     }
-
-
 
     /**
      * @param $message
@@ -375,13 +373,13 @@ class Form extends Interactor
     }
 
     /**
-        * Add nested-form fields dynamically.
-        *
-        * @param string $method
-        * @param array  $arguments
-        *
-        * @return mixed
-        */
+     * Add nested-form fields dynamically.
+     *
+     * @param string $method
+     * @param array  $arguments
+     *
+     * @return mixed
+     */
     public function __call($method, $arguments)
     {
         if ($className = ModalForm::findFieldClass($method)) {

@@ -83,7 +83,7 @@ class Checkbox extends MultipleSelect
     public function render()
     {
         $this->addVariables([
-            'checked'     => $this->checked,
+            'checked'      => $this->checked,
             'stacked'      => $this->stacked,
         ]);
 

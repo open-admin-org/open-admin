@@ -36,7 +36,6 @@ abstract class BatchAction extends GridAction
         $this->id = $id;
     }
 
-
     /**
      * @return string
      */
@@ -59,6 +58,7 @@ abstract class BatchAction extends GridAction
             $this->id
         );
     }
+
     /**
      * @param Request $request
      *

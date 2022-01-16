@@ -3,12 +3,12 @@
 namespace OpenAdmin\Admin\Grid\Tools;
 
 use Illuminate\Contracts\Support\Renderable;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Collection;
 use OpenAdmin\Admin\Admin;
+use OpenAdmin\Admin\Form;
 use OpenAdmin\Admin\Form\Field;
 use OpenAdmin\Admin\Grid;
-use OpenAdmin\Admin\Form;
-use Illuminate\Support\Arr;
 
 class QuickCreate implements Renderable
 {
@@ -41,7 +41,7 @@ class QuickCreate implements Renderable
      */
     protected function addField(Field $field)
     {
-        $elementClass = array_merge(['quick-create','form-control-sm'], $field->getElementClass());
+        $elementClass = array_merge(['quick-create', 'form-control-sm'], $field->getElementClass());
 
         $field->addElementClass($elementClass);
         $field->setInline(true);
@@ -54,7 +54,7 @@ class QuickCreate implements Renderable
     {
         $url = $this->parent->resource();
 
-        $script = <<<SCRIPT
+        $script = <<<'SCRIPT'
 document.querySelector('.quick-create .create').addEventListener('click',function () {
     show(document.querySelector('.quick-create .create-form'),'flex');
     hide(this);
@@ -102,20 +102,20 @@ SCRIPT;
         $vars = [
             'columnCount' => $columnCount,
             'fields'      => $this->fields,
-            'url'         => $this->parent->resource()
+            'url'         => $this->parent->resource(),
         ];
 
         return view('admin::grid.quick-create-form', $vars)->render();
     }
 
     /**
-        * Add nested-form fields dynamically.
-        *
-        * @param string $method
-        * @param array  $arguments
-        *
-        * @return mixed
-        */
+     * Add nested-form fields dynamically.
+     *
+     * @param string $method
+     * @param array  $arguments
+     *
+     * @return mixed
+     */
     public function __call($method, $arguments)
     {
         if ($className = Form::findFieldClass($method)) {

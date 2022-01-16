@@ -3,8 +3,8 @@
 namespace OpenAdmin\Admin\Grid\Tools;
 
 use Illuminate\Support\Collection;
-use OpenAdmin\Admin\Admin;
 use OpenAdmin\Admin\Actions\BatchAction;
+use OpenAdmin\Admin\Admin;
 
 class BatchActions extends AbstractTool
 {

@@ -96,11 +96,11 @@ return [
     'listbox'               => [
         'title_available'     => 'Available',
         'title_selected'      => 'Selected',
-        'text_total'         => 'Showing all {0}',
-        'text_empty'         => 'Empty list',
-        'filtered'           => '{0} / {1}',
-        'filter_clear'       => 'Show all',
-        'filter_placeholder' => 'Filter',
+        'text_total'          => 'Showing all {0}',
+        'text_empty'          => 'Empty list',
+        'filtered'            => '{0} / {1}',
+        'filter_clear'        => 'Show all',
+        'filter_placeholder'  => 'Filter',
     ],
     'grid_items_selected'    => '{n} items selected',
 
