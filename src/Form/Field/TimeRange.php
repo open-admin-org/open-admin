@@ -38,7 +38,6 @@ class TimeRange extends Field
         $this->id = $this->formatId($this->column['start']);
     }
 
-
     public function check_format_options()
     {
         $format = $this->options['format'];

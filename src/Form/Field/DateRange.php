@@ -72,7 +72,6 @@ class DateRange extends Field
         $this->options['allowInputToggle'] = true;
         $this->options['plugins'] = '__replace_me__';
 
-
         $this->check_format_options();
 
         $options_start = json_encode($this->options);

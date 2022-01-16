@@ -565,7 +565,6 @@ EOT;
 
 EOT;
 
-
         Admin::script($script);
     }
 

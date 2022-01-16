@@ -129,7 +129,6 @@ class Select extends Field
             $class = $field;
         }
 
-
         $this->additional_script .= <<<EOT
 
             let elm = document.querySelector("{$this->getElementClassSelector()}");
@@ -152,7 +151,6 @@ class Select extends Field
                 })
             });
 EOT;
-
 
         return $this;
     }
@@ -300,7 +298,7 @@ EOT;
         $this->config = array_merge([
             'removeItems'        => true,
             'removeItemButton'   => true,
-            'placeholder'        => $this->label
+            'placeholder'        => $this->label,
         ], $this->config);
 
         $this->additional_script = <<<EOT
@@ -382,7 +380,8 @@ EOT;
         if (empty($field)) {
             $field = $this->getElementClassString();
         }
-        return "choices_".$field;
+
+        return 'choices_'.$field;
     }
 
     /**
@@ -393,19 +392,18 @@ EOT;
         $configs = array_merge([
             'removeItems'        => true,
             'removeItemButton'   => true,
-            'placeholder' => [
+            'placeholder'        => [
                 'id'   => '',
                 'text' => $this->label,
             ],
             'classNames' => [
-                'containerOuter' => 'choices '.$this->getElementClassString()
+                'containerOuter' => 'choices '.$this->getElementClassString(),
             ],
         ], $this->config);
         $configs = json_encode($configs);
 
-
         if (!$this->native && (get_class($this) == 'OpenAdmin\Admin\Form\Field\Select' || get_class($this) == 'OpenAdmin\Admin\Form\Field\MultipleSelect')) {
-            $this->script .= "var ".$this->choicesObjName()." = new Choices('{$this->getElementClassSelector()}',{$configs});";
+            $this->script .= 'var '.$this->choicesObjName()." = new Choices('{$this->getElementClassSelector()}',{$configs});";
             $this->script .= $this->additional_script;
         }
 

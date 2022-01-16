@@ -27,14 +27,16 @@ class Color extends Text
      *
      * @return $this
      */
-    public function format($format= 'hex')
+    public function format($format = 'hex')
     {
         return $this->options(['format'=> $format]);
     }
 
     /**
-     * Set using alpha
-     * @param boolean $set
+     * Set using alpha.
+     *
+     * @param bool $set
+     *
      * @return $this
      */
     public function alpha($set = true)
@@ -67,8 +69,8 @@ class Color extends Text
     public function render()
     {
         $options = array_merge([
-            'el'    => $this->getElementClassSelector(),
-            'theme' =>'polaroid',
+            'el'         => $this->getElementClassSelector(),
+            'theme'      => 'polaroid',
             'focusInput' => false,
 
         ], $this->options);

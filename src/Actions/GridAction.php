@@ -32,6 +32,7 @@ abstract class GridAction extends Action
     {
         $this->parent = $grid;
         $this->resource = $grid->resource();
+
         return $this;
     }
 

@@ -1189,6 +1189,7 @@ class Field implements Renderable
     public function setInline($set = true): self
     {
         $this->inline = $set;
+
         return $this;
     }
 
