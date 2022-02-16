@@ -37,12 +37,6 @@
     Forked from <a href="https://github.com/z-song/laravel-admin">Laravel-admin</a> Much thanks to Z-song for all the effort & great setup!
 </p>
 
-Work-in-progress
-------------
- - Still updating field types & removing jQuery
- - Updating documentation
- - Want to help? please create a branch / fork and let me know your changes
-
 
 Requirements
 ------------
@@ -87,30 +81,31 @@ Configurations
 The file `config/admin.php` contains an array of configurations, you can find the default configurations in there.
 
 ## Extensions
-<a href="https://laravel-admin.org/docs/en/extension-development">Extention development</a>
+<a href="https://open-admin.org/docs/en/extension-development">Extention development</a>
 
 More coming soon
 
-
-| Extension                                        | Description                              | open-admin                              |
-| ------------------------------------------------ | ---------------------------------------- |---------------------------------------- |
+| Extension                                                        | Description                              | open-admin                              |
+| ---------------------------------------------------------------- | ---------------------------------------- |---------------------------------------- |
 | [helpers](https://github.com/open-admin-org/helpers)             | Several tools to help you in development | ~1.0 |
 | [media-manager](https://github.com/open-admin-org/media-manager) | Provides a web interface to manage local files          | ~1.0 |
-| [config](https://github.com/open-admin-org/config) | Config manager for open-admin          |~1.0 |
-| [grid-sortable](https://github.com/open-admin-org/grid-sortable) | Sortable grids          |~1.0 |
+| [config](https://github.com/open-admin-org/config)               | Config manager for open-admin            |~1.0 |
+| [grid-sortable](https://github.com/open-admin-org/grid-sortable) | Sortable grids                           |~1.0 |
+| [Ckeditor](https://github.com/open-admin-org/ckeditor)           | Ckeditor for forms                       |~1.0 |
+| [api-tester](https://github.com/open-admin-org/api-tester)       | Test api calls from the admin            |~1.0 |
+| [scheduling](https://github.com/open-admin-org/scheduling)       | Show and test your cronjobs              |~1.0 |
+| [phpinfo](https://github.com/open-admin-org/phpinfo)             | Show php info in the admin               |~1.0 |
+
+
 <!--
-| [api-tester](https://github.com/open-admin-extensions/api-tester) | Help you to test the local laravel APIs          |~1.5 |
-| [scheduling](https://github.com/open-admin-extensions/scheduling) | Scheduling task manager for open-admin          |~1.5 |
 | [redis-manager](https://github.com/open-admin-extensions/redis-manager) | Redis manager for open-admin          |~1.5 |
 | [backup](https://github.com/open-admin-extensions/backup) | An admin interface for managing backups          |~1.5 |
 | [log-viewer](https://github.com/open-admin-extensions/log-viewer) | Log viewer for laravel           |~1.5 |
-| [config](https://github.com/open-admin-extensions/config) | Config manager for open-admin          |~1.5 |
 | [reporter](https://github.com/open-admin-extensions/reporter) | Provides a developer-friendly web interface to view the exception          |~1.5 |
 | [wangEditor](https://github.com/open-admin-extensions/wangEditor) | A rich text editor based on [wangeditor](http://www.wangeditor.com/)         |~1.6 |
 | [summernote](https://github.com/open-admin-extensions/summernote) | A rich text editor based on [summernote](https://summernote.org/)          |~1.6 |
 | [china-distpicker](https://github.com/open-admin-extensions/china-distpicker) | 一个基于[distpicker](https://github.com/fengyuanchen/distpicker)的中国省市区选择器          |~1.6 |
 | [simplemde](https://github.com/open-admin-extensions/simplemde) | A markdown editor based on [simplemde](https://github.com/sparksuite/simplemde-markdown-editor)          |~1.6 |
-| [phpinfo](https://github.com/open-admin-extensions/phpinfo) | Integrate the `phpinfo` page into open-admin          |~1.6 |
 | [php-editor](https://github.com/open-admin-extensions/php-editor) <br/> [python-editor](https://github.com/open-admin-extensions/python-editor) <br/> [js-editor](https://github.com/open-admin-extensions/js-editor)<br/> [css-editor](https://github.com/open-admin-extensions/css-editor)<br/> [clike-editor](https://github.com/open-admin-extensions/clike-editor)| Several programing language editor extensions based on code-mirror          |~1.6 |
 | [star-rating](https://github.com/open-admin-extensions/star-rating) | Star Rating extension for open-admin          |~1.6 |
 | [json-editor](https://github.com/open-admin-extensions/json-editor) | JSON Editor for Open-admin          |~1.6 |
