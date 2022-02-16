@@ -46,7 +46,7 @@ class ValuePicker
      * @param bool   $multiple
      * @param string $separator
      */
-    public function __construct($selecteable, $column = '', $multiple = false, $separator = ';')
+    public function __construct($selecteable, $column = '', $multiple = false, $separator = ',')
     {
         $this->selecteable = $selecteable;
         $this->column = $column;
@@ -79,7 +79,7 @@ class ValuePicker
 
         $this->addPickBtn($callback);
 
-        Admin::component('admin::components.filepicker', [
+        Admin::component('admin::components.valuepicker', [
             'url'       => $this->getLoadUrl(),
             'modal'     => $this->modal,
             'selector'  => $this->field->getElementClassSelector(),
@@ -96,10 +96,10 @@ class ValuePicker
      */
     protected function addPickBtn(\Closure $callback = null)
     {
-        $text = admin_trans('admin.browse');
+        $text = admin_trans('admin.choose');
 
         $btn = <<<HTML
-<a class="btn btn-primary" data-bs-toggle="modal" data-target="#{$this->modal}">
+<a class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#{$this->modal}">
     <i class="icon-folder-open"></i>  {$text}
 </a>
 HTML;

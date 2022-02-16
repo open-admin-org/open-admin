@@ -1,9 +1,10 @@
 <?php
 
-namespace OpenAdmin\Admin\Form\Field;
+namespace OpenAdmin\Admin\Form\Field\Traits;
 
 use OpenAdmin\Admin\Admin;
 use OpenAdmin\Admin\Form\Field;
+use OpenAdmin\Admin\Form\Field\ValuePicker;
 
 /**
  * @mixin Field
@@ -33,7 +34,7 @@ trait HasValuePicker
      * @param string $column
      * @param string $separator
      */
-    public function pickMany($picker, $column = '', $separator = ';')
+    public function pickMany($picker, $column = '', $separator = ',')
     {
         $this->picker = new ValuePicker($picker, $column, true, $separator);
 
@@ -58,8 +59,9 @@ trait HasValuePicker
     public function getRules()
     {
         $rules = parent::getRules();
-
-        array_delete($rules, 'image');
+        if (!empty($rules)) {
+            array_delete($rules, 'image');
+        }
 
         return $rules;
     }

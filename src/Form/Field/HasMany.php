@@ -48,6 +48,15 @@ class HasMany extends Field
     protected $viewMode = 'default';
 
     /**
+     * verticalAlign.
+     *
+     * Supports `middle`, `top` and `bottom`
+     *
+     * @var string
+     */
+    protected $verticalAlign = 'middle';
+
+    /**
      * Available views for HasMany field.
      *
      * @var array
@@ -365,12 +374,24 @@ class HasMany extends Field
      * @param string $mode currently support `tab` mode.
      *
      * @return $this
-     *
-     * @author Edwin Hui
      */
     public function mode($mode)
     {
         $this->viewMode = $mode;
+
+        return $this;
+    }
+
+    /**
+     * Set view mode.
+     *
+     * @param string $mode currently support `tab` mode.
+     *
+     * @return $this
+     */
+    public function verticalAlign($align)
+    {
+        $this->verticalAlign = $align;
 
         return $this;
     }
@@ -487,7 +508,7 @@ class HasMany extends Field
          *
          * {count} is increment number of current sub form count.
          */
-        $script = <<<EOT
+        $script = <<<JS
 var index = 0;
 document.querySelector('#has-many-{$this->column} .add').addEventListener("click", function () {
     index++;
@@ -501,7 +522,6 @@ document.querySelector('#has-many-{$this->column} .add').addEventListener("click
     if (typeof(addHasManyTab{$this->column}) == 'function'){
         addHasManyTab{$this->column}(index);
     }
-
 
     {$templateScript}
     return false;
@@ -526,7 +546,7 @@ function addRemoveHasManyListener{$this->column}(remove){
     });
 }
 
-EOT;
+JS;
 
         Admin::script($script);
     }
@@ -636,10 +656,11 @@ EOT;
         $this->setupScript($script);
 
         return parent::fieldRender([
-            'forms'        => $this->buildRelatedForms(),
-            'template'     => $template,
-            'relationName' => $this->relationName,
-            'options'      => $this->options,
+            'forms'         => $this->buildRelatedForms(),
+            'template'      => $template,
+            'relationName'  => $this->relationName,
+            'verticalAlign' => $this->verticalAlign,
+            'options'       => $this->options,
         ]);
     }
 
@@ -693,11 +714,12 @@ EOT;
         $this->view = $this->views[$this->viewMode];
 
         return parent::fieldRender([
-            'headers'      => $headers,
-            'forms'        => $this->buildRelatedForms(),
-            'template'     => $template,
-            'relationName' => $this->relationName,
-            'options'      => $this->options,
+            'headers'       => $headers,
+            'forms'         => $this->buildRelatedForms(),
+            'template'      => $template,
+            'relationName'  => $this->relationName,
+            'verticalAlign' => $this->verticalAlign,
+            'options'       => $this->options,
         ]);
     }
 }

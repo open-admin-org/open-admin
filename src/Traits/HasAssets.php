@@ -70,8 +70,7 @@ trait HasAssets
         'vendor/open-admin/sortablejs/nestable.css',
 
         // custom open admin stuff
-        //'vendor/open-admin/fontello/css/open-admin.css',
-        //'vendor/open-admin/font-awesome/css/font-awesome.min.css',
+        // generated through sass
         'vendor/open-admin/open-admin/css/styles.css',
     ];
 
@@ -98,6 +97,7 @@ trait HasAssets
         'vendor/open-admin/open-admin/js/open-admin-toastr.js',
         'vendor/open-admin/open-admin/js/open-admin-resource.js',
         'vendor/open-admin/open-admin/js/open-admin-tree.js',
+        'vendor/open-admin/open-admin/js/open-admin-selectable.js',
 
     ];
 
@@ -382,21 +382,22 @@ trait HasAssets
                     }
 
                     if ($child->tagName == 'template') {
+                        if ($child->getAttribute("render") == "true") {
 
-                        /*
-                        // this will render the template tags right into the dom. Don't think we want this
-                        $html = '';
-                        foreach ($child->childNodes as $childNode) {
-                            $html .= $child->ownerDocument->saveHTML($childNode);
+                            // this will render the template tags right into the dom. Don't think we want this
+                            $html = '';
+                            foreach ($child->childNodes as $childNode) {
+                                $html .= $child->ownerDocument->saveHTML($childNode);
+                            }
+                        } else {
+
+                            // this leaves the template tags in place, so they won't get rendered right away
+                            $doc = new \DOMDocument();
+                            $doc->appendChild($doc->importNode($child, true));
+                            $html = $doc->saveHTML();
                         }
-                        */
-
-                        // this leaves the template tags in place, so they won't get rendered right away
-                        $doc = new \DOMDocument();
-                        $doc->appendChild($doc->importNode($child, true));
-                        $html = $doc->saveHTML();
-
                         $html && static::html($html);
+
                         continue;
                     }
                 }

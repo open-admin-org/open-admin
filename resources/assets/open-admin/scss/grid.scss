@@ -109,12 +109,12 @@
 
 .table tr th,
 .table tr td {
-    padding-left: 11px;
+    padding-left: 0.75rem;
 }
 
 .table tr th.column-__row_selector__,
 .table tr td.column-__row_selector__ {
-    padding-left: 17px;
+    padding-left: 1.25rem;
 }
 
 .table tr th,
@@ -269,4 +269,26 @@
 .ie-container .error {
     color: #dd4b39;
     font-weight: 700;
+}
+
+/*---------------------------------------------------------*/
+/* empty grid */
+/*---------------------------------------------------------*/
+
+.empty-grid{
+    padding: 100px;
+    text-align: center;
+    color: #999999;
+    svg{
+        margin:50px;
+    }
+}
+
+.belongsto,
+.belongstomany{
+    svg{
+        height:80px;
+        width:80px;
+        margin:20px;
+    }
 }

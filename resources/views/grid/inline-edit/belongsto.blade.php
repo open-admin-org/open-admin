@@ -1,7 +1,7 @@
-<span class="grid-selector" data-bs-toggle="modal" data-target="#{{ $modal }}" key="{{ $key }}" data-val="{{ $original }}">
+<span class="grid-selector" data-bs-toggle="modal" data-bs-target="#{{ $modal }}" id="{{ $display_field }}-{{$key}}" key="{{ $key }}" data-display_field="{{ $display_field }}" data-val="{{ $original }}">
    <a href="javascript:void(0)" class="text-muted">
-       <i class="icon-check-square-o"></i>&nbsp;&nbsp;
-       <span class="text">{{ $value }}</span>
+       <i class="icon-check-square"></i>&nbsp;
+       <span class="text">{!! $value !!}</span>
    </a>
 </span>
 
@@ -20,19 +20,21 @@
     }
 </style>
 
-<template>
+<template render="true">
     <div class="modal fade belongsto" id="{{ $modal }}" tabindex="-1" role="dialog">
         <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content" style="border-radius: 5px;">
                 <div class="modal-header">
-                    <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                    <h4 class="modal-title">{{ admin_trans('admin.choose') }}</h4>
+                    <button type="button" class="btn btn-light close" data-bs-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
-                    <h4 class="modal-title">{{ admin_trans('admin.choose') }}</h4>
                 </div>
                 <div class="modal-body">
                     <div class="loading text-center">
-                        <i class="icon-spinner fa-pulse fa-3x fa-fw"></i>
+                        <div class="icon-spin">
+                            <i class="icon-spinner icon-3x"></i>
+                        </div>
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -46,133 +48,92 @@
 
 <script>
 
-    var $modal = $('#{{ $modal }}');
-    var $related = null;
+    var related;
+    var rows;
+    var values;
+    var labelClass = "{{ $labelClass }}";
+    var seperator = "{{ $seperator }}";
 
     var update = function (callback) {
-        $.ajax({
-            url: "{{ $resource }}/" + $related.attr('key'),
-            type: "POST",
-            data: {
-                '{{ $name }}': selected.length ? selected : [''],
-                _token: LA.token,
-                _method: 'PUT'
-            },
-            success: function (data) {
-                callback(data);
+        var url = "{{ $resource }}/" + related.getAttribute('key');
+        @if($relation == \OpenAdmin\Admin\Grid\Displayers\BelongsTo::class)
+            var value = values.length ? values[0] : '';
+        @else
+            var value = values.length ? values : ['']
+        @endif
+        var data = {
+                '{{ $name }}': value,
+                _method: 'PUT',
+                'after-save': 'exit'
+            };
+        admin.ajax.post(url,data,callback);
+    };
+
+    var updateFunction = function(setValues,setRows,setRelated){
+
+        rows = setRows;
+        related = setRelated;
+        values = setValues;
+        update(resultFunction);
+    }
+
+    var resultFunction = function(data){
+
+        admin.toastr.success(data.data);
+
+        var text = related.querySelector(".text");
+        var labels = [];
+        var sep = "";
+
+        for(i in values){
+            var value = values[i];
+            if (!text.querySelector('span[data-key="'+value+'"]')){
+                var row = rows[value];
+                var key = row.dataset.key;
+                var value = row.querySelector(".column-"+related.dataset.display_field).innerText;
+                var label = sep+"<span data-key=\""+key+"\" class=\""+labelClass+"\">"+value+"</span>";
+                text.innerHTML += label;
             }
-        });
-    };
-
-@if($relation == \OpenAdmin\Admin\Grid\Displayers\BelongsTo::class)
-
-    var selected = null;
-
-    var load = function (url) {
-        $.get(url, function (data) {
-            $modal.find('.modal-body').html(data);
-            $modal.find('.select').iCheck({
-                radioClass:'iradio_minimal-blue',
-                checkboxClass:'icheckbox_minimal-blue'
-            });
-            $modal.find('.box-header:first').hide();
-
-            $modal.find('input.select').each(function (index,    el) {
-                if ($(el).val() == selected) {
-                    $(el).iCheck('toggle');
-                }
-            });
-        });
-    };
-
-    $modal.on('show.bs.modal', function (e) {
-        $related = $(e.relatedTarget);
-        selected = $related.data('val');
-        load("{!! $url !!}");
-    }).on('ifChecked', 'input.select', function (e) {
-        selected = $(this).val();
-    }).find('.modal-footer .submit').click(function () {
-        update(function (data) {
-            $related.data('val', selected);
-            $related.find('.text').html(data.display["{{ $name }}"]);
-            $related.find('a').toggleClass('text-green text-muted');
-
-            setTimeout(function () {
-                $related.find('a').toggleClass('text-green text-muted');
-            }, 2000);
-
-            $modal.modal('toggle');
-
-            toastr.success(data.message);
-        });
-    });
-
-@else
-
-    var selected = [];
-
-    var load = function (url) {
-        $.get(url, function (data) {
-            $modal.find('.modal-body').html(data);
-            $modal.find('.select').iCheck({
-                radioClass:'iradio_minimal-blue',
-                checkboxClass:'icheckbox_minimal-blue'
-            });
-            $modal.find('.box-header:first').hide();
-
-            $modal.find('input.select').each(function (index, el) {
-                if ($.inArray($(el).val().toString(), selected) >=0 ) {
-                    $(el).iCheck('toggle');
-                }
-            });
-        });
-    };
-
-    $modal.on('show.bs.modal', function (e) {
-        $related = $(e.relatedTarget);
-        selected = $related.data('val').map(function (value) {
-            return value.toString();
-        });
-
-        load("{!! $url !!}");
-    }).on('ifChecked', 'input.select', function (e) {
-        var val = $(this).val().toString();
-        if (selected.indexOf(val) < 0) {
-            selected.push(val);
+            sep = seperator;
         }
-    }).on('ifUnchecked', 'input.select', function (e) {
-        var val = $(this).val().toString();
-        var index = selected.indexOf(val);
-        if (index !== -1) {
-            selected.splice(index, 1);
-        }
-    }).find('.modal-footer .submit').click(function () {
-        update(function (data) {
-            $related.data('val', selected);
-            $related.find('.text').html(data.display["{{ $name }}"]);
-            $related.find('a').toggleClass('text-green text-muted');
+        text.querySelectorAll("span").forEach(span=>{
+            var check = (new String(span.dataset.key));
+            if (!arr_includes(values,check)){
+                span.remove();
+            }
+        })
 
-            setTimeout(function () {
-                $related.find('a').toggleClass('text-green text-muted');
-            }, 2000);
+        @if($relation == \OpenAdmin\Admin\Grid\Displayers\BelongsTo::class)
+            related.dataset.val = values[0];
+        @else
+            related.dataset.val = JSON.stringify(values);
+        @endif
 
-            $modal.modal('toggle');
+        text.classList.add("text-success");
 
-            toastr.success(data.message);
-        });
-    });
-@endif
+        setTimeout(function () {
+            var text = related.querySelector(".text");
+            text.classList.remove("text-success");
 
-    $modal.on('click', '.page-item a, .filter-box a', function (e) {
-        load($(this).attr('href'));
-        e.preventDefault();
-    }).on('click', 'tr', function (e) {
-        $(this).find('input.select').iCheck('toggle');
-        e.preventDefault();
-    }).on('submit', '.box-header form', function (e) {
-        load($(this).attr('action')+'&'+$(this).serialize());
-        e.preventDefault();
-        return false;
-    })
+        }, 2000);
+    }
+
+    var valueFunction = function(related){
+        @if($relation == \OpenAdmin\Admin\Grid\Displayers\BelongsTo::class)
+        return related.dataset.val;
+        @else
+        return JSON.parse(related.dataset.val);
+        @endif
+    }
+
+    //var modalTrigger = '.{$this->relation_prefix}{$column} .select-relation';
+    var config = {
+        modal_elm : document.querySelector('#{{$modal}}'),
+        url : "{!! $url !!}",
+        update : updateFunction, //for setting value
+        value : valueFunction
+    }
+
+    admin.selectable.init(config);
 
 </script>

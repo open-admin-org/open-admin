@@ -39,9 +39,20 @@ abstract class Selectable
     protected $perPage = 10;
 
     /**
-     * @var bool
+     * @var string
      */
-    protected $imageLayout = false;
+    public static $display_field = "id";
+
+    /**
+     * @var string
+     */
+    public static $labelClass = "";
+
+    /**
+    * @var string
+    */
+    public static $seperator = ", ";
+
 
     /**
      * Selectable constructor.
@@ -62,11 +73,6 @@ abstract class Selectable
      */
     abstract public function make();
 
-    protected function imageLayout()
-    {
-        $this->imageLayout = true;
-    }
-
     /**
      * @param bool $multiple
      *
@@ -75,14 +81,9 @@ abstract class Selectable
     public function render()
     {
         $this->make();
-
-        if ($this->imageLayout) {
-            $this->setView('admin::grid.image', ['key' => $this->key]);
-        } else {
-            $this->appendRemoveBtn(true);
-        }
-
-        $this->disableFeatures()->paginate($this->perPage)->expandFilter();
+        $this->appendRemoveBtn(true);
+        $this->disableFeatures()->paginate($this->perPage);
+        $this->grid->getFilter()->setFilterID("filter-box-selectable");
 
         $displayer = $this->multiple ? Checkbox::class : Radio::class;
 
@@ -127,15 +128,15 @@ abstract class Selectable
 
     protected function appendRemoveBtn($hide = true)
     {
-        $hide = $hide ? 'hide' : '';
+        $hide = $hide ? 'd-none' : '';
         $key = $this->key;
 
         $this->column('__remove__', ' ')->display(function () use ($hide, $key) {
-            return <<<BTN
+            return <<<HTML
 <a href="javascript:void(0);" class="grid-row-remove {$hide}" data-key="{$this->getAttribute($key)}">
     <i class="icon-trash"></i>
 </a>
-BTN;
+HTML;
         });
     }
 
@@ -149,10 +150,24 @@ BTN;
         $model = new $this->model();
 
         $this->grid = new Grid(new $model());
+        $this->grid->fixedFooter(false);
 
         if (!$this->key) {
             $this->key = $model->getKeyName();
         }
+    }
+
+    public static function display()
+    {
+        return function ($value) {
+            if (is_array($value)) {
+                return implode(self::$seperator, array_map(function ($item) {
+                    return "<span data-key=\"{$item[self::$display_field]}\" class='".(self::$labelClass)."'>{$item[self::$display_field]}</span>";
+                }, $value));
+            } else {
+                return "<span data-key=\"{$value}\" class='".(self::$labelClass)."'>{$value}</span>";
+            }
+        };
     }
 
     /**
