@@ -22,7 +22,7 @@ class Collapse extends Widget implements Renderable
     public function __construct()
     {
         $this->id('accordion-'.uniqid());
-        $this->class('box-group');
+        $this->class('collapse-group');
         $this->style('margin-bottom: 20px');
     }
 

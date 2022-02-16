@@ -52,12 +52,14 @@
         background: #fff;
         padding: 0.75rem;
 
+/*
         &:first-child {
             border-radius: inherit;
             border-bottom-left-radius: 0;
             border-bottom-right-radius: 0;
-        }
 
+        }
+*/
         &.no-border {
             border: 0;
         }
@@ -188,6 +190,9 @@
         text-shadow: 0 1px 0 #fff;
         opacity: 0.3;
     }
+    p:last-child{
+        margin-bottom:0;
+    }
 }
 
 /*---------------------------------------------------------*/
@@ -217,7 +222,80 @@
 /* additional buttons styles */
 /*---------------------------------------------------------*/
 
-    .btn-group > .btn:not(:first-child), .btn-group > .btn-group:not(:first-child) {
+    .btn-group > .dropdown-toggle, .btn-group > .btn-group.dropdown-toggle {
         border-left: 1px solid rgba(255,255,255,0.2);
         min-width: 2.2em;
     }
+
+/*---------------------------------------------------------*/
+/* show / display styles */
+/*---------------------------------------------------------*/
+
+    .show-value{
+        padding-top:0.3rem;
+    }
+
+    .mailbox-arttachment{
+        border:1px solid $card-border-color;
+        max-width:360px;
+
+        .mailbox-attachment-icon{
+            padding:20px;
+            font-size:3rem;
+            text-align: center;;
+        }
+        .card-body{
+            background-color: $card-border-color;
+        }
+    }
+
+/*---------------------------------------------------------*/
+/* modal overwrites */
+/*---------------------------------------------------------*/
+
+    .modal .form{
+        padding-bottom:0;
+    }
+
+/*---------------------------------------------------------*/
+/* widgets */
+/*---------------------------------------------------------*/
+
+    .card-tools .box-tool-minimize.collapsed .icon-minus:before{
+        content: "";
+        font-weight:bold;
+    }
+
+    .collapse-group .card{
+        border-radius: 0;
+    }
+
+    .collapse-group .card:first-child{
+        border-top-left-radius: 0.3rem;
+        border-top-right-radius: 0.3rem;
+    }
+
+    .collapse-group .card:last-child{
+        border-bottom-left-radius: 0.3rem;
+        border-bottom-right-radius: 0.3rem;
+        .card-header.collapsed{
+            border-bottom-left-radius: 0.3rem;
+            border-bottom-right-radius: 0.3rem;
+        }
+    }
+
+    .info-box{
+        padding:0;
+        .inner{
+            h3{
+                margin:0;
+            }
+            text-align:center;
+            padding-left:2rem;
+        }
+        .icon{
+            font-size:3rem;
+        }
+    }
+
+

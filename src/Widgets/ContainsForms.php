@@ -36,6 +36,7 @@ trait ContainsForms
             $active = key($forms);
         }
 
+
         foreach ($forms as $name => $class) {
             if (!is_subclass_of($class, Form::class)) {
                 admin_error("Class [{$class}] must be a sub-class of [OpenAdmin\Admin\Widgets\Form].");
@@ -45,11 +46,8 @@ trait ContainsForms
             /** @var Form $form */
             $form = app()->make($class);
 
-            if ($name == $active) {
-                $this->add($form->title(), $form->unbox(), true);
-            } else {
-                $this->addLink($form->title(), $this->getTabUrl($name));
-            }
+            $setActive = ($name == $active);
+            $this->add($form->title(), $form->unbox(), $setActive);
         }
 
         return $this;

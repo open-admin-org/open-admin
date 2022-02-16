@@ -28,13 +28,65 @@ class InfoBox extends Widget implements Renderable
     public function __construct($name, $icon, $color, $link, $info)
     {
         $this->data = [
-            'name' => $name,
-            'icon' => $icon,
-            'link' => $link,
-            'info' => $info,
+            'name'      => $name,
+            'icon'      => $icon,
+            'link'      => $link,
+            'color'     => $color,
+            'info'      => $info,
+            'link_text' => trans('admin.more')
         ];
+        $this->id = uniqid('info-box-');
 
-        $this->class("small-box bg-$color");
+        $this->class("card info-box alert alert-$color");
+    }
+
+    /**
+     * Set box id.
+     *
+     * @param string $id
+     *
+     * @return $this
+     */
+    public function setId($id)
+    {
+        $this->id = $id;
+        return $this;
+    }
+
+    public function name($name)
+    {
+        $this->data['name'] = $name;
+        return $this;
+    }
+
+    public function icon($icon)
+    {
+        $this->data['icon'] = $icon;
+        return $this;
+    }
+
+    public function link($link)
+    {
+        $this->data['link'] = $link;
+        return $this;
+    }
+
+    public function link_text($link_text)
+    {
+        $this->data['link_text'] = $link_text;
+        return $this;
+    }
+
+    public function info($info)
+    {
+        $this->data['info'] = $info;
+        return $this;
+    }
+
+    public function color($color)
+    {
+        $this->data['color'] = $color;
+        return $this;
     }
 
     /**

@@ -134,8 +134,8 @@ class Form implements Renderable
     public function __construct($data = [])
     {
         $this->fill($data);
-
         $this->initFormAttributes();
+        $this->form_classes[] = 'card';
     }
 
     /**
@@ -143,9 +143,10 @@ class Form implements Renderable
      *
      * @return mixed
      */
-    public function title()
+    public function title($title)
     {
-        return $this->title;
+        $this->title = $title;
+        return $this;
     }
 
     /**
@@ -304,6 +305,7 @@ class Form implements Renderable
         $this->fields()->each->fill($this->data());
 
         return [
+            'title'      => $this->title,
             'fields'     => $this->fields,
             'attributes' => $this->formatAttribute(),
             'method'     => $this->attributes['method'],
@@ -428,7 +430,7 @@ class Form implements Renderable
 
         $settings = trim(json_encode($settings, JSON_PRETTY_PRINT));
 
-        $script = <<<SCRIPT
+        $script = <<<JS
 
         var confirmSubmit = function(e) {
             e.preventDefault();
@@ -447,7 +449,7 @@ class Form implements Renderable
         document.querySelector('form#{$id} button[type=submit]').removeEventListener("click", confirmSubmit);
         document.querySelector('form#{$id} button[type=submit]').addEventListener("click", confirmSubmit);
 
-SCRIPT;
+JS;
 
         Admin::script($script);
     }
@@ -498,11 +500,11 @@ SCRIPT;
 
         $form = view('admin::widgets.form', $this->getVariables())->render();
 
-        if (!($title = $this->title()) || !$this->inbox) {
+        if (!($this->title) || !$this->inbox) {
             return $form;
         }
 
-        return (new Box($title, $form))->render();
+        return (new Box($this->title, $form))->render();
     }
 
     /**

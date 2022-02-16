@@ -9,8 +9,8 @@ class Tab extends Widget implements Renderable
 {
     use ContainsForms;
 
-    const TYPE_CONTENT = 1;
-    const TYPE_LINK = 2;
+    public const TYPE_CONTENT = 1;
+    public const TYPE_LINK = 2;
 
     /**
      * @var string
@@ -49,12 +49,9 @@ class Tab extends Widget implements Renderable
             'id'      => $id ?: mt_rand(),
             'title'   => $title,
             'content' => $content,
+            'active'  => $active,
             'type'    => static::TYPE_CONTENT,
         ];
-
-        if ($active) {
-            $this->data['active'] = count($this->data['tabs']) - 1;
-        }
 
         return $this;
     }
@@ -74,12 +71,9 @@ class Tab extends Widget implements Renderable
             'id'      => mt_rand(),
             'title'   => $title,
             'href'    => $href,
+            'active'  => $active,
             'type'    => static::TYPE_LINK,
         ];
-
-        if ($active) {
-            $this->data['active'] = count($this->data['tabs']) - 1;
-        }
 
         return $this;
     }
@@ -126,32 +120,12 @@ class Tab extends Widget implements Renderable
      */
     public function render()
     {
+        $this->data['tabs'][0]['active'] = true;
         $data = array_merge(
             $this->data,
             ['attributes' => $this->formatAttributes()]
         );
 
-        $this->setupScript();
-
         return view($this->view, $data)->render();
-    }
-
-    /**
-     * Setup script.
-     */
-    protected function setupScript()
-    {
-        $script = <<<'SCRIPT'
-var hash = document.location.hash;
-if (hash) {
-    $('.nav-tabs a[href="' + hash + '"]').tab('show');
-}
-
-// Change hash for page-reload
-$('.nav-tabs a').on('shown.bs.tab', function (e) {
-    history.pushState(null,null, e.target.hash);
-});
-SCRIPT;
-        Admin::script($script);
     }
 }

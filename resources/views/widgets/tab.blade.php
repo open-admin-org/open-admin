@@ -1,11 +1,11 @@
 <div {!! $attributes !!}>
-    <ul class="nav nav-tabs nav-tabs">
+    <ul class="nav nav-tabs">
 
         @foreach($tabs as $id => $tab)
             @if($tab['type'] == \OpenAdmin\Admin\Widgets\Tab::TYPE_CONTENT)
-                <li {{ $id == $active ? 'class=active' : '' }}><a href="#tab_{{ $tab['id'] }}" data-bs-toggle="tab">{{ $tab['title'] }}</a></li>
+                <li class="nav-item"><a class="nav-link {{ $tab['active'] ? 'active' : '' }}" href="#{{ $tab['title'] }}" data-bs-toggle="tab">{{ $tab['title'] }}</a></li>
             @elseif($tab['type'] == \OpenAdmin\Admin\Widgets\Tab::TYPE_LINK)
-                <li {{ $id == $active ? 'class=active' : '' }}><a href="{{ $tab['href'] }}">{{ $tab['title'] }}</a></li>
+                <li class="nav-item"><a class="nav-link {{ $tab['active'] ? 'active' : '' }}" href="{{ $tab['href'] }}">{{ $tab['title'] }}</a></li>
             @endif
         @endforeach
 
@@ -25,7 +25,7 @@
     </ul>
     <div class="tab-content">
         @foreach($tabs as $id => $tab)
-        <div class="tab-pane {{ $id == $active ? 'active' : '' }}" id="tab_{{ $tab['id'] }}">
+        <div class="card-body tab-pane {{ $tab['active'] ? 'active' : '' }}" id="{{ $tab['title'] }}">
             @php($content = \Illuminate\Support\Arr::get($tab, 'content'))
                 @if($content instanceof \Illuminate\Contracts\Support\Renderable)
                     {!! $content->render() !!}

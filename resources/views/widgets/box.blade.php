@@ -9,12 +9,14 @@
             </div><!-- /.box-tools -->
         </div><!-- /.box-header -->
     @endif
-    <div class="card-body" style="display: block;">
+    <div id="{{$id}}-body" class="card-body collapse show">
         {!! $content !!}
     </div><!-- /.box-body -->
     @if($footer)
         <div class="card-footer">
+            <div class="row">
             {!! $footer !!}
+            </div>
         </div><!-- /.box-footer-->
     @endif
 </div>

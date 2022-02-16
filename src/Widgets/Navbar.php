@@ -4,7 +4,6 @@ namespace OpenAdmin\Admin\Widgets;
 
 use Illuminate\Contracts\Support\Htmlable;
 use Illuminate\Contracts\Support\Renderable;
-use OpenAdmin\Admin\Widgets\Navbar\RefreshButton;
 
 class Navbar implements Renderable
 {
@@ -68,7 +67,7 @@ class Navbar implements Renderable
     public function render($part = 'right')
     {
         if ($part == 'right') {
-            $this->right(new RefreshButton());
+            //$this->right(new RefreshButton());
         }
 
         if (!isset($this->elements[$part]) || $this->elements[$part]->isEmpty()) {
