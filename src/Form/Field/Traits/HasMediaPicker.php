@@ -4,7 +4,6 @@ namespace OpenAdmin\Admin\Form\Field\Traits;
 
 use OpenAdmin\Admin\Admin;
 use OpenAdmin\Admin\Form\Field;
-use OpenAdmin\Admin\Form\Field\MultipleFile;
 
 /**
  * @mixin Field
@@ -12,19 +11,20 @@ use OpenAdmin\Admin\Form\Field\MultipleFile;
 trait HasMediaPicker
 {
     public $picker = false;
-    public $picker_path = "";
+    public $picker_path = '';
+
     /**
      * @param string $picker
      * @param string $column
      *
      * @return $this
      */
-    public function pick($path = "")
+    public function pick($path = '')
     {
         if ($path != '') {
-            $this->picker_path = "&path=".$path;
+            $this->picker_path = '&path='.$path;
         }
-        $this->picker = "one";
+        $this->picker = 'one';
         $this->retainable(true);
 
         return $this;
@@ -57,7 +57,7 @@ trait HasMediaPicker
     {
         if (!class_exists("OpenAdmin\Admin\Media\MediaManager")) {
             throw new \Exception(
-                "[Media Manager extention not installed yet.<br> Install using: <b>composer require open-admin-ext/media-manager</b><br><br>"
+                '[Media Manager extention not installed yet.<br> Install using: <b>composer require open-admin-ext/media-manager</b><br><br>'
             );
         }
 
@@ -66,14 +66,14 @@ trait HasMediaPicker
             'modal'       => $this->modal,
             'selector'    => $this->getElementClassString(),
             'name'        => $this->formatName($this->column),
-            "multiple"    => !empty($this->multiple),
-            "picker_path" => $this->picker_path,
+            'multiple'    => !empty($this->multiple),
+            'picker_path' => $this->picker_path,
             'trans'       => [
-                                'choose' => admin_trans('admin.choose'),
-                                'cancal' => admin_trans('admin.cancel'),
-                                'submit' => admin_trans('admin.submit'),
-                            ]
-            ]);
+                'choose' => admin_trans('admin.choose'),
+                'cancal' => admin_trans('admin.cancel'),
+                'submit' => admin_trans('admin.submit'),
+            ],
+        ]);
 
         $this->addPickBtn();
 

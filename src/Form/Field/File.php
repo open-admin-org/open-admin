@@ -4,8 +4,8 @@ namespace OpenAdmin\Admin\Form\Field;
 
 use Illuminate\Support\Arr;
 use OpenAdmin\Admin\Form\Field;
-use OpenAdmin\Admin\Form\Field\Traits\UploadField;
 use OpenAdmin\Admin\Form\Field\Traits\HasMediaPicker;
+use OpenAdmin\Admin\Form\Field\Traits\UploadField;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 class File extends Field
@@ -21,7 +21,7 @@ class File extends Field
         '/vendor/open-admin/fields/file-upload/file-upload.js',
     ];
 
-    public $type = "file";
+    public $type = 'file';
     public $readonly = false;
 
     /**
@@ -98,7 +98,8 @@ class File extends Field
     {
         if (request()->has($this->column.Field::FILE_DELETE_FLAG)) {
             $this->destroy();
-            return "";
+
+            return '';
         }
 
         if (!empty($this->picker) && request()->has($this->column.Field::FILE_ADD_FLAG)) {
@@ -107,6 +108,7 @@ class File extends Field
 
         if (!empty($file)) {
             $this->name = $this->getStoreName($file);
+
             return $this->uploadAndDeleteOriginal($file);
         }
 
@@ -189,7 +191,7 @@ class File extends Field
     }
 
     /**
-     * Setupscript
+     * Setupscript.
      *
      * @return nothing
      */

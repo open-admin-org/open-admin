@@ -146,6 +146,7 @@ class Content implements Renderable
 
         return true;
     }
+
     /**
      * Set css_files for content.
      *
@@ -369,14 +370,14 @@ class Content implements Renderable
     {
         $items = [
             'body_classes'      => implode(' ', $this->body_classes),
-            'header'      => $this->title,
-            'description' => $this->description,
-            'breadcrumb'  => $this->breadcrumb,
-            'css'         => $this->css,
-            'css_files'   => $this->css_files,
-            '_content_'   => $this->build(),
-            '_view_'      => $this->view,
-            '_user_'      => $this->getUserData(),
+            'header'            => $this->title,
+            'description'       => $this->description,
+            'breadcrumb'        => $this->breadcrumb,
+            'css'               => $this->css,
+            'css_files'         => $this->css_files,
+            '_content_'         => $this->build(),
+            '_view_'            => $this->view,
+            '_user_'            => $this->getUserData(),
         ];
 
         return view('admin::content', $items)->render();

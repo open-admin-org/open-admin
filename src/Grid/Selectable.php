@@ -41,18 +41,17 @@ abstract class Selectable
     /**
      * @var string
      */
-    public static $display_field = "id";
+    public static $display_field = 'id';
 
     /**
      * @var string
      */
-    public static $labelClass = "";
+    public static $labelClass = '';
 
     /**
-    * @var string
-    */
-    public static $seperator = ", ";
-
+     * @var string
+     */
+    public static $seperator = ', ';
 
     /**
      * Selectable constructor.
@@ -83,7 +82,7 @@ abstract class Selectable
         $this->make();
         $this->appendRemoveBtn(true);
         $this->disableFeatures()->paginate($this->perPage);
-        $this->grid->getFilter()->setFilterID("filter-box-selectable");
+        $this->grid->getFilter()->setFilterID('filter-box-selectable');
 
         $displayer = $this->multiple ? Checkbox::class : Radio::class;
 

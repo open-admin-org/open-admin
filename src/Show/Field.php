@@ -11,9 +11,9 @@ use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use Illuminate\Support\Traits\Macroable;
+use OpenAdmin\Admin\Form\Field\Traits\UploadField;
 use OpenAdmin\Admin\Show;
 use OpenAdmin\Admin\Widgets\Carousel;
-use OpenAdmin\Admin\Form\Field\Traits\UploadField;
 
 class Field implements Renderable
 {
@@ -441,7 +441,7 @@ HTML;
     {
         $ext = File::extension($file);
 
-        $filetype = "file";
+        $filetype = 'file';
         foreach ($this->fileTypes as $type => $pattern) {
             if (preg_match($pattern, $ext) === 1) {
                 $filetype = $type;

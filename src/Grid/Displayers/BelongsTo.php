@@ -3,8 +3,8 @@
 namespace OpenAdmin\Admin\Grid\Displayers;
 
 use OpenAdmin\Admin\Admin;
-use OpenAdmin\Admin\Grid\Selectable;
 use OpenAdmin\Admin\Form\Field\Traits\BelongsToRelation;
+use OpenAdmin\Admin\Grid\Selectable;
 
 class BelongsTo extends AbstractDisplayer
 {
@@ -26,7 +26,6 @@ class BelongsTo extends AbstractDisplayer
      *
      * @return string
      */
-
     protected function getLoadUrl($selectable, $multiple = 0)
     {
         $selectable = str_replace('\\', '_', $selectable);
@@ -42,6 +41,7 @@ class BelongsTo extends AbstractDisplayer
     {
         return $this->getColumn()->getOriginal();
     }
+
     /**
      * @param string $selectable
      * @param string $column

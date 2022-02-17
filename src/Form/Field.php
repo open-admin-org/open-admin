@@ -411,6 +411,7 @@ class Field implements Renderable
                     $this->value[$key] = Arr::get($data, $column);
                 }
             }
+
             return;
         }
 
@@ -1199,6 +1200,7 @@ class Field implements Renderable
 
         return $this;
     }
+
     /**
      * @return $this
      */

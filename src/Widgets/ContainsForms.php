@@ -36,7 +36,6 @@ trait ContainsForms
             $active = key($forms);
         }
 
-
         foreach ($forms as $name => $class) {
             if (!is_subclass_of($class, Form::class)) {
                 admin_error("Class [{$class}] must be a sub-class of [OpenAdmin\Admin\Widgets\Form].");

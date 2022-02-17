@@ -31,7 +31,6 @@ class Select extends Presenter
      */
     protected $additional_script = '';
 
-
     /**
      * Select constructor.
      *
@@ -43,7 +42,7 @@ class Select extends Presenter
     }
 
     /**
-     * Set config for se
+     * Set config for se.
      *
      * all configurations see https://github.com/jshjohnson/Choices
      *
@@ -60,7 +59,7 @@ class Select extends Presenter
     }
 
     /**
-     * Returns variable name for ChoicesJS object
+     * Returns variable name for ChoicesJS object.
      */
     public function choicesObjName($field = false)
     {
@@ -94,7 +93,7 @@ class Select extends Presenter
             'removeItems'        => true,
             'removeItemButton'   => true,
             'allowHTML'          => true,
-            'classNames' => [
+            'classNames'         => [
                 'containerOuter' => 'choices '.$this->getElementClass(),
             ],
         ], $this->config);
@@ -227,8 +226,6 @@ JS;
     {
         return str_replace('.', '_', $this->filter->getColumn());
     }
-
-
 
     /**
      * Get form element class.

@@ -382,7 +382,7 @@ trait HasAssets
                     }
 
                     if ($child->tagName == 'template') {
-                        if ($child->getAttribute("render") == "true") {
+                        if ($child->getAttribute('render') == 'true') {
 
                             // this will render the template tags right into the dom. Don't think we want this
                             $html = '';

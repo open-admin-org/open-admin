@@ -6,7 +6,6 @@ use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
-use OpenAdmin\Admin\Facades\Admin;
 use OpenAdmin\Admin\Form\Field;
 use OpenAdmin\Admin\Form\Field\Traits\CanCascadeFields;
 
@@ -303,7 +302,7 @@ JS;
     }
 
     /**
-     * Returns variable name for ChoicesJS object
+     * Returns variable name for ChoicesJS object.
      */
     public function choicesObjName($field = false)
     {
@@ -315,16 +314,17 @@ JS;
     }
 
     /**
-     * Check if field should be rendered as Choises JS (not the case if fields are embed in popup)
+     * Check if field should be rendered as Choises JS (not the case if fields are embed in popup).
      */
     public function allowedChoicesJs()
     {
         $class = get_class($this);
+
         return in_array($class, [
             'OpenAdmin\Admin\Form\Field\Select',
             'OpenAdmin\Admin\Form\Field\Tags',
             'OpenAdmin\Admin\Form\Field\MultipleSelect',
-            'OpenAdmin\Admin\Form\Field\Timezone'
+            'OpenAdmin\Admin\Form\Field\Timezone',
         ]);
     }
 

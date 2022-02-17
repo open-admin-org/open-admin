@@ -2,7 +2,6 @@
 
 namespace OpenAdmin\Admin\Form\Field;
 
-use OpenAdmin\Admin\Admin;
 use OpenAdmin\Admin\Form\Field\Traits\BelongsToRelation;
 
 class BelongsToMany extends MultipleSelect
@@ -16,7 +15,6 @@ class BelongsToMany extends MultipleSelect
     protected function getOptions()
     {
         $options = [];
-
 
         if ($this->value()) {
             $options = array_combine($this->value(), $this->value());

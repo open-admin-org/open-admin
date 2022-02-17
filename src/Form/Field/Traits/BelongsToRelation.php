@@ -113,7 +113,7 @@ HTML;
      */
     public function addStyle()
     {
-        $style = <<<STYLE
+        $style = <<<'STYLE'
             .belongsto.modal tr {
                 cursor: pointer;
             }
@@ -169,7 +169,6 @@ HTML;
     public function addScript()
     {
         $column = $this->column();
-
 
         $script = <<<JS
 ;(function () {

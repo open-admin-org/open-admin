@@ -261,6 +261,7 @@ JS;
         if (empty($this->value['lng'])) {
             $this->value['lng'] = $this->default['lng'];
         }
+
         return parent::render();
     }
 }

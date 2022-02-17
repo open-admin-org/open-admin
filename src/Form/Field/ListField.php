@@ -13,7 +13,6 @@ class ListField extends Field
      */
     protected $value = [''];
 
-
     /**
      * Fill data to the field.
      *

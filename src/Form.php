@@ -83,7 +83,7 @@ class Form implements Renderable
     protected $relation_fields = [];
 
     /**
-     * Refrence to fields that must be prepared before update
+     * Refrence to fields that must be prepared before update.
      *
      * @var array
      */
@@ -711,7 +711,6 @@ class Form implements Renderable
         return $input;
     }
 
-
     /**
      * Handle orderable update.
      *
@@ -870,6 +869,7 @@ class Form implements Renderable
                 }
             }
         }
+
         return $prepared;
     }
 
@@ -1149,6 +1149,7 @@ class Form implements Renderable
         }
 
         $this->relation_fields = array_unique($relations);
+
         return $this->relation_fields;
     }
 
