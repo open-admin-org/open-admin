@@ -2,8 +2,8 @@
 
 namespace OpenAdmin\Admin\Form\Field;
 
-use OpenAdmin\Admin\Form\Field\Traits\ImageField;
 use OpenAdmin\Admin\Form\Field;
+use OpenAdmin\Admin\Form\Field\Traits\ImageField;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 class Image extends File
@@ -32,7 +32,6 @@ class Image extends File
      *
      * @return string
      */
-
     public function prepare($file)
     {
         if ($this->picker) {
@@ -41,7 +40,8 @@ class Image extends File
 
         if (request()->has($this->column.Field::FILE_DELETE_FLAG)) {
             $this->destroy();
-            return "";
+
+            return '';
         }
 
         if (!empty($file)) {
@@ -61,7 +61,6 @@ class Image extends File
 
         return false;
     }
-
 
     /**
      * force file type to image.

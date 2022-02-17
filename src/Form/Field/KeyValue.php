@@ -3,7 +3,6 @@
 namespace OpenAdmin\Admin\Form\Field;
 
 use Illuminate\Support\Arr;
-use OpenAdmin\Admin\Admin;
 use OpenAdmin\Admin\Form\Field;
 
 class KeyValue extends Field
@@ -87,6 +86,7 @@ JS;
     public function render()
     {
         $this->setupScript();
+
         return parent::render();
     }
 }

@@ -33,7 +33,7 @@ class InfoBox extends Widget implements Renderable
             'link'      => $link,
             'color'     => $color,
             'info'      => $info,
-            'link_text' => trans('admin.more')
+            'link_text' => trans('admin.more'),
         ];
         $this->id = uniqid('info-box-');
 
@@ -50,42 +50,49 @@ class InfoBox extends Widget implements Renderable
     public function setId($id)
     {
         $this->id = $id;
+
         return $this;
     }
 
     public function name($name)
     {
         $this->data['name'] = $name;
+
         return $this;
     }
 
     public function icon($icon)
     {
         $this->data['icon'] = $icon;
+
         return $this;
     }
 
     public function link($link)
     {
         $this->data['link'] = $link;
+
         return $this;
     }
 
     public function link_text($link_text)
     {
         $this->data['link_text'] = $link_text;
+
         return $this;
     }
 
     public function info($info)
     {
         $this->data['info'] = $info;
+
         return $this;
     }
 
     public function color($color)
     {
         $this->data['color'] = $color;
+
         return $this;
     }
 

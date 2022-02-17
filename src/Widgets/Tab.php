@@ -3,7 +3,6 @@
 namespace OpenAdmin\Admin\Widgets;
 
 use Illuminate\Contracts\Support\Renderable;
-use OpenAdmin\Admin\Facades\Admin;
 
 class Tab extends Widget implements Renderable
 {

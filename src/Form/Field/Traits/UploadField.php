@@ -135,11 +135,11 @@ trait UploadField
     protected function setupDefaultOptions()
     {
         $defaults = [
-            "retainable"     => false,
-            "sortable"       => true,
-            "download"       => true,
-            "delete"         => true,
-            "confirm_delete" => true,
+            'retainable'     => false,
+            'sortable'       => true,
+            'download'       => true,
+            'delete'         => true,
+            'confirm_delete' => true,
         ];
 
         $this->options($defaults);
@@ -176,7 +176,6 @@ trait UploadField
             'type' => $filetype,
             'icon' => $this->fileTypesIcons[$filetype],
         ];
-
 
         if ($filetype == 'video') {
             $extra['filetype'] = "video/{$ext}";
@@ -220,13 +219,14 @@ trait UploadField
     }
 
     /**
-     * Disable upload
+     * Disable upload.
      *
      * @return $this
      */
     public function disableUpload()
     {
         $this->attribute('disabled', true);
+
         return $this;
     }
 
@@ -239,7 +239,7 @@ trait UploadField
     {
         if (!empty($this->picker) && $retainable == false) {
             throw new \InvalidArgumentException(
-                "retainable can not be set to false when using pick()"
+                'retainable can not be set to false when using pick()'
             );
         }
         $this->options['retainable'] = $retainable; // for js
@@ -500,9 +500,11 @@ trait UploadField
     public function objectPath($url)
     {
         if (URL::isValidUrl($url)) {
-            $storage_url = $this->storage->url("");
-            return str_replace($storage_url, "", $url);
+            $storage_url = $this->storage->url('');
+
+            return str_replace($storage_url, '', $url);
         }
+
         return $url;
     }
 
@@ -513,7 +515,7 @@ trait UploadField
      */
     public function storageUrl()
     {
-        return $this->storage->url("");
+        return $this->storage->url('');
     }
 
     /**
@@ -541,7 +543,7 @@ trait UploadField
         $extension = $file->getClientOriginalExtension();
         $original = str_replace('.'.$extension, '', $file->getClientOriginalName());
 
-        if (!$this->storage->exists($this->getDirectory()."/".$file->getClientOriginalName())) {
+        if (!$this->storage->exists($this->getDirectory().'/'.$file->getClientOriginalName())) {
             return $file->getClientOriginalName();
         }
 

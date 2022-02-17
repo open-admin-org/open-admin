@@ -75,6 +75,7 @@ class Box extends Widget implements Renderable
     public function setId($id)
     {
         $this->id = $id;
+
         return $this;
     }
 
@@ -141,7 +142,6 @@ class Box extends Widget implements Renderable
         return $this;
     }
 
-
     /**
      * Set box as removable.
      *
@@ -165,17 +165,18 @@ class Box extends Widget implements Renderable
     public function styles($styles)
     {
         $this->styles = array_merge($this->styles, $styles);
+
         return $this;
     }
 
     /**
-     * Set styles as attibute
+     * Set styles as attibute.
      */
     public function setStyles()
     {
         $style = urldecode(http_build_query($this->styles));
-        $style = str_replace("&", ";", $style);
-        $style = str_replace("=", ":", $style);
+        $style = str_replace('&', ';', $style);
+        $style = str_replace('=', ':', $style);
         $this->style = $style;
     }
 

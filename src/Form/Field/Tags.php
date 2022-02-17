@@ -5,7 +5,6 @@ namespace OpenAdmin\Admin\Form\Field;
 use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Collection;
-use OpenAdmin\Admin\Facades\Admin;
 use OpenAdmin\Admin\Form\Field;
 
 class Tags extends Select
@@ -57,7 +56,6 @@ class Tags extends Select
 
         $this->value = array_filter((array) $this->value, 'strlen');
     }
-
 
     /**
      * Set visible column and key of data.
@@ -175,15 +173,15 @@ class Tags extends Select
     }
 
     /**
-      * {@inheritdoc}
-      */
+     * {@inheritdoc}
+     */
     public function render()
     {
         $this->config = array_merge([
             'allowHTML'             => true,
             'paste'                 => true,
             'duplicateItemsAllowed' => false,
-            'editItems'             =>true,
+            'editItems'             => true,
         ], $this->config);
 
         return parent::render();

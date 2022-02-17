@@ -54,7 +54,7 @@ class QuickCreate implements Renderable
     {
         $url = $this->parent->resource();
 
-        $script = <<<JS
+        $script = <<<'JS'
 document.querySelector('.quick-create .create').addEventListener('click',function () {
     show(document.querySelector('.quick-create .create-form'),'flex');
     hide(this);

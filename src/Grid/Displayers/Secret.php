@@ -24,7 +24,7 @@ HTML;
 
     protected function addScript()
     {
-        $script = <<<JS
+        $script = <<<'JS'
 document.querySelectorAll('.secret-wrapper i').forEach(el=>{
     el.addEventListener("click",function (e) {
         e.target.classList.toggle("icon-eye");

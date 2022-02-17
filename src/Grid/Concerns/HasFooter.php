@@ -14,11 +14,10 @@ trait HasFooter
 
     public $fixedFooter = true;
 
-
     /**
      * Set footer fixed.
      *
-     * @param Boolean
+     * @param bool
      *
      * @return $this|Closure
      */
@@ -57,6 +56,7 @@ trait HasFooter
         if (!$this->footer) {
             return '';
         }
+
         return (new Footer($this))->render();
     }
 }

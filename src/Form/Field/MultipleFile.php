@@ -3,11 +3,10 @@
 namespace OpenAdmin\Admin\Form\Field;
 
 use Illuminate\Support\Arr;
-use Illuminate\Support\Facades\Log;
 use OpenAdmin\Admin\Form;
 use OpenAdmin\Admin\Form\Field;
-use OpenAdmin\Admin\Form\Field\Traits\UploadField;
 use OpenAdmin\Admin\Form\Field\Traits\HasMediaPicker;
+use OpenAdmin\Admin\Form\Field\Traits\UploadField;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 class MultipleFile extends Field
@@ -24,10 +23,9 @@ class MultipleFile extends Field
     ];
 
     public $must_prepare = true;
-    public $type = "file";
+    public $type = 'file';
     public $readonly = false;
     public $multiple = true;
-
 
     /**
      * Create a new File instance.
@@ -111,7 +109,7 @@ class MultipleFile extends Field
      */
     protected function sortFiles($order, $updated_files)
     {
-        $order = explode(',', trim($order, ","));
+        $order = explode(',', trim($order, ','));
         if ($updated_files === false) {
             $updated_files = $this->original();
         }
@@ -139,7 +137,7 @@ class MultipleFile extends Field
      */
     protected function addFiles($add, $updated_files)
     {
-        $add = explode(',', trim($add, ","));
+        $add = explode(',', trim($add, ','));
         if ($updated_files === false) {
             $updated_files = $this->original();
         }
@@ -149,7 +147,6 @@ class MultipleFile extends Field
         return $updated_files;
     }
 
-
     /**
      * Prepare for saving.
      *
@@ -157,7 +154,6 @@ class MultipleFile extends Field
      *
      * @return mixed|string
      */
-
     public function prepare($files)
     {
         $delete_key = $this->column.Field::FILE_DELETE_FLAG;
@@ -345,12 +341,10 @@ class MultipleFile extends Field
         return $this;
     }
 
-
     protected function setType($type = 'file')
     {
         $this->options['type'] = $type;
     }
-
 
     /**
      * Destroy original files.
@@ -361,14 +355,14 @@ class MultipleFile extends Field
      */
     public function destroy($remove_me)
     {
-        $remove_me = explode(",", trim($remove_me, ","));
+        $remove_me = explode(',', trim($remove_me, ','));
 
         $files = $this->original() ?: [];
 
         foreach ($remove_me as $file) {
             $this->destroyFile($file);
 
-            $files = array_diff($files, array($file));
+            $files = array_diff($files, [$file]);
         }
 
         return array_values($files);
@@ -397,7 +391,7 @@ class MultipleFile extends Field
      */
     public function destroyFromHasMany($remove_me)
     {
-        $remove_me = explode(",", trim($remove_me, ","));
+        $remove_me = explode(',', trim($remove_me, ','));
 
         $files = collect($this->original ?: [])->keyBy($this->getRelatedKeyName())->toArray();
 
@@ -416,13 +410,13 @@ class MultipleFile extends Field
      * Sort files.
      *
      * @param string $order
-     * @param array $files
+     * @param array  $files
      *
      * @return array
      */
     protected function sortFilesFromHasmany($order, $files)
     {
-        $order = explode(',', trim($order, ","));
+        $order = explode(',', trim($order, ','));
         if ($files === false) {
             $files = collect($this->original ?: [])->keyBy($this->getRelatedKeyName())->toArray();
         }
@@ -431,14 +425,15 @@ class MultipleFile extends Field
             $file = $file_obj[$this->pathColumn];
             $files[$key][$this->sortColumn] = array_search($file, $order);
         }
+
         return $files;
     }
 
     /**
-      * Setupscript
-      *
-      * @return nothing
-      */
+     * Setupscript.
+     *
+     * @return nothing
+     */
     protected function setupScripts()
     {
         $this->setType();
@@ -471,7 +466,7 @@ class MultipleFile extends Field
             //try decoding json
             $this->value = json_decode($this->value);
             if (!is_array($this->value)) {
-                throw new \Exception("Column: ".$this->column." with Label: ".$this->label."; value is not empty and not a valid Array");
+                throw new \Exception('Column: '.$this->column.' with Label: '.$this->label.'; value is not empty and not a valid Array');
             }
         }
 

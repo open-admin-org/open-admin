@@ -89,7 +89,7 @@ class Grid
     protected $builded = false;
 
     /**
-     * Show footer fixed or not
+     * Show footer fixed or not.
      *
      * @var bool
      */
@@ -336,7 +336,7 @@ class Grid
     }
 
     /**
-     * Set FixedFooter
+     * Set FixedFooter.
      *
      * @return $this
      */

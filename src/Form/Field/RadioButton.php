@@ -2,8 +2,6 @@
 
 namespace OpenAdmin\Admin\Form\Field;
 
-use OpenAdmin\Admin\Admin;
-
 class RadioButton extends Radio
 {
     /**
