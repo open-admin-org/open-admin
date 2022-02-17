@@ -198,6 +198,7 @@
 
     admin.ajax = {
 
+        currenTarget : false,
         defaults : {
             headers: {'X-PJAX': true,'X-PJAX-CONTAINER': "#pjax-container","X-Requested-With":"XMLHttpRequest"},
             method: 'get',
@@ -206,7 +207,7 @@
         init : function (){
 
             // history back
-            window.onpopstate = function() {
+            window.onpopstate = function(event) {
                 preventPopState = true;
                 admin.ajax.navigate(document.location,preventPopState);
             };
@@ -254,7 +255,7 @@
         },
 
         setUrl : function(url){
-            if (url != document.location.href){
+            if (url != document.location.href && !admin.ajax.currenTarget){
                 history.pushState({}, url, url);
             }
         },
@@ -294,7 +295,7 @@
                 })
                 .then(function () {
                     NProgress.done();
-                    if (typeof(result_function) == 'undefined') {
+                    if (typeof(result_function) == 'undefined' && !admin.ajax.currenTarget) {
                         admin.pages.init();
                     }
                 });
@@ -334,7 +335,14 @@
                 this.setUrl(response.request.responseURL);
             }
 
-            let main = document.getElementById("main");
+            let main = false;
+            if (admin.ajax.currenTarget){
+                main = admin.ajax.currenTarget;
+            }
+            if (!main){
+                main = document.getElementById("main");
+            }
+
             let data = response.data;
             if (typeof(data) != 'string'){
                 data = JSON.stringify(data);
@@ -344,7 +352,10 @@
             main.querySelectorAll("script").forEach(script => {
                 eval(script.innerText);
             })
-            admin.pages.setTitle();
+
+            if (!admin.ajax.currenTarget){
+                admin.pages.setTitle();
+            }
         },
 
         error :function(error){
@@ -362,7 +373,8 @@
                 console.log(error.request);
             } else {
                 // Something happened in setting up the request that triggered an Error
-                console.log('Error', error);
+                console.log("An error has accurred:");
+                console.log(error);
             }
         }
     };

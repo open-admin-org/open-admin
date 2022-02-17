@@ -6,7 +6,7 @@ use OpenAdmin\Admin\Form\Field;
 
 class Map extends Field
 {
-    protected $value = [
+    public $default = [
         'lat' => 52.378900135815,
         'lng' => 4.9005728960037,
     ];
@@ -38,6 +38,7 @@ class Map extends Field
                 $css = '';
                 $js = '//api-maps.yandex.ru/2.1/?lang=ru_RU';
                 break;
+            case 'openstreetmaps':
             default:
                 $css = ['/vendor/open-admin/leaflet/leaflet.css', '/vendor/open-admin/leaflet/leaflet-geosearch.css'];
                 $js = ['/vendor/open-admin/leaflet/leaflet.js', '/vendor/open-admin/leaflet/leaflet-geosearch.js'];
@@ -72,6 +73,7 @@ class Map extends Field
             case 'yandex':
                 $this->useYandexMap();
                 break;
+            case 'openstreetmaps':
             default:
                 $this->useOpenstreetmap();
         }
@@ -79,12 +81,15 @@ class Map extends Field
 
     public function useOpenstreetmap()
     {
-        $this->script = <<<EOT
+        $this->script = <<<JS
         (function() {
             function initOpenstreetMap(name) {
 
                 var lat = document.querySelector('#{$this->name['lat']}');
                 var lng = document.querySelector('#{$this->name['lng']}');
+
+                console.log(lat.value);
+                console.log(lng.value);
 
                 var map = L.map(name).setView([lat.value, lng.value], 13);
 
@@ -120,12 +125,12 @@ class Map extends Field
 
             initOpenstreetMap('map_{$this->name['lat']}{$this->name['lng']}');
         })();
-EOT;
+JS;
     }
 
     public function useGoogleMap()
     {
-        $this->script = <<<EOT
+        $this->script = <<<JS
         (function() {
             function initGoogleMap(name) {
                 var lat = document.querySelector('#{$this->name['lat']}');
@@ -160,12 +165,12 @@ EOT;
 
             initGoogleMap('{$this->name['lat']}{$this->name['lng']}');
         })();
-EOT;
+JS;
     }
 
     public function useTencentMap()
     {
-        $this->script = <<<EOT
+        $this->script = <<<JS
         (function() {
             function initTencentMap(name) {
                 var lat = document.querySelector('#{$this->name['lat']}');
@@ -209,12 +214,12 @@ EOT;
 
             initTencentMap('{$this->name['lat']}{$this->name['lng']}');
         })();
-EOT;
+JS;
     }
 
     public function useYandexMap()
     {
-        $this->script = <<<EOT
+        $this->script = <<<JS
         (function() {
             function initYandexMap(name) {
                 ymaps.ready(function(){
@@ -245,6 +250,17 @@ EOT;
 
             initYandexMap('{$this->name['lat']}{$this->name['lng']}');
         })();
-EOT;
+JS;
+    }
+
+    public function render()
+    {
+        if (empty($this->value['lat'])) {
+            $this->value['lat'] = $this->default['lat'];
+        }
+        if (empty($this->value['lng'])) {
+            $this->value['lng'] = $this->default['lng'];
+        }
+        return parent::render();
     }
 }

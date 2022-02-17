@@ -256,7 +256,7 @@ return [
     | Admin map field provider
     |--------------------------------------------------------------------------
     |
-    | Supported: "openstreetmaps","tencent", "google", "yandex".
+    | Supported: "openstreetmaps", "tencent", "google", "yandex".
     |
     */
     'map_provider' => 'openstreetmaps',

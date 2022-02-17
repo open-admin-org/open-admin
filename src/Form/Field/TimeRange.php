@@ -72,7 +72,7 @@ class TimeRange extends Field
         $this->check_format_options();
 
         $options = json_encode($this->options);
-        $func = <<<EOT
+        $func = <<<JS
                 [
                     new minMaxTimePlugin({
                         minTime: "00:00:00",
@@ -88,14 +88,14 @@ class TimeRange extends Field
                         {$this->column['end']}_fp_inst.setMinTime(startVal);
                     }
                 }
-            EOT;
+            JS;
 
         $str_options = str_replace('"__replace_me__"', $func, $options);
 
-        $this->script = <<<EOT
+        $this->script = <<<JS
             var {$this->column['start']}_fp_inst = flatpickr('{$this->getElementClassSelector()['start']}',{$str_options});
             var {$this->column['end']}_fp_inst = flatpickr('{$this->getElementClassSelector()['end']}',{$str_options});
-        EOT;
+        JS;
 
         return parent::render();
     }

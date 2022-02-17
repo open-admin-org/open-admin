@@ -62,18 +62,21 @@ class KeyValue extends Field
 
     protected function setupScript()
     {
-        $this->script = <<<SCRIPT
+        $this->script = <<<JS
 
-$('.{$this->column}-add').on('click', function () {
-    var tpl = $('template.{$this->column}-tpl').html();
-    $('tbody.kv-{$this->column}-table').append(tpl);
+document.querySelector('.{$this->column}-add').addEventListener('click', function () {
+    var tpl = document.querySelector('template.{$this->column}-tpl').innerHTML;
+    var clone = htmlToElement(tpl);
+    document.querySelector('tbody.kv-{$this->column}-table').appendChild(clone);
 });
 
-$('tbody').on('click', '.{$this->column}-remove', function () {
-    $(this).closest('tr').remove();
+document.querySelector('tbody.kv-{$this->column}-table').addEventListener('click', function (event) {
+    if (event.target.classList.contains('{$this->column}-remove')){
+        event.target.closest('tr').remove();
+    }
 });
 
-SCRIPT;
+JS;
     }
 
     public function prepare($value)
@@ -84,9 +87,6 @@ SCRIPT;
     public function render()
     {
         $this->setupScript();
-
-        Admin::style('td .form-group {margin-bottom: 0 !important;}');
-
         return parent::render();
     }
 }

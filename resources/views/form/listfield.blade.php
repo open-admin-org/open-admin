@@ -1,19 +1,8 @@
 
 @php($listErrorKey = "$column.values")
+@include("admin::form._header")
 
-<div class="{{$viewClass['form-group']}} {{ $errors->has($listErrorKey) ? 'has-error' : '' }}">
-
-    <label class="{{$viewClass['label']}} form-label">{{$label}}</label>
-
-    <div class="{{$viewClass['field']}}">
-
-        @if($errors->has($listErrorKey))
-            @foreach($errors->get($listErrorKey) as $message)
-                <label class="form-label" for="inputError"><i class="icon-times-circle-o"></i> {{$message}}</label><br/>
-            @endforeach
-        @endif
-
-        <table class="table table-hover">
+        <table class="table table-with-fields">
 
             <tbody class="list-{{$column}}-table">
 
@@ -43,33 +32,27 @@
                 </tr>
             @endforeach
             </tbody>
-            <tfoot>
-                <tr>
-                    <td></td>
-                    <td>
-                        <div class="{{ $column }}-add btn btn-success btn-sm pull-right">
-                            <i class="icon-save"></i>&nbsp;{{ __('admin.new') }}
-                        </div>
-                    </td>
-                </tr>
-            </tfoot>
         </table>
-    </div>
-    <template class="{{$column}}-tpl">
-        <tr>
-            <td>
-                <div class="form-group">
-                    <div class="col-sm-12">
-                        <input name="{{ $column }}[values][]" class="form-control" />
-                    </div>
-                </div>
-            </td>
+        <div class="{{ $column }}-add btn btn-success btn-sm pull-right">
+            <i class="icon-plus"></i>&nbsp;{{ __('admin.new') }}
+        </div>
 
-            <td style="width: 75px;">
-                <div class="{{$column}}-remove btn btn-warning btn-sm pull-right">
-                    <i class="icon-trash">&nbsp;</i>{{ __('admin.remove') }}
-                </div>
-            </td>
-        </tr>
-    </template>
-</div>
+        <template class="{{$column}}-tpl">
+            <tr>
+                <td>
+                    <div class="form-group">
+                        <div class="col-sm-12">
+                            <input name="{{ $column }}[values][]" class="form-control" />
+                        </div>
+                    </div>
+                </td>
+
+                <td style="width: 75px;">
+                    <div class="{{$column}}-remove btn btn-warning btn-sm pull-right">
+                        <i class="icon-trash">&nbsp;</i>{{ __('admin.remove') }}
+                    </div>
+                </td>
+            </tr>
+        </template>
+
+@include("admin::form._footer")

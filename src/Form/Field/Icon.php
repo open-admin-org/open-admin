@@ -12,12 +12,12 @@ class Icon extends Text
 
     public function render()
     {
-        $this->script = <<<EOT
+        $this->script = <<<JS
 new Iconpicker(document.querySelector("{$this->getElementClassSelector()}"),{
     showSelectedIn: document.querySelector("{$this->getElementClassSelector()}-icon"),
     defaultValue: '{$this->value}',
 });
-EOT;
+JS;
 
         $this->prepend('<span class="'.substr($this->getElementClassSelector(), 1).'-icon"><i class="'.$this->value.'"></i></span>');
         $this->style('max-width', '160px');

@@ -1,4 +1,5 @@
-<footer class="navbar form-footer navbar-light bg-white py-3 px-4 shadow fixed-bottom">
+
+<footer class="navbar form-footer navbar-light bg-white py-3 px-4 @if (!empty($fixedFooter))shadow fixed-bottom @endif">
     <div class="row">
     {{ csrf_field() }}
 

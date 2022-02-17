@@ -7,28 +7,12 @@ use OpenAdmin\Admin\Form\Field;
 
 class SwitchField extends Field
 {
-    protected $size = 'small';
-
-    public function setSize($size)
-    {
-        $this->size = $size;
-
-        return $this;
-    }
-
-    public function states($states = [])
-    {
-        foreach (Arr::dot($states) as $key => $state) {
-            Arr::set($this->states, $key, $state);
-        }
-
-        return $this;
-    }
-
     public function prepare($value)
     {
         if ($value == 'on') {
             $value = 1;
+        } else {
+            $value = 0;
         }
 
         return $value;

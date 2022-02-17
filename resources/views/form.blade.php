@@ -15,7 +15,7 @@
         @if(!$tabObj->isEmpty())
             @include('admin::form.tab', compact('tabObj'))
         @else
-            <div class="fields-group">
+            <div class="row fields-group">
 
                 @if($form->hasRows())
                     @foreach($form->getRows() as $row)

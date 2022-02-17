@@ -79,18 +79,15 @@ class PerPageSelector extends AbstractTool
             'entries' => trans('admin.entries'),
         ];
 
-        return <<<EOT
-
+        return <<<HTML
 <label class="form-group pull-right d-flex align-items-center" style="margin-right: 10px; font-weight: 100;">
-
         <small>{$trans['show']}</small>&nbsp;
         <select class="form-select form-select-sm {$this->grid->getPerPageName()}" name="per-page">
             $options
         </select>
         &nbsp;<small>{$trans['entries']}</small>
     </label>
-
-EOT;
+HTML;
     }
 
     /**
@@ -100,11 +97,10 @@ EOT;
      */
     protected function script()
     {
-        return <<<EOT
-
+        return <<<JS
 document.querySelector('.{$this->grid->getPerPageName()}').addEventListener("change", function(e) {
     admin.ajax.navigate(this.value);
 });
-EOT;
+JS;
     }
 }

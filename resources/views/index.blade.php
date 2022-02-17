@@ -19,7 +19,7 @@
 
 </head>
 
-<body class="{{config('admin.skin')}}">
+<body class="{{config('admin.skin')}} {{ $body_classes }}">
 
     @if($alert = config('admin.top_alert'))
         <div class="alert">

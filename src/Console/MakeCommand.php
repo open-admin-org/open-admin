@@ -13,9 +13,9 @@ class MakeCommand extends GeneratorCommand
      *
      * @var string
      */
-    protected $signature = 'admin:make {name}
-        {--model=}
+    protected $signature = 'admin:make {model}
         {--title=}
+        {--name=}
         {--stub= : Path to the custom stub file. }
         {--namespace=}
         {--O|output}';
@@ -52,7 +52,7 @@ class MakeCommand extends GeneratorCommand
         $this->modelName = $this->getModelName();
 
         if (!$this->modelExists()) {
-            $this->error('Model does not exists ! use, command like: artisan admin:controller \\App\\Models\\ModelName');
+            $this->error('Model does not found! use, command like: artisan admin:controller \\\\App\\\\Models\\\\ModelName');
 
             return false;
         }
@@ -84,11 +84,18 @@ class MakeCommand extends GeneratorCommand
     }
 
     /**
-     * @return array|string|null
+     * @throws \ReflectionException
+     *
+     * @return string
      */
     protected function getControllerName()
     {
-        return $this->argument('name');
+        if (!empty($this->option('name'))) {
+            return $this->option('name');
+        }
+        $name = (new \ReflectionClass($this->modelName))->getShortName();
+
+        return $name.'Controller';
     }
 
     /**
@@ -96,7 +103,7 @@ class MakeCommand extends GeneratorCommand
      */
     protected function getModelName()
     {
-        return $this->option('model');
+        return $this->argument('model');
     }
 
     /**

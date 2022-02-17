@@ -66,7 +66,7 @@ class Html extends Field
 
         return <<<EOT
 <div class="{$viewClass['form-group']}">
-    <label  class="{$viewClass['label']} control-label">{$this->label}</label>
+    <label class="{$viewClass['label']} form-label">{$this->label}</label>
     <div class="{$viewClass['field']}">
         {$this->html}
     </div>

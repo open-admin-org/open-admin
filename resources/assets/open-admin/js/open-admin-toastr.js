@@ -53,5 +53,5 @@ admin.toastr = {
 }
 
 admin.toast = function(text,obj){
-    admin.toast(text,obj);
+    admin.toastr.toast(text,obj);
 }

@@ -35,7 +35,7 @@
 @if($warning = session()->get('warning'))
     <div class="alert alert-warning alert-dismissable">
         <button type="button" class="close" data-bs-dismiss="alert" aria-hidden="true">×</button>
-        <h4><i class="icon icon-warning"></i>{{ \Illuminate\Support\Arr::get($warning->get('title'), 0) }}</h4>
+        <h4><i class="icon icon-exclamation-triangle"></i>{{ \Illuminate\Support\Arr::get($warning->get('title'), 0) }}</h4>
         <p>{!!  \Illuminate\Support\Arr::get($warning->get('message'), 0) !!}</p>
     </div>
 @endif

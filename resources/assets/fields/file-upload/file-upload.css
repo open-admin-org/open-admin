@@ -1,28 +1,83 @@
 .file-upload-preview-div{
     padding:16px 0 0 16px;
     margin-bottom: 10px;
-    display: flex;
-    flex-wrap: wrap;
+    float:left;
+    width:100%;
 }
 
-.file-upload-preview-div .card{
+.file-upload-preview-div .files{
+    display: inline;
+}
+
+
+body .file-upload-preview-div .card{
+    display:inline-block;
     border:1px solid var(--field-border-color);
     width:180px;
     margin: 0 16px 16px 0;
-
 }
+
+.file-upload-preview-div .files.new .card{
+    background:#FFFBD7;
+}
+
 .file-upload-preview-div .card-image{
     width:160px;
-    height:120px;
+    height:128px;
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
     margin:10px;
-    cursor: zoom-in;
+}
+
+.file-upload-preview-div .card-body{
+    padding-top:0rem;
 }
 
 .file-upload-preview-div .card-image img{
     max-width:140px;
     max-height:100px;
     border:1px solid var(--field-border-color);
+    cursor: zoom-in;
+    background-position: 0px 0px, 10px 10px;
+    background-size: 20px 20px;
+    background-image: linear-gradient(45deg, #eee 25%, transparent 25%, transparent 75%, #eee 75%, #eee 100%),linear-gradient(45deg, #eee 25%, white 25%, white 75%, #eee 75%, #eee 100%);
 }
+
+.file-upload-preview-div .card-image span.icon{
+    width:60px;
+    height:60px;
+    border:1px solid var(--field-border-color);
+    font-size:3rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #FFF;
+}
+
+.file-upload-preview-div .card-image span.label{
+    display:block;
+    clear: both;
+    padding-top:0.5rem;
+    font-size:0.8rem;
+    width:100%;
+    height:2rem;
+    line-height:1rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    text-align: center;
+    align-self: flex-end;
+}
+
+body .file-upload-preview-div .in-active{
+    opacity: 0.5;
+    cursor:default;
+}
+
+body .file-upload-preview-div .handle{
+    cursor: move;
+}
+
+

@@ -30,7 +30,7 @@ EOT;
 
     protected function script()
     {
-        return <<<EOT
+        return <<<JS
 
 document.querySelectorAll('.{$this->grid->getGridRowName()}-orderable').forEach(el => {
     el.addEventListener('click', function(event) {
@@ -54,6 +54,6 @@ document.querySelectorAll('.{$this->grid->getGridRowName()}-orderable').forEach(
     });
 
 });
-EOT;
+JS;
     }
 }

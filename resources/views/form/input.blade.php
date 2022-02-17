@@ -3,7 +3,7 @@
         <div class="input-group">
 
             @if ($prepend)
-            <span class="input-group-text">{!! $prepend !!}</span>
+            <span class="input-group-text with-icon">{!! $prepend !!}</span>
             @endif
 
             <input {!! $attributes !!} />

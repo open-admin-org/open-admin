@@ -508,34 +508,6 @@ class Builder
         return '<form '.$attributes_str.'>';
     }
 
-    public function open_old($options = []): string
-    {
-        $attributes = [];
-
-        if ($this->isMode(self::MODE_EDIT)) {
-            $this->addHiddenField((new Hidden('_method'))->value('PUT'));
-        }
-
-        $this->addRedirectUrlField();
-
-        $attributes['action'] = $this->getAction();
-        $attributes['method'] = Arr::get($options, 'method', 'post');
-        $attributes['class'] = implode(' ', ['form-horizontal', 'form', $this->formClass]);
-        $attributes['autocomplete'] = 'off';
-        $attributes['accept-charset'] = 'UTF-8';
-
-        if ($this->hasFile()) {
-            $attributes['enctype'] = 'multipart/form-data';
-        }
-
-        $html = [];
-        foreach ($attributes as $name => $value) {
-            $html[] = "$name=\"$value\"";
-        }
-
-        return '<form '.implode(' ', $html).' pjax-container>';
-    }
-
     /**
      * Close the current form.
      *
@@ -559,7 +531,7 @@ class Builder
             'cancel'  => trans('admin.cancel'),
         ];
 
-        $script = <<<SCRIPT
+        $script = <<<JS
 document.querySelector('form.{$this->formClass} button[type=submit]').addEventListener("click",function (e) {
     e.preventDefault();
     var form = e.target.closest('form');
@@ -579,7 +551,7 @@ document.querySelector('form.{$this->formClass} button[type=submit]').addEventLi
     });
 
 });
-SCRIPT;
+JS;
 
         Admin::script($script);
     }
@@ -633,9 +605,9 @@ SCRIPT;
 
     protected function addCascadeScript()
     {
-        $script = <<<SCRIPT
+        $script = <<<JS
         admin.form.disable_cascaded_forms("form.{$this->formClass}");
-SCRIPT;
+JS;
 
         Admin::script($script);
     }

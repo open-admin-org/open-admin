@@ -6,6 +6,7 @@ admin.form = {
 
     id : false,
     tabs_ref : false,
+    beforeSaveCallbacks : [],
 
     init : function(){
 
@@ -15,18 +16,32 @@ admin.form = {
         this.initValidation()
     },
 
+    addSaveCallback : function(callback){
+        this.beforeSaveCallbacks.push(callback);
+    },
+
+    beforeSave : function(){
+        for(i in this.beforeSaveCallbacks){
+            var callback = this.beforeSaveCallbacks[i];
+            callback();
+        }
+    },
+
     addAjaxSubmit : function(){
 
         // forms that should be submitted with ajax
-
         Array.from(document.getElementsByTagName("form")).forEach(form => {
 
             if (form.getAttribute("pjax-container") != null && !form.classList.contains("has-ajax-handler")){
+
                 form.addEventListener('submit', function(event) {
+
                     admin.form.submit(event.target);
+
                     event.preventDefault();
                     return false;
                 });
+
                 form.classList.add("has-ajax-handler");
             }
         });
@@ -34,10 +49,11 @@ admin.form = {
 
     submit : function(form,result_function){
 
-
         let method = form.getAttribute("method").toLowerCase();
         let url = String(form.getAttribute("action")).split("?")[0];
         let obj = {};
+
+        this.beforeSave();
 
         if (admin.form.validate(form)){
 
@@ -50,7 +66,7 @@ admin.form = {
                 let searchParams = new URLSearchParams(data);
                 let query_str =  searchParams.toString();
                 url += "?"+query_str;
-                console.log(typeof(result_function));
+
                 if (typeof(result_function) !== 'function'){
                     admin.ajax.setUrl(url);
                 }
@@ -131,6 +147,7 @@ admin.form = {
         var forms = document.querySelectorAll('.needs-validation');
         forms.forEach(function (form) {
             form.addEventListener('submit', function (event) {
+
                 if (!admin.form.validate(form)) {
                     event.preventDefault();
                     event.stopPropagation();
@@ -142,10 +159,12 @@ admin.form = {
 
     validate : function(form){
         let res = true;
+
         if (form.classList.contains("needs-validation")){
             res = form.checkValidity();
             form.classList.add('was-validated');
             admin.form.check_tab_errors();
+
         }
         return res;
     }

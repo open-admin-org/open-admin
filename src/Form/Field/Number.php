@@ -20,9 +20,9 @@ class Number extends Text
         $this->append("<i class='icon-plus plus'></i>");
         $this->prepend("<i class='icon-minus minus'></i>");
         $this->default($this->default);
-        $this->script = <<<EOT
+        $this->script = <<<JS
         new NumberInput(document.querySelector('{$this->getElementClassSelector()}'));
-        EOT;
+        JS;
 
         $this->style('max-width', '120px');
 

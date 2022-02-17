@@ -1,8 +1,8 @@
-<div class="form-group ">
-    <label class="col-sm-{{$width['label']}} control-label">{{ $label }}</label>
-    <div class="col-sm-{{$width['field']}}">
+<div class="row ">
+    <label class="col-sm-{{$width['label']}} form-label">{{ $label }}</label>
+    <div class="col-sm-{{$width['field']}} show-value">
         @if($wrapped)
-        <div class="card box-solid box-default no-margin box-show">
+        <div class="card">
             <!-- /.box-header -->
             <div class="card-body">
                 @if($escape)

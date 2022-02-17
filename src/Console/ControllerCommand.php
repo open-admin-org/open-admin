@@ -21,28 +21,5 @@ class ControllerCommand extends MakeCommand
      *
      * @var string
      */
-    protected $description = 'Make admin controller from giving model';
-
-    /**
-     * @return array|string|null
-     */
-    protected function getModelName()
-    {
-        return $this->argument('model');
-    }
-
-    /**
-     * @throws \ReflectionException
-     *
-     * @return string
-     */
-    protected function getControllerName()
-    {
-        if (!empty($this->option('name'))) {
-            return $this->option('name');
-        }
-        $name = (new \ReflectionClass($this->modelName))->getShortName();
-
-        return $name.'Controller';
-    }
+    protected $description = 'Make admin controller (simular to admin:make)';
 }

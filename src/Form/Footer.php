@@ -40,6 +40,11 @@ class Footer implements Renderable
     protected $defaultCheck;
 
     /**
+     * @var string
+     */
+    public $fixedFooter = true;
+
+    /**
      * Footer constructor.
      *
      * @param Builder $builder
@@ -166,6 +171,18 @@ class Footer implements Renderable
     }
 
     /**
+     * Set `continue_editing` as default check.
+     *
+     * @return $this
+     */
+    public function fixedFooter($set = true)
+    {
+        $this->fixedFooter = $set;
+
+        return $this;
+    }
+
+    /**
      * Render footer.
      *
      * @return string
@@ -185,6 +202,7 @@ class Footer implements Renderable
             'checkboxes'       => $this->checkboxes,
             'submit_redirects' => $submitRedirects,
             'default_check'    => $this->defaultCheck,
+            'fixedFooter'      => $this->fixedFooter,
         ];
 
         return view($this->view, $data)->render();

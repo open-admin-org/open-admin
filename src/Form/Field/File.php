@@ -4,12 +4,14 @@ namespace OpenAdmin\Admin\Form\Field;
 
 use Illuminate\Support\Arr;
 use OpenAdmin\Admin\Form\Field;
+use OpenAdmin\Admin\Form\Field\Traits\UploadField;
+use OpenAdmin\Admin\Form\Field\Traits\HasMediaPicker;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 class File extends Field
 {
     use UploadField;
-    use HasValuePicker;
+    use HasMediaPicker;
 
     protected static $css = [
         '/vendor/open-admin/fields/file-upload/file-upload.css',
@@ -18,6 +20,9 @@ class File extends Field
     protected static $js = [
         '/vendor/open-admin/fields/file-upload/file-upload.js',
     ];
+
+    public $type = "file";
+    public $readonly = false;
 
     /**
      * Create a new File instance.
@@ -91,17 +96,21 @@ class File extends Field
      */
     public function prepare($file)
     {
-        if ($this->picker) {
-            return parent::prepare($file);
+        if (request()->has($this->column.Field::FILE_DELETE_FLAG)) {
+            $this->destroy();
+            return "";
         }
 
-        if (request()->has(static::FILE_DELETE_FLAG)) {
-            return $this->destroy();
+        if (!empty($this->picker) && request()->has($this->column.Field::FILE_ADD_FLAG)) {
+            return request($this->column.Field::FILE_ADD_FLAG);
         }
 
-        $this->name = $this->getStoreName($file);
+        if (!empty($file)) {
+            $this->name = $this->getStoreName($file);
+            return $this->uploadAndDeleteOriginal($file);
+        }
 
-        return $this->uploadAndDeleteOriginal($file);
+        return false;
     }
 
     /**
@@ -174,59 +183,25 @@ class File extends Field
         return [$config];
     }
 
-    protected function setupScripts($options)
+    protected function setType($type = 'file')
     {
-        $this->script = <<<EOT
-        new FileUpload(document.querySelector('{$this->getElementClassSelector()}'));
-        EOT;
+        $this->options['type'] = $type;
     }
 
     /**
-     * @param string $options
+     * Setupscript
+     *
+     * @return nothing
      */
-
-    /*
-    protected function setupScripts($options)
+    protected function setupScripts()
     {
-        $this->script = <<<EOT
-
-$("input{$this->getElementClassSelector()}").fileinput({$options});
-EOT;
-
-        if ($this->fileActionSettings['showRemove']) {
-            $text = [
-                'title'   => trans('admin.delete_confirm'),
-                'confirm' => trans('admin.confirm'),
-                'cancel'  => trans('admin.cancel'),
-            ];
-
-            $this->script .= <<<EOT
-$("input{$this->getElementClassSelector()}").on('filebeforedelete', function() {
-
-    return new Promise(function(resolve, reject) {
-
-        var remove = resolve;
-
-        swal({
-            title: "{$text['title']}",
-            type: "warning",
-            showCancelButton: true,
-            confirmButtonColor: "#DD6B55",
-            confirmButtonText: "{$text['confirm']}",
-            showLoaderOnConfirm: true,
-            cancelButtonText: "{$text['cancel']}",
-            preConfirm: function() {
-                return new Promise(function(resolve) {
-                    resolve(remove());
-                });
-            }
-        });
-    });
-});
-EOT;
-        }
+        $this->setType();
+        $this->options['storageUrl'] = $this->storageUrl();
+        $json_options = json_encode($this->options);
+        $this->script = <<<JS
+        var FileUpload_{$this->formatName($this->column)} = new FileUpload(document.querySelector('{$this->getElementClassSelector()}'),{$json_options});
+        JS;
     }
-    */
 
     /**
      * Render file upload field.
@@ -236,7 +211,7 @@ EOT;
     public function render()
     {
         if ($this->picker) {
-            return $this->renderFilePicker();
+            $this->renderMediaPicker();
         }
 
         $this->options(['overwriteInitial' => true, 'msgPlaceholder' => trans('admin.choose_file')]);
@@ -244,7 +219,7 @@ EOT;
         $this->setupDefaultOptions();
 
         if (!empty($this->value)) {
-            $this->attribute('data-files', $this->preview());
+            $this->attribute('data-files', $this->value);
             $this->attribute('data-file-captions', $this->initialCaption($this->value));
 
             $this->setupPreviewOptions();
@@ -255,9 +230,7 @@ EOT;
             unset($this->attributes['required']);
         }
 
-        $options = json_encode_options($this->options);
-
-        $this->setupScripts($options);
+        $this->setupScripts();
 
         return parent::render();
     }

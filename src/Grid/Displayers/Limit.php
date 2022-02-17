@@ -9,7 +9,7 @@ class Limit extends AbstractDisplayer
 {
     protected function addScript()
     {
-        $script = <<<'JS'
+        $script = <<<JS
 document.querySelectorAll('.limit-more').forEach(el =>{
     el.addEventListener("click",function (event) {
 

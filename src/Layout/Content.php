@@ -12,6 +12,13 @@ class Content implements Renderable
     /**
      * Content title.
      *
+     * @var array
+     */
+    protected $body_classes = [];
+
+    /**
+     * Content title.
+     *
      * @var string
      */
     protected $title = ' ';
@@ -138,6 +145,23 @@ class Content implements Renderable
         }
 
         return true;
+    }
+    /**
+     * Set css_files for content.
+     *
+     * @param array $css_file
+     *
+     * @return $this
+     */
+    public function addBodyClass($class)
+    {
+        if (is_array($class)) {
+            $this->body_classes = array_merge($this->body_classes, $class);
+        } else {
+            $this->body_classes[] = $class;
+        }
+
+        return $this;
     }
 
     /**
@@ -344,6 +368,7 @@ class Content implements Renderable
     public function render()
     {
         $items = [
+            'body_classes'      => implode(' ', $this->body_classes),
             'header'      => $this->title,
             'description' => $this->description,
             'breadcrumb'  => $this->breadcrumb,

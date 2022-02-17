@@ -14,10 +14,13 @@ trait CanDoubleClick
     public function enableDblClick()
     {
         $script = <<<SCRIPT
-$('body').on('dblclick', 'table#{$this->tableID}>tbody>tr', function(e) {
-    var url = "{$this->resource()}/"+$(this).data('key')+"/edit";
-    $.admin.redirect(url);
-});
+        document.body.addEventListener('dblclick', function (e) {
+            tr = e.target.closest("tr");
+            if (tr && tr.dataset.key){
+                var url = "{$this->resource()}/"+tr.dataset.key+"/edit";
+                admin.ajax.navigate(url);
+            }
+        });
 SCRIPT;
         Admin::script($script);
 

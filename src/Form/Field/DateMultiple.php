@@ -43,7 +43,7 @@ class DateMultiple extends Text
 
         $this->script = "flatpickr('{$this->getElementClassSelector()}',".json_encode($this->options).');';
 
-        $this->prepend('<i class="icon-calendar fa-fw"></i>')
+        $this->prepend('<i class="icon-calendar"></i>')
             ->defaultAttribute('style', 'width: 100%');
 
         return parent::render();

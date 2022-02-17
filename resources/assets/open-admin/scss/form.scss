@@ -2,27 +2,34 @@
 /* general  */
 /*-------------------------------------------------------*/
 
-.input-group-text {
+
+.input-group-text.with-icon {
     justify-content: center;
     min-width: 2.5rem;
-    padding: 0rem;
+    padding-left: 0rem;
+    padding-right: 0rem;
     background-color: #f7f7f7;
 }
-
 
 /*-------------------------------------------------------*/
 /* tabs  */
 /*-------------------------------------------------------*/
 
+
 .nav-tabs-custom {
-    margin-top: -1rem;
+
     > .nav-tabs {
         padding-left: 15px;
-        border-radius: 0;
-        border-top-left-radius: 0px;
-        border-top-right-radius: 0px;
         background: rgb(250, 250, 250);
         padding-top: 15px;
+        border-top-left-radius: 0.3rem;
+        border-top-right-radius: 0.3rem;
+
+        .no-border-radius{
+            border-radius: 0;
+            border-top-left-radius: 0px;
+            border-top-right-radius: 0px;
+        }
 
         .text-red {
             color: $red;
@@ -32,18 +39,27 @@
             display: none;
         }
     }
+}
+.form .nav-tabs-custom {
+    margin-top: -1rem;
+}
 
+.form{
     .tab-content {
         padding: 2rem 0 0.25rem 0;
     }
 }
 
-.form-footer {
+.form-footer,.card-footer {
     .row {
         width: 100%;
         margin-bottom: 0;
         padding-left:0.3rem;
     }
+}
+
+.tab-pane{
+    background:#FFF;
 }
 
 /*-------------------------------------------------------*/
@@ -87,6 +103,10 @@ body .choices[data-type*="select-one"] {
 body .choices {
     margin-bottom: 0;
     min-width:140px;
+
+    .choices__list--dropdown{
+        z-index:10;
+    }
 
     &.form-control-sm{
         padding:0;
@@ -236,6 +256,8 @@ body .choices {
     .form-control::-ms-input-placeholder { /* Microsoft Edge */
         color: #b5b5b5;
     }
+
+    hr,
     .form-border{
         background:none;
         border-bottom: 1px solid $card-border-color;
@@ -243,6 +265,40 @@ body .choices {
     }
     .form-range{
         margin-top:0.5rem;
+    }
+
+    .btn-group.grey-border{
+        margin-left:1px;
+
+        .btn {
+            color: #4d4d4d;
+            background-color:  #FFF;
+            border-color:  $input-border-color;
+        }
+
+        .btn-check:checked + .btn-outline-primary{
+            color: #FFF;
+            background: $primary;
+        }
+    }
+
+    .fieldset{
+        height: 20px;
+        border-bottom: 1px solid #eee;
+        text-align: left;
+        margin-top: 5px;
+        margin-bottom: 20px;
+    }
+
+
+
+    .fieldset-link{
+        background-color: #ffffff;
+        font-size: 16px;
+        padding: 0 10px;
+        &.collapsed .icon-angle-up:before{
+            transform: rotate(180deg);
+        }
     }
 }
 
@@ -302,6 +358,35 @@ body .choices {
         }
     }
 
+    .table-with-fields{
+        border: 1px solid var(--table-border-color);
+
+        .form-group{
+            margin-bottom:0;
+        }
+
+        label.form-label{
+            display:none;
+        }
+        td{
+            padding:0.75rem 0.5rem;
+
+            .remove{
+                margin-right:0.25rem;
+            }
+        }
+
+        &.vertical-align-top td{
+            vertical-align:top;
+        }
+        &.vertical-align-middle td{
+            vertical-align:middle;
+        }
+        &.vertical-align-bottom td{
+            vertical-align:bottom;
+        }
+    }
+
 /*-------------------------------------------------------*/
 /* dual-list */
 /*-------------------------------------------------------*/
@@ -352,4 +437,29 @@ body .choices {
             font-weight:bold;
             line-height:3rem;
         }
+    }
+
+/*--------------------------------------------------------*/
+/* some negative margin if card-footer is inside the body */
+/*--------------------------------------------------------*/
+
+    .card{
+        .card-body{
+            .card-footer{
+                margin:0rem -1rem -2rem -1rem;
+            }
+        }
+    }
+
+    form .card-footer{
+        margin-bottom:-1rem;
+    }
+
+    .card-footer{
+        padding:1rem;
+    }
+
+    .card-footer,.tab-pane{
+        border-bottom-left-radius: 0.3rem;
+        border-bottom-right-radius: 0.3rem;
     }

@@ -1,4 +1,4 @@
-<div class="nav-tabs-custom">
+<div class="nav-tabs-custom no-border-radius">
     <ul class="nav nav-tabs">
 
         @foreach($tabObj->getTabs() as $tab)

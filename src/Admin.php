@@ -25,7 +25,7 @@ class Admin
      *
      * @var string
      */
-    public const VERSION = '1.0.3';
+    public const VERSION = '1.0.9';
 
     /**
      * @var Navbar
@@ -242,7 +242,7 @@ class Admin
      */
     public function user()
     {
-        return $this->guard()->user();
+        return static::guard()->user();
     }
 
     /**

@@ -10,13 +10,15 @@ trait CanFixHeader
     {
         Admin::style(
             <<<'STYLE'
-.wrapper, .grid-box .box-body {
+.wrapper, .table-responsive {
     overflow: visible;
 }
 
 .grid-table {
     position: relative;
     border-collapse: separate;
+    border-spacing: 0;
+    background:#FFF;
 }
 
 .grid-table thead tr:first-child th {

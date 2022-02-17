@@ -14,7 +14,7 @@
         </ul>
     </div>
     @endif
-        <div class="input-group-text">
+        <div class="input-group-text with-icon">
             <i class="icon-{{ $icon }}"></i>
         </div>
 

@@ -10,8 +10,8 @@ class Radio extends AbstractDisplayer
     {
         $value = $this->getAttribute($key);
 
-        return <<<EOT
+        return <<<HTML
 <input type="radio" name="item" class="form-check-input" value="{$value}"/>
-EOT;
+HTML;
     }
 }

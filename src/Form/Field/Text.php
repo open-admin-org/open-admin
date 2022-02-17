@@ -3,6 +3,8 @@
 namespace OpenAdmin\Admin\Form\Field;
 
 use OpenAdmin\Admin\Form\Field;
+use OpenAdmin\Admin\Form\Field\Traits\HasValuePicker;
+use OpenAdmin\Admin\Form\Field\Traits\PlainInput;
 
 class Text extends Field
 {

@@ -17,10 +17,10 @@ class Button extends Field
 
     public function on($event, $callback)
     {
-        $this->script = <<<EOT
-        document.querySelector('{$this->getElementClassSelector()}').addeventListener('$event', function() {
+        $this->script = <<<JS
+        document.querySelector('{$this->getElementClassSelector()}').addEventListener('$event', function() {
             $callback
         });
-EOT;
+JS;
     }
 }

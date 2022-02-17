@@ -31,11 +31,11 @@ class Captcha extends Text
 
     public function render()
     {
-        $this->script = <<<EOT
+        $this->script = <<<JS
 document.querySelector('#{$this->column}-captcha').addEventlistener("click",function () {
     this.setAttribute('src', this.getAttribute('src')+'?'+Math.random());
 });
-EOT;
+JS;
 
         return parent::render();
     }

@@ -1,28 +1,7 @@
-<style>
-    td .form-group {
-        margin-bottom: 0 !important;
-    }
-    .table-has-many{
-        border: 1px solid var(--table-border-color);
-    }
-    .table-has-many td{
-        vertical-align:top;
-        padding-bottom:1rem;
-    }
-    .table-has-many td .remove{
-        margin-top:2rem;
-        margin-right:0.25rem;
-    }
-</style>
-<div class="row has-many-head {{$column}}">
-    <h4>{{ $label }}</h4>
-</div>
-<hr class="form-border">
-<div class="row">
-    <div class="{{$viewClass['label']}}"></div>
-    <div class="{{$viewClass['field']}}">
-        <div id="has-many-{{$column}}" style="margin-top: 15px;">
-            <table class="table table-has-many has-many-{{$column}}">
+@include("admin::form._header")
+
+        <div id="has-many-{{$column}}">
+            <table class="table table-with-fields has-many-{{$column}} vertical-align-{{$verticalAlign}}">
                 <thead>
                 <tr>
                     @foreach($headers as $header)
@@ -82,10 +61,9 @@
             @if($options['allowCreate'])
                 <div class="form-group">
                     <div class="{{$viewClass['field']}}">
-                        <div class="add btn btn-success btn-sm"><i class="icon-save"></i>&nbsp;{{ trans('admin.new') }}</div>
+                        <div class="add btn btn-success btn-sm"><i class="icon-plus"></i>&nbsp;{{ trans('admin.new') }}</div>
                     </div>
                 </div>
             @endif
         </div>
-    </div>
-</div>
+@include("admin::form._footer")

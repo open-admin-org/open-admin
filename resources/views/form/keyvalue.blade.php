@@ -3,7 +3,7 @@
     <label class="{{$viewClass['label']}} form-label">{{$label}}</label>
 
     <div class="{{$viewClass['field']}}">
-        <table class="table table-hover">
+        <table class="table table-with-fields">
             <thead>
             <tr>
                 <th>{{ __('Key') }}</th>
@@ -55,18 +55,12 @@
                 </tr>
             @endforeach
             </tbody>
-            <tfoot>
-                <tr>
-                    <td></td>
-                    <td></td>
-                    <td>
-                        <div class="{{ $column }}-add btn btn-success btn-sm pull-right">
-                            <i class="icon-save"></i>&nbsp;{{ __('admin.new') }}
-                        </div>
-                    </td>
-                </tr>
-            </tfoot>
+
         </table>
+        <div class="{{ $column }}-add btn btn-success btn-sm pull-right">
+            <i class="icon-plus"></i>&nbsp;{{ __('admin.new') }}
+        </div>
+
     </div>
     <template class="{{$column}}-tpl">
         <tr>

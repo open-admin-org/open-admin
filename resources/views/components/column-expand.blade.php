@@ -45,7 +45,6 @@
                     }).catch(function (error) {
                         console.log(error);
                     });
-
                 @endif
 
                 el.dataset.inserted = 1;

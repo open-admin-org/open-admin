@@ -4,22 +4,13 @@ namespace OpenAdmin\Admin\Form\Field;
 
 use Illuminate\Contracts\Support\Arrayable;
 use OpenAdmin\Admin\Form\Field;
+use OpenAdmin\Admin\Form\Field\Traits\CanCascadeFields;
 
 class Radio extends Field
 {
     use CanCascadeFields;
 
     protected $stacked = false;
-
-    /*
-    protected static $css = [
-        '/vendor/open-admin/AdminLTE/plugins/iCheck/all.css',
-    ];
-
-    protected static $js = [
-        '/vendor/open-admin/AdminLTE/plugins/iCheck/icheck.min.js',
-    ];
-    */
 
     /**
      * @var string

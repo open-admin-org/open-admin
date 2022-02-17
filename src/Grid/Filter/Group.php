@@ -284,7 +284,7 @@ class Group extends AbstractFilter
      */
     protected function injectScript()
     {
-        $script = <<<SCRIPT
+        $script = <<<JS
 document.querySelectorAll(".{$this->name} li a").forEach(el=>{
     el.addEventListener("click",function(e){
 
@@ -296,7 +296,7 @@ document.querySelectorAll(".{$this->name} li a").forEach(el=>{
     });
 
 });
-SCRIPT;
+JS;
 
         Admin::script($script);
     }

@@ -1,12 +1,11 @@
 
-<div class="row">
-    <div class="{{$viewClass['label']}}"><h4 class="pull-right">{{ $label }}</h4></div>
-    <div class="{{$viewClass['field']}}"></div>
-</div>
 
-<hr style="margin-top: 0px;">
+
+<h4 class="embed-title ps-3" style="font-size:1.2rem;">{{ $label }}</h4>
+<hr>
 
 <div id="embed-{{$column}}" class="embed-{{$column}}">
+
 
     <div class="embed-{{$column}}-forms">
 
@@ -20,4 +19,4 @@
     </div>
 </div>
 
-<hr style="margin-top: 0px;">
+<hr>

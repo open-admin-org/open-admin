@@ -10,8 +10,8 @@ class Checkbox extends AbstractDisplayer
     {
         $value = $this->getAttribute($key);
 
-        return <<<EOT
+        return <<<HTML
 <input type="checkbox" name="item" class="form-check-input" value="{$value}"/>
-EOT;
+HTML;
     }
 }

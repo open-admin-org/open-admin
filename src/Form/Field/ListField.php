@@ -9,51 +9,10 @@ use OpenAdmin\Admin\Form\Field;
 class ListField extends Field
 {
     /**
-     * Max list size.
-     *
-     * @var int
-     */
-    protected $max;
-
-    /**
-     * Minimum list size.
-     *
-     * @var int
-     */
-    protected $min = 0;
-
-    /**
      * @var array
      */
     protected $value = [''];
 
-    /**
-     * Set Max list size.
-     *
-     * @param int $size
-     *
-     * @return $this
-     */
-    public function max(int $size)
-    {
-        $this->max = $size;
-
-        return $this;
-    }
-
-    /**
-     * Set Minimum list size.
-     *
-     * @param int $size
-     *
-     * @return $this
-     */
-    public function min(int $size)
-    {
-        $this->min = $size;
-
-        return $this;
-    }
 
     /**
      * Fill data to the field.
@@ -99,14 +58,6 @@ class ListField extends Field
 
         $rules["{$this->column}.values"][] = 'array';
 
-        if (!is_null($this->max)) {
-            $rules["{$this->column}.values"][] = "max:$this->max";
-        }
-
-        if (!is_null($this->min)) {
-            $rules["{$this->column}.values"][] = "min:$this->min";
-        }
-
         $attributes["{$this->column}.values"] = $this->label;
 
         return validator($input, $rules, $this->getValidationMessages(), $attributes);
@@ -117,18 +68,21 @@ class ListField extends Field
      */
     protected function setupScript()
     {
-        $this->script = <<<SCRIPT
+        $this->script = <<<JS
 
-$('.{$this->column}-add').on('click', function () {
-    var tpl = $('template.{$this->column}-tpl').html();
-    $('tbody.list-{$this->column}-table').append(tpl);
-});
+        document.querySelector('.{$this->column}-add').addEventListener('click', function () {
+            var tpl = document.querySelector('template.{$this->column}-tpl').innerHTML;
+            var clone = htmlToElement(tpl);
+            document.querySelector('tbody.list-{$this->column}-table').appendChild(clone);
+        });
 
-$('tbody').on('click', '.{$this->column}-remove', function () {
-    $(this).closest('tr').remove();
-});
+        document.querySelector('tbody.list-{$this->column}-table').addEventListener('click', function (event) {
+            if (event.target.classList.contains('{$this->column}-remove')){
+                event.target.closest('tr').remove();
+            }
+        });
 
-SCRIPT;
+JS;
     }
 
     /**

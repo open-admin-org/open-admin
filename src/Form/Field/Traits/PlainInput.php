@@ -1,6 +1,6 @@
 <?php
 
-namespace OpenAdmin\Admin\Form\Field;
+namespace OpenAdmin\Admin\Form\Field\Traits;
 
 trait PlainInput
 {

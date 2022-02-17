@@ -234,9 +234,11 @@ class NestedForm
      */
     public function prepare($input)
     {
-        foreach ($input as $key => $record) {
-            $this->setFieldOriginalValue($key);
-            $input[$key] = $this->prepareRecord($record);
+        if (!empty($input)) {
+            foreach ($input as $key => $record) {
+                $this->setFieldOriginalValue($key);
+                $input[$key] = $this->prepareRecord($record);
+            }
         }
 
         return $input;

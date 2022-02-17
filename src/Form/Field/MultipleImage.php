@@ -2,6 +2,7 @@
 
 namespace OpenAdmin\Admin\Form\Field;
 
+use OpenAdmin\Admin\Form\Field\Traits\ImageField;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 class MultipleImage extends MultipleFile

@@ -1,13 +1,12 @@
 @include("admin::form._header")
 
-        <div class="card-group radio-group-toggle">
+
+        <div class="btn-group grey-border" role="group">
             @foreach($options as $option => $label)
-                <label class="panel panel-default {{ ($option == old($column, $value)) || ($value === null && in_array($label, $checked)) ?'active':'' }}">
-                    <div class="panel-body">
-                    <input type="radio" name="{{$name}}" value="{{$option}}" class="hide minimal {{$class}}" {{ ($option == old($column, $value)) || ($value === null && in_array($label, $checked)) ?'checked':'' }} {!! $attributes !!} />&nbsp;{{$label}}&nbsp;&nbsp;
-                    </div>
-                </label>
+                <input type="radio" name="{{$name}}" value="{{$option}}" id="{{$name}}-{{$option}}" class="btn-check {{$class}}" {{ ($option == old($column, $value)) || ($value === null && in_array($label, $checked)) ?'checked':'' }} {!! $attributes !!} />
+                <label class="btn btn-outline-primary" for="{{$name}}-{{$option}}">{{$label}}</label>
             @endforeach
         </div>
+        {{ ($option == old($column, $value)) || ($value === null && in_array($label, $checked)) ?'active':'' }}
 
 @include("admin::form._footer")

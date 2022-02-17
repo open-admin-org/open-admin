@@ -100,9 +100,10 @@ class Paginator extends AbstractTool
         }
 
         $vars = [
-            'range'    => $this->paginationRanger(),
-            'links'    => $this->paginationLinks(),
-            'per_page' => $this->perPageSelector(),
+            'range'       => $this->paginationRanger(),
+            'links'       => $this->paginationLinks(),
+            'per_page'    => $this->perPageSelector(),
+            'fixedFooter' => $this->grid->fixedFooter,
         ];
 
         return view('admin::grid.pagination', $vars)->render();

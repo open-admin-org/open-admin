@@ -8,24 +8,11 @@ use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
 use OpenAdmin\Admin\Facades\Admin;
 use OpenAdmin\Admin\Form\Field;
+use OpenAdmin\Admin\Form\Field\Traits\CanCascadeFields;
 
 class Select extends Field
 {
     use CanCascadeFields;
-
-    /**
-     * @var array
-     */
-    protected static $css = [
-        //'/vendor/open-admin/tom-select/tom-select.css',
-    ];
-
-    /**
-     * @var array
-     */
-    protected static $js = [
-        //'/vendor/open-admin/tom-select/tom-select.complete.min.js',
-    ];
 
     /**
      * @var array
@@ -129,7 +116,7 @@ class Select extends Field
             $class = $field;
         }
 
-        $this->additional_script .= <<<EOT
+        $this->additional_script .= <<<JS
 
             let elm = document.querySelector("{$this->getElementClassSelector()}");
             var lookupTimeout;
@@ -150,69 +137,7 @@ class Select extends Field
                     {$this->choicesObjName($field)}.setChoices(data.data, '{$idField}', '{$textField}', true);
                 })
             });
-EOT;
-
-        return $this;
-    }
-
-    /**
-     * Load options for other selects on change.
-     *
-     * @param array  $fields
-     * @param array  $sourceUrls
-     * @param string $idField
-     * @param string $textField
-     *
-     * @return $this
-     */
-    public function loads($fields = [], $sourceUrls = [], $idField = 'id', $textField = 'text', bool $allowClear = true)
-    {
-        $fieldsStr = implode('.', $fields);
-        $urlsStr = implode('^', $sourceUrls);
-
-        $placeholder = json_encode([
-            'id'   => '',
-            'text' => trans('admin.choose'),
-        ]);
-
-        $strAllowClear = var_export($allowClear, true);
-
-        $script = <<<EOT
-
-        console.log('select: loads not ported yet, not sure if needed');
-        /*
-var fields = '$fieldsStr'.split('.');
-var urls = '$urlsStr'.split('^');
-
-var refreshOptions = function(url, target) {
-    $.get(url).then(function(data) {
-        target.find("option").remove();
-        $(target).select2({
-            placeholder: $placeholder,
-            allowClear: $strAllowClear,
-            data: $.map(data, function (d) {
-                d.id = d.$idField;
-                d.text = d.$textField;
-                return d;
-            })
-        }).trigger('change');
-    });
-};
-
-$(document).off('change', "{$this->getElementClassSelector()}");
-$(document).on('change', "{$this->getElementClassSelector()}", function () {
-    var _this = this;
-    var promises = [];
-
-    fields.forEach(function(field, index){
-        var target = $(_this).closest('.fields-group').find('.' + fields[index]);
-        promises.push(refreshOptions(urls[index] + "?q="+ _this.value, target));
-    });
-});
-*/
-EOT;
-
-        Admin::script($script);
+JS;
 
         return $this;
     }
@@ -271,15 +196,16 @@ EOT;
         $this->config = array_merge([
             'removeItems'        => true,
             'removeItemButton'   => true,
+            'allowHTML'          => true,
         ], $this->config);
 
         $parameters_json = json_encode($parameters);
 
-        $this->additional_script .= <<<EOT
+        $this->additional_script .= <<<JS
         admin.ajax.post("{$url}",{$parameters_json},function(data){
             {$this->choicesObjName()}.setChoices(data.data, 'id', 'text', true);
         });
-EOT;
+JS;
 
         return $this;
     }
@@ -298,10 +224,11 @@ EOT;
         $this->config = array_merge([
             'removeItems'        => true,
             'removeItemButton'   => true,
+            'allowHTML'          => true,
             'placeholder'        => $this->label,
         ], $this->config);
 
-        $this->additional_script = <<<EOT
+        $this->additional_script = <<<JS
             let elm = document.querySelector("{$this->getElementClassSelector()}");
             var lookupTimeout;
             elm.addEventListener('search', function(event) {
@@ -317,7 +244,7 @@ EOT;
             elm.addEventListener('choice', function(event) {
                 {$this->choicesObjName()}.setChoices([], '{$idField}', '{$textField}', true);
             });
-        EOT;
+        JS;
 
         return $this;
     }
@@ -375,6 +302,9 @@ EOT;
         return parent::readOnly();
     }
 
+    /**
+     * Returns variable name for ChoicesJS object
+     */
     public function choicesObjName($field = false)
     {
         if (empty($field)) {
@@ -385,6 +315,20 @@ EOT;
     }
 
     /**
+     * Check if field should be rendered as Choises JS (not the case if fields are embed in popup)
+     */
+    public function allowedChoicesJs()
+    {
+        $class = get_class($this);
+        return in_array($class, [
+            'OpenAdmin\Admin\Form\Field\Select',
+            'OpenAdmin\Admin\Form\Field\Tags',
+            'OpenAdmin\Admin\Form\Field\MultipleSelect',
+            'OpenAdmin\Admin\Form\Field\Timezone'
+        ]);
+    }
+
+    /**
      * {@inheritdoc}
      */
     public function render()
@@ -392,6 +336,7 @@ EOT;
         $configs = array_merge([
             'removeItems'        => true,
             'removeItemButton'   => true,
+            'allowHTML'          => true,
             'placeholder'        => [
                 'id'   => '',
                 'text' => $this->label,
@@ -402,7 +347,7 @@ EOT;
         ], $this->config);
         $configs = json_encode($configs);
 
-        if (!$this->native && (get_class($this) == 'OpenAdmin\Admin\Form\Field\Select' || get_class($this) == 'OpenAdmin\Admin\Form\Field\MultipleSelect')) {
+        if (!$this->native && $this->allowedChoicesJs()) {
             $this->script .= 'var '.$this->choicesObjName()." = new Choices('{$this->getElementClassSelector()}',{$configs});";
             $this->script .= $this->additional_script;
         }
@@ -411,7 +356,6 @@ EOT;
             if ($this->form) {
                 $this->options = $this->options->bindTo($this->form->model());
             }
-
             $this->options(call_user_func($this->options, $this->value, $this));
         }
 

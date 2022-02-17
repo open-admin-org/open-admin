@@ -56,12 +56,40 @@
 	var trans = __;
 
 /*--------------------------------------------------*/
-/* function helpers */
+/* array / object helpers */
 /*--------------------------------------------------*/
 
 	var merge_default = function(defaults,object, ...rest){
 		return Object.assign({}, defaults, object, ...rest);
 	}
+
+	var arr_remove = function(arr,elem) {
+		var indexElement = arr.findIndex(el => el == elem);
+		if (indexElement != -1)
+		  arr.splice(indexElement, 1);
+		return arr;
+	};
+
+	var arr_includes = function(arr,elem) {
+		var indexElement = arr.findIndex(el => el == elem);
+		return (indexElement != -1)
+	};
+
+/*--------------------------------------------------*/
+/* event Handlers  */
+/*--------------------------------------------------*/
+
+	function delegate(selector, handler) {
+
+		return function(event) {
+		  var targ = event.target;
+		  do {
+			if (targ.matches(selector)) {
+			  handler.call(targ, event);
+			}
+		  } while ((targ = targ.parentNode) && targ != event.currentTarget);
+		}
+	  }
 
 /*--------------------------------------------------*/
 /* html elements */

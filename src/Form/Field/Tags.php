@@ -8,7 +8,7 @@ use Illuminate\Support\Collection;
 use OpenAdmin\Admin\Facades\Admin;
 use OpenAdmin\Admin\Form\Field;
 
-class Tags extends Field
+class Tags extends Select
 {
     /**
      * @var array
@@ -57,6 +57,7 @@ class Tags extends Field
 
         $this->value = array_filter((array) $this->value, 'strlen');
     }
+
 
     /**
      * Set visible column and key of data.
@@ -174,66 +175,17 @@ class Tags extends Field
     }
 
     /**
-     * {@inheritdoc}
-     */
+      * {@inheritdoc}
+      */
     public function render()
     {
-        if (!$this->shouldRender()) {
-            return '';
-        }
+        $this->config = array_merge([
+            'allowHTML'             => true,
+            'paste'                 => true,
+            'duplicateItemsAllowed' => false,
+            'editItems'             =>true,
+        ], $this->config);
 
-        $this->setupScript();
-
-        if ($this->keyAsValue) {
-            $options = $this->value + $this->options;
-        } else {
-            $options = array_unique(array_merge($this->value, $this->options));
-        }
-
-        return parent::fieldRender([
-            'options'    => $options,
-            'keyAsValue' => $this->keyAsValue,
-        ]);
-    }
-
-    protected function setupScript()
-    {
-        $separators = json_encode($this->separators);
-        $separatorsStr = implode('', $this->separators);
-        $this->script = <<<JS
-$("{$this->getElementClassSelector()}").select2({
-    tags: true,
-    tokenSeparators: $separators,
-    createTag: function(params) {
-        if (/[$separatorsStr]/.test(params.term)) {
-            var str = params.term.trim().replace(/[$separatorsStr]*$/, '');
-            return { id: str, text: str }
-        } else {
-            return null;
-        }
-    }
-});
-JS;
-
-        Admin::script(
-            <<<'JS'
-$(document).off('keyup', '.select2-selection--multiple .select2-search__field').on('keyup', '.select2-selection--multiple .select2-search__field', function (event) {
-    try {
-        if (event.keyCode == 13) {
-            var $this = $(this), optionText = $this.val();
-            if (optionText != "" && $this.find("option[value='" + optionText + "']").length === 0) {
-                var $select = $this.parents('.select2-container').prev("select");
-                var newOption = new Option(optionText, optionText, true, true);
-                $select.append(newOption).trigger('change');
-                $this.val('');
-                $select.select2('close');
-            }
-        }
-    } catch (e) {
-        console.error(e);
-    }
-});
-JS
-        );
+        return parent::render();
     }
 }

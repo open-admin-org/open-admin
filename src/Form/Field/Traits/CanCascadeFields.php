@@ -1,6 +1,6 @@
 <?php
 
-namespace OpenAdmin\Admin\Form\Field;
+namespace OpenAdmin\Admin\Form\Field\Traits;
 
 use Illuminate\Support\Arr;
 use OpenAdmin\Admin\Admin;
@@ -176,12 +176,16 @@ trait CanCascadeFields
 
         $script = <<<SCRIPT
 ;(function () {
+    var inArray = function (find,arr){
+        return arr.indexOf(find);
+    }
     var operator_table = {
         '=': function(a, b) {
-            if ($.isArray(a) && $.isArray(b)) {
-                return $(a).not(b).length === 0 && $(b).not(a).length === 0;
+            if (Array.isArray(a) && Array.isArray(b)) {
+                a.sort();
+                b.sort();
+                return a.join() == b.join()
             }
-
             return a == b;
         },
         '>': function(a, b) { return a > b; },
@@ -189,15 +193,18 @@ trait CanCascadeFields
         '>=': function(a, b) { return a >= b; },
         '<=': function(a, b) { return a <= b; },
         '!=': function(a, b) {
-             if ($.isArray(a) && $.isArray(b)) {
-                return !($(a).not(b).length === 0 && $(b).not(a).length === 0);
-             }
+
+            if (Array.isArray(a) && Array.isArray(b)) {
+                a.sort();
+                b.sort();
+                return !(a.join() == b.join())
+            }
 
              return a != b;
         },
-        'in': function(a, b) { return $.inArray(a, b) != -1; },
-        'notIn': function(a, b) { return $.inArray(a, b) == -1; },
-        'has': function(a, b) { return $.inArray(b, a) != -1; },
+        'in': function(a, b) { return inArray(a, b) != -1; },
+        'notIn': function(a, b) { return inArray(a, b) == -1; },
+        'has': function(a, b) { return inArray(b, a) != -1; },
         'oneIn': function(a, b) { return a.filter(v => b.includes(v)).length >= 1; },
         'oneNotIn': function(a, b) { return a.filter(v => b.includes(v)).length == 0; },
     };
@@ -207,23 +214,32 @@ trait CanCascadeFields
         var default_value = '{$this->getDefault()}' + '';
         var class_name = event.class;
         if(default_value == event.value) {
-            $('.'+class_name+'').removeClass('hide');
+            document.querySelector('.'+class_name+'').classList.remove('d-none');
+        }else{
+            document.querySelector('.'+class_name+'').classList.add('d-none');
         }
     });
 
-    $('{$this->getElementClassSelector()}').on('{$this->cascadeEvent}', function (e) {
-
-        {$this->getFormFrontValue()}
-
-        cascade_groups.forEach(function (event) {
-            var group = $('div.cascade-group.'+event.class);
-            if( operator_table[event.operator](checked, event.value) ) {
-                group.removeClass('hide');
-            } else {
-                group.addClass('hide');
-            }
+    document.querySelectorAll('{$this->getElementClassSelector()}').forEach( el =>{
+        el.addEventListener('{$this->cascadeEvent}', function (e) {
+            {$this->getFormFrontValue()}
+            cascade_groups.forEach(function (event) {
+                var group = document.querySelector('div.cascade-group.'+event.class);
+                if( operator_table[event.operator](checked, event.value) ) {
+                    group.classList.remove('d-none');
+                } else {
+                    group.classList.add('d-none');
+                }
+            });
         });
     })
+    function getValuesFrom(selector){
+        var arr = []
+        document.querySelectorAll(selector).forEach(el=>{
+            arr.push(el.value);
+        });
+        return arr;
+    }
 })();
 SCRIPT;
 
@@ -235,7 +251,8 @@ SCRIPT;
      */
     protected function getFormFrontValue()
     {
-        switch (get_class($this)) {
+        $check_class = str_replace("\Field\\", "\Field\Traits\\", get_class($this));
+        switch ($check_class) {
             case Radio::class:
             case RadioButton::class:
             case RadioCard::class:
@@ -243,15 +260,11 @@ SCRIPT;
             case BelongsTo::class:
             case BelongsToMany::class:
             case MultipleSelect::class:
-                return 'var checked = $(this).val();';
+                return 'var checked = this.value;';
             case Checkbox::class:
             case CheckboxButton::class:
             case CheckboxCard::class:
-                return <<<SCRIPT
-var checked = $('{$this->getElementClassSelector()}:checked').map(function(){
-  return $(this).val();
-}).get();
-SCRIPT;
+                return "var checked = getValuesFrom('{$this->getElementClassSelector()}:checked')";
             default:
                 throw new \InvalidArgumentException('Invalid form field type');
         }

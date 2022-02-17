@@ -13,12 +13,14 @@ use Illuminate\Support\Str;
 use Illuminate\Support\Traits\Macroable;
 use OpenAdmin\Admin\Show;
 use OpenAdmin\Admin\Widgets\Carousel;
+use OpenAdmin\Admin\Form\Field\Traits\UploadField;
 
 class Field implements Renderable
 {
     use Macroable {
         __call as macroCall;
     }
+    use UploadField;
 
     /**
      * @var string
@@ -87,11 +89,12 @@ class Field implements Renderable
      *
      * @var bool
      */
-    public $border = true;
+    public $border = false;
 
     /**
      * @var array
      */
+    /*
     protected $fileTypes = [
         'image'      => 'png|jpg|jpeg|tmp|gif',
         'word'       => 'doc|docx',
@@ -104,6 +107,7 @@ class Field implements Renderable
         'audio'      => 'mp3|wav|flac|3pg|aa|aac|ape|au|m4a|mpc|ogg',
         'video'      => 'mkv|rmvb|flv|mp4|avi|wmv|rm|asf|mpeg',
     ];
+    */
 
     /**
      * Field constructor.
@@ -315,20 +319,18 @@ class Field implements Renderable
             $download = $download ? "download='$name'" : '';
 
             return <<<HTML
-<ul class="mailbox-attachments clearfix">
-    <li style="margin-bottom: 0;">
-      <span class="mailbox-attachment-icon"><i class="icon-{$field->getFileIcon($name)}"></i></span>
-      <div class="mailbox-attachment-info">
+<div class="card mailbox-arttachment clearfix">
+      <span class="mailbox-attachment-icon"><i class="{$field->getFileIcon($name)}"></i></span>
+      <div class="card-body">
         <div class="mailbox-attachment-name">
             <i class="icon-paperclip"></i> {$name}
             </div>
             <span class="mailbox-attachment-size">
               {$size}&nbsp;
-              <a href="{$url}" class="btn btn-default btn-xs pull-right" target="_blank" $download><i class="icon-cloud-download"></i></a>
+              <a href="{$url}" class="btn btn-light btn-xs float-end" target="_blank" $download><i class="icon-download"></i></a>
             </span>
       </div>
-    </li>
-  </ul>
+</div>
 HTML;
         });
     }
@@ -377,7 +379,7 @@ HTML;
      *
      * @return Field
      */
-    public function badge($style = 'blue')
+    public function badge($style = 'primary')
     {
         return $this->unescape()->as(function ($value) use ($style) {
             if ($value instanceof Arrayable) {
@@ -437,15 +439,17 @@ HTML;
      */
     public function getFileIcon($file = '')
     {
-        $extension = File::extension($file);
+        $ext = File::extension($file);
 
-        foreach ($this->fileTypes as $type => $regex) {
-            if (preg_match("/^($regex)$/i", $extension) !== 0) {
-                return "fa-file-{$type}-o";
+        $filetype = "file";
+        foreach ($this->fileTypes as $type => $pattern) {
+            if (preg_match($pattern, $ext) === 1) {
+                $filetype = $type;
+                break;
             }
         }
 
-        return 'fa-file-o';
+        return $this->fileTypesIcons[$filetype];
     }
 
     /**

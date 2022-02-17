@@ -43,8 +43,8 @@
                 <div class="{{$viewClass['field']}}">
                     <div class="remove btn btn-warning btn-sm pull-right"><i class="icon-trash"></i>&nbsp;{{ trans('admin.remove') }}</div>
                 </div>
-                <hr class="form-border">
             </div>
+            <hr class="form-border">
 
         </div>
     </template>

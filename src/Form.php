@@ -76,6 +76,20 @@ class Form implements Renderable
     protected $relations = [];
 
     /**
+     * Refrence to model's relations fields.
+     *
+     * @var array
+     */
+    protected $relation_fields = [];
+
+    /**
+     * Refrence to fields that must be prepared before update
+     *
+     * @var array
+     */
+    protected $must_prepare = [];
+
+    /**
      * Input data.
      *
      * @var array
@@ -118,13 +132,7 @@ class Form implements Renderable
      */
     protected $isSoftDeletes = false;
 
-    /**
-     * Deletable files in fiels.
-     * $deletedFieldFiles[$field_key] = array(filename).
-     *
-     * @var array
-     */
-    public $deletedFieldFiles = [];
+    public $fixedFooter = true;
 
     /**
      * Create a new form instance.
@@ -158,6 +166,10 @@ class Form implements Renderable
     public function pushField(Field $field): self
     {
         $field->setForm($this);
+
+        if (!empty($field->must_prepare)) {
+            $this->must_prepare[] = $field->column();
+        }
 
         $width = $this->builder->getWidth();
         $field->setWidth($width['field'], $width['label']);
@@ -562,7 +574,6 @@ class Form implements Renderable
 
         DB::transaction(function () {
             $updates = $this->prepareUpdate($this->updates);
-            $updates = $this->handleFileDeleteUpdate($updates);
 
             foreach ($updates as $column => $value) {
                 /* @var Model $this ->model */
@@ -670,10 +681,6 @@ class Form implements Renderable
     {
         $data = $this->handleEditable($data);
 
-        $data = $this->handleFileDelete($data);
-
-        $data = $this->handleFileSort($data);
-
         if ($this->handleOrderable($id, $data)) {
             return response([
                 'status'  => true,
@@ -704,91 +711,6 @@ class Form implements Renderable
         return $input;
     }
 
-    /**
-     * @param array $input
-     *
-     * @return array
-     */
-    protected function handleFileDelete(array $input = []): array
-    {
-        foreach ($input as $key => $value) {
-            if (strpos($key, Field::FILE_DELETE_FLAG) !== false) {
-                if (!empty($value)) {
-                    $update_key = str_replace(Field::FILE_DELETE_FLAG, '', $key);
-                    if (!isset($this->deletedFieldFiles[$update_key])) {
-                        $this->deletedFieldFiles[$update_key] = [];
-                    }
-                    foreach (explode(',', $value) as $remove_me) {
-                        if (!empty($remove_me)) {
-                            $this->deletedFieldFiles[$update_key][] = $remove_me;
-                        }
-                    }
-                }
-            }
-        }
-        //request()->replace($input);
-
-        return $input;
-    }
-
-    protected function handleFileDeleteUpdate($updates)
-    {
-        foreach ($this->deletedFieldFiles as $key => $value) {
-            $field = $this->getFieldByColumn($key);
-            $original = $field->original();
-
-            if (!is_array($original)) { // single files
-                $originalObjectUrl = $field->objectUrl($original);
-                if ($originalObjectUrl == $value[0]) {
-                    $field->destroy();
-                    if (empty($updates[$key])) { // only when no new file
-                        $updates[$key] = '';
-                    }
-                }
-            } else { // multi - upload files
-                $originalObjectUrl = $field->objectUrl($original[0]);
-                $dir = str_replace($original[0], '', $originalObjectUrl);
-
-                $original_flipped = array_flip($original);
-
-                foreach ($value as $remove_me) {
-                    $remove_me = str_replace($dir, '', $remove_me);
-                    $file_key = $original_flipped[$remove_me];
-                    $field->destroy($file_key);
-                    unset($original_flipped[$remove_me]);
-                }
-                $updates[$key] = array_keys($original_flipped);
-            }
-        }
-
-        return $updates;
-    }
-
-    /**
-     * @param array $input
-     *
-     * @return array
-     */
-    protected function handleFileSort(array $input = []): array
-    {
-        if (!array_key_exists(Field::FILE_SORT_FLAG, $input)) {
-            return $input;
-        }
-
-        $sorts = array_filter($input[Field::FILE_SORT_FLAG]);
-
-        if (empty($sorts)) {
-            return $input;
-        }
-
-        foreach ($sorts as $column => $order) {
-            $input[$column] = $order;
-        }
-
-        request()->replace($input);
-
-        return $input;
-    }
 
     /**
      * Handle orderable update.
@@ -822,6 +744,18 @@ class Form implements Renderable
      */
     protected function updateRelation($relationsData)
     {
+        // makes sure prepared values for relations can be passed
+        // for example MultiFile deletions / sortings
+        //echo "<pre>".print_r($relationsData, 1)."</pre>";
+        //echo "<pre>".print_r($this->relation_fields, 1)."</pre>";
+        //exit;
+
+        foreach ($this->relation_fields as $field) {
+            if (!isset($relationsData[$field]) && in_array($field, $this->must_prepare)) {
+                $relationsData[$field] = false;
+            }
+        }
+
         foreach ($relationsData as $name => $values) {
             if (!method_exists($this->model, $name)) {
                 continue;
@@ -833,7 +767,8 @@ class Form implements Renderable
                 || $relation instanceof Relations\MorphOne
                 || $relation instanceof Relations\BelongsTo;
 
-            $prepared = $this->prepareUpdate([$name => $values], $oneToOneRelation);
+            $isRelationUpdate = true;
+            $prepared = $this->prepareUpdate([$name => $values], $oneToOneRelation, $isRelationUpdate);
 
             if (empty($prepared)) {
                 continue;
@@ -873,25 +808,27 @@ class Form implements Renderable
                     break;
                 case $relation instanceof Relations\HasMany:
                 case $relation instanceof Relations\MorphMany:
-                    foreach ($prepared[$name] as $related) {
-                        /** @var Relations\HasOneOrMany $relation */
-                        $relation = $this->model->$name();
+                    if (!empty($prepared[$name])) {
+                        foreach ($prepared[$name] as $related) {
+                            /** @var Relations\HasOneOrMany $relation */
+                            $relation = $this->model->$name();
 
-                        $keyName = $relation->getRelated()->getKeyName();
+                            $keyName = $relation->getRelated()->getKeyName();
 
-                        /** @var Model $child */
-                        $child = $relation->findOrNew(Arr::get($related, $keyName));
+                            /** @var Model $child */
+                            $child = $relation->findOrNew(Arr::get($related, $keyName));
 
-                        if (Arr::get($related, static::REMOVE_FLAG_NAME) == 1) {
-                            $child->delete();
-                            continue;
+                            if (Arr::get($related, static::REMOVE_FLAG_NAME) == 1) {
+                                $child->delete();
+                                continue;
+                            }
+
+                            Arr::forget($related, static::REMOVE_FLAG_NAME);
+
+                            $child->fill($related);
+
+                            $child->save();
                         }
-
-                        Arr::forget($related, static::REMOVE_FLAG_NAME);
-
-                        $child->fill($related);
-
-                        $child->save();
                     }
                     break;
             }
@@ -906,7 +843,7 @@ class Form implements Renderable
      *
      * @return array
      */
-    protected function prepareUpdate(array $updates, $oneToOneRelation = false): array
+    protected function prepareUpdate(array $updates, $oneToOneRelation = false, $isRelationUpdate = false): array
     {
         $prepared = [];
 
@@ -914,28 +851,25 @@ class Form implements Renderable
         foreach ($this->fields() as $field) {
             $columns = $field->column();
 
-            // If column not in input array data, then continue.
-            if (!Arr::has($updates, $columns)) {
-                continue;
-            }
-
-            if ($this->isInvalidColumn($columns, $oneToOneRelation || $field->isJsonType)) {
+            if ($this->isInvalidColumn($columns, $oneToOneRelation || $field->isJsonType) ||
+                (in_array($columns, $this->relation_fields) && !$isRelationUpdate)) {
                 continue;
             }
 
             $value = $this->getDataByColumn($updates, $columns);
-
             $value = $field->prepare($value);
 
-            if (is_array($columns)) {
-                foreach ($columns as $name => $column) {
-                    Arr::set($prepared, $column, $value[$name]);
+            // if the file
+            if ($value !== false) {
+                if (is_array($columns)) {
+                    foreach ($columns as $name => $column) {
+                        Arr::set($prepared, $column, $value[$name]);
+                    }
+                } elseif (is_string($columns)) {
+                    Arr::set($prepared, $columns, $value);
                 }
-            } elseif (is_string($columns)) {
-                Arr::set($prepared, $columns, $value);
             }
         }
-
         return $prepared;
     }
 
@@ -981,7 +915,9 @@ class Form implements Renderable
         $prepared = [];
 
         foreach ($inserts as $key => $value) {
-            Arr::set($prepared, $key, $value);
+            if ($value !== false) {
+                Arr::set($prepared, $key, $value);
+            }
         }
 
         return $prepared;
@@ -1032,7 +968,7 @@ class Form implements Renderable
     protected function getDataByColumn($data, $columns)
     {
         if (is_string($columns)) {
-            return Arr::get($data, $columns);
+            return Arr::get($data, $columns, false);
         }
 
         if (is_array($columns)) {
@@ -1041,11 +977,14 @@ class Form implements Renderable
                 if (!Arr::has($data, $column)) {
                     continue;
                 }
-                $value[$name] = Arr::get($data, $column);
+                $value[$name] = Arr::get($data, $column, false);
             }
 
             return $value;
         }
+        // if not found return false
+        // false values won't be save
+        return false;
     }
 
     /**
@@ -1130,7 +1069,7 @@ class Form implements Renderable
 
         $this->html($fieldset->end())->plain();
 
-        return $fieldset;
+        return $this;
     }
 
     /**
@@ -1209,7 +1148,8 @@ class Form implements Renderable
             }
         }
 
-        return array_unique($relations);
+        $this->relation_fields = array_unique($relations);
+        return $this->relation_fields;
     }
 
     /**

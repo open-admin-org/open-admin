@@ -1,6 +1,6 @@
 <?php
 
-namespace OpenAdmin\Admin\Form\Field;
+namespace OpenAdmin\Admin\Form\Field\Traits;
 
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Storage;
@@ -78,21 +78,44 @@ trait UploadField
      * @var array
      */
     protected $fileTypes = [
-        'image'  => '/^(gif|png|jpe?g|svg|webp)$/i',
-        'html'   => '/^(htm|html)$/i',
-        'office' => '/^(docx?|xlsx?|pptx?|pps|potx?)$/i',
-        'gdocs'  => '/^(docx?|xlsx?|pptx?|pps|potx?|rtf|ods|odt|pages|ai|dxf|ttf|tiff?|wmf|e?ps)$/i',
-        'text'   => '/^(txt|md|csv|nfo|ini|json|php|js|css|ts|sql)$/i',
-        'video'  => '/^(og?|mp4|webm|mp?g|mov|3gp)$/i',
-        'audio'  => '/^(og?|mp3|mp?g|wav)$/i',
-        'pdf'    => '/^(pdf)$/i',
-        'flash'  => '/^(swf)$/i',
+        'image'      => '/^(gif|png|jpe?g|svg|webp|bpm|tiff)$/i',
+        'html'       => '/^(htm|html)$/i',
+        'word'       => '/^(doc|docx|rtf)$/i',
+        'excel'      => '/^(xls|xlsx|csv)$/i',
+        'powerpoint' => '/^(ppt|pptx|pps|potx)$/i',
+        'text'       => '/^(txt|rtf|md|csv|nfo|ini|json|php|js|css|ts|sql)$/i',
+        'video'      => '/^(og?|mp4|webm|mp?g|mov|3gp|avi|)$/i',
+        'audio'      => '/^(og?|mp3|mp?g|wav)$/i',
+        'pdf'        => '/^(pdf)$/i',
+        'archive'    => '/^(zip|rar)$/i',
+    ];
+
+    /**
+     * @var array
+     */
+    protected $fileTypesIcons = [
+        'file'       => 'icon-file',
+        'image'      => 'icon-file-image',
+        'html'       => 'icon-file-code',
+        'word'       => 'icon-file-word',
+        'excel'      => 'icon-file-excel',
+        'powerpoint' => 'icon-file-powerpoint',
+        'text'       => 'icon-file-alt',
+        'video'      => 'icon-file-video',
+        'audio'      => 'icon-file-audio',
+        'pdf'        => 'icon-file-pdf',
+        'archive'    => 'icon-file-archive',
     ];
 
     /**
      * @var string
      */
     protected $pathColumn;
+
+    /**
+     * @var string
+     */
+    protected $sortColumn;
 
     /**
      * Initialize the storage instance.
@@ -112,28 +135,12 @@ trait UploadField
     protected function setupDefaultOptions()
     {
         $defaults = [
-            'overwriteInitial'     => false,
-            'initialPreviewAsData' => true,
-            'msgPlaceholder'       => trans('admin.choose_file'),
-            'browseLabel'          => trans('admin.browse'),
-            'cancelLabel'          => trans('admin.cancel'),
-            'showRemove'           => false,
-            'showUpload'           => false,
-            'showCancel'           => false,
-            'dropZoneEnabled'      => false,
-            'deleteExtraData'      => [
-                $this->formatName($this->column) => static::FILE_DELETE_FLAG,
-                static::FILE_DELETE_FLAG         => '',
-                '_token'                         => csrf_token(),
-                '_method'                        => 'PUT',
-            ],
+            "retainable"     => false,
+            "sortable"       => true,
+            "download"       => true,
+            "delete"         => true,
+            "confirm_delete" => true,
         ];
-
-        if ($this->form instanceof Form) {
-            $defaults['deleteUrl'] = $this->form->resource().'/'.$this->form->model()->getKey();
-        }
-
-        $defaults = array_merge($defaults, ['fileActionSettings' => $this->fileActionSettings]);
 
         $this->options($defaults);
     }
@@ -165,7 +172,11 @@ trait UploadField
             }
         }
 
-        $extra = ['type' => $filetype];
+        $extra = [
+            'type' => $filetype,
+            'icon' => $this->fileTypesIcons[$filetype],
+        ];
+
 
         if ($filetype == 'video') {
             $extra['filetype'] = "video/{$ext}";
@@ -191,7 +202,7 @@ trait UploadField
      */
     public function downloadable($downloadable = true)
     {
-        $this->downloadable = $downloadable;
+        $this->options['download'] = $downloadable;
 
         return $this;
     }
@@ -201,10 +212,21 @@ trait UploadField
      *
      * @return $this
      */
-    public function removable()
+    public function removable($removable = true)
     {
-        $this->fileActionSettings['showRemove'] = true;
+        $this->options['delete'] = $removable;
 
+        return $this;
+    }
+
+    /**
+     * Disable upload
+     *
+     * @return $this
+     */
+    public function disableUpload()
+    {
+        $this->attribute('disabled', true);
         return $this;
     }
 
@@ -215,7 +237,13 @@ trait UploadField
      */
     public function retainable($retainable = true)
     {
-        $this->retainable = $retainable;
+        if (!empty($this->picker) && $retainable == false) {
+            throw new \InvalidArgumentException(
+                "retainable can not be set to false when using pick()"
+            );
+        }
+        $this->options['retainable'] = $retainable; // for js
+        $this->retainable = $retainable;            // for form save
 
         return $this;
     }
@@ -393,6 +421,20 @@ trait UploadField
     }
 
     /**
+     * Set path column in has-many related model.
+     *
+     * @param string $column
+     *
+     * @return $this
+     */
+    public function sortColumn($column = 'order')
+    {
+        $this->sortColumn = $column;
+
+        return $this;
+    }
+
+    /**
      * Upload file and delete original file.
      *
      * @param UploadedFile $file
@@ -449,6 +491,32 @@ trait UploadField
     }
 
     /**
+     * Get file path from url.
+     *
+     * @param $url
+     *
+     * @return string
+     */
+    public function objectPath($url)
+    {
+        if (URL::isValidUrl($url)) {
+            $storage_url = $this->storage->url("");
+            return str_replace($storage_url, "", $url);
+        }
+        return $url;
+    }
+
+    /**
+     * Get the storage url.
+     *
+     * @return string
+     */
+    public function storageUrl()
+    {
+        return $this->storage->url("");
+    }
+
+    /**
      * Generate a unique name for uploaded file.
      *
      * @param UploadedFile $file
@@ -472,6 +540,11 @@ trait UploadField
         $index = 1;
         $extension = $file->getClientOriginalExtension();
         $original = str_replace('.'.$extension, '', $file->getClientOriginalName());
+
+        if (!$this->storage->exists($this->getDirectory()."/".$file->getClientOriginalName())) {
+            return $file->getClientOriginalName();
+        }
+
         $new = sprintf('%s_%s.%s', $original, $index, $extension);
 
         while ($this->storage->exists("{$this->getDirectory()}/$new")) {

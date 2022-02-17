@@ -499,7 +499,6 @@ main#main footer.fixed-bottom {
 /* main styles  */
 /*-----------------------------------------------------*/
 
-
 #main{
 
     // nprogress
@@ -513,4 +512,20 @@ main#main footer.fixed-bottom {
 
 main#main footer .pagination {
     margin: 0;
+}
+
+/*-----------------------------------------------------*/
+/* hiding header and side menu  */
+/*-----------------------------------------------------*/
+
+.hide-nav{
+    header.custom-navbar,
+    #sidebar{
+        display:none;
+    }
+
+    main#main{
+        margin-left:0;
+        width:100%;
+    }
 }

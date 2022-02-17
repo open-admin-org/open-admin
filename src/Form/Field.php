@@ -21,6 +21,7 @@ class Field implements Renderable
 
     public const FILE_DELETE_FLAG = '_file_del_';
     public const FILE_SORT_FLAG = '_file_sort_';
+    public const FILE_ADD_FLAG = '_file_add_';
 
     /**
      * Element id.
@@ -227,6 +228,13 @@ class Field implements Renderable
     protected $inline = false;
 
     /**
+     * Show label as section above the field.
+     *
+     * @var bool
+     */
+    protected $showAsSection = false;
+
+    /**
      * column data format.
      *
      * @var \Closure
@@ -403,7 +411,6 @@ class Field implements Renderable
                     $this->value[$key] = Arr::get($data, $column);
                 }
             }
-
             return;
         }
 
@@ -633,7 +640,7 @@ class Field implements Renderable
      */
     public function rules($rules = null, $messages = []): self
     {
-        if (!empty($form)) {
+        if (!empty($this->form)) {
             $this->form->enableValidate();
         }
         $this->rules = $this->mergeRules($rules, $this->rules);
@@ -1192,6 +1199,15 @@ class Field implements Renderable
 
         return $this;
     }
+    /**
+     * @return $this
+     */
+    public function showAsSection($set = true): self
+    {
+        $this->showAsSection = $set;
+
+        return $this;
+    }
 
     /**
      * @return array
@@ -1417,6 +1433,7 @@ class Field implements Renderable
             'name'            => $this->elementName ?: $this->formatName($this->column),
             'help'            => $this->help,
             'inline'          => $this->inline,
+            'showAsSection'   => $this->showAsSection,
             'class'           => $this->getElementClassString(),
             'value'           => $this->value(),
             'label'           => $this->label,

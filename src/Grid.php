@@ -89,6 +89,13 @@ class Grid
     protected $builded = false;
 
     /**
+     * Show footer fixed or not
+     *
+     * @var bool
+     */
+    public $fixedFooter = true;
+
+    /**
      * All variables in grid view.
      *
      * @var array
@@ -326,6 +333,18 @@ class Grid
     public function getColumns()
     {
         return $this->columns;
+    }
+
+    /**
+     * Set FixedFooter
+     *
+     * @return $this
+     */
+    public function fixedFooter($set = true)
+    {
+        $this->fixedFooter = $set;
+
+        return $this;
     }
 
     /**
