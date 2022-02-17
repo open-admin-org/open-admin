@@ -201,11 +201,7 @@ class MultipleFile extends Field
             $updated_files = array_merge($updated_files, $targets);
         }
 
-        if ($updated_files) {
-            return $updated_files;
-        }
-
-        return false;
+        return $updated_files;
     }
 
     /**
