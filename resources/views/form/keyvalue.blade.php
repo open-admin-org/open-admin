@@ -47,7 +47,7 @@
 
                     <td class="form-group">
                         <div>
-                            <div class="{{$column}}-remove btn btn-warning btn-sm pull-right">
+                            <div class="{{$column}}-remove btn btn-danger btn-sm pull-right">
                                 <i class="icon-trash">&nbsp;</i>{{ __('admin.remove') }}
                             </div>
                         </div>
@@ -81,7 +81,7 @@
 
             <td class="form-group">
                 <div>
-                    <div class="{{$column}}-remove btn btn-warning btn-sm pull-right">
+                    <div class="{{$column}}-remove btn btn-danger btn-sm pull-right">
                         <i class="icon-trash">&nbsp;</i>{{ __('admin.remove') }}
                     </div>
                 </div>
