@@ -12,10 +12,10 @@
         }
     ],
     "require": {
-        "php": ">=7.0.0",
+        "php": "~7.3|~8.0",
         "symfony/dom-crawler": "~3.1|~4.0|~5.0",
-        "laravel/framework": ">=5.5",
-        "doctrine/dbal": "3.*"
+        "laravel/framework": ">=7.0",
+        "doctrine/dbal": "2.*|3.*"
     },
     "require-dev": {
         "laravel/laravel": ">=8.0",
