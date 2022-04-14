@@ -307,7 +307,7 @@ JS;
     public function choicesObjName($field = false)
     {
         if (empty($field)) {
-            $field = str_replace(" ","_",$this->getElementClassString());
+            $field = str_replace(' ', '_', $this->getElementClassString());
         }
 
         return 'choices_'.$field;
