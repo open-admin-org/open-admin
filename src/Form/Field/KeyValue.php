@@ -80,6 +80,9 @@ JS;
 
     public function prepare($value)
     {
+        if (empty($value)) {
+            return [];
+        }
         return array_combine($value['keys'], $value['values']);
     }
 
