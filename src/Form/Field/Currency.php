@@ -59,6 +59,7 @@ class Currency extends Text
      */
     public function prepare($value)
     {
+        $value = parent::prepare($value);
         return (float) $value;
     }
 

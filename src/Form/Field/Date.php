@@ -24,7 +24,8 @@ class Date extends Text
 
     public function prepare($value)
     {
-        if ($value === '') {
+        $value = parent::prepare($value);
+        if (empty($value)) {
             $value = null;
         }
 

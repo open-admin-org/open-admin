@@ -15,6 +15,7 @@ class DateMultiple extends Text
 
     public function prepare($value)
     {
+        $value = parent::prepare($value);
         if ($value === '') {
             $value = null;
         }

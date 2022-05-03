@@ -59,6 +59,13 @@ class Field implements Renderable
     protected $default;
 
     /**
+     * FieldS default value for db if empty.
+     *
+     * @var mixed
+     */
+    protected $default_on_empty;
+
+    /**
      * Element label.
      *
      * @var string
@@ -871,7 +878,6 @@ class Field implements Renderable
 
         return $this;
     }
-
     /**
      * Get default value.
      *
@@ -884,6 +890,33 @@ class Field implements Renderable
         }
 
         return $this->default;
+    }
+
+    /**
+     * Set default value for field.
+     *
+     * @param $default
+     *
+     * @return $this
+     */
+    public function defaultOnEmpty($default_on_empty): self
+    {
+        $this->default_on_empty = $default_on_empty;
+        return $this;
+    }
+
+    /**
+     * Get defaultOnEmpty value.
+     *
+     * @return mixed
+     */
+    public function getDefaultOnEmpty()
+    {
+        if ($this->default_on_empty instanceof \Closure) {
+            return call_user_func($this->default_on_empty, $this->form);
+        }
+
+        return $this->default_on_empty;
     }
 
     /**
@@ -1162,6 +1195,10 @@ class Field implements Renderable
      */
     public function prepare($value)
     {
+        if (empty($value) && $this->default_on_empty) {
+            $value = $this->getDefaultOnEmpty();
+        }
+
         return $value;
     }
 

@@ -141,6 +141,7 @@ class Tags extends Select
      */
     public function prepare($value)
     {
+        $value = parent::prepare($value);
         $value = array_filter($value, 'strlen');
 
         if ($this->keyAsValue) {

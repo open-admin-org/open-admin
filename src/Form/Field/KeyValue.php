@@ -80,6 +80,7 @@ JS;
 
     public function prepare($value)
     {
+        $value = parent::prepare($value);
         if (empty($value)) {
             return [];
         }
