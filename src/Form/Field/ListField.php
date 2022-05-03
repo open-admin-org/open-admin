@@ -90,6 +90,7 @@ JS;
     public function prepare($value)
     {
         $value = parent::prepare($value);
+
         return array_values($value['values']);
     }
 

@@ -878,6 +878,7 @@ class Field implements Renderable
 
         return $this;
     }
+
     /**
      * Get default value.
      *
@@ -902,6 +903,7 @@ class Field implements Renderable
     public function defaultOnEmpty($default_on_empty): self
     {
         $this->default_on_empty = $default_on_empty;
+
         return $this;
     }
 
