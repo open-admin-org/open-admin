@@ -84,6 +84,7 @@ JS;
         if (empty($value)) {
             return [];
         }
+
         return array_combine($value['keys'], $value['values']);
     }
 
