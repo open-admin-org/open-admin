@@ -125,3 +125,19 @@
     body label {
         font-weight: normal;
     }
+
+/*-------------------------------------------------------*/
+/* buttons */
+/*-------------------------------------------------------*/
+
+    .btn-group-xs>.btn, .btn-xs {
+
+        $padding-x:  .20rem !default;
+        $padding-y:  .12rem !default;
+        $font-size: 0.8rem !default;
+        $border-radius: 0.25 !default;
+
+        @include button-size($padding-y, $padding-x, $font-size, $border-radius);
+    }
+
+

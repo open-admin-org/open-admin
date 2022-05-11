@@ -311,6 +311,7 @@
             this.request(url,obj);
         },
 
+
         /*
             NOTICE: axios automatically converts data to json string if its an object.
             also NOTE: axios.delete doesn't support _POST data. (dont use formData in combination with delete, just grab the vars from the json payload from the request)
@@ -322,6 +323,16 @@
         post : function (url,data,result_function){
             let obj = {
                 method: "post",
+                data : data,
+                url : url,
+            }
+            obj.data._token = LA.token;
+            this.request(url,obj,result_function);
+        },
+
+        get : function (url,data,result_function){
+            let obj = {
+                method: "get",
                 data : data,
                 url : url,
             }

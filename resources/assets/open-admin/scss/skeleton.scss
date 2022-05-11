@@ -527,5 +527,9 @@ main#main footer .pagination {
     main#main{
         margin-left:0;
         width:100%;
+        footer.fixed-bottom{
+            margin-left:0;
+        }
     }
+
 }
