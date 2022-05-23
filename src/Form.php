@@ -381,7 +381,7 @@ class Form implements Renderable
     /**
      * Laravel bug: if a model doesn't exists yet (no id) array's can't be saved to a column
      * Either use a modifier on the model or its gets automaticly encoded as json.
-     * Prabably fixed in Laravel 8
+     * Prabably fixed in Laravel 8.
      *
      * @param string $column
      */

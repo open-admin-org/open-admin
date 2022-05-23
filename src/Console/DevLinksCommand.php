@@ -20,7 +20,7 @@ class DevLinksCommand extends Command
      *
      * @var string
      */
-    protected $description = "Creates a symbolic link from the open-admin/resources/assets dir to public/vendor/open-admin for ease of development";
+    protected $description = 'Creates a symbolic link from the open-admin/resources/assets dir to public/vendor/open-admin for ease of development';
 
     /**
      * Execute the console command.
@@ -32,7 +32,7 @@ class DevLinksCommand extends Command
         $relative = $this->option('relative');
 
         foreach ($this->links() as $link => $target) {
-            if (file_exists($link) && ! $this->isRemovableSymlink($link, $this->option('force'))) {
+            if (file_exists($link) && !$this->isRemovableSymlink($link, $this->option('force'))) {
                 $this->error("The [$link] link already exists.");
                 continue;
             }
@@ -61,7 +61,7 @@ class DevLinksCommand extends Command
     protected function links()
     {
         $reflector = new ReflectionClass("\OpenAdmin\Admin\Admin");
-        $dir = str_replace("src/Admin.php", "", $reflector->getFileName())."resources/assets/";
+        $dir = str_replace('src/Admin.php', '', $reflector->getFileName()).'resources/assets/';
 
         return [public_path('vendor/open-admin') => $dir];
     }
@@ -69,8 +69,9 @@ class DevLinksCommand extends Command
     /**
      * Determine if the provided path is a symlink that can be removed.
      *
-     * @param  string  $link
-     * @param  bool  $force
+     * @param string $link
+     * @param bool   $force
+     *
      * @return bool
      */
     protected function isRemovableSymlink(string $link, bool $force): bool

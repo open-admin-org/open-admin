@@ -432,10 +432,12 @@ class MultipleFile extends Field
         } else {
             $id = $this->id;
         }
-        $id = str_replace("]", "_", $id);
-        $id = str_replace("[", "_", $id);
+        $id = str_replace(']', '_', $id);
+        $id = str_replace('[', '_', $id);
+
         return $id;
     }
+
     /**
      * Setupscript.
      *
