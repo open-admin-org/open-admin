@@ -425,6 +425,17 @@ class MultipleFile extends Field
         return $files;
     }
 
+    protected function getFieldId()
+    {
+        if (!empty($this->elementName)) {
+            $id = $this->elementName;
+        } else {
+            $id = $this->id;
+        }
+        $id = str_replace("]", "_", $id);
+        $id = str_replace("[", "_", $id);
+        return $id;
+    }
     /**
      * Setupscript.
      *
@@ -432,11 +443,13 @@ class MultipleFile extends Field
      */
     protected function setupScripts()
     {
+        $id = $this->getFieldId();
         $this->setType();
+        $this->attribute('id', $id);
         $this->options['storageUrl'] = $this->storageUrl();
         $json_options = json_encode($this->options);
         $this->script = <<<JS
-        var FileUpload_{$this->formatName($this->column)} = new FileUpload(document.querySelector('{$this->getElementClassSelector()}'),{$json_options});
+        var FileUpload_{$id} = new FileUpload(document.querySelector('#{$id}'),{$json_options});
         JS;
     }
 

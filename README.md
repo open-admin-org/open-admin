@@ -95,12 +95,12 @@ More coming soon
 | [api-tester](https://github.com/open-admin-org/api-tester)       | Test api calls from the admin            |~1.0 |
 | [scheduling](https://github.com/open-admin-org/scheduling)       | Show and test your cronjobs              |~1.0 |
 | [phpinfo](https://github.com/open-admin-org/phpinfo)             | Show php info in the admin               |~1.0 |
+| [log-viewer](https://github.com/open-admin-org/log-viewer)       | Log viewer for laravel                   |~1.0.12 |
 
 
 <!--
 | [redis-manager](https://github.com/open-admin-extensions/redis-manager) | Redis manager for open-admin          |~1.5 |
 | [backup](https://github.com/open-admin-extensions/backup) | An admin interface for managing backups          |~1.5 |
-| [log-viewer](https://github.com/open-admin-extensions/log-viewer) | Log viewer for laravel           |~1.5 |
 | [reporter](https://github.com/open-admin-extensions/reporter) | Provides a developer-friendly web interface to view the exception          |~1.5 |
 | [wangEditor](https://github.com/open-admin-extensions/wangEditor) | A rich text editor based on [wangeditor](http://www.wangeditor.com/)         |~1.6 |
 | [summernote](https://github.com/open-admin-extensions/summernote) | A rich text editor based on [summernote](https://summernote.org/)          |~1.6 |
