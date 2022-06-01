@@ -8,7 +8,7 @@ class SwitchField extends Field
 {
     public function prepare($value)
     {
-        if ($value == 'on') {
+        if ($value == 'on' || $value == 1) {
             $value = 1;
         } else {
             $value = 0;
