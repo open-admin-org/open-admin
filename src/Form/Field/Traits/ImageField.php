@@ -143,14 +143,12 @@ trait ImageField
             return;
         }
 
-
         foreach ($this->thumbnails as $name => $_) {
-
             if (is_array($this->original)) {
                 if (empty($this->original)) {
                     continue;
                 }
-                if ($delete_all){
+                if ($delete_all) {
                     foreach ($this->original as $original) {
                         $this->destroyThumbnailFile($original, $name);
                     }
