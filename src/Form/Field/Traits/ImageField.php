@@ -137,24 +137,23 @@ trait ImageField
      *
      * @return void.
      */
-    public function destroyThumbnail()
+    public function destroyThumbnail($delete_all = false)
     {
         if ($this->retainable) {
             return;
         }
 
+
         foreach ($this->thumbnails as $name => $_) {
-            /*  Refactoring actual remove lofic to another method destroyThumbnailFile()
-            to make deleting thumbnails work with multiple as well as
-            single image upload. */
 
             if (is_array($this->original)) {
                 if (empty($this->original)) {
                     continue;
                 }
-
-                foreach ($this->original as $original) {
-                    $this->destroyThumbnailFile($original, $name);
+                if ($delete_all){
+                    foreach ($this->original as $original) {
+                        $this->destroyThumbnailFile($original, $name);
+                    }
                 }
             } else {
                 $this->destroyThumbnailFile($this->original, $name);
