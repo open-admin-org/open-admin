@@ -5,11 +5,10 @@ namespace OpenAdmin\Admin\Middleware;
 use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Support\MessageBag;
+use Illuminate\Support\Str;
 use OpenAdmin\Admin\Facades\Admin;
 use Symfony\Component\DomCrawler\Crawler;
 use Symfony\Component\HttpFoundation\Response;
-
-use Illuminate\Support\Str;
 
 class Pjax
 {

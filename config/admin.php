@@ -230,8 +230,8 @@ return [
          * Replace input fields that should not be logged
          */
         'filter_input' => [
-            'token' => '*****-filtered-out-*****',
-            'password' => '*****-filtered-out-*****',
+            'token'             => '*****-filtered-out-*****',
+            'password'          => '*****-filtered-out-*****',
             'password_remember' => '*****-filtered-out-*****',
         ],
     ],

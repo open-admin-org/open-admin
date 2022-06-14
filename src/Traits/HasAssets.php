@@ -2,8 +2,6 @@
 
 namespace OpenAdmin\Admin\Traits;
 
-use Illuminate\Support\Facades\Log;
-
 trait HasAssets
 {
     /**

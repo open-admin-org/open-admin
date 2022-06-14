@@ -9,7 +9,6 @@ use Symfony\Component\HttpFoundation\Response;
 trait HasCustomHooks
 {
     /**
-     *
      * @var array
      */
     protected $hooks = [];
@@ -106,7 +105,6 @@ trait HasCustomHooks
             }
 
             return call_user_func($func, $this, $parameters);
-
         }
     }
 }
