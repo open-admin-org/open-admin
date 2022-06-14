@@ -2,6 +2,8 @@
 
 namespace OpenAdmin\Admin\Traits;
 
+use Illuminate\Support\Facades\Log;
+
 trait HasAssets
 {
     /**
@@ -392,9 +394,9 @@ trait HasAssets
                         } else {
 
                             // this leaves the template tags in place, so they won't get rendered right away
-                            $doc = new \DOMDocument();
-                            $doc->appendChild($doc->importNode($child, true));
-                            $html = $doc->saveHTML();
+                            $sub_doc = new \DOMDocument();
+                            $sub_doc->appendChild($sub_doc->importNode($child, true));
+                            $html = $sub_doc->saveHTML();
                         }
                         $html && static::html($html);
 

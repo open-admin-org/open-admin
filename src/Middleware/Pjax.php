@@ -9,6 +9,8 @@ use OpenAdmin\Admin\Facades\Admin;
 use Symfony\Component\DomCrawler\Crawler;
 use Symfony\Component\HttpFoundation\Response;
 
+use Illuminate\Support\Str;
+
 class Pjax
 {
     /**
@@ -87,11 +89,27 @@ class Pjax
      */
     protected function filterResponse(Response $response, $container)
     {
-        $crawler = new Crawler($response->getContent());
+        $input = $response->getContent();
+
+        $title = Str::between($input, '<title>', '</title>');
+        $title = '<title>'.$title.'</title>';
+        $content = Str::between($input, '<!--start-pjax-container-->', '<!--end-pjax-container-->');
+        $content = $this->decodeUtf8HtmlEntities($content);
+
+        if (empty($content)) {
+            // try dom-crwawler
+            // this is much slower though
+            $crawler = new Crawler($input);
+            $title = $this->makeTitle($crawler);
+            $content = $this->fetchContents($crawler, $container);
+        }
+
+        if (empty($content)) {
+            abort(422);
+        }
 
         $response->setContent(
-            $this->makeTitle($crawler).
-            $this->fetchContents($crawler, $container)
+            $title.$content
         );
 
         return $this;

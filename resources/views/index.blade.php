@@ -31,15 +31,19 @@
         @include('admin::partials.header')
         @include('admin::partials.sidebar')
         <main id="main" class="p-4">
+
             <div id="pjax-container">
+            <!--start-pjax-container-->
                 {!! Admin::style() !!}
                 <div id="app">
                     @yield('content')
                 </div>
                 {!! Admin::html() !!}
                 {!! Admin::script() !!}
+            <!--end-pjax-container-->
             </div>
-        </div>
+
+        </main>
     </div>
 
     @if (1==2)
