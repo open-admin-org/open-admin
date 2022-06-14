@@ -4,6 +4,7 @@ namespace OpenAdmin\Admin\Middleware;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
+use Illuminate\Support\Arr;
 use OpenAdmin\Admin\Auth\Database\OperationLog as OperationLogModel;
 use OpenAdmin\Admin\Facades\Admin;
 
@@ -26,7 +27,7 @@ class LogOperation
                 'path'    => substr($request->path(), 0, 255),
                 'method'  => $request->method(),
                 'ip'      => $request->getClientIp(),
-                'input'   => json_encode($request->input()),
+                'input'   => json_encode($this->filterInput((array)$request->input())),
             ];
 
             try {
@@ -37,6 +38,17 @@ class LogOperation
         }
 
         return $next($request);
+    }
+
+    protected function filterInput($input)
+    {
+        $filter = config('admin.operation_log.filter_input', []);
+        foreach ($filter as $key => $value) {
+            if (isset($input[$key])) {
+                $input[$key] = $value;
+            }
+        }
+        return $input;
     }
 
     /**
