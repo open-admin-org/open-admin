@@ -30,7 +30,6 @@ class AdminController extends Controller
         //        'create' => 'Create',
     ];
 
-
     /**
      * Get content title.
      *
@@ -51,8 +50,8 @@ class AdminController extends Controller
     public function index(Content $content)
     {
         $grid = $this->grid();
-        if ($this->hasHooks("alterGrid")) {
-            $grid = $this->callHooks("alterGrid", $grid);
+        if ($this->hasHooks('alterGrid')) {
+            $grid = $this->callHooks('alterGrid', $grid);
         }
 
         return $content
@@ -72,9 +71,10 @@ class AdminController extends Controller
     public function show($id, Content $content)
     {
         $detail = $this->detail($id);
-        if ($this->hasHooks("alterDetail")) {
-            $detail = $this->callHooks("alterDetail", $detail);
+        if ($this->hasHooks('alterDetail')) {
+            $detail = $this->callHooks('alterDetail', $detail);
         }
+
         return $content
             ->title($this->title())
             ->description($this->description['show'] ?? trans('admin.show'))
@@ -92,8 +92,8 @@ class AdminController extends Controller
     public function edit($id, Content $content)
     {
         $form = $this->form();
-        if ($this->hasHooks("alterForm")) {
-            $form = $this->callHooks("alterForm", $form);
+        if ($this->hasHooks('alterForm')) {
+            $form = $this->callHooks('alterForm', $form);
         }
 
         return $content
@@ -112,8 +112,8 @@ class AdminController extends Controller
     public function create(Content $content)
     {
         $form = $this->form();
-        if ($this->hasHooks("alterForm")) {
-            $form = $this->callHooks("alterForm", $form);
+        if ($this->hasHooks('alterForm')) {
+            $form = $this->callHooks('alterForm', $form);
         }
 
         return $content

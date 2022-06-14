@@ -5,16 +5,17 @@ namespace OpenAdmin\Admin\Controllers;
 trait HasResourceActions
 {
     /**
-     * Returns the form with possible callback hooks
+     * Returns the form with possible callback hooks.
      *
      * @return \OpenAdmin\Admin\Form;
      */
     public function getForm()
     {
         $form = $this->form();
-        if (method_exists($this, "hasHooks") && $this->hasHooks("alterForm")) {
-            $form = $this->callHooks("alterForm", $form);
+        if (method_exists($this, 'hasHooks') && $this->hasHooks('alterForm')) {
+            $form = $this->callHooks('alterForm', $form);
         }
+
         return $form;
     }
 
