@@ -75,7 +75,7 @@ class MinifyCommand extends Command
     {
         $excepts = config('admin.minify_assets.excepts', []);
 
-        $this->excepts = array_merge($excepts, Admin::$minifyIgnores);
+        $this->excepts = array_merge($excepts, Admin::$minifyIgnoresCss, Admin::$minifyIgnoresJs);
     }
 
     protected function clearMinifiedFiles()

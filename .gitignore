@@ -7,3 +7,6 @@ composer.lock
 .idea/
 .php_cs.cache
 .vscode/
+resources/assets/minify-manifest.json
+resources/assets/open-admin.min.css
+resources/assets/open-admin.min.js

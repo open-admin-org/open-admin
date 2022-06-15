@@ -104,7 +104,8 @@ trait HasAssets
     /**
      * @var array
      */
-    public static $minifyIgnores = [];
+    public static $minifyIgnoresCss = [];
+    public static $minifyIgnoresJs = [];
 
     /**
      * Add css or get all css.
@@ -116,7 +117,7 @@ trait HasAssets
      */
     public static function css($css = null, $minify = true)
     {
-        static::ignoreMinify($css, $minify);
+        static::ignoreMinify('css', $css, $minify);
 
         if (!is_null($css)) {
             return self::$css = array_merge(self::$css, (array) $css);
@@ -126,6 +127,7 @@ trait HasAssets
             $css = array_merge(static::$css, static::baseCss());
         }
 
+        $css = array_merge($css, static::$minifyIgnoresCss); // add minified ignored files
         $css = array_filter(array_unique($css));
 
         return view('admin::partials.css', compact('css'));
@@ -139,7 +141,7 @@ trait HasAssets
      */
     public static function baseCss($css = null, $minify = true)
     {
-        static::ignoreMinify($css, $minify);
+        static::ignoreMinify('css', $css, $minify);
 
         if (!is_null($css)) {
             return static::$baseCss = $css;
@@ -161,7 +163,7 @@ trait HasAssets
      */
     public static function js($js = null, $minify = true)
     {
-        static::ignoreMinify($js, $minify);
+        static::ignoreMinify('js', $js, $minify);
 
         if (!is_null($js)) {
             return self::$js = array_merge(self::$js, (array) $js);
@@ -171,6 +173,7 @@ trait HasAssets
             $js = array_merge(static::baseJs(), static::$js);
         }
 
+        $js = array_merge($js, static::$minifyIgnoresJs); // add minified ignored files
         $js = array_filter(array_unique($js));
 
         return view('admin::partials.js', compact('js'));
@@ -200,7 +203,7 @@ trait HasAssets
      */
     public static function baseJs($js = null, $minify = true)
     {
-        static::ignoreMinify($js, $minify);
+        static::ignoreMinify('js', $js, $minify);
 
         if (!is_null($js)) {
             return static::$baseJs = $js;
@@ -213,10 +216,14 @@ trait HasAssets
      * @param string $assets
      * @param bool   $ignore
      */
-    public static function ignoreMinify($assets, $ignore = true)
+    public static function ignoreMinify($type, $assets, $ignore = true)
     {
         if (!$ignore) {
-            static::$minifyIgnores[] = $assets;
+            if ($type == "css") {
+                static::$minifyIgnoresCss[] = $assets;
+            } else {
+                static::$minifyIgnoresJs[] = $assets;
+            }
         }
     }
 
