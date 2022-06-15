@@ -90,10 +90,13 @@ class Pjax
     {
         $input = $response->getContent();
 
-        $title = $this->makeTitleFromString($input);
-        $content = Str::between($input, '<!--start-pjax-container-->', '<!--end-pjax-container-->');
+        $title = $this->makeFromBetween($input, '<title>', '</title>');
+        $title = !empty($title) ? '<title>'.$title.'</title>' : '';
+
+        $content = $this->makeFromBetween($input, '<!--start-pjax-container-->', '<!--end-pjax-container-->');
         $content = $this->decodeUtf8HtmlEntities($content);
 
+        /*
         if (empty($content)) {
             // try dom-crwawler
             // this is much slower though
@@ -101,6 +104,7 @@ class Pjax
             $title = $this->makeTitle($crawler);
             $content = $this->fetchContents($crawler, $container);
         }
+        */
 
         if (empty($content)) {
             abort(422);
@@ -134,16 +138,15 @@ class Pjax
      *
      * @return string
      */
-    protected function makeTitleFromString($input)
+    protected function makeFromBetween($input, $start, $end)
     {
-        $title = '';
-        if (Str::contains($input, '<title>')) {
-            $title = Str::betweenFirst($input, '<title>', '</title>');
-            $title = !empty($title) ? '<title>'.$title.'</title>' : '';
+        $str = '';
+        if (Str::contains($input, $start)) {
+            $str = Str::between($input, $start, $end);
         }
-
-        return $title;
+        return $str;
     }
+
 
     /**
      * Fetch the PJAX-specific HTML from the response.
