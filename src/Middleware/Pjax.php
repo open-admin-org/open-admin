@@ -144,9 +144,9 @@ class Pjax
         if (Str::contains($input, $start)) {
             $str = Str::between($input, $start, $end);
         }
+
         return $str;
     }
-
 
     /**
      * Fetch the PJAX-specific HTML from the response.
