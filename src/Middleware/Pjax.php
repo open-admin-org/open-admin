@@ -4,6 +4,7 @@ namespace OpenAdmin\Admin\Middleware;
 
 use Closure;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\MessageBag;
 use Illuminate\Support\Str;
 use OpenAdmin\Admin\Facades\Admin;
@@ -90,8 +91,7 @@ class Pjax
     {
         $input = $response->getContent();
 
-        $title = Str::between($input, '<title>', '</title>');
-        $title = '<title>'.$title.'</title>';
+        $title = $this->makeTitleFromString($input);
         $content = Str::between($input, '<!--start-pjax-container-->', '<!--end-pjax-container-->');
         $content = $this->decodeUtf8HtmlEntities($content);
 
@@ -126,6 +126,22 @@ class Pjax
         $pageTitle = $crawler->filter('head > title')->html();
 
         return "<title>{$pageTitle}</title>";
+    }
+    /**
+     * Prepare an HTML title tag.
+     *
+     * @param String $input
+     *
+     * @return string
+     */
+    protected function makeTitleFromString($input)
+    {
+        $title = '';
+        if (Str::contains($input, '<title>')) {
+            $title = Str::betweenFirst($input, '<title>', '</title>');
+            $title = !empty($title) ? '<title>'.$title.'</title>' : '';
+        }
+        return $title;
     }
 
     /**
