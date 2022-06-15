@@ -219,7 +219,7 @@ trait HasAssets
     public static function ignoreMinify($type, $assets, $ignore = true)
     {
         if (!$ignore) {
-            if ($type == "css") {
+            if ($type == 'css') {
                 static::$minifyIgnoresCss[] = $assets;
             } else {
                 static::$minifyIgnoresJs[] = $assets;
