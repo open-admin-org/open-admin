@@ -4,7 +4,6 @@ namespace OpenAdmin\Admin\Middleware;
 
 use Closure;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Log;
 use Illuminate\Support\MessageBag;
 use Illuminate\Support\Str;
 use OpenAdmin\Admin\Facades\Admin;
@@ -127,10 +126,11 @@ class Pjax
 
         return "<title>{$pageTitle}</title>";
     }
+
     /**
      * Prepare an HTML title tag.
      *
-     * @param String $input
+     * @param string $input
      *
      * @return string
      */
@@ -141,6 +141,7 @@ class Pjax
             $title = Str::betweenFirst($input, '<title>', '</title>');
             $title = !empty($title) ? '<title>'.$title.'</title>' : '';
         }
+
         return $title;
     }
 
