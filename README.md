@@ -2,13 +2,14 @@
 <a href="https://open-admin.org/">
 <img src="https://open-admin.org/gfx/logo.png" alt="open-admin" style="height:200px;">
 </a>
+</p>
 
 <p align="center"><code>open-admin</code> is administrative interface builder for laravel which can help you build CRUD backends just with few lines of code.</p>
 
 <p align="center">
 <a href="https://open-admin.org/docs">Documentation</a> |
 <a href="https://github.com/open-admin-org/open-admin">Download</a> |
-<a href="https://github.com/open-admin-org">Extensions</a>
+<a href="https://github.com/open-admin-org?tab=repositories">Extensions</a>
 </p>
 
 <p align="center">
@@ -96,6 +97,7 @@ More coming soon
 | [scheduling](https://github.com/open-admin-org/scheduling)       | Show and test your cronjobs              |~1.0 |
 | [phpinfo](https://github.com/open-admin-org/phpinfo)             | Show php info in the admin               |~1.0 |
 | [log-viewer](https://github.com/open-admin-org/log-viewer)       | Log viewer for laravel                   |~1.0.12 |
+| [page-designer](https://github.com/open-admin-org/page-designer) | Page designer to position items freely   |~1.0.18 |
 
 
 <!--

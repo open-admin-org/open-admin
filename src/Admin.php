@@ -21,11 +21,11 @@ class Admin
     use HasAssets;
 
     /**
-     * The Laravel admin version.
+     * The Open-admin version.
      *
      * @var string
      */
-    public const VERSION = '1.0.17';
+    public const VERSION = '1.0.18';
 
     /**
      * @var Navbar
