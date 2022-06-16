@@ -1,6 +1,6 @@
 <p align="center">
 <a href="https://open-admin.org/">
-<img src="https://open-admin.org/gfx/logo.png" alt="open-admin" style="height:200px;">
+<img src="https://open-admin.org/gfx/logo.png" alt="open-admin" style="height:200px;background:transparent;">
 </a>
 </p>
 
