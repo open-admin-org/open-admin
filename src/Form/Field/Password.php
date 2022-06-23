@@ -4,7 +4,7 @@ namespace OpenAdmin\Admin\Form\Field;
 
 class Password extends Text
 {
-    public $showPasswordToggle = true;
+    public $showPasswordToggle = false;
 
     public function toggleShow($set = true)
     {
@@ -13,7 +13,7 @@ class Password extends Text
 
     public function setupScript()
     {
-        $this->script = <<<JS
+        $this->script = <<<'JS'
             window.togglePassword = function(ref){
                 var field = document.getElementById(ref.dataset.id);
                 if (field.type == "password"){
