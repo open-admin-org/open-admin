@@ -25,7 +25,7 @@ class Password extends Text
                     ref.classList.remove("icon-eye-slash");
                     ref.classList.add("icon-eye");
                 }
-            }
+            };
         JS;
     }
 
