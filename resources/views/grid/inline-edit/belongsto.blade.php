@@ -1,5 +1,5 @@
 <span class="grid-selector" data-bs-toggle="modal" data-bs-target="#{{ $modal }}" id="{{ $display_field }}-{{$key}}" key="{{ $key }}" data-display_field="{{ $display_field }}" data-val="{{ $original }}">
-   <a href="javascript:void(0)" class="text-muted">
+   <a href="javascript:void(0)" class="text-muted text-dotted">
        <i class="icon-check-square"></i>&nbsp;
        <span class="text">{!! $value !!}</span>
    </a>
