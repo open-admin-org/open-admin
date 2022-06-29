@@ -830,7 +830,7 @@ class Field implements Renderable
     }
 
     /**
-     * Get id of the filed
+     * Get id of the filed.
      *
      * @return mixed
      */
