@@ -1,20 +1,23 @@
 
-@php($listErrorKey = "$column.values")
+@php($listErrorKey = "$column")
 @include("admin::form._header")
 
         <table class="table table-with-fields">
 
             <tbody class="list-{{$column}}-table">
 
-            @foreach(old("{$column}.values", ($value ?: [])) as $k => $v)
+            @foreach(old("{$column}", ($value ?: [])) as $k => $v)
 
-                @php($itemErrorKey = "{$column}.values.{$loop->index}")
+                @php($itemErrorKey = "{$column}.{$loop->index}")
 
                 <tr>
+                    @if ($is_sortable)
+                        <td width="20"><span class="icon-arrows-alt-v btn btn-light handle"></span></td>
+                    @endif
                     <td>
                         <div class="form-group {{ $errors->has($itemErrorKey) ? 'has-error' : '' }}">
                             <div class="col-sm-12">
-                                <input name="{{ $column }}[values][]" value="{{ old("{$column}.values.{$k}", $v) }}" class="form-control" />
+                                <input name="{{ $column }}[]" value="{{ old("{$column}.{$k}", $v) }}" class="form-control" />
                                 @if($errors->has($itemErrorKey))
                                     @foreach($errors->get($itemErrorKey) as $message)
                                         <label class="form-label" for="inputError"><i class="icon-times-circle-o"></i> {{$message}}</label><br/>
@@ -39,10 +42,13 @@
 
         <template class="{{$column}}-tpl">
             <tr>
+                @if ($is_sortable)
+                    <td width="20"><span class="icon-arrows-alt-v btn btn-light handle"></span></td>
+                @endif
                 <td>
                     <div class="form-group">
                         <div class="col-sm-12">
-                            <input name="{{ $column }}[values][]" class="form-control" />
+                            <input name="{{ $column }}[]" class="form-control" />
                         </div>
                     </div>
                 </td>

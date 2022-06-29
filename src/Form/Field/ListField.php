@@ -13,6 +13,18 @@ class ListField extends Field
      */
     protected $value = [''];
 
+
+    /**
+     * @var array
+     */
+    protected $is_sortable = false;
+
+    public function sortable($set = true)
+    {
+        $this->is_sortable = $set;
+        return $this;
+    }
+
     /**
      * Fill data to the field.
      *
@@ -25,6 +37,12 @@ class ListField extends Field
         $this->data = $data;
 
         $this->value = Arr::get($data, $this->column, $this->value);
+        if (!is_array($this->value)) {
+            $this->value = json_decode($this->value);
+        };
+        if (empty($this->value)) {
+            $this->value = [''];
+        }
 
         $this->formatValue();
     }
@@ -52,12 +70,12 @@ class ListField extends Field
             return false;
         }
 
-        $rules["{$this->column}.values.*"] = $fieldRules;
-        $attributes["{$this->column}.values.*"] = __('Value');
+        $rules["{$this->column}.*"] = $fieldRules;
+        $attributes["{$this->column}.*"] = __('Value');
 
-        $rules["{$this->column}.values"][] = 'array';
+        $rules["{$this->column}"][] = 'array';
 
-        $attributes["{$this->column}.values"] = $this->label;
+        $attributes["{$this->column}"] = $this->label;
 
         return validator($input, $rules, $this->getValidationMessages(), $attributes);
     }
@@ -80,8 +98,17 @@ class ListField extends Field
                 event.target.closest('tr').remove();
             }
         });
-
 JS;
+
+        if ($this->is_sortable) {
+            $this->script .= <<<JS
+
+            var sortable = new Sortable(document.querySelector("tbody.list-{$this->column}-table"), {
+                animation:150,
+                handle: ".handle",
+            });
+JS;
+        }
     }
 
     /**
@@ -89,9 +116,13 @@ JS;
      */
     public function prepare($value)
     {
-        $value = parent::prepare($value);
+        $value = (array)parent::prepare($value);
 
-        return array_values($value['values']);
+        $values = array_values($value);
+        if (count($values) == 1 && empty($values[0])) {
+            return [];
+        }
+        return $values;
     }
 
     /**
@@ -100,6 +131,7 @@ JS;
     public function render()
     {
         $this->setupScript();
+        view()->share("is_sortable", $this->is_sortable);
 
         Admin::style('td .form-group {margin-bottom: 0 !important;}');
 
