@@ -13,7 +13,6 @@ class ListField extends Field
      */
     protected $value = [''];
 
-
     /**
      * @var array
      */
@@ -22,6 +21,7 @@ class ListField extends Field
     public function sortable($set = true)
     {
         $this->is_sortable = $set;
+
         return $this;
     }
 
@@ -39,7 +39,7 @@ class ListField extends Field
         $this->value = Arr::get($data, $this->column, $this->value);
         if (!is_array($this->value)) {
             $this->value = json_decode($this->value);
-        };
+        }
         if (empty($this->value)) {
             $this->value = [''];
         }
@@ -116,12 +116,13 @@ JS;
      */
     public function prepare($value)
     {
-        $value = (array)parent::prepare($value);
+        $value = (array) parent::prepare($value);
 
         $values = array_values($value);
         if (count($values) == 1 && empty($values[0])) {
             return [];
         }
+
         return $values;
     }
 
@@ -131,7 +132,7 @@ JS;
     public function render()
     {
         $this->setupScript();
-        view()->share("is_sortable", $this->is_sortable);
+        view()->share('is_sortable', $this->is_sortable);
 
         Admin::style('td .form-group {margin-bottom: 0 !important;}');
 
