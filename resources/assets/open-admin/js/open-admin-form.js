@@ -57,7 +57,7 @@ admin.form = {
 
         if (admin.form.validate(form)){
 
-            if (method === "post"){
+            if (method === "post" || method === "put"){
                 obj.data = new FormData(form);
                 obj.method = method;
             }else{
@@ -71,6 +71,7 @@ admin.form = {
                     admin.ajax.setUrl(url);
                 }
             }
+
             if (typeof(result_function) === 'function'){
                 admin.ajax.request(url,obj,result_function);
             }else {
