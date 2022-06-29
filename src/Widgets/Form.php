@@ -87,12 +87,12 @@ class Form implements Renderable
     /**
      * @var Field[]
      */
-    protected $fields = [];
+    public $fields = [];
 
     /**
      * @var array
      */
-    protected $data = [];
+    public $data = [];
 
     /**
      * Available buttons.

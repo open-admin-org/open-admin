@@ -830,6 +830,16 @@ class Field implements Renderable
     }
 
     /**
+     * Get id of the filed
+     *
+     * @return mixed
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
      * Set or get value of the field.
      *
      * @param null $value
