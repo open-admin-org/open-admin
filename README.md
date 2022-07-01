@@ -98,26 +98,17 @@ More coming soon
 | [phpinfo](https://github.com/open-admin-org/phpinfo)             | Show php info in the admin               |~1.0 |
 | [log-viewer](https://github.com/open-admin-org/log-viewer)       | Log viewer for laravel                   |~1.0.12 |
 | [page-designer](https://github.com/open-admin-org/page-designer) | Page designer to position items freely   |~1.0.18 |
+| [reporter](https://github.com/open-admin-org/reporter)           | rovides a developer-friendly web interface to view the exception    |~1.0.18 |
+| [redis-manager](https://github.com/open-admin-org/redis-manager) | Redis manager for open-admin             |~1.0.20 |
 
 
 <!--
-| [redis-manager](https://github.com/open-admin-extensions/redis-manager) | Redis manager for open-admin          |~1.5 |
 | [backup](https://github.com/open-admin-extensions/backup) | An admin interface for managing backups          |~1.5 |
-| [reporter](https://github.com/open-admin-extensions/reporter) | Provides a developer-friendly web interface to view the exception          |~1.5 |
 | [wangEditor](https://github.com/open-admin-extensions/wangEditor) | A rich text editor based on [wangeditor](http://www.wangeditor.com/)         |~1.6 |
 | [summernote](https://github.com/open-admin-extensions/summernote) | A rich text editor based on [summernote](https://summernote.org/)          |~1.6 |
-| [china-distpicker](https://github.com/open-admin-extensions/china-distpicker) | 一个基于[distpicker](https://github.com/fengyuanchen/distpicker)的中国省市区选择器          |~1.6 |
 | [simplemde](https://github.com/open-admin-extensions/simplemde) | A markdown editor based on [simplemde](https://github.com/sparksuite/simplemde-markdown-editor)          |~1.6 |
 | [php-editor](https://github.com/open-admin-extensions/php-editor) <br/> [python-editor](https://github.com/open-admin-extensions/python-editor) <br/> [js-editor](https://github.com/open-admin-extensions/js-editor)<br/> [css-editor](https://github.com/open-admin-extensions/css-editor)<br/> [clike-editor](https://github.com/open-admin-extensions/clike-editor)| Several programing language editor extensions based on code-mirror          |~1.6 |
-| [star-rating](https://github.com/open-admin-extensions/star-rating) | Star Rating extension for open-admin          |~1.6 |
 | [json-editor](https://github.com/open-admin-extensions/json-editor) | JSON Editor for Open-admin          |~1.6 |
-| [grid-lightbox](https://github.com/open-admin-extensions/grid-lightbox) | Turn your grid into a lightbox & gallery          |~1.6 |
-| [daterangepicker](https://github.com/open-admin-extensions/daterangepicker) | Integrates daterangepicker into open-admin          |~1.6 |
-| [sparkline](https://github.com/open-admin-extensions/sparkline) | Integrates jQuery sparkline into open-admin          |~1.6 |
-| [chartjs](https://github.com/open-admin-extensions/chartjs) | Use Chartjs in open-admin          |~1.6 |
-| [echarts](https://github.com/open-admin-extensions/echarts) | Use Echarts in open-admin          |~1.6 |
-| [simditor](https://github.com/open-admin-extensions/simditor) | Integrates simditor full-rich editor into open-admin          |~1.6 |
-| [cropper](https://github.com/open-admin-extensions/cropper) | A simple jQuery image cropping plugin.          |~1.6 |
 | [composer-viewer](https://github.com/open-admin-extensions/composer-viewer) | A web interface of composer packages in laravel.          |~1.6 |
 | [data-table](https://github.com/open-admin-extensions/data-table) | Advanced table widget for open-admin |~1.6 |
 | [watermark](https://github.com/open-admin-extensions/watermark) | Text watermark for open-admin |~1.6 |
