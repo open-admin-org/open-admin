@@ -7,6 +7,7 @@
 <p align="center"><code>open-admin</code> is administrative interface builder for laravel which can help you build CRUD backends just with few lines of code.</p>
 
 <p align="center">
+<a href="https://open-admin.org">Homepage</a> |
 <a href="https://open-admin.org/docs">Documentation</a> |
 <a href="https://github.com/open-admin-org/open-admin">Download</a> |
 <a href="https://github.com/open-admin-org?tab=repositories">Extensions</a>
