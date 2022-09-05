@@ -319,6 +319,7 @@ abstract class AbstractFilter
     public function date($options = [])
     {
         $options = array_merge(['format' => 'YYYY-MM-DD'], $options);
+
         return $this->datetime($options);
     }
 
@@ -330,6 +331,7 @@ abstract class AbstractFilter
     public function time($options = [])
     {
         $options = array_merge(['format' => 'HH:mm:ss', 'noCalendar'=>true], $options);
+
         return $this->datetime($options);
     }
 
@@ -341,6 +343,7 @@ abstract class AbstractFilter
     public function day($options = [])
     {
         $options = array_merge(['mask'=>'99', 'rightAlign'=> false], $options);
+
         return $this->inputmask($options, 'calendar');
     }
 
@@ -352,6 +355,7 @@ abstract class AbstractFilter
     public function month($options = [])
     {
         $options = array_merge(['mask'=>'99', 'rightAlign'=> false], $options);
+
         return $this->inputmask($options, 'calendar');
     }
 
@@ -363,6 +367,7 @@ abstract class AbstractFilter
     public function year($options = [])
     {
         $options = array_merge(['mask'=>'9999', 'rightAlign'=> false], $options);
+
         return $this->inputmask($options, 'calendar');
     }
 
