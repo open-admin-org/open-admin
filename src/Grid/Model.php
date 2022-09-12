@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model as EloquentModel;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Illuminate\Database\Eloquent\Relations\Relation;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Collection;
@@ -265,6 +266,13 @@ class Model
         if ($this->relation instanceof HasMany) {
             return [
                 $this->relation->getForeignKeyName() => $this->relation->getParentKey(),
+            ];
+        }
+
+        if ($this->relation instanceof MorphMany) {
+            return [
+                $this->relation->getForeignKeyName() => $this->relation->getParentKey(),
+                $this->relation->getMorphType() => $this->relation->getMorphClass(),
             ];
         }
 
