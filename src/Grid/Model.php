@@ -272,7 +272,7 @@ class Model
         if ($this->relation instanceof MorphMany) {
             return [
                 $this->relation->getForeignKeyName() => $this->relation->getParentKey(),
-                $this->relation->getMorphType() => $this->relation->getMorphClass(),
+                $this->relation->getMorphType()      => $this->relation->getMorphClass(),
             ];
         }
 
