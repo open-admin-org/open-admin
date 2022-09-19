@@ -16,6 +16,11 @@ class BatchActions extends AbstractTool
     /**
      * @var bool
      */
+    protected $enableEdit = true;
+
+    /**
+     * @var bool
+     */
     protected $enableDelete = true;
 
     /**
@@ -42,6 +47,18 @@ class BatchActions extends AbstractTool
     {
         $this->add(new BatchEdit());
         $this->add(new BatchDelete());
+    }
+
+    /**
+     * Disable edit.
+     *
+     * @return $this
+     */
+    public function disableEdit(bool $disable = true)
+    {
+        $this->enableEdit = !$disable;
+
+        return $this;
     }
 
     /**
@@ -120,6 +137,12 @@ class BatchActions extends AbstractTool
      */
     public function render()
     {
+        if (!$this->enableEdit) {
+            $this->actions = $this->actions->filter(function ($action, $key) {
+                return get_class($action) != "OpenAdmin\Admin\Grid\Tools\BatchEdit";
+            });
+        }
+
         if (!$this->enableDelete) {
             $this->actions = $this->actions->filter(function ($action, $key) {
                 return get_class($action) != "OpenAdmin\Admin\Grid\Tools\BatchDelete";
