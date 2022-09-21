@@ -16,7 +16,7 @@
 
         <li>
             <label class="dropdown-item" for="column-select-{{ $key }}">
-                <input type="checkbox" class="form-check-input" id="column-select-{{ $key }}" value="{{ $key }}" {{ $checked }}/>{{ $label }}
+                <input type="checkbox" class="form-check-input column-selector" id="column-select-{{ $key }}" value="{{ $key }}" {{ $checked }}/>{{ $label }}
             </label>
         </li>
         @endforeach

@@ -108,7 +108,7 @@
         columns : {
 
             all : function(){
-                document.querySelectorAll('.row-selector').forEach(cb => {
+                document.querySelectorAll('.column-selector').forEach(cb => {
                     cb.checked = true;
                 });
                 admin.grid.columns.submit();
@@ -118,7 +118,7 @@
 
                 let selected = [];
                 let defaults = new String(document.getElementById("grid-column-selector").dataset.defaults).split(",");
-                document.querySelectorAll('.row-selector:checked').forEach(cb => {
+                document.querySelectorAll('.column-selector:checked').forEach(cb => {
                     selected.push(cb.value);
                 });
                 if (selected.length == 0) {
