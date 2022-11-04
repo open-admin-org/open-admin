@@ -45,21 +45,6 @@ abstract class BatchAction extends GridAction
     }
 
     /**
-     * @param bool $dotPrefix
-     *
-     * @return string
-     */
-    public function getElementClass($dotPrefix = true)
-    {
-        return sprintf(
-            '%s%s-%s',
-            $dotPrefix ? '.' : '',
-            $this->parent->getGridBatchName(),
-            $this->id
-        );
-    }
-
-    /**
      * @param Request $request
      *
      * @return mixed
