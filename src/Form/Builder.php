@@ -466,7 +466,9 @@ class Builder
     {
         $previous = URL::previous();
         $current = URL::current();
-        if (!$previous || $previous === $current) {
+        $full = URL::full();
+
+        if (!$previous || $previous === $current || $previous === $full) {
             return;
         }
 
