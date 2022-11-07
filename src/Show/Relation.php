@@ -124,6 +124,8 @@ class Relation extends Field
                 ->setRelation($relation);
         }
 
+        $renderable->fixedFooter(false);
+
         return $renderable->render();
     }
 }
