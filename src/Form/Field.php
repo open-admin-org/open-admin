@@ -1149,9 +1149,9 @@ class Field implements Renderable
      */
     public function readonly($set = true): self
     {
-        if ($set){
+        if ($set) {
             return $this->attribute('readonly', true);
-        }else{
+        } else {
             return $this->removeAttribute('readonly');
         }
     }
@@ -1173,9 +1173,9 @@ class Field implements Renderable
      */
     public function disabled($set = true): self
     {
-        if ($set){
+        if ($set) {
             return $this->attribute('disabled', true);
-        }else{
+        } else {
             return $this->removeAttribute('disabled');
         }
     }
