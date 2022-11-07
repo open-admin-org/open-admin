@@ -23,7 +23,7 @@
 
     .breadcrumb-nav {
         float: right;
-        padding-right:3px;
+        padding-right: 3px;
         .icon-home {
             margin-right: 0.5em;
         }
@@ -47,12 +47,13 @@
     border: 0;
     box-shadow: 0 0 1rem -0.5rem rgba(0, 0, 0, 0.2);
     border-radius: 0.3rem;
+    margin-bottom: 1.5rem;
 
     .card-header {
         background: #fff;
         padding: 0.75rem;
 
-/*
+        /*
         &:first-child {
             border-radius: inherit;
             border-bottom-left-radius: 0;
@@ -82,7 +83,7 @@
             text-align: center;
 
             &.collapsed .fa::before {
-                content: "\f067";
+                content: '\f067';
             }
 
             .fa {
@@ -91,9 +92,9 @@
         }
     }
 }
-.card{
-    .card{
-        margin:0;
+.card {
+    .card {
+        margin: 0;
         box-shadow: none;
     }
 }
@@ -147,7 +148,7 @@
         margin-bottom: 0.75rem;
     }
 
-    table{
+    table {
         .form-label {
             text-align: left;
         }
@@ -162,15 +163,14 @@
         padding-top: 0.3rem;
     }
 }
-@media (max-width:576px) {
-
-    .form-group{
-        padding:0 1rem;
+@media (max-width: 576px) {
+    .form-group {
+        padding: 0 1rem;
     }
 
     .form-horizontal {
-        .form-label{
-            text-align:left;
+        .form-label {
+            text-align: left;
         }
     }
 }
@@ -190,8 +190,8 @@
         text-shadow: 0 1px 0 #fff;
         opacity: 0.3;
     }
-    p:last-child{
-        margin-bottom:0;
+    p:last-child {
+        margin-bottom: 0;
     }
 }
 
@@ -199,103 +199,102 @@
 /* horizontal forms */
 /*---------------------------------------------------------*/
 
-    #app > .content{
-        margin-bottom: 64px;
-    }
+#app > .content {
+    margin-bottom: 64px;
+}
 
 /*---------------------------------------------------------*/
 /* context menu */
 /*---------------------------------------------------------*/
 
-    .context-menu{
-        position:absolute;
-        display:none;
+.context-menu {
+    position: absolute;
+    display: none;
 
-        ul.dropdown-menu{
-            list-style: none;
-            display:block;
-            min-width: none;
-        }
+    ul.dropdown-menu {
+        list-style: none;
+        display: block;
+        min-width: none;
     }
+}
 
 /*---------------------------------------------------------*/
 /* additional buttons styles */
 /*---------------------------------------------------------*/
 
-    .btn-group > .dropdown-toggle, .btn-group > .btn-group.dropdown-toggle {
-        border-left: 1px solid rgba(255,255,255,0.2);
-        min-width: 2.2em;
-    }
+.btn-group > .dropdown-toggle,
+.btn-group > .btn-group.dropdown-toggle {
+    border-left: 1px solid rgba(255, 255, 255, 0.2);
+    min-width: 2.2em;
+}
 
 /*---------------------------------------------------------*/
 /* show / display styles */
 /*---------------------------------------------------------*/
 
-    .show-value{
-        padding-top:0.3rem;
-    }
+.show-value {
+    padding-top: 0.3rem;
+}
 
-    .mailbox-arttachment{
-        border:1px solid $card-border-color;
-        max-width:360px;
+.mailbox-arttachment {
+    border: 1px solid $card-border-color;
+    max-width: 360px;
 
-        .mailbox-attachment-icon{
-            padding:20px;
-            font-size:3rem;
-            text-align: center;;
-        }
-        .card-body{
-            background-color: $card-border-color;
-        }
+    .mailbox-attachment-icon {
+        padding: 20px;
+        font-size: 3rem;
+        text-align: center;
     }
+    .card-body {
+        background-color: $card-border-color;
+    }
+}
 
 /*---------------------------------------------------------*/
 /* modal overwrites */
 /*---------------------------------------------------------*/
 
-    .modal .form{
-        padding-bottom:0;
-    }
+.modal .form {
+    padding-bottom: 0;
+}
 
 /*---------------------------------------------------------*/
 /* widgets */
 /*---------------------------------------------------------*/
 
-    .card-tools .box-tool-minimize.collapsed .icon-minus:before{
-        content: "";
-        font-weight:bold;
-    }
+.card-tools .box-tool-minimize.collapsed .icon-minus:before {
+    content: '';
+    font-weight: bold;
+}
 
-    .collapse-group .card{
-        border-radius: 0;
-    }
+.collapse-group .card {
+    border-radius: 0;
+}
 
-    .collapse-group .card:first-child{
-        border-top-left-radius: 0.3rem;
-        border-top-right-radius: 0.3rem;
-    }
+.collapse-group .card:first-child {
+    border-top-left-radius: 0.3rem;
+    border-top-right-radius: 0.3rem;
+}
 
-    .collapse-group .card:last-child{
+.collapse-group .card:last-child {
+    border-bottom-left-radius: 0.3rem;
+    border-bottom-right-radius: 0.3rem;
+    .card-header.collapsed {
         border-bottom-left-radius: 0.3rem;
         border-bottom-right-radius: 0.3rem;
-        .card-header.collapsed{
-            border-bottom-left-radius: 0.3rem;
-            border-bottom-right-radius: 0.3rem;
-        }
     }
+}
 
-    .info-box{
-        padding:0;
-        .inner{
-            h3{
-                margin:0;
-            }
-            text-align:center;
-            padding-left:2rem;
+.info-box {
+    padding: 0;
+    .inner {
+        h3 {
+            margin: 0;
         }
-        .icon{
-            font-size:3rem;
-        }
+        text-align: center;
+        padding-left: 2rem;
     }
-
-
+    .icon {
+        font-size: 3rem;
+    }
+}
