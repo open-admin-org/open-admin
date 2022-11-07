@@ -292,13 +292,13 @@ JS;
     /**
      * Set as readonly (actual dissable with backup hidden field).
      */
-    public function readOnly()
+    public function readonly($set = true): self
     {
         $this->useNative();
-        $this->config('readonly', true);
-        $this->attribute('disabled', true);
+        $this->config('readonly', $set);
+        $this->disabled($set);
 
-        return parent::readOnly();
+        return parent::readonly($set);
     }
 
     /**
