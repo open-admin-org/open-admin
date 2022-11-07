@@ -456,7 +456,7 @@ class Model
             return $query['method'] == 'paginate';
         });
 
-        if (!$this->usePaginate) {
+        if (! $this->usePaginate) {
             $query = [
                 'method'    => 'get',
                 'arguments' => [],
@@ -523,7 +523,7 @@ class Model
     protected function setSort()
     {
         $this->sort = \request($this->sortName, []);
-        if (!is_array($this->sort)) {
+        if (! is_array($this->sort)) {
             return;
         }
 
@@ -533,7 +533,7 @@ class Model
         }
 
         $columnNameContainsDots = Str::contains($columnName, '.');
-        $isRelation = $this->queries->contains(function ($query) use ($columnName) {
+        $isRelation             = $this->queries->contains(function ($query) use ($columnName) {
             return $query['method'] === 'with' && in_array($columnName, $query['arguments'], true);
         });
         if ($columnNameContainsDots === true && $isRelation) {
@@ -545,19 +545,19 @@ class Model
                 //json
                 $this->resetOrderBy();
                 $explodedCols = explode('.', $this->sort['column']);
-                $col = array_shift($explodedCols);
-                $parts = implode('.', $explodedCols);
-                $columnName = "JSON_EXTRACT({$col}, '$.{$parts}')";
+                $col          = array_shift($explodedCols);
+                $parts        = implode('.', $explodedCols);
+                $columnName   = "JSON_EXTRACT({$col}, '$.{$parts}')";
             }
 
             // get column. if contains "cast", set set column as cast
-            if (!empty($this->sort['cast'])) {
-                $column = "CAST({$columnName} AS {$this->sort['cast']}) {$this->sort['type']}";
-                $method = 'orderByRaw';
+            if (! empty($this->sort['cast'])) {
+                $column    = "CAST({$columnName} AS {$this->sort['cast']}) {$this->sort['type']}";
+                $method    = 'orderByRaw';
                 $arguments = [$column];
             } else {
-                $column = $columnName;
-                $method = 'orderBy';
+                $column    = $columnName;
+                $method    = 'orderBy';
                 $arguments = [$column, $this->sort['type']];
             }
 
@@ -586,7 +586,7 @@ class Model
 
             $this->queries->push([
                 'method'    => 'select',
-                'arguments' => [$this->model->getTable().'.*'],
+                'arguments' => [$this->model->getTable() . '.*'],
             ]);
 
             $this->queries->push([
@@ -599,7 +599,7 @@ class Model
             $this->queries->push([
                 'method'    => 'orderBy',
                 'arguments' => [
-                    $relation->getRelated()->getTable().'.'.$relationColumn,
+                    $relation->getRelated()->getTable() . '.' . $relationColumn,
                     $this->sort['type'],
                 ],
             ]);
@@ -640,7 +640,7 @@ class Model
                 $relatedTable,
                 $relation->{$foreignKeyMethod}(),
                 '=',
-                $relatedTable.'.'.$relation->getRelated()->getKeyName(),
+                $relatedTable . '.' . $relation->getRelated()->getKeyName(),
             ];
         }
 
