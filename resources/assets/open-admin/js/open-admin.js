@@ -354,7 +354,15 @@ admin.ajax = {
         main.innerHTML = data;
 
         main.querySelectorAll('script').forEach((script) => {
-            eval(script.innerText);
+            var src = script.getAttribute('src');
+            if (src) {
+                script = document.createElement('script');
+                script.type = 'text/javascript';
+                script.src = src;
+                document.getElementById('app').appendChild(script);
+            } else {
+                eval(script.innerText);
+            }
         });
 
         if (!admin.ajax.currenTarget) {
