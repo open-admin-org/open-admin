@@ -230,6 +230,14 @@ abstract class Action implements Renderable
     }
 
     /**
+     * @return string
+     */
+    protected function getSelector()
+    {
+        return $this->selector($this->selectorPrefix);
+    }
+
+    /**
      * @return Response
      */
     public function response()

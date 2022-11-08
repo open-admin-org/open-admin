@@ -19,7 +19,7 @@ class BatchDelete extends BatchAction
     public function script()
     {
         return <<<JS
-        document.querySelector('{$this->getElementClass()}').addEventListener("click",function(){
+        document.querySelector('{$this->getSelector()}').addEventListener("click",function(){
             let resource_url = '{$this->resource}/' + admin.grid.selected.join();
             admin.resource.batch_delete(resource_url);
         });
