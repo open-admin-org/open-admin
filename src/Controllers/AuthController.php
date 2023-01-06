@@ -2,10 +2,11 @@
 
 namespace OpenAdmin\Admin\Controllers;
 
-use Illuminate\Http\Request;
+    use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Lang;
+use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Validator;
 use OpenAdmin\Admin\Facades\Admin;
@@ -42,13 +43,21 @@ class AuthController extends Controller
      */
     public function postLogin(Request $request)
     {
+        $rate_limit_key = "login-tries-".Admin::guardName();
+
         $this->loginValidator($request->all())->validate();
 
         $credentials = $request->only([$this->username(), 'password']);
-        $remember = $request->get('remember', false);
+        $remember    = $request->get('remember', false);
 
         if ($this->guard()->attempt($credentials, $remember)) {
+            RateLimiter::clear($rate_limit_key);
             return $this->sendLoginResponse($request);
+        }
+
+        if (config('admin.auth.throttle_logins')){
+            $throttle_timeout = config('admin.auth.throttle_timeout',600);
+            RateLimiter::hit($rate_limit_key, $throttle_timeout);
         }
 
         return back()->withInput()->withErrors([
@@ -66,8 +75,8 @@ class AuthController extends Controller
     protected function loginValidator(array $data)
     {
         return Validator::make($data, [
-            $this->username()   => 'required',
-            'password'          => 'required',
+            $this->username() => 'required',
+            'password'        => 'required',
         ]);
     }
 

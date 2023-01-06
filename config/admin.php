@@ -134,6 +134,11 @@ return [
         // Redirect to the specified URI when user is not authorized.
         'redirect_to' => 'auth/login',
 
+        // Protect agaist brute force attacks
+        'throttle_logins'   => true,
+        'throttle_attempts' => 5,
+        'throttle_timeout'  => 900, // in seconds
+
         // The URIs that should be excluded from authorization.
         'excepts' => [
             'auth/login',
@@ -248,7 +253,7 @@ return [
     | Indicates whether to check menu roles.
     |--------------------------------------------------------------------------
     */
-    'check_menu_roles'       => true,
+    'check_menu_roles' => true,
 
     /*
     |--------------------------------------------------------------------------
@@ -275,13 +280,8 @@ return [
     | Application Skin
     |--------------------------------------------------------------------------
     |
-    | This value is the skin of admin pages.
-    | @see https://adminlte.io/docs/2.4/layout
-    |
-    | Supported:
-    |    "skin-blue", "skin-blue-light", "skin-yellow", "skin-yellow-light",
-    |    "skin-green", "skin-green-light", "skin-purple", "skin-purple-light",
-    |    "skin-red", "skin-red-light", "skin-black", "skin-black-light".
+    | A custom class to overwrite your admin panel looks.
+    | The orginal adminlte theme is not used anymore.
     |
     */
     'skin' => 'skin-blue-light',
@@ -292,7 +292,6 @@ return [
     |--------------------------------------------------------------------------
     |
     | This value is the layout of admin pages.
-    | @see https://adminlte.io/docs/2.4/layout
     |
     | Supported: "fixed", "layout-boxed", "layout-top-nav", "sidebar-collapse",
     | "sidebar-mini".

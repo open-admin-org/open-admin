@@ -246,15 +246,23 @@ class Admin
     }
 
     /**
+     * Get the guard name
+     *
+     * @return String
+     */
+    public function guardName()
+    {
+        return config('admin.auth.guard') ?: 'admin';
+    }
+
+    /**
      * Attempt to get the guard from the local cache.
      *
      * @return \Illuminate\Contracts\Auth\Guard|\Illuminate\Contracts\Auth\StatefulGuard
      */
     public function guard()
     {
-        $guard = config('admin.auth.guard') ?: 'admin';
-
-        return Auth::guard($guard);
+        return Auth::guard(static::guardName());
     }
 
     /**

@@ -21,6 +21,11 @@
 			<div class="container m-4" style="max-width:400px;">
 				<h1 class="text-center mb-3 h2"><a class="text-decoration-none text-dark" href="{{ admin_url('/') }}">{{config('admin.name')}}</a></h1>
 				<div class="bg-body p-4 shadow-sm rounded-3">
+
+					@if($errors->has('attempts'))
+						<div class="alert alert-danger m-0 text-center">{{$errors->first('attempts')}}</div>
+					@else
+
 					<form action="{{ admin_url('auth/login') }}" method="post">
 
 						<input type="hidden" name="_token" value="{{ csrf_token() }}">
@@ -61,6 +66,7 @@
 						</div>
 
 					</form>
+					@endif
 				</div>
 			</div>
 		</div>

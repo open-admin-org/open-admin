@@ -42,6 +42,7 @@ class AdminServiceProvider extends ServiceProvider
      */
     protected $routeMiddleware = [
         'admin.auth'       => Middleware\Authenticate::class,
+        'admin.throttle'   => Middleware\Throttle::class,
         'admin.pjax'       => Middleware\Pjax::class,
         'admin.log'        => Middleware\LogOperation::class,
         'admin.permission' => Middleware\Permission::class,
@@ -57,6 +58,7 @@ class AdminServiceProvider extends ServiceProvider
     protected $middlewareGroups = [
         'admin' => [
             'admin.auth',
+            'admin.throttle',
             'admin.pjax',
             'admin.log',
             'admin.bootstrap',

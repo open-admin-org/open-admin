@@ -37,7 +37,7 @@ class Authenticate
      */
     protected function shouldPassThrough($request)
     {
-        // 下面的路由不验证登陆
+        // The following routes do not authenticate the login
         $excepts = config('admin.auth.excepts', []);
 
         array_delete($excepts, [
