@@ -859,7 +859,7 @@ class Form implements Renderable
             $value = $this->getDataByColumn($updates, $columns);
             $value = $field->prepare($value);
 
-            // if the file
+            // only process values if not false
             if ($value !== false) {
                 if (is_array($columns)) {
                     foreach ($columns as $name => $column) {

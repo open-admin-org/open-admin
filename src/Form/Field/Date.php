@@ -25,8 +25,15 @@ class Date extends Text
     public function prepare($value)
     {
         $value = parent::prepare($value);
+
+        // allows the value to be empty
         if (empty($value)) {
             $value = null;
+        }
+
+        // if the field is not present in the request it should not be processed
+        if (empty($value) && !request()->has($this->column)){
+            $value = false;
         }
 
         return $value;
