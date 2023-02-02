@@ -4,6 +4,10 @@
             <table class="table table-with-fields has-many-{{$column}} vertical-align-{{$verticalAlign}}">
                 <thead>
                 <tr>
+                    @if(!empty($options['sortable']))
+                        <th></th>
+                    @endif
+
                     @foreach($headers as $header)
                         <th>{{ $header }}</th>
                     @endforeach
@@ -18,6 +22,10 @@
                 <tbody class="has-many-{{$column}}-forms">
                 @foreach($forms as $pk => $form)
                     <tr class="has-many-{{$column}}-form fields-group">
+
+                        @if(!empty($options['sortable']))
+                           <td width="20"><span class="icon-arrows-alt-v btn btn-light handle"></span></td>
+                        @endif
 
                         <?php $hidden = ''; ?>
 
@@ -47,6 +55,10 @@
 
             <template class="{{$column}}-tpl">
                 <tr class="has-many-{{$column}}-form fields-group">
+
+                    @if(!empty($options['sortable']))
+                        <td width="20"><span class="icon-arrows-alt-v btn btn-light handle"></span></td>
+                    @endif
 
                     {!! $template !!}
 

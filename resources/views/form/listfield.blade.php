@@ -11,7 +11,7 @@
                 @php($itemErrorKey = "{$column}.{$loop->index}")
 
                 <tr>
-                    @if ($is_sortable)
+                    @if(!empty($options['sortable']))
                         <td width="20"><span class="icon-arrows-alt-v btn btn-light handle"></span></td>
                     @endif
                     <td>
@@ -42,7 +42,7 @@
 
         <template class="{{$column}}-tpl">
             <tr>
-                @if ($is_sortable)
+                @if(!empty($options['sortable']))
                     <td width="20"><span class="icon-arrows-alt-v btn btn-light handle"></span></td>
                 @endif
                 <td>

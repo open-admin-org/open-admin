@@ -4,9 +4,12 @@ namespace OpenAdmin\Admin\Form\Field;
 
 use Illuminate\Support\Arr;
 use OpenAdmin\Admin\Form\Field;
+use OpenAdmin\Admin\Form\Field\Traits\Sortable;
 
 class KeyValue extends Field
 {
+    use Sortable;
+
     /**
      * @var array
      */
@@ -84,12 +87,23 @@ JS;
         if (empty($value)) {
             return [];
         }
-
         return array_combine($value['keys'], $value['values']);
     }
 
+    /*
+    public function beforeRender()
+    {
+        if (!in_array(Arr::get($this->form->model->getCasts(),$this->column),["json","array"]) && ){
+            throw new \Exception("The column ($this->column) of this Model has no casts defined as: Json or Array");
+        };
+    }
+    */
+
     public function render()
     {
+        $this->addSortable('.kv-','-table');
+        view()->share("options",$this->options);
+
         $this->setupScript();
 
         return parent::render();

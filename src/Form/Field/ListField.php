@@ -5,25 +5,15 @@ namespace OpenAdmin\Admin\Form\Field;
 use Illuminate\Support\Arr;
 use OpenAdmin\Admin\Admin;
 use OpenAdmin\Admin\Form\Field;
+use OpenAdmin\Admin\Form\Field\Traits\Sortable;
 
 class ListField extends Field
 {
+    use Sortable;
     /**
      * @var array
      */
     protected $value = [''];
-
-    /**
-     * @var array
-     */
-    protected $is_sortable = false;
-
-    public function sortable($set = true)
-    {
-        $this->is_sortable = $set;
-
-        return $this;
-    }
 
     /**
      * Fill data to the field.
@@ -99,16 +89,6 @@ class ListField extends Field
             }
         });
 JS;
-
-        if ($this->is_sortable) {
-            $this->script .= <<<JS
-
-            var sortable = new Sortable(document.querySelector("tbody.list-{$this->column}-table"), {
-                animation:150,
-                handle: ".handle",
-            });
-JS;
-        }
     }
 
     /**
@@ -131,8 +111,12 @@ JS;
      */
     public function render()
     {
+        $this->addSortable('tbody.list-','-table');
+        view()->share("options",$this->options);
+
+
         $this->setupScript();
-        view()->share('is_sortable', $this->is_sortable);
+
 
         Admin::style('td .form-group {margin-bottom: 0 !important;}');
 

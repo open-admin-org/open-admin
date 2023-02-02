@@ -6,6 +6,9 @@
         <table class="table table-with-fields">
             <thead>
             <tr>
+                @if(!empty($options['sortable']))
+                    <th></th>
+                @endif
                 <th>{{ __('Key') }}</th>
                 <th>{{ __('Value') }}</th>
                 <th style="width: 75px;"></th>
@@ -19,6 +22,9 @@
                 @php($valsErrorKey = "{$column}.values.{$loop->index}")
 
                 <tr>
+                    @if(!empty($options['sortable']))
+                        <td width="20"><span class="icon-arrows-alt-v btn btn-light handle"></span></td>
+                    @endif
                     <td>
                         <div class="form-group {{ $errors->has($keysErrorKey) ? 'has-error' : '' }}">
                             <div class="col-sm-12">
@@ -64,6 +70,9 @@
     </div>
     <template class="{{$column}}-tpl">
         <tr>
+            @if(!empty($options['sortable']))
+                <td width="20"><span class="icon-arrows-alt-v btn btn-light handle"></span></td>
+            @endif
             <td>
                 <div class="form-group  ">
                     <div class="col-sm-12">

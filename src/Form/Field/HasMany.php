@@ -10,6 +10,7 @@ use OpenAdmin\Admin\Admin;
 use OpenAdmin\Admin\Form;
 use OpenAdmin\Admin\Form\Field;
 use OpenAdmin\Admin\Form\NestedForm;
+use OpenAdmin\Admin\Form\Field\Traits\Sortable;
 use OpenAdmin\Admin\Widgets\Form as WidgetForm;
 
 /**
@@ -17,6 +18,7 @@ use OpenAdmin\Admin\Widgets\Form as WidgetForm;
  */
 class HasMany extends Field
 {
+    use Sortable;
     /**
      * Relation name.
      *
@@ -75,6 +77,7 @@ class HasMany extends Field
     protected $options = [
         'allowCreate' => true,
         'allowDelete' => true,
+        'sortable'    => false,
     ];
 
     /**
@@ -630,6 +633,8 @@ EOT;
         return $this;
     }
 
+
+
     /**
      * Render the `HasMany` field.
      *
@@ -642,6 +647,7 @@ EOT;
         if (!$this->shouldRender()) {
             return '';
         }
+        $this->addSortable('.has-many-','-forms');
 
         if ($this->viewMode == 'table') {
             return $this->renderTable();
@@ -678,6 +684,8 @@ EOT;
         $hidden = [];
         $scripts = [];
 
+        $this->addSortable('.has-many-','-forms');
+
         /* @var Field $field */
         foreach ($this->buildNestedForm($this->column, $this->builder)->fields() as $field) {
             if (is_a($field, Hidden::class)) {
@@ -707,6 +715,7 @@ EOT;
 
         /* Build cell with hidden elements */
         $template .= '<td class="hidden">'.implode('', $hidden).'</td>';
+
 
         $this->setupScript(implode("\r\n", $scripts));
 
