@@ -97,7 +97,7 @@ class NestedForm
     protected $form;
 
     /**
-     * @var boolean
+     * @var bool
      */
     protected $save_null_values = true;
 
@@ -129,9 +129,9 @@ class NestedForm
     }
 
     /**
-     * Save null values or not
+     * Save null values or not.
      *
-     * @param boolean $set
+     * @param bool $set
      *
      * @return $this
      */
@@ -400,7 +400,7 @@ class NestedForm
      */
     public function getTemplateHtmlAndScript()
     {
-        $html    = '';
+        $html = '';
         $scripts = [];
 
         /* @var Field $field */
@@ -437,13 +437,13 @@ class NestedForm
 
         if (is_array($column)) {
             foreach ($column as $k => $name) {
-                $errorKey[$k]     = sprintf('%s.%s.%s', $this->relationName, $key, $name);
-                $elementName[$k]  = sprintf('%s[%s][%s]', $this->relationName, $key, $name);
+                $errorKey[$k] = sprintf('%s.%s.%s', $this->relationName, $key, $name);
+                $elementName[$k] = sprintf('%s[%s][%s]', $this->relationName, $key, $name);
                 $elementClass[$k] = [$this->relationName, $name];
             }
         } else {
-            $errorKey     = sprintf('%s.%s.%s', $this->relationName, $key, $column);
-            $elementName  = sprintf('%s[%s][%s]', $this->relationName, $key, $column);
+            $errorKey = sprintf('%s.%s.%s', $this->relationName, $key, $column);
+            $elementName = sprintf('%s[%s][%s]', $this->relationName, $key, $column);
             $elementClass = [$this->relationName, $column];
         }
 

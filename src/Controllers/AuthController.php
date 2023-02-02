@@ -43,20 +43,21 @@ class AuthController extends Controller
      */
     public function postLogin(Request $request)
     {
-        $rate_limit_key = "login-tries-".Admin::guardName();
+        $rate_limit_key = 'login-tries-'.Admin::guardName();
 
         $this->loginValidator($request->all())->validate();
 
         $credentials = $request->only([$this->username(), 'password']);
-        $remember    = $request->get('remember', false);
+        $remember = $request->get('remember', false);
 
         if ($this->guard()->attempt($credentials, $remember)) {
             RateLimiter::clear($rate_limit_key);
+
             return $this->sendLoginResponse($request);
         }
 
-        if (config('admin.auth.throttle_logins')){
-            $throttle_timeout = config('admin.auth.throttle_timeout',600);
+        if (config('admin.auth.throttle_logins')) {
+            $throttle_timeout = config('admin.auth.throttle_timeout', 600);
             RateLimiter::hit($rate_limit_key, $throttle_timeout);
         }
 

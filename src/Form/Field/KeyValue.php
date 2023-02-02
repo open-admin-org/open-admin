@@ -87,6 +87,7 @@ JS;
         if (empty($value)) {
             return [];
         }
+
         return array_combine($value['keys'], $value['values']);
     }
 
@@ -101,8 +102,8 @@ JS;
 
     public function render()
     {
-        $this->addSortable('.kv-','-table');
-        view()->share("options",$this->options);
+        $this->addSortable('.kv-', '-table');
+        view()->share('options', $this->options);
 
         $this->setupScript();
 

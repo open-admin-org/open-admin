@@ -192,7 +192,7 @@ class Form extends Interactor
     public function extendsFrom($object, $check)
     {
         $reflection = new \ReflectionObject($object);
-        $parent     = $reflection->getParentClass();
+        $parent = $reflection->getParentClass();
 
         return $parent->name == $check;
     }
@@ -283,10 +283,10 @@ class Form extends Interactor
      */
     public function addModalHtml()
     {
-        $field_html    = '';
+        $field_html = '';
         $field_scripts = '';
         foreach ($this->fields as $field) {
-            $field_html    .= $field->render();
+            $field_html .= $field->render();
             $field_scripts .= $field->getScript();
         }
 

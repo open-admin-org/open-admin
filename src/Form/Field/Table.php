@@ -26,7 +26,7 @@ class Table extends HasMany
         $this->column = $column;
 
         if (count($arguments) == 1) {
-            $this->label   = $this->formatLabel();
+            $this->label = $this->formatLabel();
             $this->builder = $arguments[0];
         }
 
@@ -36,9 +36,9 @@ class Table extends HasMany
     }
 
     /**
-     * Save null values or not
+     * Save null values or not.
      *
-     * @param boolean $set
+     * @param bool $set
      *
      * @return $this
      */
@@ -54,7 +54,6 @@ class Table extends HasMany
      */
     protected function buildRelatedForms()
     {
-
         $forms = [];
 
         if ($values = old($this->column)) {
