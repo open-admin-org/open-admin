@@ -36,9 +36,9 @@ class Table extends HasMany
     }
 
     /**
-     * Save null values or not
+     * Save null values or not.
      *
-     * @param boolean $set
+     * @param bool $set
      *
      * @return $this
      */
@@ -54,7 +54,6 @@ class Table extends HasMany
      */
     protected function buildRelatedForms()
     {
-
         $forms = [];
 
         if ($values = old($this->column)) {

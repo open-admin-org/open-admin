@@ -97,7 +97,7 @@ class NestedForm
     protected $form;
 
     /**
-     * @var boolean
+     * @var bool
      */
     protected $save_null_values = true;
 
@@ -129,9 +129,9 @@ class NestedForm
     }
 
     /**
-     * Save null values or not
+     * Save null values or not.
      *
-     * @param boolean $set
+     * @param bool $set
      *
      * @return $this
      */
