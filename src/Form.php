@@ -870,6 +870,7 @@ class Form implements Renderable
                 }
             }
         }
+
         return $prepared;
     }
 

@@ -286,7 +286,7 @@ class Form extends Interactor
         $field_html    = '';
         $field_scripts = '';
         foreach ($this->fields as $field) {
-            $field_html    .= $field->render();
+            $field_html .= $field->render();
             $field_scripts .= $field->getScript();
         }
 

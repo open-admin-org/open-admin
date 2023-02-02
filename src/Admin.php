@@ -246,9 +246,9 @@ class Admin
     }
 
     /**
-     * Get the guard name
+     * Get the guard name.
      *
-     * @return String
+     * @return string
      */
     public function guardName()
     {

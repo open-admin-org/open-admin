@@ -111,12 +111,10 @@ JS;
      */
     public function render()
     {
-        $this->addSortable('tbody.list-','-table');
-        view()->share("options",$this->options);
-
+        $this->addSortable('tbody.list-', '-table');
+        view()->share('options', $this->options);
 
         $this->setupScript();
-
 
         Admin::style('td .form-group {margin-bottom: 0 !important;}');
 
