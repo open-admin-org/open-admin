@@ -1,0 +1,4 @@
+preset: recommended
+enabled:
+disabled:
+  - unalign_equals
