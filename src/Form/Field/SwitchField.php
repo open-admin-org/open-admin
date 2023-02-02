@@ -10,8 +10,10 @@ class SwitchField extends Field
     {
         if ($value == 'on' || $value == 1) {
             $value = 1;
-        } else {
+        } elseif ($value == 'off' || $value === '0') {
             $value = 0;
+        } else {
+            $value = false; // nothting was set so do: false to ignore value from saving
         }
 
         return $value;
