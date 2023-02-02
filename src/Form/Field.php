@@ -284,6 +284,10 @@ class Field implements Renderable
         $this->column = $this->formatColumn($column);
         $this->label = $this->formatLabel($arguments);
         $this->id = $this->formatId($column);
+
+        if (method_exists($this, "init")) {
+            $this->init();
+        }
     }
 
     /**
@@ -1616,6 +1620,10 @@ class Field implements Renderable
      */
     public function render()
     {
+        if (method_exists($this, "beforeRender")) {
+            $this->beforeRender();
+        }
+
         if (!$this->shouldRender()) {
             return '';
         }
