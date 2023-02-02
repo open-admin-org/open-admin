@@ -284,7 +284,7 @@ class NestedForm
 
             $value = $this->fetchColumnValue($record, $columns);
 
-            if (is_null($value)) {
+            if ($value === false) {
                 continue;
             }
 
@@ -292,7 +292,7 @@ class NestedForm
                 $value = $field->prepare($value);
             }
 
-            if (($field instanceof \OpenAdmin\Admin\Form\Field\Hidden) || $value != $field->original()) {
+            if (($field instanceof \OpenAdmin\Admin\Form\Field\Hidden) || $value != $field->original() || $value == null) {
                 if (is_array($columns)) {
                     foreach ($columns as $name => $column) {
                         Arr::set($prepared, $column, $value[$name]);
@@ -381,7 +381,7 @@ class NestedForm
      */
     public function getTemplateHtmlAndScript()
     {
-        $html = '';
+        $html    = '';
         $scripts = [];
 
         /* @var Field $field */
@@ -418,13 +418,13 @@ class NestedForm
 
         if (is_array($column)) {
             foreach ($column as $k => $name) {
-                $errorKey[$k] = sprintf('%s.%s.%s', $this->relationName, $key, $name);
-                $elementName[$k] = sprintf('%s[%s][%s]', $this->relationName, $key, $name);
+                $errorKey[$k]     = sprintf('%s.%s.%s', $this->relationName, $key, $name);
+                $elementName[$k]  = sprintf('%s[%s][%s]', $this->relationName, $key, $name);
                 $elementClass[$k] = [$this->relationName, $name];
             }
         } else {
-            $errorKey = sprintf('%s.%s.%s', $this->relationName, $key, $column);
-            $elementName = sprintf('%s[%s][%s]', $this->relationName, $key, $column);
+            $errorKey     = sprintf('%s.%s.%s', $this->relationName, $key, $column);
+            $elementName  = sprintf('%s[%s][%s]', $this->relationName, $key, $column);
             $elementClass = [$this->relationName, $column];
         }
 
