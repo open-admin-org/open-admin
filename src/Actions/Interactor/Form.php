@@ -140,6 +140,16 @@ class Form extends Interactor
         return $crawler->children()->html();
     }
 
+    public function getForm()
+    {
+        // return an actual form instance instead of the interactor
+        if (empty($this->form)) {
+            $this->form = new ModalForm($this);
+        }
+
+        return $this->form;
+    }
+
     /**
      * @param Field $field
      *
@@ -148,12 +158,13 @@ class Form extends Interactor
     protected function addField(Field $field)
     {
         $elementClass = array_merge(['form-control', 'action', $this->getModalId()], $field->getElementClass());
+        $field->setForm($this->getForm());
         $field->addElementClass($elementClass);
         $this->checkUploadFiel($field);
 
         if ($this->addValues && !empty($this->row)) {
             $value = !empty($this->row[$field->column()]) ? $this->row[$field->column()] : null;
-            $field->fill([$field->column()=>$value]);
+            $field->fill([$field->column() => $value]);
         }
 
         array_push($this->fields, $field);
@@ -181,7 +192,7 @@ class Form extends Interactor
     public function extendsFrom($object, $check)
     {
         $reflection = new \ReflectionObject($object);
-        $parent = $reflection->getParentClass();
+        $parent     = $reflection->getParentClass();
 
         return $parent->name == $check;
     }
@@ -272,10 +283,10 @@ class Form extends Interactor
      */
     public function addModalHtml()
     {
-        $field_html = '';
+        $field_html    = '';
         $field_scripts = '';
         foreach ($this->fields as $field) {
-            $field_html .= $field->render();
+            $field_html    .= $field->render();
             $field_scripts .= $field->getScript();
         }
 
