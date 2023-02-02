@@ -25,7 +25,7 @@ class Admin
      *
      * @var string
      */
-    public const VERSION = '1.0.25';
+    public const VERSION = '1.0.26';
 
     /**
      * @var Navbar
@@ -118,8 +118,6 @@ class Admin
      * @param mixed $callable
      *
      * @return Show
-     *
-     * @deprecated since v1.6.1
      */
     public function show($model, $callable = null)
     {
@@ -130,8 +128,6 @@ class Admin
      * @param Closure $callable
      *
      * @return \OpenAdmin\Admin\Layout\Content
-     *
-     * @deprecated since v1.6.1
      */
     public function content(Closure $callable = null)
     {
