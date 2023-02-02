@@ -97,6 +97,11 @@ class NestedForm
     protected $form;
 
     /**
+     * @var boolean
+     */
+    protected $save_null_values = true;
+
+    /**
      * Create a new NestedForm instance.
      *
      * NestedForm constructor.
@@ -121,6 +126,20 @@ class NestedForm
     public function model()
     {
         return $this->model;
+    }
+
+    /**
+     * Save null values or not
+     *
+     * @param boolean $set
+     *
+     * @return $this
+     */
+    public function saveNullValues($set = true)
+    {
+        $this->save_null_values = $set;
+
+        return $this;
     }
 
     /**
@@ -292,7 +311,7 @@ class NestedForm
                 $value = $field->prepare($value);
             }
 
-            if (($field instanceof \OpenAdmin\Admin\Form\Field\Hidden) || $value != $field->original() || $value == null) {
+            if (($field instanceof \OpenAdmin\Admin\Form\Field\Hidden) || $value != $field->original() || ($this->save_null_values && $value == null)) {
                 if (is_array($columns)) {
                     foreach ($columns as $name => $column) {
                         Arr::set($prepared, $column, $value[$name]);
@@ -364,7 +383,7 @@ class NestedForm
      *
      * @return $this
      */
-    public function fill(array $data)
+    public function fill(array $data = [])
     {
         /* @var Field $field */
         foreach ($this->fields() as $field) {
