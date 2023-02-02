@@ -49,17 +49,17 @@ class Form implements Renderable
      *
      * @var Model
      */
-    protected $model;
+    public $model;
 
     /**
      * @var \Illuminate\Validation\Validator
      */
-    protected $validator;
+    public $validator;
 
     /**
      * @var Builder
      */
-    protected $builder;
+    public $builder;
 
     /**
      * Data for save to current model from input.
@@ -870,7 +870,6 @@ class Form implements Renderable
                 }
             }
         }
-
         return $prepared;
     }
 
