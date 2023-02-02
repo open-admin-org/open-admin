@@ -263,7 +263,7 @@ return [
     | Set a default avatar for newly created users.
     |
     */
-    'default_avatar' => '/vendor/open-admin/open-admin/gfx/user.svg',
+    'default_avatar' => '/vendor/open-admin-org/open-admin/resources/assets/open-admin/gfx/user.svg',
 
     /*
     |--------------------------------------------------------------------------

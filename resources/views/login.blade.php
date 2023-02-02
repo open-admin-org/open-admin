@@ -10,9 +10,7 @@
 		<link rel="shortcut icon" href="{{$favicon}}">
 		@endif
 
-
 		<link rel="stylesheet" href="{{ Admin::asset("open-admin/css/styles.css")}}">
-		<link rel="stylesheet" href="{{ Admin::asset("fontello/css/open-admin.css")}}">
 		<script src="{{ Admin::asset("bootstrap5/bootstrap.bundle.min.js")}}"></script>
 
 	</head>
