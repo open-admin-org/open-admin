@@ -284,7 +284,7 @@ return [
     | The orginal adminlte theme is not used anymore.
     |
     */
-    'skin' => 'skin-blue-light',
+    'skin' => 'your-custom-skin-class',
 
     /*
     |--------------------------------------------------------------------------
