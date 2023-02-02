@@ -125,7 +125,7 @@ admin.form = {
 
     disable_cascaded_forms: function (selector) {
         document.querySelector(selector).addEventListener('submit', function (event) {
-            let elems = event.target.querySelectorAll('div.cascade-group.hide input');
+            let elems = event.target.querySelectorAll('div.cascade-group.d-none input');
             if (elems) {
                 elems.forEach((field) => {
                     field.setAttribute('disabled', true);
