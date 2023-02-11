@@ -106,8 +106,8 @@ return [
     'next'                  => '下一步',
     'quick_create'          => '快速创建',
 
-    "batch_edit"            => "批量编辑",
-    "delete_file_on_save"   => "确定要在保存后删除这个文件吗?",
-    "select"                => "选择",
-    "no_rows_selected"      => "未选择行",
+    'batch_edit'          => '批量编辑',
+    'delete_file_on_save' => '确定要在保存后删除这个文件吗?',
+    'select'              => '选择',
+    'no_rows_selected'    => '未选择行',
 ];
