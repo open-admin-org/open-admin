@@ -178,7 +178,6 @@ trait HasFields
      */
     public static function findFieldClass($method)
     {
-
         // If alias exists.
         if (isset(static::$fieldAlias[$method])) {
             $method = static::$fieldAlias[$method];
