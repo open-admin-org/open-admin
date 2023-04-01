@@ -17,7 +17,7 @@ class SwitchField extends Field
         }
 
         return $value;
-    }s
+    }
 
     public function render()
     {
