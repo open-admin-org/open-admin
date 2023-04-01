@@ -851,6 +851,10 @@ class Form implements Renderable
         foreach ($this->fields() as $field) {
             $columns = $field->column();
 
+            if (!Arr::has($updates, $columns)) {
+                continue;
+            }
+
             if ($this->isInvalidColumn($columns, $oneToOneRelation || $field->isJsonType) ||
                 (in_array($columns, $this->relation_fields) && !$isRelationUpdate)) {
                 continue;
