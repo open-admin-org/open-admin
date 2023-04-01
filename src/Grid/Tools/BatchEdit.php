@@ -16,7 +16,6 @@ class BatchEdit extends BatchAction
 
     public function buildBatchUrl($resourcesPath)
     {
-
         // continue editing with ids in id row
         $parts = parse_url(request('_previous_'));
         $current = URL::current();

@@ -70,7 +70,7 @@ class BelongsToMany extends BelongsTo
                 $data[] = Arr::get($relation, "pivot.{$this->getOtherKey()}");
             }
 
-            // MultipleSelect value store as a column.
+        // MultipleSelect value store as a column.
         } else {
             $data = $relations;
         }
