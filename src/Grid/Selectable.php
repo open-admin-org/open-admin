@@ -161,10 +161,10 @@ HTML;
         return function ($value) {
             if (is_array($value)) {
                 return implode(self::$seperator, array_map(function ($item) {
-                    return "<span data-key=\"{$item[self::$display_field]}\" class='".(self::$labelClass)."'>{$item[self::$display_field]}</span>";
+                    return "<span data-key=\"{$item[self::$display_field]}\" class='".self::$labelClass."'>{$item[self::$display_field]}</span>";
                 }, $value));
             } else {
-                return "<span data-key=\"{$value}\" class='".(self::$labelClass)."'>{$value}</span>";
+                return "<span data-key=\"{$value}\" class='".self::$labelClass."'>{$value}</span>";
             }
         };
     }

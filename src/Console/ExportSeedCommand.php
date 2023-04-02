@@ -119,7 +119,6 @@ class ExportSeedCommand extends Command
     protected function varExport($var, $indent = '')
     {
         switch (gettype($var)) {
-
             case 'string':
                 return '"'.addcslashes($var, "\\\$\"\r\n\t\v\f").'"';
 

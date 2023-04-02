@@ -405,7 +405,6 @@ class NestedForm
 
         /* @var Field $field */
         foreach ($this->fields() as $field) {
-
             //when field render, will push $script to Admin
             $html .= $field->render();
 
