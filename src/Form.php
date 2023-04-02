@@ -388,7 +388,7 @@ class Form implements Renderable
     public function fixColumnArrayValue($column)
     {
         if (version_compare(app()->version(), '8.0.0', '<')) {
-            $this->model->$column = json_encode(($this->model->$column));
+            $this->model->$column = json_encode($this->model->$column);
         }
     }
 

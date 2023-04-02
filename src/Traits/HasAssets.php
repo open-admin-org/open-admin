@@ -390,14 +390,12 @@ trait HasAssets
 
                     if ($child->tagName == 'template') {
                         if ($child->getAttribute('render') == 'true') {
-
                             // this will render the template tags right into the dom. Don't think we want this
                             $html = '';
                             foreach ($child->childNodes as $childNode) {
                                 $html .= $child->ownerDocument->saveHTML($childNode);
                             }
                         } else {
-
                             // this leaves the template tags in place, so they won't get rendered right away
                             $sub_doc = new \DOMDocument();
                             $sub_doc->appendChild($sub_doc->importNode($child, true));

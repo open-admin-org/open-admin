@@ -501,7 +501,7 @@ SCRIPT;
 
         $form = view('admin::widgets.form', $this->getVariables())->render();
 
-        if (!($this->title) || !$this->inbox) {
+        if (!$this->title || !$this->inbox) {
             return $form;
         }
 
