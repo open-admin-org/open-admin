@@ -424,9 +424,9 @@ class Form implements Renderable
         // ajax but not pjax
         if ($request->ajax() && !$request->pjax()) {
             return response()->json([
-                'status'    => true,
-                'message'   => $message,
-                'display'   => $this->applayFieldDisplay(),
+                'status'  => true,
+                'message' => $message,
+                'display' => $this->applayFieldDisplay(),
             ]);
         }
 
@@ -516,9 +516,9 @@ class Form implements Renderable
         $relations = [];
 
         foreach ($inputs as $column => $value) {
-            if ((method_exists($this->model, $column) ||
-                method_exists($this->model, $column = Str::camel($column))) &&
-                !method_exists(Model::class, $column)
+            if ((method_exists($this->model, $column)
+                || method_exists($this->model, $column = Str::camel($column)))
+                && !method_exists(Model::class, $column)
             ) {
                 $relation = call_user_func([$this->model, $column]);
 
@@ -605,7 +605,7 @@ class Form implements Renderable
     protected function redirectAfterStore()
     {
         $resourcesPath = $this->resource(0);
-        $key = $this->model->getKey();
+        $key           = $this->model->getKey();
 
         return $this->redirectAfterSaving($resourcesPath, $key);
     }
@@ -702,7 +702,7 @@ class Form implements Renderable
     protected function handleEditable(array $input = []): array
     {
         if (array_key_exists('_editable', $input)) {
-            $name = $input['name'];
+            $name  = $input['name'];
             $value = $input['value'];
 
             Arr::forget($input, ['pk', 'value', 'name']);
@@ -768,7 +768,7 @@ class Form implements Renderable
                 || $relation instanceof Relations\BelongsTo;
 
             $isRelationUpdate = true;
-            $prepared = $this->prepareUpdate([$name => $values], $oneToOneRelation, $isRelationUpdate);
+            $prepared         = $this->prepareUpdate([$name => $values], $oneToOneRelation, $isRelationUpdate);
 
             if (empty($prepared)) {
                 continue;
@@ -851,8 +851,8 @@ class Form implements Renderable
         foreach ($this->fields() as $field) {
             $columns = $field->column();
 
-            if ($this->isInvalidColumn($columns, $oneToOneRelation || $field->isJsonType) ||
-                (in_array($columns, $this->relation_fields) && !$isRelationUpdate)) {
+            if ($this->isInvalidColumn($columns, $oneToOneRelation || $field->isJsonType)
+                || (in_array($columns, $this->relation_fields) && !$isRelationUpdate)) {
                 continue;
             }
 
@@ -883,8 +883,8 @@ class Form implements Renderable
     protected function isInvalidColumn($columns, $containsDot = false): bool
     {
         foreach ((array) $columns as $column) {
-            if ((!$containsDot && Str::contains($column, '.')) ||
-                ($containsDot && !Str::contains($column, '.'))) {
+            if ((!$containsDot && Str::contains($column, '.'))
+                || ($containsDot && !Str::contains($column, '.'))) {
                 return true;
             }
         }
@@ -1089,7 +1089,6 @@ class Form implements Renderable
             if (!$validator = $field->getValidator($input)) {
                 continue;
             }
-
             if (($validator instanceof Validator) && !$validator->passes()) {
                 $failedValidators[] = $validator;
             }
@@ -1136,14 +1135,14 @@ class Form implements Renderable
             if (Str::contains($column, '.')) {
                 list($relation) = explode('.', $column);
 
-                if (method_exists($this->model, $relation) &&
-                    !method_exists(Model::class, $relation) &&
-                    $this->model->$relation() instanceof Relations\Relation
+                if (method_exists($this->model, $relation)
+                    && !method_exists(Model::class, $relation)
+                    && $this->model->$relation() instanceof Relations\Relation
                 ) {
                     $relations[] = $relation;
                 }
-            } elseif (method_exists($this->model, $column) &&
-                !method_exists(Model::class, $column)
+            } elseif (method_exists($this->model, $column)
+                && !method_exists(Model::class, $column)
             ) {
                 $relations[] = $column;
             }
@@ -1448,7 +1447,7 @@ class Form implements Renderable
      *
      * @return $this
      */
-    public function column($width, \Closure $closure): self
+    public function column($width, Closure $closure): self
     {
         $width = $width < 1 ? round(12 * $width) : $width;
 
