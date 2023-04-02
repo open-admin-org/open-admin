@@ -11,7 +11,7 @@ class Image extends File
     use ImageField;
 
     /**
-     * {@inheritdoc}
+     * @inheritdoc
      */
     protected $view = 'admin::form.file';
 
@@ -71,7 +71,7 @@ class Image extends File
      */
     public function guessPreviewType($file)
     {
-        $extra = parent::guessPreviewType($file);
+        $extra         = parent::guessPreviewType($file);
         $extra['type'] = 'image';
 
         return $extra;

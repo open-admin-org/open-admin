@@ -21,7 +21,7 @@ class File extends Field
         '/vendor/open-admin/fields/file-upload/file-upload.js',
     ];
 
-    public $type = 'file';
+    public $type     = 'file';
     public $readonly = false;
 
     /**
@@ -48,7 +48,7 @@ class File extends Field
     }
 
     /**
-     * {@inheritdoc}
+     * @inheritdoc
      */
     public function getValidator(array $input)
     {
@@ -81,7 +81,7 @@ class File extends Field
             return false;
         }
 
-        $rules[$this->column] = $fieldRules;
+        $rules[$this->column]      = $fieldRules;
         $attributes[$this->column] = $this->label;
 
         return \validator($input, $rules, $this->getValidationMessages(), $attributes);
@@ -214,8 +214,8 @@ class File extends Field
         $this->setType();
         $this->attribute('id', $id);
         $this->options['storageUrl'] = $this->storageUrl();
-        $json_options = json_encode($this->options);
-        $this->script = <<<JS
+        $json_options                = json_encode($this->options);
+        $this->script                = <<<JS
         var FileUpload_{$id} = new FileUpload(document.querySelector('#{$id}'),{$json_options});
         JS;
     }

@@ -1,11 +1,14 @@
-$fa-font-path: "../../fontawesome/webfonts";
-$fa-css-prefix: "icon";
-@import "../../fontawesome/scss/fontawesome";
-@import "../../fontawesome/scss/solid";
-@import "../../fontawesome/scss/brands";
-[class^="icon-"]:before,
-[class*=" icon-"]:before {
-    font-family: "Font Awesome 5 Free";
+$fa-font-path: '../../fontawesome/webfonts';
+$fa-css-prefix: 'icon';
+@import '../../fontawesome/scss/fontawesome';
+@import '../../fontawesome/scss/solid';
+@import '../../fontawesome/scss/brands';
+
+[class^='icon-']:before,
+[class*=' icon-']:before,
+.far [class^='icon-']:before,
+.far [class*=' icon-']:before {
+    font-family: 'Font Awesome 5 Free';
     font-style: normal;
     font-weight: normal;
     speak: never;
@@ -39,8 +42,17 @@ $fa-css-prefix: "icon";
     /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */
 }
 
+.fas:before {
+    font-family: 'Font Awesome 5 Free';
+    font-weight: 900;
+}
+
+.fab:before {
+    font-family: 'Font Awesome 5 Brands';
+}
+
 /* icons in dropdown menu's */
-.dropdown-item i[class^="icon-"]:before,
-.dropdown-item i[class*=" icon-"]:before {
-    margin-right:8px;
+.dropdown-item i[class^='icon-']:before,
+.dropdown-item i[class*=' icon-']:before {
+    margin-right: 8px;
 }
