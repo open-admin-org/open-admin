@@ -53,9 +53,9 @@ class Relation extends Field
      */
     public function __construct($name, $builder, $title = '')
     {
-        $this->name = $name;
+        $this->name    = $name;
         $this->builder = $builder;
-        $this->title = $this->formatLabel($title);
+        $this->title   = $this->formatLabel($title);
     }
 
     /**
@@ -121,10 +121,9 @@ class Relation extends Field
 
             $renderable->setName($this->name)
                 ->setTitle($this->title)
-                ->setRelation($relation);
+                ->setRelation($relation)
+                ->fixedFooter(false);
         }
-
-        $renderable->fixedFooter(false);
 
         return $renderable->render();
     }
