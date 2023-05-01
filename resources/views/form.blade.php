@@ -15,20 +15,21 @@
         @if (!$tabObj->isEmpty())
             @include('admin::form.tab', compact('tabObj'))
         @else
-            <div class="row fields-group">
-
+            <div class="container fields-group">
                 @if ($form->hasRows())
                     @foreach ($form->getRows() as $row)
                         {!! $row->render() !!}
                     @endforeach
                 @else
-                    @foreach ($layout->columns() as $column)
-                        <div class="col-md-{{ $column->width() }}">
-                            @foreach ($column->fields() as $field)
-                                {!! $field->render() !!}
-                            @endforeach
-                        </div>
-                    @endforeach
+                    <div class="row">
+                        @foreach ($layout->columns() as $column)
+                            <div class="col-md-{{ $column->width() }}">
+                                @foreach ($column->fields() as $field)
+                                    {!! $field->render() !!}
+                                @endforeach
+                            </div>
+                        @endforeach
+                    </div>
                 @endif
             </div>
         @endif
