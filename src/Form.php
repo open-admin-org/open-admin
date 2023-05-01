@@ -1188,6 +1188,40 @@ class Form implements Renderable
     }
 
     /**
+     * Set field prefix for current form fields.
+     *
+     * @param string $prefix
+     *
+     * @return $this
+     */
+    public function setFieldsPrependClass($prefix): self
+    {
+        $this->fields()->each(function ($field) use ($prefix) {
+            /* @var Field $field  */
+            $field->setPrependElementClass([$prefix]);
+        });
+
+        return $this;
+    }
+
+    /**
+     * Set field appendix for current form fields.
+     *
+     * @param int $appendix
+     *
+     * @return $this
+     */
+    public function setFieldsAppendClass($suffix): self
+    {
+        $this->fields()->each(function ($field) use ($suffix) {
+            /* @var Field $field  */
+            $field->setAppendElementClass([$suffix]);
+        });
+
+        return $this;
+    }
+
+    /**
      * Set view for form.
      *
      * @param string $view

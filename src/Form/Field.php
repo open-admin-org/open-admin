@@ -94,6 +94,20 @@ class Field implements Renderable
     protected $elementClass = [];
 
     /**
+     * Form element prepended classes.
+     *
+     * @var array
+     */
+    protected $prependClass = [];
+
+    /**
+     * Form element appended classes.
+     *
+     * @var array
+     */
+    protected $appendClass = [];
+
+    /**
      * Variables of elements.
      *
      * @var array
@@ -1313,6 +1327,34 @@ class Field implements Renderable
     }
 
     /**
+     * prepend element class.
+     *
+     * @param string|array $class
+     *
+     * @return $this
+     */
+    public function setPrependElementClass($class): self
+    {
+        $this->prependClass = array_merge($this->prependClass, (array) $class);
+
+        return $this;
+    }
+
+    /**
+     * append element class.
+     *
+     * @param string|array $class
+     *
+     * @return $this
+     */
+    public function setAppendElementClass($class): self
+    {
+        $this->appendClass = array_merge($this->appendClass, (array) $class);
+
+        return $this;
+    }
+
+    /**
      * Get element class.
      *
      * @return array
@@ -1323,6 +1365,14 @@ class Field implements Renderable
             $name = $this->elementName ?: $this->formatName($this->column);
 
             $this->elementClass = (array) str_replace(['[', ']'], '_', $name);
+        }
+
+        if ($this->prependClass) {
+            $this->elementClass = array_merge($this->elementClass, $this->prependClass);
+        }
+
+        if ($this->appendClass) {
+            $this->elementClass = array_merge($this->elementClass, $this->appendClass);
         }
 
         return $this->elementClass;
