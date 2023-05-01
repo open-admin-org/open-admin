@@ -4,6 +4,7 @@ namespace OpenAdmin\Admin\Form\Field\Traits;
 
 use OpenAdmin\Admin\Admin;
 use OpenAdmin\Admin\Grid\Selectable;
+use OpenAdmin\Admin\Widgets\Modal;
 
 trait BelongsToRelation
 {
@@ -60,8 +61,8 @@ trait BelongsToRelation
     protected function getLoadUrl()
     {
         $selectable = str_replace('\\', '_', $this->selectable);
-        $multiple = !empty($this->multiple) ? 1 : 0;
-        $args = [$multiple];
+        $multiple   = !empty($this->multiple) ? 1 : 0;
+        $args       = [$multiple];
 
         return route('admin.handle-selectable', compact('selectable', 'args'));
     }
@@ -69,7 +70,7 @@ trait BelongsToRelation
     /**
      * @return $this
      */
-    public function addHtml()
+    public function addModal()
     {
         $trans = [
             'choose' => admin_trans('admin.choose'),
@@ -77,91 +78,19 @@ trait BelongsToRelation
             'submit' => admin_trans('admin.submit'),
         ];
 
-        $html = <<<HTML
-<div class="modal fade belongsto" id="{$this->modalID}" tabindex="-1" role="dialog">
-  <div class="modal-dialog modal-lg" role="document">
-    <div class="modal-content" style="border-radius: 5px;">
-      <div class="modal-header">
-        <h4 class="modal-title">{$trans['choose']}</h4>
-        <button type="button" class="btn btn-light close" data-bs-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-        </button>
-
-      </div>
-      <div class="modal-body">
-        <div class="loading text-center">
-            <div class="icon-spin">
-                <i class="icon-spinner icon-spin icon-3x icon-fw"></i>
-            </div>
-        </div>
-      </div>
-      <div class="modal-footer">
+        $footer = <<<HTML
         <button type="button" class="btn btn-light" data-bs-dismiss="modal">{$trans['cancal']}</button>
         <button type="button" class="btn btn-primary submit">{$trans['submit']}</button>
-      </div>
-    </div>
-  </div>
-</div>
-HTML;
+        HTML;
+
+        $modal = new Modal([
+            'id'     => $this->modalID,
+            'title'  => $trans['choose'],
+            'footer' => $footer,
+        ]);
+
+        $html = $modal->render();
         Admin::html($html);
-
-        return $this;
-    }
-
-    /**
-     * @return $this
-     */
-    public function addStyle()
-    {
-        $style = <<<'STYLE'
-            .belongsto.modal tr {
-                cursor: pointer;
-            }
-
-            .belongsto .modal-body{
-                padding:0;
-            }
-
-            .belongsto.modal .box {
-                border-top: none;
-                margin-bottom: 0;
-                box-shadow: none;
-            }
-
-            .belongsto.modal .loading {
-                margin: 50px;
-            }
-
-            .belongsto-selected-rows footer{
-                display:none;
-            }
-
-            .belongsto-selected-rows .card-header{
-                padding:0rem;
-            }
-
-            .belongsto-selected-rows table{
-                border:1px solid var(--table-border-color);
-            }
-            .belongsto-selected-rows td.column-__remove__{
-                text-align:center;
-            }
-
-            .belongsto.modal .grid-table .empty-grid {
-                padding: 20px !important;
-            }
-
-            .belongsto.modal .grid-table .empty-grid svg {
-                width: 40px !important;
-                height: 40px !important;
-            }
-
-            .belongsto.modal .grid-box .box-footer {
-                border-top: none !important;
-            }
-        STYLE;
-
-        Admin::style($style);
 
         return $this;
     }
@@ -275,13 +204,13 @@ JS;
     }
 
     /**
-     * {@inheritdoc}
+     * @inheritdoc
      */
     public function render()
     {
         $this->modalID = sprintf('modal-selector-%s', $this->getElementClassString());
 
-        $this->addScript()->addHtml()->addStyle();
+        $this->addScript()->addModal();
 
         $this->addVariables([
             'grid'    => $this->makeGrid(),

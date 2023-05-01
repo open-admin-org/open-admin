@@ -1,0 +1,51 @@
+/*--------------------------------------------------------*/
+/* resource (grid or form) in a modal */
+/*--------------------------------------------------------*/
+
+.resource-modal.modal {
+    .modal-body {
+        padding: 0;
+    }
+
+    .box {
+        border-top: none;
+        margin-bottom: 0;
+        box-shadow: none;
+    }
+
+    .loading {
+        margin: 50px;
+    }
+
+    .grid-table .empty-grid {
+        padding: 20px !important;
+    }
+
+    .grid-table .empty-grid svg {
+        width: 40px !important;
+        height: 40px !important;
+    }
+
+    .grid-table tr {
+        cursor: pointer;
+    }
+
+    .grid-box .box-footer {
+        border-top: none !important;
+    }
+
+    .content-header {
+        display: none;
+    }
+
+    .card-detail .card-header {
+        display: none;
+    }
+
+    .card.box-info > .card-header {
+        display: none;
+    }
+    .form-footer {
+        display: none;
+    }
+}
