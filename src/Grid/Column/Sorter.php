@@ -11,7 +11,7 @@ class Sorter implements Renderable
      *
      * @var array
      */
-    protected $sort;
+    public $sort;
 
     /**
      * Cast Name.
@@ -28,7 +28,7 @@ class Sorter implements Renderable
     /**
      * @var string
      */
-    protected $columnName;
+    public $columnName;
 
     /**
      * Sorter constructor.
@@ -39,9 +39,14 @@ class Sorter implements Renderable
      */
     public function __construct($sortName, $columnName, $cast)
     {
-        $this->sortName = $sortName;
+        $this->sortName   = $sortName;
         $this->columnName = $columnName;
-        $this->cast = $cast;
+        $this->cast       = $cast;
+    }
+
+    public function getColumnName()
+    {
+        return $this->columnName;
     }
 
     /**
@@ -69,7 +74,7 @@ class Sorter implements Renderable
         $type = 'desc';
 
         if ($this->isSorted()) {
-            $type = $this->sort['type'] == 'desc' ? 'asc' : 'desc';
+            $type      = $this->sort['type'] == 'desc' ? 'asc' : 'desc';
             $icon_type = $this->sort['type'] == 'desc' ? 'down' : 'up';
             $icon .= "-amount-{$icon_type}";
         }

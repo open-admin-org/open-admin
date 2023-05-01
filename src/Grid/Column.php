@@ -109,7 +109,7 @@ class Column
      */
     public function __construct($name, $label)
     {
-        $this->name = $name;
+        $this->name  = $name;
         $this->label = $this->formatLabel($label);
 
         $this->initAttributes();
@@ -335,7 +335,7 @@ class Column
      */
     public function setRelation($relation, $relationColumn = null)
     {
-        $this->relation = $relation;
+        $this->relation       = $relation;
         $this->relationColumn = $relationColumn;
 
         return $this;
@@ -358,9 +358,9 @@ class Column
      *
      * @return Column|string
      */
-    public function sortable($cast = null)
+    public function sortable($set = true, $cast = null)
     {
-        return $this->addSorter($cast);
+        return $this->addSorter($set, $cast);
     }
 
     /**
@@ -514,12 +514,12 @@ class Column
             $previous = $value;
 
             $callback = $this->bindOriginalRowModel($callback, $key);
-            $value = call_user_func_array($callback, [$value, $this]);
+            $value    = call_user_func_array($callback, [$value, $this]);
 
-            if (($value instanceof static) &&
-                ($last = array_pop($this->displayCallbacks))
+            if (($value instanceof static)
+                && ($last = array_pop($this->displayCallbacks))
             ) {
-                $last = $this->bindOriginalRowModel($last, $key);
+                $last  = $this->bindOriginalRowModel($last, $key);
                 $value = call_user_func_array($last, [$previous, $this]);
             }
         }
@@ -603,7 +603,7 @@ class Column
             throw new \Exception("Invalid column definition [$class]");
         }
 
-        $grid = $this->grid;
+        $grid   = $this->grid;
         $column = $this;
 
         $this->display(function ($value) use ($grid, $column, $class) {
@@ -691,7 +691,7 @@ class Column
         }
 
         if (class_exists($abstract) && is_subclass_of($abstract, AbstractDisplayer::class)) {
-            $grid = $this->grid;
+            $grid   = $this->grid;
             $column = $this;
 
             return $this->display(function ($value) use ($abstract, $grid, $column, $arguments) {
@@ -718,7 +718,7 @@ class Column
     public function __call($method, $arguments)
     {
         if ($this->isRelation() && !$this->relationColumn) {
-            $this->name = "{$this->relation}.$method";
+            $this->name  = "{$this->relation}.$method";
             $this->label = $this->formatLabel($arguments[0] ?? null);
 
             $this->relationColumn = $method;
