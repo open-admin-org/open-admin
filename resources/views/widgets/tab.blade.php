@@ -28,14 +28,16 @@
     </ul>
     <div class="tab-content">
         @foreach ($tabs as $i => $tab)
-            <div class="card-body tab-pane {{ $active === $i ? 'active' : '' }}" id="{{ $tab['ref'] }}">
-                @php($content = \Illuminate\Support\Arr::get($tab, 'content'))
-                @if ($content instanceof \Illuminate\Contracts\Support\Renderable)
-                    {!! $content->render() !!}
-                @else
-                    {!! $content !!}
-                @endif
-            </div>
+            @php($content = \Illuminate\Support\Arr::get($tab, 'content'))
+            @if ($content)
+                <div class="card-body tab-pane {{ $active === $i ? 'active' : '' }}" id="{{ $tab['ref'] }}">
+                    @if ($content instanceof \Illuminate\Contracts\Support\Renderable)
+                        {!! $content->render() !!}
+                    @else
+                        {!! $content !!}
+                    @endif
+                </div>
+            @endif
         @endforeach
 
     </div>
