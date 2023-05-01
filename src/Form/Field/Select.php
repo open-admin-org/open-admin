@@ -193,9 +193,9 @@ JS;
     protected function loadRemoteOptions($url, $parameters = [], $options = [])
     {
         $this->config = array_merge([
-            'removeItems'        => true,
-            'removeItemButton'   => true,
-            'allowHTML'          => true,
+            'removeItems'      => true,
+            'removeItemButton' => true,
+            'allowHTML'        => true,
         ], $this->config);
 
         $parameters_json = json_encode($parameters);
@@ -221,10 +221,10 @@ JS;
     public function ajax($url, $idField = 'id', $textField = 'text')
     {
         $this->config = array_merge([
-            'removeItems'        => true,
-            'removeItemButton'   => true,
-            'allowHTML'          => true,
-            'placeholder'        => $this->label,
+            'removeItems'      => true,
+            'removeItemButton' => true,
+            'allowHTML'        => true,
+            'placeholder'      => $this->label,
         ], $this->config);
 
         $this->additional_script = <<<JS
@@ -329,15 +329,15 @@ JS;
     }
 
     /**
-     * {@inheritdoc}
+     * @inheritdoc
      */
     public function render()
     {
         $configs = array_merge([
-            'removeItems'        => true,
-            'removeItemButton'   => true,
-            'allowHTML'          => true,
-            'placeholder'        => [
+            'removeItems'      => true,
+            'removeItemButton' => true,
+            'allowHTML'        => true,
+            'placeholder'      => [
                 'id'   => '',
                 'text' => $this->label,
             ],
