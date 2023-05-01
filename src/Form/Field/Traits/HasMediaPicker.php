@@ -10,7 +10,7 @@ use OpenAdmin\Admin\Form\Field;
  */
 trait HasMediaPicker
 {
-    public $picker = false;
+    public $picker      = false;
     public $picker_path = '';
 
     /**

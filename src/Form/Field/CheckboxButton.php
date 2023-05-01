@@ -10,7 +10,7 @@ class CheckboxButton extends Checkbox
     protected $cascadeEvent = 'change';
 
     /**
-     * {@inheritdoc}
+     * @inheritdoc
      */
     public function render()
     {

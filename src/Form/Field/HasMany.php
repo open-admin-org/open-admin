@@ -100,7 +100,7 @@ class HasMany extends Field
         $this->column = $relationName;
 
         if (count($arguments) == 1) {
-            $this->label = $this->formatLabel();
+            $this->label   = $this->formatLabel();
             $this->builder = $arguments[0];
         }
 
@@ -124,7 +124,7 @@ class HasMany extends Field
 
         $input = Arr::only($input, $this->column);
 
-        /** unset item that contains remove flag */
+        /* unset item that contains remove flag */
         foreach ($input[$this->column] as $key => $value) {
             if ($value[NestedForm::REMOVE_FLAG_NAME]) {
                 unset($input[$this->column][$key]);
@@ -171,8 +171,8 @@ class HasMany extends Field
         foreach ($rules as $column => $rule) {
             foreach (array_keys($input[$this->column]) as $key) {
                 $newRules["{$this->column}.$key.$column"] = $rule;
-                if (isset($input[$this->column][$key][$column]) &&
-                    is_array($input[$this->column][$key][$column])) {
+                if (isset($input[$this->column][$key][$column])
+                    && is_array($input[$this->column][$key][$column])) {
                     foreach ($input[$this->column][$key][$column] as $vkey => $value) {
                         $newInput["{$this->column}.$key.{$column}$vkey"] = $value;
                     }
@@ -501,7 +501,7 @@ class HasMany extends Field
     protected function setupScriptForDefaultView($templateScript)
     {
         $removeClass = NestedForm::REMOVE_FLAG_CLASS;
-        $defaultKey = NestedForm::DEFAULT_KEY_NAME;
+        $defaultKey  = NestedForm::DEFAULT_KEY_NAME;
 
         /**
          * When add a new sub form, replace all element key in new sub form.
@@ -563,7 +563,7 @@ JS;
     protected function setupScriptForTabView($templateScript)
     {
         $removeClass = NestedForm::REMOVE_FLAG_CLASS;
-        $defaultKey = NestedForm::DEFAULT_KEY_NAME;
+        $defaultKey  = NestedForm::DEFAULT_KEY_NAME;
 
         $this->setupScriptForDefaultView($templateScript);
 
@@ -600,7 +600,7 @@ EOT;
     protected function setupScriptForTableView($templateScript)
     {
         $removeClass = NestedForm::REMOVE_FLAG_CLASS;
-        $defaultKey = NestedForm::DEFAULT_KEY_NAME;
+        $defaultKey  = NestedForm::DEFAULT_KEY_NAME;
 
         $this->setupScriptForDefaultView($templateScript);
 
@@ -677,8 +677,8 @@ EOT;
     protected function renderTable()
     {
         $headers = [];
-        $fields = [];
-        $hidden = [];
+        $fields  = [];
+        $hidden  = [];
         $scripts = [];
 
         $this->addSortable('.has-many-', '-forms');
@@ -691,7 +691,7 @@ EOT;
                 /* Hide label and set field width 100% */
                 $field->setLabelClass(['hidden']);
                 $field->setWidth(12, 0);
-                $fields[] = $field->render();
+                $fields[]  = $field->render();
                 $headers[] = $field->label();
             }
 
