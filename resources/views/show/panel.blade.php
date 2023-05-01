@@ -1,4 +1,4 @@
-<div class="card border-{{ $style }}" @if ($style!= 'none')style="border-top:2px solid;" @endif>
+<div class="card card-detail border-{{ $style }}" @if ($style!= 'none')style="border-top:2px solid;" @endif>
     <div class="card-header with-border">
         <h3 class="card-title">{{ $title }}</h3>
 
