@@ -93,6 +93,9 @@ abstract class AbstractFilter
      */
     protected $ignore = false;
 
+    public $cols_label;
+    public $cols_field;
+
     /**
      * AbstractFilter constructor.
      *
@@ -102,8 +105,8 @@ abstract class AbstractFilter
     public function __construct($column, $label = '')
     {
         $this->column = $column;
-        $this->label = $this->formatLabel($label);
-        $this->id = $this->formatId($column);
+        $this->label  = $this->formatLabel($label);
+        $this->id     = $this->formatId($column);
 
         $this->setupDefaultPresenter();
     }
@@ -330,7 +333,7 @@ abstract class AbstractFilter
      */
     public function time($options = [])
     {
-        $options = array_merge(['format' => 'HH:mm:ss', 'noCalendar'=>true], $options);
+        $options = array_merge(['format' => 'HH:mm:ss', 'noCalendar' => true], $options);
 
         return $this->datetime($options);
     }
@@ -342,7 +345,7 @@ abstract class AbstractFilter
      */
     public function day($options = [])
     {
-        $options = array_merge(['mask'=>'99', 'rightAlign'=> false], $options);
+        $options = array_merge(['mask' => '99', 'rightAlign' => false], $options);
 
         return $this->inputmask($options, 'calendar');
     }
@@ -354,7 +357,7 @@ abstract class AbstractFilter
      */
     public function month($options = [])
     {
-        $options = array_merge(['mask'=>'99', 'rightAlign'=> false], $options);
+        $options = array_merge(['mask' => '99', 'rightAlign' => false], $options);
 
         return $this->inputmask($options, 'calendar');
     }
@@ -366,7 +369,7 @@ abstract class AbstractFilter
      */
     public function year($options = [])
     {
-        $options = array_merge(['mask'=>'9999', 'rightAlign'=> false], $options);
+        $options = array_merge(['mask' => '9999', 'rightAlign' => false], $options);
 
         return $this->inputmask($options, 'calendar');
     }
@@ -488,7 +491,7 @@ abstract class AbstractFilter
         $args = func_get_args();
 
         $relation = substr($this->column, 0, strrpos($this->column, '.'));
-        $args[0] = last(explode('.', $this->column));
+        $args[0]  = last(explode('.', $this->column));
 
         return ['whereHas' => [$relation, function ($relation) use ($args) {
             call_user_func_array([$relation, $this->query], $args);
@@ -503,13 +506,23 @@ abstract class AbstractFilter
     protected function variables()
     {
         return array_merge([
-            'id'        => $this->id,
-            'column'    => $this->column,
-            'name'      => $this->formatName($this->column),
-            'label'     => $this->label,
-            'value'     => $this->value ?: $this->defaultValue,
-            'presenter' => $this->presenter(),
+            'id'         => $this->id,
+            'column'     => $this->column,
+            'name'       => $this->formatName($this->column),
+            'label'      => $this->label,
+            'value'      => $this->value ?: $this->defaultValue,
+            'cols_label' => $this->cols_label ?? 2,
+            'cols_field' => $this->cols_field ?? 8,
+            'presenter'  => $this->presenter(),
         ], $this->presenter()->variables());
+    }
+
+    public function setCols($label = 2, $field = 8)
+    {
+        $this->cols_label = $label;
+        $this->cols_field = $field;
+
+        return $this;
     }
 
     /**
@@ -519,6 +532,12 @@ abstract class AbstractFilter
      */
     public function render()
     {
+        if ($this->cols_label || $this->cols_field) {
+            $this->setCols($this->cols_label, $this->cols_field);
+        } elseif ($this->parent->cols_label || $this->parent->cols_field) {
+            $this->setCols($this->parent->cols_label, $this->parent->cols_field);
+        }
+
         return view($this->view, $this->variables());
     }
 

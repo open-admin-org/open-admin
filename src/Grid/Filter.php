@@ -72,6 +72,8 @@ class Filter implements Renderable
         'endsWith'   => Filter\EndsWith::class,
     ];
 
+    public $cols_label;
+    public $cols_field;
     /**
      * If use id filter.
      *
@@ -208,6 +210,14 @@ class Filter implements Renderable
     public function setFilterID($filterID)
     {
         $this->filterID = $filterID;
+
+        return $this;
+    }
+
+    public function setCols($label = 2, $field = 8)
+    {
+        $this->cols_label = $label;
+        $this->cols_field = $field;
 
         return $this;
     }
@@ -380,7 +390,7 @@ class Filter implements Renderable
         $filter->setParent($this);
 
         if ($this->thisFilterLayoutOnly) {
-            $this->thisFilterLayoutOnly = false;
+            $this->thisFilterLayoutOnly      = false;
             $this->layoutOnlyFilterColumns[] = $filter->getColumn();
         }
 
@@ -551,10 +561,12 @@ class Filter implements Renderable
         }
 
         return view($this->view)->with([
-            'action'   => $this->action ?: $this->urlWithoutFilters(),
-            'layout'   => $this->layout,
-            'filterID' => $this->filterID,
-            'expand'   => $this->expand,
+            'action'     => $this->action ?: $this->urlWithoutFilters(),
+            'layout'     => $this->layout,
+            'filterID'   => $this->filterID,
+            'expand'     => $this->expand,
+            'cols_label' => $this->cols_label ?? 2,
+            'cols_field' => $this->cols_field ?? 8,
         ])->render();
     }
 
@@ -661,6 +673,10 @@ class Filter implements Renderable
     public function __call($method, $arguments)
     {
         if ($filter = $this->resolveFilter($method, $arguments)) {
+            if ($this->cols_label) {
+                $filter->setCols($this->cols_label, $this->cols_field);
+            }
+
             return $this->addFilter($filter);
         }
 
