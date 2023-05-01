@@ -9,7 +9,8 @@ use OpenAdmin\Admin\Actions\RowAction;
 
 class Delete extends RowAction
 {
-    public $icon = 'icon-trash';
+    public $icon  = 'icon-trash';
+    public $class = 'row-delete';
 
     /**
      * @return array|null|string
@@ -22,8 +23,8 @@ class Delete extends RowAction
     public function addScript()
     {
         $this->attributes = [
-            'onclick' => 'admin.resource.delete(event,this)',
-            'data-url'=> "{$this->getResource()}/{$this->getKey()}",
+            'onclick'  => 'admin.resource.delete(event,this)',
+            'data-url' => "{$this->getResource()}/{$this->getKey()}",
         ];
     }
 
