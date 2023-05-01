@@ -132,7 +132,19 @@ class Form implements Renderable
      */
     protected $isSoftDeletes = false;
 
+    /**
+     * Show the footer fixed at the bottom of the screen.
+     *
+     * @var bool
+     */
     public $fixedFooter = true;
+
+    /**
+     * Overwrite the resource url if needed
+     *
+     * @var string
+     */
+    public $resourceUrl = false;
 
     /**
      * Create a new form instance.
@@ -634,7 +646,10 @@ class Form implements Renderable
      */
     protected function redirectAfterSaving($resourcesPath, $key)
     {
-        if (request('after-save') == 'continue_editing') {
+        if (request('after-save-url')) {
+            // return to custom url
+            $url = urldecode(request('after-save-url'));
+        } elseif (request('after-save') == 'continue_editing') {
             // continue editing
             $url = rtrim($resourcesPath, '/')."/{$key}/edit";
         } elseif (request('after-save') == 'continue_creating') {
@@ -1006,6 +1021,31 @@ class Form implements Renderable
                 return $field->column() == $column;
             }
         );
+    }
+
+    /**
+     * Find field object by column.
+     *
+     * @param $column
+     *
+     * @return mixed
+     */
+    public function callFieldByColumn($column, Closure $callback)
+    {
+        $this->fields()->each(function (Field $field) use ($column, $callback) {
+            if (is_array($field->column())) {
+                if (in_array($column, $field->column())) {
+                    $callback($field);
+
+                    return;
+                }
+            }
+            if ($field->column() == $column) {
+                $callback($field);
+
+                return;
+            }
+        });
     }
 
     /**
@@ -1433,13 +1473,28 @@ class Form implements Renderable
      */
     public function resource($slice = -2): string
     {
-        $segments = explode('/', trim(\request()->getUri(), '/'));
+        $url      = !empty($this->resourceUrl) ? trim($this->resourceUrl) : trim(\request()->getUri(), '/');
+        $segments = explode('/', $url);
 
         if ($slice !== 0) {
             $segments = array_slice($segments, 0, $slice);
         }
 
         return implode('/', $segments);
+    }
+
+    /**
+     * Get set the name of the current resource url (without /admin/).
+     *
+     * @param string $path
+     *
+     * @return Form
+     */
+    public function setResourcePath($path)
+    {
+        $this->resourceUrl = admin_url($path);
+
+        return $this;
     }
 
     /**

@@ -20,6 +20,36 @@ trait HasResourceActions
     }
 
     /**
+     * Returns the form with possible callback hooks.
+     *
+     * @return \OpenAdmin\Admin\Show;
+     */
+    public function getShow($id = null)
+    {
+        $show = $this->detail($id);
+        if (method_exists($this, 'hasHooks') && $this->hasHooks('alterShow')) {
+            $show = $this->callHooks('alterShow', $show);
+        }
+
+        return $show;
+    }
+
+    /**
+     * Returns the form with possible callback hooks.
+     *
+     * @return \OpenAdmin\Admin\Grid;
+     */
+    public function getGrid()
+    {
+        $grid = $this->grid();
+        if (method_exists($this, 'hasHooks') && $this->hasHooks('alterGrid')) {
+            $grid = $this->callHooks('alterGrid', $grid);
+        }
+
+        return $grid;
+    }
+
+    /**
      * Update the specified resource in storage.
      *
      * @param int $id

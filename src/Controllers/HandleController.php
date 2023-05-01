@@ -172,10 +172,31 @@ class HandleController extends Controller
      *
      * @return mixed|string|string[]
      */
+    public function handleResourceable(Request $request)
+    {
+        $class = $request->get('resourceable');
+        $args  = $request->get('args', []);
+        $class = str_replace('_', '\\', $class);
+
+        if (class_exists($class)) {
+            /** @var \OpenAdmin\Admin\Resourceable $selectable */
+            $resourceable = new $class();
+
+            return $resourceable->handle($args);
+        }
+
+        return $class;
+    }
+
+    /**
+     * @param Request $request
+     *
+     * @return mixed|string|string[]
+     */
     public function handleRenderable(Request $request)
     {
         $class = $request->get('renderable');
-        $key = $request->get('key');
+        $key   = $request->get('key');
 
         $class = str_replace('_', '\\', $class);
 
