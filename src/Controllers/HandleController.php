@@ -70,11 +70,11 @@ class HandleController extends Controller
     {
         $action = $this->resolveActionInstance($request);
 
-        $model = null;
+        $model     = null;
         $arguments = [];
 
         if ($action instanceof GridAction) {
-            $model = $action->retrieveModel($request);
+            $model       = $action->retrieveModel($request);
             $arguments[] = $model;
         }
 
@@ -153,7 +153,7 @@ class HandleController extends Controller
     public function handleSelectable(Request $request)
     {
         $class = $request->get('selectable');
-        $args = $request->get('args', []);
+        $args  = $request->get('args', []);
 
         $class = str_replace('_', '\\', $class);
 
