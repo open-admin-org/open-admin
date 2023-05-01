@@ -1365,14 +1365,13 @@ class Field implements Renderable
             $name = $this->elementName ?: $this->formatName($this->column);
 
             $this->elementClass = (array) str_replace(['[', ']'], '_', $name);
-        }
 
-        if ($this->prependClass) {
-            $this->elementClass = array_merge($this->elementClass, $this->prependClass);
-        }
-
-        if ($this->appendClass) {
-            $this->elementClass = array_merge($this->elementClass, $this->appendClass);
+            if ($this->prependClass) {
+                $this->elementClass = array_merge($this->prependClass, $this->elementClass);
+            }
+            if ($this->appendClass) {
+                $this->elementClass = array_merge($this->elementClass, $this->appendClass);
+            }
         }
 
         return $this->elementClass;
