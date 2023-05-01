@@ -7,7 +7,7 @@
         @endforeach
     </select>
 
-    <div class="belongsto-{{ $class }} belongsto belongsto-selected-rows">
+    <div class="belongsto-{{ $class }} form-grid form-grid-rows">
 
         {!! $grid->render() !!}
 

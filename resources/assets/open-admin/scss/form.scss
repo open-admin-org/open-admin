@@ -458,3 +458,26 @@ form .card-footer {
     border-bottom-left-radius: 0.3rem;
     border-bottom-right-radius: 0.3rem;
 }
+
+/*--------------------------------------------------------*/
+/* form-grid */
+/*--------------------------------------------------------*/
+
+.form-grid footer {
+    display: none;
+}
+
+.form-grid .card-header {
+    padding: 0rem;
+}
+
+.form-grid table {
+    border: 1px solid var(--table-border-color);
+}
+.form-grid .table-responsive .__actions__div {
+    right: 1px;
+}
+
+.form-grid td.column-__remove__ {
+    text-align: center;
+}

@@ -6,7 +6,7 @@
             @endforeach
         </select>
 
-        <div class="belongstomany-{{ $class }} belongstomany belongsto-selected-rows">
+        <div class="belongstomany-{{ $class }} form-grid form-grid-rows">
             {!! $grid->render() !!}
             <template class="empty">
                 @include('admin::grid.empty-grid')
