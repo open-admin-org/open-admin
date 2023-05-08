@@ -15,7 +15,7 @@
         @if (!$tabObj->isEmpty())
             @include('admin::form.tab', compact('tabObj'))
         @else
-            <div class="container fields-group">
+            <div class="container-fluid fields-group">
                 @if ($form->hasRows())
                     @foreach ($form->getRows() as $row)
                         {!! $row->render() !!}
