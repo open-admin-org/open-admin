@@ -54,7 +54,7 @@ class GenerateMenuCommand extends Command
             // built-in, parameterized and no-GET are ignored
             return Str::startsWith($uri, $adminPrefix.'/')
                 && !Str::startsWith($uri, $adminPrefix.'/auth/')
-                && !Str::startsWith($uri, $adminPrefix . '/_')
+                && !Str::startsWith($uri, $adminPrefix.'/_')
                 && !Str::endsWith($uri, '/create')
                 && !Str::contains($uri, '{')
                 && in_array('GET', $route->methods());
