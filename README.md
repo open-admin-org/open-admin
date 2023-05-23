@@ -83,7 +83,7 @@ Configurations
 The file `config/admin.php` contains an array of configurations, you can find the default configurations in there.
 
 ## Extensions
-<a href="https://open-admin.org/docs/en/extension-development">Extention development</a>
+<a href="https://open-admin.org/docs/en/extension-development">Extension development</a>
 
 More coming soon
 
@@ -93,13 +93,13 @@ More coming soon
 | [media-manager](https://github.com/open-admin-org/media-manager) | Provides a web interface to manage local files          | ~1.0 |
 | [config](https://github.com/open-admin-org/config)               | Config manager for open-admin            |~1.0 |
 | [grid-sortable](https://github.com/open-admin-org/grid-sortable) | Sortable grids                           |~1.0 |
-| [Ckeditor](https://github.com/open-admin-org/ckeditor)           | Ckeditor for forms                       |~1.0 |
+| [CkEditor](https://github.com/open-admin-org/ckeditor)           | CkEditor for forms                       |~1.0 |
 | [api-tester](https://github.com/open-admin-org/api-tester)       | Test api calls from the admin            |~1.0 |
 | [scheduling](https://github.com/open-admin-org/scheduling)       | Show and test your cronjobs              |~1.0 |
 | [phpinfo](https://github.com/open-admin-org/phpinfo)             | Show php info in the admin               |~1.0 |
-| [log-viewer](https://github.com/open-admin-org/log-viewer)       | Log viewer for laravel                   |~1.0.12 |
+| [log-viewer](https://github.com/open-admin-org/log-viewer)       | Log viewer for Laravel                   |~1.0.12 |
 | [page-designer](https://github.com/open-admin-org/page-designer) | Page designer to position items freely   |~1.0.18 |
-| [reporter](https://github.com/open-admin-org/reporter)           | rovides a developer-friendly web interface to view the exception    |~1.0.18 |
+| [reporter](https://github.com/open-admin-org/reporter)           | Provides a developer-friendly web interface to view the exception    |~1.0.18 |
 | [redis-manager](https://github.com/open-admin-org/redis-manager) | Redis manager for open-admin             |~1.0.20 |
 
 
