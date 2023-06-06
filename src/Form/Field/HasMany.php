@@ -563,7 +563,7 @@ JS;
      *
      * @return void
      */
-    protected function setupScriptForTabVddiew($templateScript)
+    protected function setupScriptForTabView($templateScript)
     {
         $removeClass = NestedForm::REMOVE_FLAG_CLASS;
         $defaultKey = NestedForm::DEFAULT_KEY_NAME;
