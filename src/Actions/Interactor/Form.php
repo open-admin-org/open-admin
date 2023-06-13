@@ -217,7 +217,7 @@ class Form extends Interactor
     public function validate(Request $request)
     {
         if ($this->action instanceof RowAction) {
-            call_user_func([$this->action, 'form'], $this->getRow());
+            //call_user_func([$this->action, 'handle'], $this->getRow(), $request);
         } else {
             call_user_func([$this->action, 'form']);
         }
@@ -365,15 +365,17 @@ class Form extends Interactor
                     if (myModalEl.querySelector("[name='_key']").value == ""){
                         myModalEl.querySelector("[name='_key']").value = admin.grid.selected.join();
                     }
-
-                    myModalEl.querySelector('form').addEventListener('submit',function(e){
-                        e.preventDefault();
-                        var form = this;
-                        admin.form.submit(form,function(data){
-                            admin.actions.actionResolver([data,el]);
+                    if (!myModalEl.querySelector('form').hasAttribute('listener_assigned')) {
+                        myModalEl.querySelector('form').addEventListener('submit',function(e){
+                            e.preventDefault();
+                            var form = this;
+                            admin.form.submit(form,function(data){
+                                admin.actions.actionResolver([data,el]);
+                            });
+                            modal.hide();
                         });
-                        modal.hide();
-                    });
+                    }
+                    myModalEl.querySelector('form').setAttribute('listener_assigned', 1);
                 });
             });
         SCRIPT;
