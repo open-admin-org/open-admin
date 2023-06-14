@@ -9,7 +9,7 @@ use Symfony\Component\HttpFoundation\Response;
 trait HasHooks
 {
     /**
-     * Supported hooks: submitted, editing, saving, saved, deleting, deleted.
+     * Supported hooks: submitted, editing, saving, saved, updated, deleting, deleted.
      *
      * @var array
      */
@@ -135,6 +135,18 @@ trait HasHooks
     }
 
     /**
+     * Set updated callback.
+     *
+     * @param Closure $callback
+     *
+     * @return $this
+     */
+    public function updated(Closure $callback)
+    {
+        return $this->registerHook('updated', $callback);
+    }
+
+    /**
      * @param Closure $callback
      *
      * @return $this
@@ -185,13 +197,23 @@ trait HasHooks
     }
 
     /**
-     * Callback after saving a Model.
+     * Callback after saving a Model (new model).
      *
      * @return mixed|null
      */
     protected function callSaved()
     {
         return $this->callHooks('saved');
+    }
+
+    /**
+     * Callback after updating a Model.
+     *
+     * @return mixed|null
+     */
+    protected function callUpdated()
+    {
+        return $this->callHooks('updated');
     }
 
     /**

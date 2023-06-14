@@ -586,7 +586,7 @@ class Form implements Renderable
             $this->updateRelation($this->relations);
         });
 
-        if (($result = $this->callSaved()) instanceof Response) {
+        if (($result = $this->callUpdated()) instanceof Response) {
             return $result;
         }
 
