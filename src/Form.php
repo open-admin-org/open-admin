@@ -137,7 +137,7 @@ class Form implements Renderable
     /**
      * Create a new form instance.
      *
-     * @param $model
+     * @param          $model
      * @param \Closure $callback
      */
     public function __construct($model, Closure $callback = null)
