@@ -27,24 +27,46 @@ admin.init = function () {
 admin.menu = {
     init: function () {
         let menuToggle = document.getElementById('menu-toggle');
-
+        let sidebar = document.getElementById("sidebar");
+        let bodyClasses = document.body.classList;
+    
         menuToggle.addEventListener('click', function () {
-            if (!document.body.classList.contains('side-menu-closed')) {
+            if (!bodyClasses.contains('side-menu-closed')) {
                 admin.menu.close();
             }
 
             if (window.innerWidth < 576) {
-                document.body.classList.toggle('side-menu-open');
-                document.body.classList.remove('side-menu-closed');
+                bodyClasses.toggle('side-menu-open');
+                bodyClasses.remove('side-menu-closed');
             } else {
-                document.body.classList.toggle('side-menu-closed');
-                document.body.classList.remove('side-menu-open');
+                bodyClasses.toggle('side-menu-closed');
+                bodyClasses.remove('side-menu-open');
+            }
+
+            if (bodyClasses.contains('sidebar-collapse')) {
+                bodyClasses.toggle('sidebar-collapse');
             }
         });
 
+        sidebar.addEventListener("mouseover", function() {
+            if (bodyClasses.contains('sidebar-collapse') && bodyClasses.contains('side-menu-closed')) {
+                bodyClasses.remove('side-menu-closed');
+            }
+        });
+    
+        sidebar.addEventListener("mouseout", function() {
+            if (bodyClasses.contains('sidebar-collapse') && !bodyClasses.contains('side-menu-closed')) {
+                bodyClasses.add('side-menu-closed');
+            }
+        });
+    
+        if (bodyClasses.contains('sidebar-mini')) {
+            bodyClasses.add('side-menu-closed');
+        }
+    
         window.addEventListener('resize', function () {
             if (window.innerWidth < 576) {
-                document.body.classList.remove('side-menu-closed');
+                bodyClasses.remove('side-menu-closed');
             }
         });
 
