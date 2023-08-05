@@ -90,7 +90,7 @@ class HasMany extends Field
     /**
      * Create a new HasMany field instance.
      *
-     * @param $relationName
+     * @param       $relationName
      * @param array $arguments
      */
     public function __construct($relationName, $arguments = [])
