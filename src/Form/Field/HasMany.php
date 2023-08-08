@@ -511,9 +511,8 @@ class HasMany extends Field
          * {count} is increment number of current sub form count.
          */
         $script = <<<JS
-var index = 0;
 document.querySelector('#has-many-{$this->column} .add').addEventListener("click", function () {
-    index++;
+    var index = document.querySelectorAll('#has-many-{$this->column} .has-many-{$this->column}-form').length + 1;
 
     var tpl = document.querySelector('template.{$this->column}-tpl').innerHTML;
     tpl = tpl.replace(/{$defaultKey}/g, index);
