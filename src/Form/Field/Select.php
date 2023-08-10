@@ -114,12 +114,13 @@ class Select extends Field
         } else {
             $class = $field;
         }
+        $unique = uniqid();
 
         $this->additional_script .= <<<JS
 
-            let elm = document.querySelector("{$this->getElementClassSelector()}");
+            let elm_{$unique} = document.querySelector("{$this->getElementClassSelector()}");
             var lookupTimeout;
-            elm.addEventListener('change', function(event) {
+            elm_{$unique}.addEventListener('change', function(event) {
                 var query = {$this->choicesObjName()}.getValue().value;
                 var current_value = {$this->choicesObjName($field)}.getValue().value;
                 admin.ajax.post("{$url}",{query:query},function(data){
@@ -226,11 +227,12 @@ JS;
             'allowHTML'          => true,
             'placeholder'        => $this->label,
         ], $this->config);
+        $unique = uniqid();
 
         $this->additional_script = <<<JS
-            let elm = document.querySelector("{$this->getElementClassSelector()}");
+            let elm_ajax_{$unique} = document.querySelector("{$this->getElementClassSelector()}");
             var lookupTimeout;
-            elm.addEventListener('search', function(event) {
+            elm_ajax_{$unique}.addEventListener('search', function(event) {
                 clearTimeout(lookupTimeout);
                 lookupTimeout = setTimeout(function(){
                     var query = {$this->choicesObjName()}.input.value;
@@ -240,7 +242,7 @@ JS;
                 }, 250);
             });
 
-            elm.addEventListener('choice', function(event) {
+            elm_ajax_{$unique}.addEventListener('choice', function(event) {
                 {$this->choicesObjName()}.setChoices([], '{$idField}', '{$textField}', true);
             });
         JS;
