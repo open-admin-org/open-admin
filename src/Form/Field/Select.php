@@ -117,9 +117,9 @@ class Select extends Field
 
         $this->additional_script .= <<<JS
 
-            let elm = document.querySelector("{$this->getElementClassSelector()}");
+            let elm{$field} = document.querySelector("{$this->getElementClassSelector()}");
             var lookupTimeout;
-            elm.addEventListener('change', function(event) {
+            elm{$field}.addEventListener('change', function(event) {
                 var query = {$this->choicesObjName()}.getValue().value;
                 var current_value = {$this->choicesObjName($field)}.getValue().value;
                 admin.ajax.post("{$url}",{query:query},function(data){
