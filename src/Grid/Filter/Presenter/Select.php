@@ -186,11 +186,12 @@ JS;
             'removeItemButton'   => true,
             'placeholder'        => $this->label,
         ], $this->config);
+        $unique = uniqid();
 
         $this->additional_script = <<<JS
-            let elm = document.querySelector(".{$this->getElementClass()}");
+             let elm_{$unique} = document.querySelector(".{$this->getElementClass()}");
             var lookupTimeout;
-            elm.addEventListener('search', function(event) {
+            elm_{$unique}.addEventListener('search', function(event) {
                 clearTimeout(lookupTimeout);
                 lookupTimeout = setTimeout(function(){
                     var query = {$this->choicesObjName()}.input.value;
@@ -200,7 +201,7 @@ JS;
                 }, 250);
             });
 
-            elm.addEventListener('choice', function(event) {
+            elm_{$unique}.addEventListener('choice', function(event) {
                 {$this->choicesObjName()}.setChoices([], '{$idField}', '{$textField}', true);
             });
         JS;

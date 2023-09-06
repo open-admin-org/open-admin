@@ -117,7 +117,6 @@ class Select extends Field
         $unique = uniqid();
 
         $this->additional_script .= <<<JS
-
             let elm_{$unique} = document.querySelector("{$this->getElementClassSelector()}");
             var lookupTimeout;
             elm_{$unique}.addEventListener('change', function(event) {
