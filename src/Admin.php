@@ -419,7 +419,7 @@ class Admin
 
     public static function asset($asset)
     {
-        return url('/vendor/open-admin/'.$asset);
+        return admin_asset('/vendor/open-admin/'.$asset);
     }
 
     public static function js_trans()
