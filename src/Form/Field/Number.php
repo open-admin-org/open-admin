@@ -25,8 +25,9 @@ class Number extends Text
             empty($this->attributes['readonly']) &&
             empty($this->attributes['disabled'])
         ) {
+            $name= $this->elementName ?: $this->formatName($this->column);
             $this->script = <<<JS
-            new NumberInput(document.querySelector('{$this->getElementClassSelector()}'));
+            new NumberInput(document.querySelector('input[name=\"{$name}\"]'));
             JS;
         }
 

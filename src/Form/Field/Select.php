@@ -348,7 +348,8 @@ JS;
         $configs = json_encode($configs);
 
         if (!$this->native && $this->allowedChoicesJs()) {
-            $this->script .= 'var '.$this->choicesObjName()." = new Choices('{$this->getElementClassSelector()}',{$configs});";
+            $name= $this->elementName ?: $this->formatName($this->column);
+            $this->script .= 'var '.$this->choicesObjName()." = new Choices('select[name=\"{$name}\"]',{$configs});";
             $this->script .= $this->additional_script;
         }
 

@@ -516,7 +516,10 @@ document.querySelector('#has-many-{$this->column} .add').addEventListener("click
     index++;
 
     var tpl = document.querySelector('template.{$this->column}-tpl').innerHTML;
+    var script = `{$templateScript}`;
+
     tpl = tpl.replace(/{$defaultKey}/g, index);
+    script = script.replace(/{$defaultKey}/g, index);
     var clone = htmlToElement(tpl);
     addRemoveHasManyListener{$this->column}(clone.querySelector('.remove'));
     document.querySelector('.has-many-{$this->column}-forms').appendChild(clone);
@@ -525,7 +528,7 @@ document.querySelector('#has-many-{$this->column} .add').addEventListener("click
         addHasManyTab{$this->column}(index);
     }
 
-    {$templateScript}
+    eval(script);
     return false;
 
 });

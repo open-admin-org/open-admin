@@ -58,7 +58,8 @@ class Date extends Text
         $this->options['allowInputToggle'] = true;
         $this->check_format_options();
 
-        $this->script = "flatpickr('{$this->getElementClassSelector()}',".json_encode($this->options).');';
+        $name= $this->elementName ?: $this->formatName($this->column);
+        $this->script = "flatpickr('input[name=\"{$name}\"]',".json_encode($this->options).');';
 
         $this->prepend('<i class="icon-calendar fa-fw"></i>');
         $this->style('max-width', '160px');
