@@ -41,7 +41,7 @@ class Date extends Text
 
     public function check_format_options()
     {
-        $format = $this->options['format'];
+        $format = $this->options['dateFormat'];
         if (substr($format, -2) != 'ss') {
             $this->options['enableSeconds'] = false;
         }
@@ -53,7 +53,7 @@ class Date extends Text
     public function render()
     {
         $this->options = array_merge($this->defaults, $this->options);
-        $this->options['format'] = $this->format;
+        $this->options['dateFormat'] = $this->format;
         $this->options['locale'] = array_key_exists('locale', $this->options) ? $this->options['locale'] : config('app.locale');
         $this->options['allowInputToggle'] = true;
         $this->check_format_options();
