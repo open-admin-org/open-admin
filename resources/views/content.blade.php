@@ -24,6 +24,7 @@
         @include('admin::partials.alerts')
         @include('admin::partials.exception')
         @include('admin::partials.toastr')
+        @include('admin::partials.flashjs')
 
         @if($_view_)
             @include($_view_['view'], $_view_['data'])

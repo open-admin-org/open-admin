@@ -2,13 +2,14 @@
 
 namespace OpenAdmin\Admin\Controllers;
 
-use Illuminate\Support\Facades\Hash;
+use OpenAdmin\Admin\Controllers\Traits\AdminUserHelpers;
 use OpenAdmin\Admin\Form;
 use OpenAdmin\Admin\Grid;
 use OpenAdmin\Admin\Show;
 
 class UserController extends AdminController
 {
+    use AdminUserHelpers;
     /**
      * {@inheritdoc}
      */
@@ -115,10 +116,13 @@ class UserController extends AdminController
         $form->display('created_at', trans('admin.created_at'));
         $form->display('updated_at', trans('admin.updated_at'));
 
+
         $form->saving(function (Form $form) {
-            if ($form->password && $form->model()->password != $form->password) {
-                $form->password = Hash::make($form->password);
-            }
+            $this->handlePassword($form);
+        });
+
+        $form->saved(function (Form $form) {
+            $this->showNewHeaderAvatar($form);
         });
 
         return $form;
