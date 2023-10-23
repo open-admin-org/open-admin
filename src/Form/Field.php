@@ -1422,6 +1422,17 @@ class Field implements Renderable
     }
 
     /**
+     * Get a javascript save variable name .
+     *
+     * @return string
+     */
+    public function getVariableName()
+    {
+        $elementClassSelector = $this->getElementClassSelector();
+        return str_replace(["-",".",">"], "_", $elementClassSelector);
+    }
+
+    /**
      * Add the element class.
      *
      * @param $class
