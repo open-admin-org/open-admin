@@ -328,6 +328,7 @@ class Admin
                 $router->post('_handle_form_', 'HandleController@handleForm')->name('admin.handle-form');
                 $router->post('_handle_action_', 'HandleController@handleAction')->name('admin.handle-action');
                 $router->get('_handle_selectable_', 'HandleController@handleSelectable')->name('admin.handle-selectable');
+                $router->any('_handle_resourceable_', 'HandleController@handleResourceable')->name('admin.handle-resourceable');
                 $router->get('_handle_renderable_', 'HandleController@handleRenderable')->name('admin.handle-renderable');
             });
 
@@ -418,7 +419,7 @@ class Admin
 
     public static function asset($asset)
     {
-        return url('/vendor/open-admin/'.$asset);
+        return admin_asset('/vendor/open-admin/'.$asset);
     }
 
     public static function js_trans()

@@ -121,15 +121,12 @@
                     return false;
                 }
 
-                /*
-                // now handeled through admin.ajax.currentTarget
                 if (event.target.classList.contains('page-link')){
                     load(event.target.getAttribute("href"));
                     event.preventDefault();
                     event.stopPropagation();
                     return false;
                 }
-                */
 
                 if (event.target.tagName == "TD"){
                     event.target.parentNode.querySelector(".form-check-input").click();

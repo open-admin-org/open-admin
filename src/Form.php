@@ -8,7 +8,6 @@ use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\MessageBag;
@@ -19,6 +18,7 @@ use OpenAdmin\Admin\Form\Builder;
 use OpenAdmin\Admin\Form\Concerns\HandleCascadeFields;
 use OpenAdmin\Admin\Form\Concerns\HasFields;
 use OpenAdmin\Admin\Form\Concerns\HasFormAttributes;
+use OpenAdmin\Admin\Form\Concerns\HasFormFlags;
 use OpenAdmin\Admin\Form\Concerns\HasHooks;
 use OpenAdmin\Admin\Form\Field;
 use OpenAdmin\Admin\Form\Layout\Layout;
@@ -39,10 +39,7 @@ class Form implements Renderable
     use HasFormAttributes;
     use HandleCascadeFields;
     use ShouldSnakeAttributes;
-    /**
-     * Remove flag in `has many` form.
-     */
-    public const REMOVE_FLAG_NAME = '_remove_';
+    use HasFormFlags;
 
     /**
      * Eloquent model of the form.
@@ -132,7 +129,19 @@ class Form implements Renderable
      */
     protected $isSoftDeletes = false;
 
+    /**
+     * Show the footer fixed at the bottom of the screen.
+     *
+     * @var bool
+     */
     public $fixedFooter = true;
+
+    /**
+     * Overwrite the resource url if needed
+     *
+     * @var string
+     */
+    public $resourceUrl = false;
 
     /**
      * Create a new form instance.
@@ -634,7 +643,10 @@ class Form implements Renderable
      */
     protected function redirectAfterSaving($resourcesPath, $key)
     {
-        if (request('after-save') == 'continue_editing') {
+        if (request('after-save-url')) {
+            // return to custom url
+            $url = urldecode(request('after-save-url'));
+        } elseif (request('after-save') == 'continue_editing') {
             // continue editing
             $url = rtrim($resourcesPath, '/')."/{$key}/edit";
         } elseif (request('after-save') == 'continue_creating') {
@@ -1009,6 +1021,31 @@ class Form implements Renderable
     }
 
     /**
+     * Find field object by column.
+     *
+     * @param $column
+     *
+     * @return mixed
+     */
+    public function callFieldByColumn($column, Closure $callback)
+    {
+        $this->fields()->each(function (Field $field) use ($column, $callback) {
+            if (is_array($field->column())) {
+                if (in_array($column, $field->column())) {
+                    $callback($field);
+
+                    return;
+                }
+            }
+            if ($field->column() == $column) {
+                $callback($field);
+
+                return;
+            }
+        });
+    }
+
+    /**
      * Set original data for each field.
      *
      * @return void
@@ -1183,6 +1220,40 @@ class Form implements Renderable
         });
 
         $this->builder()->setWidth($fieldWidth, $labelWidth);
+
+        return $this;
+    }
+
+    /**
+     * Set field prefix for current form fields.
+     *
+     * @param string $prefix
+     *
+     * @return $this
+     */
+    public function setFieldsPrependClass($prefix): self
+    {
+        $this->fields()->each(function ($field) use ($prefix) {
+            /* @var Field $field  */
+            $field->setPrependElementClass([$prefix]);
+        });
+
+        return $this;
+    }
+
+    /**
+     * Set field appendix for current form fields.
+     *
+     * @param int $appendix
+     *
+     * @return $this
+     */
+    public function setFieldsAppendClass($suffix): self
+    {
+        $this->fields()->each(function ($field) use ($suffix) {
+            /* @var Field $field  */
+            $field->setAppendElementClass([$suffix]);
+        });
 
         return $this;
     }
@@ -1399,13 +1470,28 @@ class Form implements Renderable
      */
     public function resource($slice = -2): string
     {
-        $segments = explode('/', trim(\request()->getUri(), '/'));
+        $url      = !empty($this->resourceUrl) ? trim($this->resourceUrl) : trim(\request()->getUri(), '/');
+        $segments = explode('/', $url);
 
         if ($slice !== 0) {
             $segments = array_slice($segments, 0, $slice);
         }
 
         return implode('/', $segments);
+    }
+
+    /**
+     * Get set the name of the current resource url (without /admin/).
+     *
+     * @param string $path
+     *
+     * @return Form
+     */
+    public function setResourcePath($path)
+    {
+        $this->resourceUrl = admin_url($path);
+
+        return $this;
     }
 
     /**

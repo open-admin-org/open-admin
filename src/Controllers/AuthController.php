@@ -9,12 +9,14 @@ use Illuminate\Support\Facades\Lang;
 use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Validator;
+use OpenAdmin\Admin\Controllers\Traits\AdminUserHelpers;
 use OpenAdmin\Admin\Facades\Admin;
 use OpenAdmin\Admin\Form;
 use OpenAdmin\Admin\Layout\Content;
 
 class AuthController extends Controller
 {
+    use AdminUserHelpers;
     /**
      * @var string
      */
@@ -153,14 +155,12 @@ class AuthController extends Controller
         $form->ignore(['password_confirmation']);
 
         $form->saving(function (Form $form) {
-            if ($form->password && $form->model()->password != $form->password) {
-                $form->password = Hash::make($form->password);
-            }
+            $this->handlePassword($form);
         });
 
-        $form->saved(function () {
+        $form->saved(function (Form $form) {
             admin_toastr(trans('admin.update_succeeded'));
-
+            $this->showNewHeaderAvatar($form);
             return redirect(admin_url('auth/setting'));
         });
 

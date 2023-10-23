@@ -25,9 +25,10 @@ admin.form = {
         }
     },
 
-    addAjaxSubmit: function () {
+    addAjaxSubmit: function (preSelector) {
         // forms that should be submitted with ajax
-        Array.from(document.getElementsByTagName('form')).forEach((form) => {
+        preSelector = preSelector ?? '';
+        Array.from(document.querySelectorAll(preSelector + 'form')).forEach((form) => {
             if (form.getAttribute('pjax-container') != null && !form.classList.contains('has-ajax-handler')) {
                 form.addEventListener('submit', function (event) {
                     admin.form.submit(event.target);

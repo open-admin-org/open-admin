@@ -70,11 +70,11 @@ class HandleController extends Controller
     {
         $action = $this->resolveActionInstance($request);
 
-        $model = null;
+        $model     = null;
         $arguments = [];
 
         if ($action instanceof GridAction) {
-            $model = $action->retrieveModel($request);
+            $model       = $action->retrieveModel($request);
             $arguments[] = $model;
         }
 
@@ -153,7 +153,7 @@ class HandleController extends Controller
     public function handleSelectable(Request $request)
     {
         $class = $request->get('selectable');
-        $args = $request->get('args', []);
+        $args  = $request->get('args', []);
 
         $class = str_replace('_', '\\', $class);
 
@@ -172,10 +172,31 @@ class HandleController extends Controller
      *
      * @return mixed|string|string[]
      */
+    public function handleResourceable(Request $request)
+    {
+        $class = $request->get('resourceable');
+        $args  = $request->get('args', []);
+        $class = str_replace('_', '\\', $class);
+
+        if (class_exists($class)) {
+            /** @var \OpenAdmin\Admin\Resourceable $selectable */
+            $resourceable = new $class();
+
+            return $resourceable->handle($args);
+        }
+
+        return $class;
+    }
+
+    /**
+     * @param Request $request
+     *
+     * @return mixed|string|string[]
+     */
     public function handleRenderable(Request $request)
     {
         $class = $request->get('renderable');
-        $key = $request->get('key');
+        $key   = $request->get('key');
 
         $class = str_replace('_', '\\', $class);
 

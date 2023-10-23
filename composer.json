@@ -2,7 +2,15 @@
     "name": "open-admin-org/open-admin",
     "description": "open-admin. Open-source Laravel Admin panel. No pro or paid package, free & open. Based on laravel-admin, with special thanks to z-song",
     "type": "library",
-    "keywords": ["laravel", "admin", "grid", "form", "open-admin","open","free"],
+    "keywords": [
+        "laravel",
+        "admin",
+        "grid",
+        "form",
+        "open-admin",
+        "open",
+        "free"
+    ],
     "homepage": "https://github.com/open-admin-org/open-admin",
     "license": "MIT",
     "authors": [
@@ -13,7 +21,7 @@
     ],
     "require": {
         "php": "~7.3|~8.0",
-        "symfony/dom-crawler": "~3.1|~4.0|~5.0",
+        "symfony/dom-crawler": "~3.1|~4.0|~5.0|~6.0",
         "laravel/framework": ">=7.0",
         "doctrine/dbal": "2.*|3.*"
     },

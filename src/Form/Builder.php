@@ -48,7 +48,7 @@ class Builder
     /**
      * Modes constants.
      */
-    public const MODE_EDIT = 'edit';
+    public const MODE_EDIT   = 'edit';
     public const MODE_CREATE = 'create';
 
     /**
@@ -121,7 +121,7 @@ class Builder
      */
     public function init()
     {
-        $this->tools = new Tools($this);
+        $this->tools  = new Tools($this);
         $this->footer = new Footer($this);
 
         $this->formClass = 'model-form-'.uniqid();
@@ -465,15 +465,15 @@ class Builder
     protected function addRedirectUrlField()
     {
         $previous = URL::previous();
-        $current = URL::current();
-        $full = URL::full();
+        $current  = URL::current();
+        $full     = URL::full();
 
         if (!$previous || $previous === $current || $previous === $full) {
             return;
         }
 
         $set_previous = $previous;
-        $ids = request('ids');
+        $ids          = request('ids');
         if (!empty($ids)) {
             $set_previous = $current.'?ids[]='.implode('&ids[]=', $ids);
         }
@@ -497,10 +497,10 @@ class Builder
         }
         $this->addRedirectUrlField();
 
-        $attributes = [];
+        $attributes           = [];
         $attributes['action'] = $this->getAction();
         $attributes['method'] = Arr::get($options, 'method', 'post');
-        $attributes['class'] = $this->formClass;
+        $attributes['class']  = $this->formClass;
         if ($this->hasFile()) {
             $attributes['enctype'] = 'multipart/form-data';
         }
@@ -517,7 +517,7 @@ class Builder
      */
     public function close(): string
     {
-        $this->form = null;
+        $this->form   = null;
         $this->fields = null;
 
         return '</form>';

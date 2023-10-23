@@ -85,13 +85,20 @@ class Table extends HasMany
 
         $prepare = $form->prepare($input);
 
-        return collect($prepare)->reject(function ($item) {
+        // don't collect if empty
+        if (empty($prepare)) {
+            return false;
+        }
+
+        $data = collect($prepare)->reject(function ($item) {
             return Arr::get($item, NestedForm::REMOVE_FLAG_NAME) == 1;
         })->map(function ($item) {
             unset($item[NestedForm::REMOVE_FLAG_NAME]);
-
             return $item;
         })->toArray();
+
+        // strip the keys
+        return array_values($data);
     }
 
     protected function getKeyName()

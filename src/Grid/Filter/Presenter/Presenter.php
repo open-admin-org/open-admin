@@ -21,6 +21,14 @@ abstract class Presenter
         $this->filter = $filter;
     }
 
+    public function setCols($label = 2, $field = 8)
+    {
+        $this->cols_label = $label;
+        $this->cols_field = $field;
+
+        return $this;
+    }
+
     /**
      * @see https://stackoverflow.com/questions/19901850/how-do-i-get-an-objects-unqualified-short-class-name
      *

@@ -35,21 +35,21 @@ class MultipleSelect extends Select
             return $this->otherKey;
         }
 
-        if (is_callable([$this->form->model(), $this->column]) &&
-            ($relation = $this->form->model()->{$this->column}()) instanceof BelongsToMany
+        if (is_callable([$this->form->model(), $this->column])
+            && ($relation = $this->form->model()->{$this->column}()) instanceof BelongsToMany
         ) {
             /* @var BelongsToMany $relation */
-            $fullKey = $relation->getQualifiedRelatedPivotKeyName();
+            $fullKey      = $relation->getQualifiedRelatedPivotKeyName();
             $fullKeyArray = explode('.', $fullKey);
 
             return $this->otherKey = end($fullKeyArray);
         }
 
-        throw new \Exception('Column of this field must be a `BelongsToMany` relation.');
+        throw new \Exception('Column of this field must be a `BelongsToMany` or `HasMany` relation.');
     }
 
     /**
-     * {@inheritdoc}
+     * @inheritdoc
      */
     public function fill($data)
     {
@@ -94,7 +94,7 @@ class MultipleSelect extends Select
     }
 
     /**
-     * {@inheritdoc}
+     * @inheritdoc
      */
     public function setOriginal($data)
     {

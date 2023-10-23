@@ -22,7 +22,6 @@
 
             Swal.fire({
                 title: __('delete_confirm'),
-                type: "warning",
                 showCancelButton: true,
                 confirmButtonColor: "#DD6B55",
                 confirmButtonText: __('confirm'),

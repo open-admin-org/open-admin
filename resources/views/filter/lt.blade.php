@@ -1,6 +1,6 @@
 <div class="form-group row">
-    <label class="col-sm-2 control-label">{{$label}}&nbsp;(&lt;)</label>
-    <div class="col-sm-8">
+    <label class="col-sm-{{ $cols_label }} form-label">{{ $label }}&nbsp;(&lt;)</label>
+    <div class="col-sm-{{ $cols_field }}">
         @include($presenter->view())
     </div>
 </div>

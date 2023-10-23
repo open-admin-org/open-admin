@@ -6,7 +6,8 @@ use OpenAdmin\Admin\Actions\RowAction;
 
 class Show extends RowAction
 {
-    public $icon = 'icon-eye';
+    public $icon  = 'icon-eye';
+    public $class = 'row-show';
 
     /**
      * @return array|null|string

@@ -20,8 +20,8 @@ class Field implements Renderable
     use Macroable;
 
     public const FILE_DELETE_FLAG = '_file_del_';
-    public const FILE_SORT_FLAG = '_file_sort_';
-    public const FILE_ADD_FLAG = '_file_add_';
+    public const FILE_SORT_FLAG   = '_file_sort_';
+    public const FILE_ADD_FLAG    = '_file_add_';
 
     /**
      * Element id.
@@ -92,6 +92,20 @@ class Field implements Renderable
      * @var array
      */
     protected $elementClass = [];
+
+    /**
+     * Form element prepended classes.
+     *
+     * @var array
+     */
+    protected $prependClass = [];
+
+    /**
+     * Form element appended classes.
+     *
+     * @var array
+     */
+    protected $appendClass = [];
 
     /**
      * Variables of elements.
@@ -282,8 +296,8 @@ class Field implements Renderable
     public function __construct($column = '', $arguments = [])
     {
         $this->column = $this->formatColumn($column);
-        $this->label = $this->formatLabel($arguments);
-        $this->id = $this->formatId($column);
+        $this->label  = $this->formatLabel($arguments);
+        $this->id     = $this->formatId($column);
 
         if (method_exists($this, 'init')) {
             $this->init();
@@ -450,7 +464,7 @@ class Field implements Renderable
      *
      * @return $this
      */
-    public function customFormat(\Closure $call): self
+    public function customFormat(Closure $call): self
     {
         $this->customFormat = $call;
 
@@ -791,7 +805,7 @@ class Field implements Renderable
             return;
         }
 
-        $pattern = "/{$rule}[^\|]?(\||$)/";
+        $pattern     = "/{$rule}[^\|]?(\||$)/";
         $this->rules = preg_replace($pattern, '', $this->rules, -1);
     }
 
@@ -1006,7 +1020,7 @@ class Field implements Renderable
 
             $input = $this->sanitizeInput($input, $this->column);
 
-            $rules[$this->column] = $fieldRules;
+            $rules[$this->column]      = $fieldRules;
             $attributes[$this->column] = $this->label;
         }
 
@@ -1015,8 +1029,8 @@ class Field implements Renderable
                 if (!array_key_exists($column, $input)) {
                     continue;
                 }
-                $input[$column.$key] = Arr::get($input, $column);
-                $rules[$column.$key] = $fieldRules;
+                $input[$column.$key]      = Arr::get($input, $column);
+                $rules[$column.$key]      = $fieldRules;
                 $attributes[$column.$key] = $this->label."[$column]";
             }
         }
@@ -1313,6 +1327,34 @@ class Field implements Renderable
     }
 
     /**
+     * prepend element class.
+     *
+     * @param string|array $class
+     *
+     * @return $this
+     */
+    public function setPrependElementClass($class): self
+    {
+        $this->prependClass = array_merge($this->prependClass, (array) $class);
+
+        return $this;
+    }
+
+    /**
+     * append element class.
+     *
+     * @param string|array $class
+     *
+     * @return $this
+     */
+    public function setAppendElementClass($class): self
+    {
+        $this->appendClass = array_merge($this->appendClass, (array) $class);
+
+        return $this;
+    }
+
+    /**
      * Get element class.
      *
      * @return array
@@ -1323,6 +1365,13 @@ class Field implements Renderable
             $name = $this->elementName ?: $this->formatName($this->column);
 
             $this->elementClass = (array) str_replace(['[', ']'], '_', $name);
+
+            if ($this->prependClass) {
+                $this->elementClass = array_merge($this->prependClass, $this->elementClass);
+            }
+            if ($this->appendClass) {
+                $this->elementClass = array_merge($this->elementClass, $this->appendClass);
+            }
         }
 
         return $this->elementClass;
@@ -1370,6 +1419,17 @@ class Field implements Renderable
         }
 
         return '.'.implode('.', $elementClass);
+    }
+
+    /**
+     * Get a javascript save variable name .
+     *
+     * @return string
+     */
+    public function getVariableName()
+    {
+        $elementClassSelector = $this->getElementClassSelector();
+        return str_replace(["-",".",">"], "_", $elementClassSelector);
     }
 
     /**
@@ -1502,20 +1562,20 @@ class Field implements Renderable
     public function variables(): array
     {
         return array_merge($this->variables, [
-            'id'              => $this->id,
-            'name'            => $this->elementName ?: $this->formatName($this->column),
-            'help'            => $this->help,
-            'inline'          => $this->inline,
-            'showAsSection'   => $this->showAsSection,
-            'class'           => $this->getElementClassString(),
-            'value'           => $this->value(),
-            'label'           => $this->label,
-            'viewClass'       => $this->getViewElementClasses(),
-            'column'          => $this->column,
-            'errorKey'        => $this->getErrorKey(),
-            'attributes'      => $this->formatAttributes(),
-            'placeholder'     => $this->getPlaceholder(),
-            'attributes_obj'  => $this->attributes,
+            'id'             => $this->id,
+            'name'           => $this->elementName ?: $this->formatName($this->column),
+            'help'           => $this->help,
+            'inline'         => $this->inline,
+            'showAsSection'  => $this->showAsSection,
+            'class'          => $this->getElementClassString(),
+            'value'          => $this->value(),
+            'label'          => $this->label,
+            'viewClass'      => $this->getViewElementClasses(),
+            'column'         => $this->column,
+            'errorKey'       => $this->getErrorKey(),
+            'attributes'     => $this->formatAttributes(),
+            'placeholder'    => $this->getPlaceholder(),
+            'attributes_obj' => $this->attributes,
         ]);
     }
 

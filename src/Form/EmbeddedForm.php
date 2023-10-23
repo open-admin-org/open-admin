@@ -159,9 +159,11 @@ class EmbeddedForm
      */
     public function prepare($input)
     {
-        foreach ($input as $key => $record) {
-            $this->setFieldOriginalValue($key);
-            $input[$key] = $this->prepareValue($key, $record);
+        if (!empty($input) && is_array($input)) {
+            foreach ($input as $key => $record) {
+                $this->setFieldOriginalValue($key);
+                $input[$key] = $this->prepareValue($key, $record);
+            }
         }
 
         return $input;

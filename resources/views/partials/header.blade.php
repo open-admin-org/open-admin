@@ -24,7 +24,7 @@
             <li class="nav-item">
                 <div class="dropdown user-menu d-flex align-items-center px-3" href="#" role="button" id="user-menu-link" data-bs-toggle="dropdown" aria-expanded="false">
                     <span class="bg-light inline rounded-circle user-image">
-                        <img src="{{ Admin::user()->avatar }}" alt="User Image">
+                        <img src="{{ Admin::user()->headerAvatar }}" alt="User Image" class="header-avatar">
                     </span>
                     <span class="hidden-xs">{{ Admin::user()->name }}</span>
                 </div>
@@ -32,7 +32,7 @@
                     <!-- The user image in the menu -->
                     <li class="user-header text-center bg-semi-dark p-3">
                         <span class="bg-light inline rounded-circle user-image medium">
-                            <img src="{{ Admin::user()->avatar }}" alt="User Image">
+                            <img src="{{ Admin::user()->headerAvatar }}" alt="User Image" class="header-avatar">
                         </span>
                         <p>
                             <h2>{{ Admin::user()->name }}</h2>

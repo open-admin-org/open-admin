@@ -204,7 +204,7 @@ trait ImageField
             if ($size_or_closure instanceof \Closure) {
                 $image = $size_or_closure->call($this, $image);
             } else {
-                $size = $size_or_closure;
+                $size   = $size_or_closure;
                 $action = $size[2] ?? 'resize';
                 // Resize image with aspect ratio
                 $image->$action($size[0], $size[1], function (Constraint $constraint) {
