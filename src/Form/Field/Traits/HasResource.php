@@ -145,7 +145,7 @@ trait HasResource
                             script.src = src;
                             modal.appendChild(script);
                         } else {
-                            eval(script.innerText);
+                            admin.scripts.run(script.innerText);
                         }
                     });
 
