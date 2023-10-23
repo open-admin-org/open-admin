@@ -194,6 +194,7 @@ let preventPopState;
 
 admin.ajax = {
     currenTarget: false,
+    lastRequst: false,
 
     defaults: {
         headers: { 'X-PJAX': true, 'X-PJAX-CONTAINER': '#pjax-container', 'X-Requested-With': 'XMLHttpRequest', Accept: 'text/html, application/json, text/plain, */*' },
@@ -290,6 +291,7 @@ admin.ajax = {
 
         obj.url = url;
         let axios_obj = merge_default(this.defaults, obj);
+        admin.ajax.lastRequst = axios_obj;
 
         axios(axios_obj)
             .then(function (response) {
@@ -375,7 +377,7 @@ admin.ajax = {
                 script.src = src;
                 document.getElementById('app').appendChild(script);
             } else {
-                eval(script.innerText);
+                admin.scripts.run(script.innerText);
             }
         });
 
@@ -398,11 +400,24 @@ admin.ajax = {
             console.log(error.request);
         } else {
             // Something happened in setting up the request that triggered an Error
-            console.log('An error has accurred:');
+            console.log('An error has occurred while fetching:', admin.ajax.lastRequst);
             console.log(error);
         }
     },
 };
+
+admin.scripts = {
+
+    run: function (strscript) {
+        try {
+            strscript = strscript.trim();
+            new Function(strscript)();
+        } catch (error) {
+            console.log(error);
+            throw new Error("Error running script:" + strscript);
+        }
+    }
+}
 
 admin.pages = {
     init: function () {
