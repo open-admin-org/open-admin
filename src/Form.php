@@ -8,7 +8,6 @@ use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\MessageBag;
@@ -19,6 +18,7 @@ use OpenAdmin\Admin\Form\Builder;
 use OpenAdmin\Admin\Form\Concerns\HandleCascadeFields;
 use OpenAdmin\Admin\Form\Concerns\HasFields;
 use OpenAdmin\Admin\Form\Concerns\HasFormAttributes;
+use OpenAdmin\Admin\Form\Concerns\HasFormFlags;
 use OpenAdmin\Admin\Form\Concerns\HasHooks;
 use OpenAdmin\Admin\Form\Field;
 use OpenAdmin\Admin\Form\Layout\Layout;
@@ -39,10 +39,7 @@ class Form implements Renderable
     use HasFormAttributes;
     use HandleCascadeFields;
     use ShouldSnakeAttributes;
-    /**
-     * Remove flag in `has many` form.
-     */
-    public const REMOVE_FLAG_NAME = '_remove_';
+    use HasFormFlags;
 
     /**
      * Eloquent model of the form.

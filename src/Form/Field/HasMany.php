@@ -126,7 +126,7 @@ class HasMany extends Field
 
         /* unset item that contains remove flag */
         foreach ($input[$this->column] as $key => $value) {
-            if ($value[NestedForm::REMOVE_FLAG_NAME]) {
+            if (!empty($value[NestedForm::REMOVE_FLAG_NAME])) {
                 unset($input[$this->column][$key]);
             }
         }
@@ -506,17 +506,18 @@ class HasMany extends Field
         /**
          * When add a new sub form, replace all element key in new sub form.
          *
-         * @example comments[new___key__][title]  => comments[new_{index}][title]
+         * @example comments[__NEW_KEY____INDEX_KEY__][title]  => comments[__NEW_KEY__{index}][title]
          *
          * {count} is increment number of current sub form count.
          */
         $script = <<<JS
-var index = 0;
+var index = document.querySelectorAll('.has-many-{$this->column}-form').length;
 document.querySelector('#has-many-{$this->column} .add').addEventListener("click", function () {
     index++;
 
     var tpl = document.querySelector('template.{$this->column}-tpl').innerHTML;
     tpl = tpl.replace(/{$defaultKey}/g, index);
+
     var clone = htmlToElement(tpl);
     addRemoveHasManyListener{$this->column}(clone.querySelector('.remove'));
     document.querySelector('.has-many-{$this->column}-forms').appendChild(clone);
@@ -525,8 +526,9 @@ document.querySelector('#has-many-{$this->column} .add').addEventListener("click
         addHasManyTab{$this->column}(index);
     }
 
-    {$templateScript}
-    return false;
+    let script = `function(){ {$templateScript} }`;
+    script = script.replace(/{$defaultKey}/g, index);
+    new Function("return ("+script+")")().apply();
 
 });
 
@@ -567,7 +569,7 @@ JS;
 
         $this->setupScriptForDefaultView($templateScript);
 
-        $script = <<<EOT
+        $script = <<<JS
         function removeHasManyTab{$this->column}(){
             document.querySelector('#has-many-{$this->column} .nav-link.active').parentNode.remove();
             let trigger = document.querySelector('#has-many-{$this->column} .nav-link:first-child');
@@ -584,8 +586,7 @@ JS;
             document.querySelector('.has-many-{$this->column} > .nav').insertBefore(clone,addTab);
             bootstrap.Tab.getOrCreateInstance(clone.querySelector("a")).show();
         }
-
-EOT;
+JS;
 
         Admin::script($script);
     }
@@ -641,6 +642,7 @@ EOT;
      */
     public function render()
     {
+
         if (!$this->shouldRender()) {
             return '';
         }
@@ -655,6 +657,7 @@ EOT;
 
         list($template, $script) = $this->buildNestedForm($this->column, $this->builder)
             ->getTemplateHtmlAndScript();
+
 
         $this->setupScript($script);
 

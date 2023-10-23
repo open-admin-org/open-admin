@@ -7,6 +7,7 @@ use Illuminate\Support\Arr;
 use Illuminate\Support\Collection;
 use OpenAdmin\Admin\Admin;
 use OpenAdmin\Admin\Form;
+use OpenAdmin\Admin\Form\Concerns\HasFormFlags;
 use OpenAdmin\Admin\Widgets\Form as WidgetForm;
 
 /**
@@ -54,11 +55,7 @@ use OpenAdmin\Admin\Widgets\Form as WidgetForm;
  */
 class NestedForm
 {
-    public const DEFAULT_KEY_NAME = '__LA_KEY__';
-
-    public const REMOVE_FLAG_NAME = '_remove_';
-
-    public const REMOVE_FLAG_CLASS = 'fom-removed';
+    use HasFormFlags;
 
     /**
      * @var mixed
@@ -161,7 +158,7 @@ class NestedForm
             return $key;
         }
 
-        return 'new_'.static::DEFAULT_KEY_NAME;
+        return static::NEW_KEY_NAME.static::DEFAULT_KEY_NAME;
     }
 
     /**
@@ -253,7 +250,7 @@ class NestedForm
      */
     public function prepare($input)
     {
-        if (!empty($input)) {
+        if (!empty($input) && is_array($input)) {
             foreach ($input as $key => $record) {
                 $this->setFieldOriginalValue($key);
                 $input[$key] = $this->prepareRecord($record);
@@ -291,7 +288,7 @@ class NestedForm
      */
     protected function prepareRecord($record)
     {
-        if ($record[static::REMOVE_FLAG_NAME] == 1) {
+        if (!empty($record[static::REMOVE_FLAG_NAME]) && $record[static::REMOVE_FLAG_NAME] == 1) {
             return $record;
         }
 
@@ -322,7 +319,7 @@ class NestedForm
             }
         }
 
-        $prepared[static::REMOVE_FLAG_NAME] = $record[static::REMOVE_FLAG_NAME];
+        $prepared[static::REMOVE_FLAG_NAME] = $record[static::REMOVE_FLAG_NAME] ?? null;
 
         return $prepared;
     }
@@ -432,18 +429,19 @@ class NestedForm
 
         $elementName = $elementClass = $errorKey = [];
 
-        $key = $this->getKey();
+        $key     = $this->getKey();
+        $ref_key = is_numeric($key) ? $this->relationName.'_'.$key : $key;
 
         if (is_array($column)) {
             foreach ($column as $k => $name) {
                 $errorKey[$k]     = sprintf('%s.%s.%s', $this->relationName, $key, $name);
                 $elementName[$k]  = sprintf('%s[%s][%s]', $this->relationName, $key, $name);
-                $elementClass[$k] = [$this->relationName, $name];
+                $elementClass[$k] = [$this->relationName, $ref_key, $name];
             }
         } else {
             $errorKey     = sprintf('%s.%s.%s', $this->relationName, $key, $column);
             $elementName  = sprintf('%s[%s][%s]', $this->relationName, $key, $column);
-            $elementClass = [$this->relationName, $column];
+            $elementClass = [$this->relationName, $ref_key, $column];
         }
 
         return $field->setErrorKey($errorKey)
