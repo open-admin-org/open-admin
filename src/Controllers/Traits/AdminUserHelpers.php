@@ -15,6 +15,6 @@ trait AdminUserHelpers
 
     public function showNewHeaderAvatar($form)
     {
-        admin_flashjs('document.querySelectorAll(".header-avatar").forEach((img) => {img.src = "'.$form->model()->headerAvatar.'"});');
+        admin_flashjs('documenta.querySelectorAll(".header-avatar").forEach((img) => {img.src = "'.$form->model()->headerAvatar.'"});');
     }
 }
