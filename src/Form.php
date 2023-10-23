@@ -146,7 +146,7 @@ class Form implements Renderable
     /**
      * Create a new form instance.
      *
-     * @param $model
+     * @param          $model
      * @param \Closure $callback
      */
     public function __construct($model, Closure $callback = null)
@@ -190,9 +190,9 @@ class Form implements Renderable
     }
 
     /**
-     * @return Model
+     * @return Model|\OpenAdmin\Admin\Actions\Interactor\Form
      */
-    public function model(): Model
+    public function model(): Model|\OpenAdmin\Admin\Actions\Interactor\Form
     {
         return $this->model;
     }
