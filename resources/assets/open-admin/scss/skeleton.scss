@@ -530,3 +530,33 @@ main#main footer .pagination {
         }
     }
 }
+
+/*-----------------------------------------------------*/
+/* Layout: Fixed  */
+/*-----------------------------------------------------*/
+
+body.fixed {
+    > .wrapper {
+        padding-top: 56px;
+    }
+    header.navbar {
+        top: 0;
+        right: 0;
+        left: 0;
+    }
+    header.navbar, 
+    #sidebar {
+        position: fixed;
+    }
+    #sidebar {
+        overflow-x: hidden;
+        z-index: 1;
+    }
+    #nprogress {
+        position: fixed;
+        top:0;
+        left:0;
+        right:0;
+        z-index:999;
+    }
+}
