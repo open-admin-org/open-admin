@@ -108,20 +108,23 @@ class Select extends Field
      */
     public function load($field, $url, $idField = 'id', $textField = 'text', bool $allowClear = true)
     {
-        if (Str::contains($field, '.')) {
-            $field = $this->formatName($field);
-            $class = str_replace(['[', ']'], '_', $field);
-        } else {
-            $class = $field;
+
+        $field = $this->formatName($field);
+
+        $field_var_name = $this->choicesObjName($field);
+        if (Str::contains($field, '[*]')) {
+            $this_field = $this->formatName($this->column);
+            $this_var_name = $this->choicesObjName();
+            $field = str_replace('[*]', '', $field);
+            $field_var_name = str_replace($this_field, $field, $this_var_name);
         }
 
         $this->additional_script .= <<<JS
 
-            let elm = document.querySelector("{$this->getElementClassSelector()}");
             var lookupTimeout;
-            elm.addEventListener('change', function(event) {
+            document.querySelector("{$this->getElementClassSelector()}").addEventListener('change', function(event) {
                 var query = {$this->choicesObjName()}.getValue().value;
-                var current_value = {$this->choicesObjName($field)}.getValue().value;
+                var current_value = {$field_var_name}.getValue().value;
                 admin.ajax.post("{$url}",{query:query},function(data){
                     let found = false;
                     for (i in data.data){
@@ -133,7 +136,7 @@ class Select extends Field
                     if (!found){
                         data.data.push({'{$idField}':'','{$textField}':'','selected':true});
                     }
-                    {$this->choicesObjName($field)}.setChoices(data.data, '{$idField}', '{$textField}', true);
+                    {$field_var_name}.setChoices(data.data, '{$idField}', '{$textField}', true);
                 })
             });
 JS;
@@ -228,9 +231,9 @@ JS;
         ], $this->config);
 
         $this->additional_script = <<<JS
-            let elm = document.querySelector("{$this->getElementClassSelector()}");
+            let search_{$this->getVariableName()} = document.querySelector("{$this->getElementClassSelector()}");
             var lookupTimeout;
-            elm.addEventListener('search', function(event) {
+            search_{$this->getVariableName()}.addEventListener('search', function(event) {
                 clearTimeout(lookupTimeout);
                 lookupTimeout = setTimeout(function(){
                     var query = {$this->choicesObjName()}.input.value;
@@ -240,7 +243,7 @@ JS;
                 }, 250);
             });
 
-            elm.addEventListener('choice', function(event) {
+            search_{$this->getVariableName()}.addEventListener('choice', function(event) {
                 {$this->choicesObjName()}.setChoices([], '{$idField}', '{$textField}', true);
             });
         JS;
@@ -307,10 +310,10 @@ JS;
     public function choicesObjName($field = false)
     {
         if (empty($field)) {
-            $field = str_replace([' ', '-'], ['_', '_'], $this->getElementClassString());
+            $field = $this->getVariableName();
         }
 
-        return 'choices_'.$field;
+        return str_replace("__", "_", 'choices_'.$field);
     }
 
     /**
