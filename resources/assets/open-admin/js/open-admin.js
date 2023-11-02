@@ -29,7 +29,7 @@ admin.menu = {
         let menuToggle = document.getElementById('menu-toggle');
         let sidebar = document.getElementById("sidebar");
         let bodyClasses = document.body.classList;
-    
+
         menuToggle.addEventListener('click', function () {
             if (!bodyClasses.contains('side-menu-closed')) {
                 admin.menu.close();
@@ -43,27 +43,31 @@ admin.menu = {
                 bodyClasses.remove('side-menu-open');
             }
 
-            if (bodyClasses.contains('sidebar-collapse')) {
-                bodyClasses.toggle('sidebar-collapse');
+            if (bodyClasses.contains('sidebar-collapse-open')) {
+                bodyClasses.add('sidebar-collapse');
+                bodyClasses.remove('sidebar-collapse-open');
+            } else if (bodyClasses.contains('sidebar-collapse')) {
+                bodyClasses.remove('sidebar-collapse');
+                bodyClasses.add('sidebar-collapse-open');
             }
         });
 
-        sidebar.addEventListener("mouseover", function() {
+        sidebar.addEventListener("mouseover", function () {
             if (bodyClasses.contains('sidebar-collapse') && bodyClasses.contains('side-menu-closed')) {
                 bodyClasses.remove('side-menu-closed');
             }
         });
-    
-        sidebar.addEventListener("mouseout", function() {
+
+        sidebar.addEventListener("mouseout", function () {
             if (bodyClasses.contains('sidebar-collapse') && !bodyClasses.contains('side-menu-closed')) {
                 bodyClasses.add('side-menu-closed');
             }
         });
-    
+
         if (bodyClasses.contains('sidebar-mini')) {
             bodyClasses.add('side-menu-closed');
         }
-    
+
         window.addEventListener('resize', function () {
             if (window.innerWidth < 576) {
                 bodyClasses.remove('side-menu-closed');
