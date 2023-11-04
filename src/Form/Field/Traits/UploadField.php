@@ -162,7 +162,7 @@ trait UploadField
      */
     protected function guessPreviewType($file)
     {
-        $filetype = 'other';
+        $filetype = 'file';
         $ext = strtok(strtolower(pathinfo($file, PATHINFO_EXTENSION)), '?');
 
         foreach ($this->fileTypes as $type => $pattern) {

@@ -96,13 +96,12 @@ class File extends Field
      */
     public function prepare($file)
     {
-        if (request()->has($this->column.Field::FILE_DELETE_FLAG)) {
+        if (request()->has($this->getRequestFieldKey().Field::FILE_DELETE_FLAG)) {
             $this->destroy();
-
             return '';
         }
 
-        if (!empty($this->picker) && request()->has($this->column.Field::FILE_ADD_FLAG)) {
+        if (!empty($this->picker) && request()->has($this->getRequestFieldKey().Field::FILE_ADD_FLAG)) {
             return request($this->column.Field::FILE_ADD_FLAG);
         }
 
@@ -110,9 +109,9 @@ class File extends Field
             $this->name = $this->getStoreName($file);
 
             return $this->uploadAndDeleteOriginal($file);
+        } else {
+            return $this->original();
         }
-
-        return false;
     }
 
     /**

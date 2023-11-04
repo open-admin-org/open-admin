@@ -99,6 +99,11 @@ class NestedForm
     protected $save_null_values = true;
 
     /**
+     * @var bool
+     */
+    protected $json = false;
+
+    /**
      * Create a new NestedForm instance.
      *
      * NestedForm constructor.
@@ -136,6 +141,19 @@ class NestedForm
     {
         $this->save_null_values = $set;
 
+        return $this;
+    }
+
+    /**
+     * Handle as json form.
+     *
+     * @param bool $set
+     *
+     * @return $this
+     */
+    public function setJson($set = true)
+    {
+        $this->json = $set;
         return $this;
     }
 
@@ -252,6 +270,7 @@ class NestedForm
     {
         if (!empty($input) && is_array($input)) {
             foreach ($input as $key => $record) {
+                $this->setRequestFieldKeys($key);
                 $this->setFieldOriginalValue($key);
                 $input[$key] = $this->prepareRecord($record);
             }
@@ -276,6 +295,23 @@ class NestedForm
 
         $this->fields->each(function (Field $field) use ($values) {
             $field->setOriginal($values);
+        });
+    }
+
+    /**
+     * Set request field name and key
+     *
+     * @param string $key
+     *
+     * @return void
+     */
+    protected function setRequestFieldKeys($key)
+    {
+        $relationName = $this->relationName;
+        $this->fields->each(function (Field $field) use ($key, $relationName) {
+            $column = $field->column();
+            $fieldKey = $relationName.".".$key.".".$column;
+            $field->setRequestFieldKey($fieldKey);
         });
     }
 
@@ -308,7 +344,11 @@ class NestedForm
                 $value = $field->prepare($value);
             }
 
-            if (($field instanceof \OpenAdmin\Admin\Form\Field\Hidden) || $value != $field->original() || ($this->save_null_values && $value == null)) {
+            if (
+                ($field instanceof \OpenAdmin\Admin\Form\Field\Hidden) ||
+                ($value != $field->original() || $this->json) ||  // keep fields if original is the same otherwise values gets lost
+                ($this->save_null_values && $value == null)
+            ) {
                 if (is_array($columns)) {
                     foreach ($columns as $name => $column) {
                         Arr::set($prepared, $column, $value[$name]);

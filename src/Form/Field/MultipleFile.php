@@ -156,7 +156,8 @@ class MultipleFile extends Field
      */
     public function prepare($files)
     {
-        $delete_key = $this->column.Field::FILE_DELETE_FLAG;
+        $delete_key = $this->getRequestFieldKey().Field::FILE_DELETE_FLAG;
+
         $updated_files = false;
         if (request()->has($delete_key)) {
             if ($this->pathColumn) {
@@ -166,11 +167,11 @@ class MultipleFile extends Field
             }
         }
 
-        if (!empty($this->picker) && request()->has($this->column.Field::FILE_ADD_FLAG)) {
-            $updated_files = $this->addFiles(request($this->column.Field::FILE_ADD_FLAG), $updated_files);
+        if (!empty($this->picker) && request()->has($this->getRequestFieldKey().Field::FILE_ADD_FLAG)) {
+            $updated_files = $this->addFiles(request($this->getRequestFieldKey().Field::FILE_ADD_FLAG), $updated_files);
         }
 
-        $sort_key = $this->column.static::FILE_SORT_FLAG;
+        $sort_key = $this->getRequestFieldKey().static::FILE_SORT_FLAG;
         if (request()->has($sort_key)) {
             if ($this->sortColumn) {
                 $updated_files = $this->sortFilesFromHasMany(request($sort_key), $updated_files);
@@ -199,6 +200,10 @@ class MultipleFile extends Field
             }
 
             $updated_files = array_merge($updated_files, $targets);
+        }
+
+        if (!$updated_files) {
+            return $this->original();
         }
 
         return $updated_files;

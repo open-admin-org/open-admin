@@ -836,9 +836,7 @@ class Form implements Renderable
                             }
 
                             Arr::forget($related, static::REMOVE_FLAG_NAME);
-
                             $child->fill($related);
-
                             $child->save();
                         }
                     }
@@ -861,8 +859,8 @@ class Form implements Renderable
 
         /** @var Field $field */
         foreach ($this->fields() as $field) {
-            $columns = $field->column();
 
+            $columns = $field->column();
             if ($this->isInvalidColumn($columns, $oneToOneRelation || $field->isJsonType)
                 || (in_array($columns, $this->relation_fields) && !$isRelationUpdate)) {
                 continue;
@@ -875,9 +873,17 @@ class Form implements Renderable
             if ($value !== false) {
                 if (is_array($columns)) {
                     foreach ($columns as $name => $column) {
-                        Arr::set($prepared, $column, $value[$name]);
+                        $col_value = $value[$name];
+                        if (is_array($col_value)) {
+                            $col_value = $this->filterFalseValues($col_value);
+                        }
+                        Arr::set($prepared, $column, $col_value);
                     }
                 } elseif (is_string($columns)) {
+
+                    if (is_array($value)) {
+                        $value = $this->filterFalseValues($value);
+                    }
                     Arr::set($prepared, $columns, $value);
                 }
             }
@@ -885,6 +891,19 @@ class Form implements Renderable
 
         return $prepared;
     }
+
+    protected function filterFalseValues($value)
+    {
+        foreach ($value as &$row) {
+            if (is_array($row)) {
+                $row = array_filter($row, function ($val) {
+                    return $val !== false;
+                });
+            }
+        }
+        return $value;
+    }
+
 
     /**
      * @param string|array $columns

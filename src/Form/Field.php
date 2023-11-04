@@ -80,6 +80,13 @@ class Field implements Renderable
     protected $column = '';
 
     /**
+     * key name in request.
+     *
+     * @var string|array
+     */
+    protected $requestFieldKey = '';
+
+    /**
      * Form element name.
      *
      * @var string
@@ -295,9 +302,10 @@ class Field implements Renderable
      */
     public function __construct($column = '', $arguments = [])
     {
-        $this->column = $this->formatColumn($column);
-        $this->label  = $this->formatLabel($arguments);
-        $this->id     = $this->formatId($column);
+        $this->column          = $this->formatColumn($column);
+        $this->label           = $this->formatLabel($arguments);
+        $this->id              = $this->formatId($column);
+        $this->requestFieldKey = $this->column;
 
         if (method_exists($this, 'init')) {
             $this->init();
@@ -420,6 +428,31 @@ class Field implements Renderable
     }
 
     /**
+     * Set the key of the field in the request
+     *
+     * @param string
+     *
+     * @return $this
+     */
+    public function setRequestFieldKey($fieldKey)
+    {
+        $this->requestFieldKey = $fieldKey;
+        return $this;
+    }
+
+    /**
+     * Set the key of the field in the request
+     *
+     * @param string
+     *
+     * @return $this
+     */
+    public function getRequestFieldKey()
+    {
+        return $this->requestFieldKey;
+    }
+
+    /**
      * Fill data to the field.
      *
      * @param array $data
@@ -484,10 +517,8 @@ class Field implements Renderable
             foreach ($this->column as $key => $column) {
                 $this->original[$key] = Arr::get($data, $column);
             }
-
             return;
         }
-
         $this->original = Arr::get($data, $this->column);
     }
 

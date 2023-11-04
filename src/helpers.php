@@ -325,3 +325,13 @@ if (!function_exists('admin_get_route')) {
         return config('admin.route.prefix').'.'.$name;
     }
 }
+
+if (!function_exists('array_is_list')) {
+    function array_is_list(array $arr)
+    {
+        if ($arr === []) {
+            return true;
+        }
+        return array_keys($arr) === range(0, count($arr) - 1);
+    }
+}
