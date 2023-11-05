@@ -19,7 +19,7 @@ class MultipleImage extends MultipleFile
      *
      * @var string
      */
-    protected $rules = 'image';
+    protected $rules = 'nullable|image';
 
     /**
      * Prepare for each file.
