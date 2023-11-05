@@ -9,6 +9,7 @@ admin.pages = {}; // shared logic for pages
 admin.form = {}; // form in page
 admin.grid = {}; // grid / lister
 admin.action = {}; // actions
+admin.cleanup = {}; // cleanup
 
 document.addEventListener('DOMContentLoaded', function () {
     admin.init();
@@ -479,8 +480,27 @@ admin.pages = {
     },
 };
 
+admin.cleanup = {
+    cleanupCalls: [],
+
+    add: function (callback) {
+        this.cleanupCalls.push(callback)
+    },
+
+    now: function () {
+
+        for (i in this.cleanupCalls) {
+            func = this.cleanupCalls[i]
+            func.apply(this)
+        }
+        document.querySelectorAll('.flatpickr-calendar').forEach((cal) => {
+            cal.remove();
+        });
+
+        this.cleanupCalls = [];
+    }
+
+}
 admin.collectGarbage = function () {
-    document.querySelectorAll('.flatpickr-calendar').forEach((cal) => {
-        cal.remove();
-    });
+    admin.cleanup.now()
 };

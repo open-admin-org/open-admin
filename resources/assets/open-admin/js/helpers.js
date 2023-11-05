@@ -76,7 +76,7 @@ var arr_includes = function (arr, elem) {
 };
 
 /*--------------------------------------------------*/
-/* event Handlers  */
+/* event Handlers & timing */
 /*--------------------------------------------------*/
 
 function delegate(selector, handler) {
@@ -89,6 +89,15 @@ function delegate(selector, handler) {
 			}
 		} while ((targ = targ.parentNode) && targ != event.currentTarget);
 	}
+}
+
+
+function debounce(func, timeout = 300) {
+	let timer;
+	return (...args) => {
+		clearTimeout(timer);
+		timer = setTimeout(() => { func.apply(this, args); }, timeout);
+	};
 }
 
 /*--------------------------------------------------*/
@@ -135,3 +144,4 @@ function htmlToElements(html) {
 	template.innerHTML = html;
 	return template.content.childNodes;
 }
+

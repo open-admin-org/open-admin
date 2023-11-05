@@ -43,13 +43,14 @@ class Row
      * @param array $data
      * @param mixed $key
      */
-    public function __construct($number, $data, $key)
+    public function __construct($number, $data, $key, $perPage = 20)
     {
         $this->data = $data;
         $this->number = $number;
         $this->key = $key;
 
         $this->attributes = [
+            'style'    => "z-index:".($perPage - $number).";", // hack for Dropdown action menu
             'data-key' => $key,
             'class'    => 'row-'.$key,
         ];
@@ -132,7 +133,7 @@ class Row
         }
 
         if (is_string($style)) {
-            $this->attributes['style'] = $style;
+            $this->attributes['style'] .= $style;
         }
     }
 

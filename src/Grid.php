@@ -612,7 +612,7 @@ class Grid
     protected function buildRows(array $data, Collection $collection)
     {
         $this->rows = collect($data)->map(function ($model, $number) use ($collection) {
-            return new Row($number, $model, $collection->get($number)->getKey());
+            return new Row($number, $model, $collection->get($number)->getKey(), $this->perPage);
         });
 
         if ($this->rowsCallback) {
