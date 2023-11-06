@@ -81,27 +81,31 @@ class Checkbox extends MultipleSelect
 
     public function script()
     {
+        $var_name = $this->getVariableName();
         $elementClassSelector = $this->getElementClassSelector();
         $requireMessage = $this->validationMessages['required'] ?? 'This field is required';
 
         if ($this->stacked && in_array("required", $this->rules)) {
             $script = <<<JS
 
+            function {$var_name}_check_stacked(){
+                if ( document.querySelectorAll("{$elementClassSelector}:checked").length == 0){
+                    document.querySelectorAll("{$elementClassSelector}").forEach((rel)=>{
+                        rel.setCustomValidity("{$requireMessage}");
+                    })
+                }else{
+                    document.querySelectorAll("{$elementClassSelector}").forEach((rel)=>{
+                        rel.setCustomValidity("");
+                        rel.removeAttribute("required");
+                    })
+                }
+            };
             document.querySelectorAll("{$elementClassSelector}").forEach((el)=>{
                 el.addEventListener('change', function(e) {
-                    if ( document.querySelectorAll("{$elementClassSelector}:checked").length == 0){
-
-                        document.querySelectorAll("{$elementClassSelector}").forEach((rel)=>{
-                            rel.setCustomValidity("{$requireMessage}");
-                        })
-                    }else{
-                        document.querySelectorAll("{$elementClassSelector}").forEach((rel)=>{
-                            rel.setCustomValidity("");
-                            rel.removeAttribute("required");
-                        })
-                    }
+                    {$var_name}_check_stacked();
                 })
-            })
+            });
+            {$var_name}_check_stacked();
         JS;
         }
 
