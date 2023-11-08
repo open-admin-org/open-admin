@@ -76,12 +76,12 @@ class DateRange extends Field
         $this->check_format_options();
 
         $options_start = json_encode($this->options);
-        $options_start = str_replace('"__replace_me__"', '[new rangePlugin({ input: "'.$this->getElementClassSelector()['end'].'"})]', $options_start);
+        $options_start = str_replace('"__replace_me__"', '[new rangePlugin({ input: document.querySelector("'.$this->getElementClassSelector()['end'].'")})]', $options_start);
 
         //$options_end = json_encode($this->options);
 
         $this->script = <<<EOT
-            flatpickr('{$this->getElementClassSelector()['start']}',{$options_start});
+            flatpickr(document.querySelector('{$this->getElementClassSelector()['start']}'),{$options_start});
 
         EOT;
 

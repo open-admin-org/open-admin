@@ -15,6 +15,16 @@ class Date extends Text
         'noCalendar'    => false,
     ];
 
+    public function init()
+    {
+        $this->customFormat(function ($value) {
+            if ($value == "0000-00-00") {
+                $value = '';
+            }
+            return $value;
+        });
+    }
+
     public function format($format)
     {
         $this->format = $format;
@@ -41,7 +51,7 @@ class Date extends Text
 
     public function check_format_options()
     {
-        $format = $this->options['dateFormat'];
+        $format = $this->options['format'];
         if (substr($format, -2) != 'ss') {
             $this->options['enableSeconds'] = false;
         }
@@ -52,13 +62,14 @@ class Date extends Text
 
     public function render()
     {
+
         $this->options = array_merge($this->defaults, $this->options);
-        $this->options['dateFormat'] = $this->format;
+        $this->options['format'] = $this->format;
         $this->options['locale'] = array_key_exists('locale', $this->options) ? $this->options['locale'] : config('app.locale');
         $this->options['allowInputToggle'] = true;
         $this->check_format_options();
 
-        $this->script = "flatpickr('{$this->getElementClassSelector()}',".json_encode($this->options).');';
+        $this->script = "flatpickr(document.querySelector('{$this->getElementClassSelector()}'),".json_encode($this->options).');';
 
         $this->prepend('<i class="icon-calendar fa-fw"></i>');
         $this->style('max-width', '160px');

@@ -36,6 +36,7 @@ class TimeRange extends Field
 
         $this->label = $this->formatLabel($arguments);
         $this->id = $this->formatId($this->column['start']);
+
     }
 
     public function check_format_options()
@@ -94,8 +95,8 @@ class TimeRange extends Field
         $str_options = str_replace('"__replace_me__"', $func, $options);
 
         $this->script = <<<JS
-            var {$this->column['start']}_fp_inst = flatpickr('{$this->getElementClassSelector()['start']}',{$str_options});
-            var {$this->column['end']}_fp_inst = flatpickr('{$this->getElementClassSelector()['end']}',{$str_options});
+            var {$this->column['start']}_fp_inst = flatpickr(document.querySelector('{$this->getElementClassSelector()['start']}'),{$str_options});
+            var {$this->column['end']}_fp_inst = flatpickr(document.querySelector('{$this->getElementClassSelector()['end']}'),{$str_options});
         JS;
 
         return parent::render();
