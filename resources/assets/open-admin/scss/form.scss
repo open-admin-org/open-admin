@@ -103,7 +103,7 @@ body .choices {
     min-width: 140px;
 
     .choices__list--dropdown {
-        z-index: 10;
+        z-index: 1001;
     }
 
     &.form-control-sm {

@@ -122,7 +122,6 @@
         })
     }
 
-
     let left_trs = document.querySelectorAll('.table-fixed-left tbody tr');
     let right_trs = document.querySelectorAll('.table-fixed-right tbody tr');
     tableMain.querySelectorAll('tbody tr').forEach((tr,i)=>{
@@ -131,9 +130,28 @@
         right_trs[i].style.height = height+"px";
     });
 
-    if (tableMain.clientWidth >= tableMain.scrollWidth) {
-        hide(document.querySelectorAll('.table-fixed'));
+    var setTableFixedTimer;
+    function setTableFixed(){
+        let showTableFixed = tableMain.clientWidth >= tableMain.scrollWidth;
+        if (showTableFixed) {
+            hide(document.querySelectorAll('.table-fixed'));
+        }else{
+            show(document.querySelectorAll('.table-fixed'));
+        }
+        tableMain.classList.toggle("has-fixed",!showTableFixed);
     }
+
+    function setTableFixedDebounced(){
+        clearTimeout(setTableFixedTimer);
+        setTableFixedTimer = setTimeout(setTableFixed,300);
+    }
+    setTableFixed();
+
+    window.addEventListener("resize",setTableFixedDebounced);
+
+    admin.cleanup.add(function () {
+        window.removeEventListener("resize",setTableFixedDebounced);
+    })
 
 </script>
 
@@ -159,11 +177,17 @@
         width: 100%;
     }
 
+    .table-main.has-fixed{
+        padding: 0 1.5rem;
+        overflow-x: auto;
+        width: calc(100% - 1.9rem);
+    }
+
     .table-fixed {
         position:absolute;
         top: 0px;
         background:#ffffff;
-        z-index:10;
+        z-index:900;
     }
 
     .table-fixed-left {
