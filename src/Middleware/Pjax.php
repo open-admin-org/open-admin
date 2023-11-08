@@ -69,13 +69,21 @@ class Pjax
     {
         $exception = $response->exception;
 
-        $error = new MessageBag([
-            'type'    => get_class($exception),
-            'message' => $exception->getMessage(),
-            'file'    => $exception->getFile(),
-            'line'    => $exception->getLine(),
-            'trace'   => json_encode($exception->getTrace()),
-        ]);
+        if (empty($exception)) {
+            $error = new MessageBag([
+                'type'    => "unknown",
+                'message' => json_encode($response),
+            ]);
+        } else {
+
+            $error = new MessageBag([
+                'type'    => get_class($exception),
+                'message' => $exception->getMessage(),
+                'file'    => $exception->getFile(),
+                'line'    => $exception->getLine(),
+                'trace'   => json_encode($exception->getTrace()),
+            ]);
+        }
 
         return back()->withInput()->withErrors($error, 'exception');
     }
