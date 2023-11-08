@@ -199,6 +199,7 @@ JS;
     {
         /** @var Selectable $selectable */
         $selectable = new $this->selectable();
+        $selectable->setSortColumns(false);
 
         return $selectable->renderFormGrid($this->value());
     }
