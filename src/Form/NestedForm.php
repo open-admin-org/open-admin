@@ -310,8 +310,17 @@ class NestedForm
         $relationName = $this->relationName;
         $this->fields->each(function (Field $field) use ($key, $relationName) {
             $column = $field->column();
-            $fieldKey = $relationName.".".$key.".".$column;
+            if (is_array($column)) {
+                $fieldKey = [];
+                foreach($column as $col) {
+                    $fieldKey[] = $relationName.".".$key.".".$col;
+                }
+
+            } else {
+                $fieldKey = $relationName.".".$key.".".$column;
+            }
             $field->setRequestFieldKey($fieldKey);
+
         });
     }
 
