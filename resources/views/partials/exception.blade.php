@@ -1,5 +1,8 @@
 @if($errors->hasBag('exception') && config('app.debug') == true)
-    <?php $error = $errors->getBag('exception');?>
+    <?php
+        $error = $errors->getBag('exception');
+        $trace = json_decode($error->first('trace'));
+    ?>
     <div class="alert alert-warning alert-dismissable">
         <button type="button" class="close" data-bs-dismiss="alert" aria-hidden="true">×</button>
         <h4>
@@ -10,6 +13,6 @@
         </h4>
         <p><a style="cursor: pointer;" onclick="document.querySelector('#open-admin-exception-trace').classList.toggle('d-none');"><i class="icon-angle-double-down"></i>&nbsp;&nbsp;{!! $error->first('message') !!}</a></p>
 
-        <p class="d-none" id="open-admin-exception-trace"><br>{!! nl2br($error->first('trace')) !!}</p>
+        <div class="d-none" id="open-admin-exception-trace"><pre>{!! print_r($trace) !!}</pre></div>
     </div>
 @endif
