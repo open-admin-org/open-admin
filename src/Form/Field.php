@@ -38,6 +38,13 @@ class Field implements Renderable
     protected $value;
 
     /**
+     * Relation name.
+     *
+     * @var string
+     */
+    protected $relationName;
+
+    /**
      * Data of all original columns of value.
      *
      * @var mixed
@@ -1251,6 +1258,16 @@ class Field implements Renderable
     public function getPlaceholder()
     {
         return $this->placeholder ?: trans('admin.input').' '.$this->label;
+    }
+
+     /**
+     * Get relationName.
+     *
+     * @return mixed
+     */
+    public function hasRelation()
+    {
+        return !empty($this->relationName);
     }
 
     /**
