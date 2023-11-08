@@ -247,13 +247,20 @@ trait HasAssets
             ->merge(static::$deferredScript)
             ->unique()
             ->map(function ($line) {
+                $line = trim($line);
+                if (substr($line, -1) !== ";") {
+                    $line .= ";";
+                };
                 return $line;
+                /*
                 //@see https://stackoverflow.com/questions/19509863/how-to-remove-js-comments-using-php
                 $pattern = '/(?:(?:\/\*(?:[^*]|(?:\*+[^*\/]))*\*+\/)|(?:(?<!\:|\\\|\')\/\/.*))/';
                 $line = preg_replace($pattern, '', $line);
-
                 return preg_replace('/\s+/', ' ', $line);
+                */
             });
+
+
 
         return view('admin::partials.script', compact('script'));
     }
