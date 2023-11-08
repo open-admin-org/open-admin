@@ -584,16 +584,15 @@ class Form implements Renderable
 
         DB::transaction(function () {
             $updates = $this->prepareUpdate($this->updates);
-
             foreach ($updates as $column => $value) {
                 /* @var Model $this ->model */
                 $this->model->setAttribute($column, $value);
             }
-
             $this->model->save();
-
             $this->updateRelation($this->relations);
+
         });
+
 
         if (($result = $this->callSaved()) instanceof Response) {
             return $result;
@@ -857,8 +856,17 @@ class Form implements Renderable
     {
         $prepared = [];
 
+        $fields = $this->fields();
+
+        // if relation update only include relation fields
+        if ($isRelationUpdate) {
+            $fields = $fields->filter(function ($field) {
+                return $field->hasRelation();
+            });
+        }
+
         /** @var Field $field */
-        foreach ($this->fields() as $field) {
+        foreach ($fields as $field) {
 
             $columns = $field->column();
             if ($this->isInvalidColumn($columns, $oneToOneRelation || $field->isJsonType)
@@ -869,10 +877,12 @@ class Form implements Renderable
             $value = $this->getDataByColumn($updates, $columns);
             $value = $field->prepare($value);
 
+
             // only process values if not false
             if ($value !== false) {
                 if (is_array($columns)) {
                     foreach ($columns as $name => $column) {
+
                         $col_value = $value[$name];
                         if (is_array($col_value)) {
                             $col_value = $this->filterFalseValues($col_value);
@@ -888,6 +898,11 @@ class Form implements Renderable
                 }
             }
         }
+
+        if ($isRelationUpdate) {
+            //dd("aasfasdfasfd");
+        }
+
 
         return $prepared;
     }
