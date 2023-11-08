@@ -1,4 +1,10 @@
-@include("admin::form._header")
+<div class="{{$viewClass['form-group']}} {!! ($errors->has($errorKey['start'].'start') || $errors->has($errorKey['end'].'end')) ? 'has-error' : ''  !!}">
+
+    <label for="{{$name['start']}}" class="{{$viewClass['label']}} form-label">{{$label}}</label>
+
+    <div class="{{$viewClass['field']}}">
+
+        @include('admin::form.error')
 
         <div class="row">
             <div class="col-lg-6">
