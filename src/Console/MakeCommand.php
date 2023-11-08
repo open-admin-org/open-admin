@@ -52,7 +52,7 @@ class MakeCommand extends GeneratorCommand
         $this->modelName = $this->getModelName();
 
         if (!$this->modelExists()) {
-            $this->error('Model does not found! use, command like: artisan admin:controller \\\\App\\\\Models\\\\ModelName');
+            $this->error('Model not found! use, command like: artisan admin:controller \\\\App\\\\Models\\\\ModelName');
 
             return false;
         }
@@ -61,7 +61,7 @@ class MakeCommand extends GeneratorCommand
         $stub = $this->option('stub');
 
         if ($stub and !is_file($stub)) {
-            $this->error('The stub file dose not exist.');
+            $this->error('The stub file does not exist.');
 
             return false;
         }
