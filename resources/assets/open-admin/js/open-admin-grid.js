@@ -68,7 +68,7 @@ admin.grid = {
 
         let boxes = document.querySelectorAll(".grid-row-checkbox");
         for (const box of boxes) {
-            box.click();
+            box.checked ^= checkbox.checked;
         }
         admin.grid.check_status();
     },
