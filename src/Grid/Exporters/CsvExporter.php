@@ -173,12 +173,12 @@ class CsvExporter extends AbstractExporter
 
                 // Write title
                 if (empty($titles)) {
-                    fputcsv($handle, $titles = $this->getVisiableTitles());
+                    fputcsv($handle, $titles = $this->getVisiableTitles(), ';'); // Seperator to ";" from "," for title
                 }
 
                 // Write rows
                 foreach ($current as $index => $record) {
-                    fputcsv($handle, $this->getVisiableFields($record, $original[$index]));
+                    fputcsv($handle, $this->getVisiableFields($record, $original[$index]), ';');  // Seperator to ";" from "," for rows
                 }
             });
             fclose($handle);
@@ -254,9 +254,11 @@ class CsvExporter extends AbstractExporter
         }
 
         if (isset($this->columnCallbacks[$column])) {
-            return $this->columnCallbacks[$column]($value, $original);
+            $processedValue = $this->columnCallbacks[$column]($value, $original);
+            // HTML etiketlerini kaldır
+            return strip_tags($processedValue);
         }
-
-        return $value;
+        // HTML etiketlerini kaldır
+        return strip_tags($value);
     }
 }
