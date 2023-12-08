@@ -20,7 +20,7 @@ class Image extends File
      *
      * @var string
      */
-    protected $rules = 'image';
+    protected $rules = 'image|mimes:bmp,jpg,png,jpeg,gif,svg,webp';
 
     protected function setType($type = 'image')
     {
