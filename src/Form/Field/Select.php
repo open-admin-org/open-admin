@@ -311,7 +311,7 @@ JS;
             $field = str_replace([' ', '-'], ['_', '_'], $this->getElementClassString());
         }
 
-        return 'choices_'.$field;
+        return 'choices_' . Str::slug($field, '_');
     }
 
     /**

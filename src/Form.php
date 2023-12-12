@@ -589,7 +589,9 @@ class Form implements Renderable
 
             foreach ($updates as $column => $value) {
                 /* @var Model $this ->model */
-                $this->model->setAttribute($column, $value);
+                if ($column) {
+                    $this->model->setAttribute($column, $value ?? null);
+                }
             }
 
             $this->model->save();
@@ -877,6 +879,9 @@ class Form implements Renderable
             if ($value !== false) {
                 if (is_array($columns)) {
                     foreach ($columns as $name => $column) {
+                        if (empty($value[$name])) {
+                            $value[$name] = request($name);
+                        }
                         Arr::set($prepared, $column, $value[$name]);
                     }
                 } elseif (is_string($columns)) {
