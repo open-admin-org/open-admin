@@ -451,7 +451,7 @@ class MultipleFile extends Field
         $this->options['storageUrl'] = $this->storageUrl();
         $json_options = json_encode($this->options);
         $this->script = <<<JS
-        var FileUpload_{$id} = new FileUpload(document.querySelector('#{$id}'),{$json_options});
+        var {$this->fileObjName($id)} = new FileUpload(document.querySelector('#{$id}'),{$json_options});
         JS;
     }
 
@@ -491,5 +491,17 @@ class MultipleFile extends Field
         $this->setupScripts($options);
 
         return parent::render();
+    }
+
+        /**
+     * Returns variable name for file object.
+     */
+    public function fileObjName($field = false)
+    {
+        if (empty($field)) {
+            $field = str_replace([' ', '-'], ['_', '_'], $this->getElementClassString());
+        }
+
+        return 'FileUpload_' . Str::slug($field, '_');
     }
 }
