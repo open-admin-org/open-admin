@@ -452,7 +452,7 @@ class MultipleFile extends Field
         $this->options['storageUrl'] = $this->storageUrl();
         $json_options = json_encode($this->options);
         $this->script = <<<JS
-        var {$this->fileObjName($id)} = new FileUpload(document.querySelector('#{$id}'),{$json_options});
+        var {$this->fileObjName($id)} = new FileUpload(document.getElementById('{$id}'),{$json_options});
         JS;
     }
 
