@@ -4,6 +4,7 @@ namespace OpenAdmin\Admin\Form\Field;
 
 use Illuminate\Support\Arr;
 use OpenAdmin\Admin\Form\Field;
+use Illuminate\Support\Str;
 use OpenAdmin\Admin\Form\Field\Traits\HasMediaPicker;
 use OpenAdmin\Admin\Form\Field\Traits\UploadField;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
@@ -216,7 +217,7 @@ class File extends Field
         $this->options['storageUrl'] = $this->storageUrl();
         $json_options                = json_encode($this->options);
         $this->script                = <<<JS
-        var FileUpload_{$id} = new FileUpload(document.querySelector('#{$id}'),{$json_options});
+        var {$this->fileObjName($id)}  = new FileUpload(document.getElementById('{$id}'),{$json_options});
         JS;
     }
 
@@ -250,5 +251,16 @@ class File extends Field
         $this->setupScripts();
 
         return parent::render();
+    }
+            /**
+     * Returns variable name for file object.
+     */
+    public function fileObjName($field = false)
+    {
+        if (empty($field)) {
+            $field = str_replace([' ', '-'], ['_', '_'], $this->getElementClassString());
+        }
+
+        return 'FileUpload_' . Str::slug($field, '_');
     }
 }

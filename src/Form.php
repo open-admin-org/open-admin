@@ -28,6 +28,8 @@ use OpenAdmin\Admin\Grid\Tools\BatchEdit;
 use OpenAdmin\Admin\Traits\ShouldSnakeAttributes;
 use Spatie\EloquentSortable\Sortable;
 use Symfony\Component\HttpFoundation\Response;
+use Illuminate\Http\UploadedFile;
+use Illuminate\Support\Facades\Storage;
 
 /**
  * Class Form.
@@ -95,6 +97,13 @@ class Form implements Renderable
      * @var array
      */
     protected $inputs = [];
+
+     /**
+     * Submitted data.
+     *
+     * @var array
+     */
+    protected $submittedData = [];
 
     /**
      * @var Layout
@@ -475,6 +484,8 @@ class Form implements Renderable
      */
     protected function prepare($data = [])
     {
+        $this->submittedData = array_merge($data, $this->submittedData);
+
         if (($response = $this->callSubmitted()) instanceof Response) {
             return $response;
         }
@@ -578,7 +589,9 @@ class Form implements Renderable
 
             foreach ($updates as $column => $value) {
                 /* @var Model $this ->model */
-                $this->model->setAttribute($column, $value);
+                if ($column) {
+                    $this->model->setAttribute($column, $value ?? null);
+                }
             }
 
             $this->model->save();
@@ -850,6 +863,9 @@ class Form implements Renderable
         /** @var Field $field */
         foreach ($this->fields() as $field) {
             $columns = $field->column();
+            if (!Arr::has($updates, $columns)) {
+                continue;
+            }
 
             if ($this->isInvalidColumn($columns, $oneToOneRelation || $field->isJsonType)
                 || (in_array($columns, $this->relation_fields) && !$isRelationUpdate)) {
@@ -863,6 +879,9 @@ class Form implements Renderable
             if ($value !== false) {
                 if (is_array($columns)) {
                     foreach ($columns as $name => $column) {
+                        if (empty($value[$name])) {
+                            $value[$name] = request($name);
+                        }
                         Arr::set($prepared, $column, $value[$name]);
                     }
                 } elseif (is_string($columns)) {
@@ -1532,5 +1551,25 @@ class Form implements Renderable
     public function getLayout(): Layout
     {
         return $this->layout;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getData(String $field)
+    {
+        $this->submittedData[$field] =  request()->get($field)??request()->file($field);
+       if(array_key_exists($field,$this->submittedData)){
+        if(is_a($this->submittedData[$field],UploadedFile::class)){
+            $path = Storage::disk(config('admin.upload.disk'))-> putFileAs(
+                config('admin.upload.directory.file'),  $this->submittedData[$field],  $this->submittedData[$field]->hashName()
+            );
+           return $path;
+        }else{
+            return $this->submittedData[$field];
+        }
+
+       }
+       return null;
     }
 }
