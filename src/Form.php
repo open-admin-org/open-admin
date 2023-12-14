@@ -1558,6 +1558,7 @@ class Form implements Renderable
      */
     public function getData(String $field)
     {
+        $this->submittedData[$field] =  request()->get($field)??request()->file($field);
        if(array_key_exists($field,$this->submittedData)){
         if(is_a($this->submittedData[$field],UploadedFile::class)){
             $path = Storage::disk(config('admin.upload.disk'))-> putFileAs(
