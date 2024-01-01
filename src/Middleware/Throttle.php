@@ -37,8 +37,12 @@ class Throttle
 
     protected function getToManyAttemptsMessage()
     {
-        return Lang::has('auth.to_many_attempts')
-            ? trans('auth.to_many_attempts')
-            : 'To many attempts!';
+        $seconds = RateLimiter::availableIn('login-tries-' . Admin::guardName());
+    
+        $message = Lang::has('auth.throttle')
+            ? trans('auth.throttle', ['seconds' => $seconds])
+            : "Too many login attempts. Please try again in " . $seconds . " seconds.";
+    
+        return $message;
     }
 }
