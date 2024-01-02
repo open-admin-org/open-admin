@@ -35,6 +35,7 @@ class Throttle
         return $next($request);
     }
 
+    //auth.throttle: countdown added
     protected function getToManyAttemptsMessage() {
         $seconds = RateLimiter::availableIn('login-tries-' . Admin::guardName());
     
