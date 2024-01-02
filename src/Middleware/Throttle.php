@@ -35,8 +35,7 @@ class Throttle
         return $next($request);
     }
 
-    protected function getToManyAttemptsMessage()
-    {
+    protected function getToManyAttemptsMessage() {
         $seconds = RateLimiter::availableIn('login-tries-' . Admin::guardName());
     
         $message = Lang::has('auth.throttle')
