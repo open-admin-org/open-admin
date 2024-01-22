@@ -33,7 +33,7 @@
                         let url = resource_url;
                         let data = {_method:'delete'};
                         admin.ajax.post(url,data,function(data){
-                            resolve(data);
+                            resolve(data.data);
                             if (navigate_url){
                                 admin.ajax.navigate(navigate_url);
                             }else{
