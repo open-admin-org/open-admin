@@ -52,7 +52,7 @@ trait HasActions
             return $class;
         }
 
-        return Grid\Displayers\Acions\Actions::class;
+        return Grid\Displayers\Actions\Actions::class;
     }
 
     /**
@@ -119,6 +119,6 @@ trait HasActions
         }
 
         $this->addColumn(Grid\Column::ACTION_COLUMN_NAME, trans('admin.action'))
-            ->displayUsing($this->getActionClass(), $this->actionsCallback);
+            ->displayUsing($this->getActionClass(), [$this->actionsCallback]);
     }
 }
