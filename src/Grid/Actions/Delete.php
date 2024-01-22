@@ -21,10 +21,8 @@ class Delete extends RowAction
 
     public function addScript()
     {
-        $this->attributes = [
-            'onclick' => 'admin.resource.delete(event,this)',
-            'data-url'=> "{$this->getResource()}/{$this->getKey()}",
-        ];
+        $this->attribute('onclick', 'admin.resource.delete(event,this)');
+        $this->attribute('data-url', "{$this->getResource()}/{$this->getKey()}");
     }
 
     /*
