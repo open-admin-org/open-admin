@@ -13,7 +13,7 @@ trait HasRecycleBin
 
         $this->registerHook('alterGrid', function ($controller, $grid) {
             $grid->filter(function ($filter) {
-                $filter->scope('trashed', 'Recycle Bin')->onlyTrashed();
+                $filter->scope('trashed', __('admin.recyclebin'))->onlyTrashed();
             });
 
             $grid->actions(function ($actions) {

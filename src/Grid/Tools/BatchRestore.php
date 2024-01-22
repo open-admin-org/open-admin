@@ -7,8 +7,13 @@ use OpenAdmin\Admin\Actions\BatchAction;
 
 class BatchRestore extends BatchAction
 {
-    public $name = 'Batch Restore';
+    public $name = '';
     public $icon = 'icon-trash-restore';
+
+    public function name()
+    {
+        return $this->name = __('admin.batch_restore');
+    }
 
     public function handle(Collection $collection)
     {
@@ -16,11 +21,11 @@ class BatchRestore extends BatchAction
             $model->restore();
         }
 
-        return $this->response()->success('Restored Successfully')->refresh();
+        return $this->response()->success(__('admin.restore_success'))->refresh();
     }
 
     public function dialog()
     {
-        $this->confirm('Are you sure, you want to restore all selected?', '', ['icon'=>'question', 'confirmButtonText'=>'Yes']);
+        $this->confirm(__('admin.batch_restore_confirm'), '', ['icon'=>'question', 'confirmButtonText'=>__('admin.yes')]);
     }
 }

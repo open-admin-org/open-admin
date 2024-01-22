@@ -8,19 +8,24 @@ use OpenAdmin\Admin\Actions\RowAction;
 
 class Restore extends RowAction
 {
-    public $name = 'Restore';
+    public $name = '';
     public $icon = 'icon-trash-restore';
+
+    public function name()
+    {
+        return $this->name = __('admin.restore');
+    }
 
     public function handle(Model $model): Response
     {
         // $model ...
         $model->restore();
 
-        return $this->response()->success('Restored Successfully')->refresh();
+        return $this->response()->success(__('admin.restore_success'))->refresh();
     }
 
     public function dialog()
     {
-        $this->confirm('Are you sure, you want to restore?', '', ['icon'=>'question', 'confirmButtonText'=>'Yes']);
+        $this->confirm(__('admin.restore_confirm'), '', ['icon'=>'question', 'confirmButtonText'=>__('admin.yes')]);
     }
 }
