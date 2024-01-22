@@ -20,6 +20,6 @@ class Restore extends RowAction
 
     public function dialog()
     {
-        $this->confirm('Are you sure, you want to restore?', '', ['icon'=>'question','confirmButtonText'=>'Yes']);
+        $this->confirm('Are you sure, you want to restore?', '', ['icon'=>'question', 'confirmButtonText'=>'Yes']);
     }
 }
