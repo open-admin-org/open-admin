@@ -21,6 +21,6 @@ class BatchRestore extends BatchAction
 
     public function dialog()
     {
-        $this->confirm('Are you sure, you want to restore all selected?', '', ['icon'=>'question','confirmButtonText'=>'Yes']);
+        $this->confirm('Are you sure, you want to restore all selected?', '', ['icon'=>'question', 'confirmButtonText'=>'Yes']);
     }
 }

@@ -15,11 +15,12 @@ class Restore extends RowAction
     {
         // $model ...
         $model->restore();
+
         return $this->response()->success('Restored Successfully')->refresh();
     }
 
     public function dialog()
     {
-        $this->confirm('Are you sure, you want to restore?', '', ['icon'=>'question','confirmButtonText'=>'Yes']);
+        $this->confirm('Are you sure, you want to restore?', '', ['icon'=>'question', 'confirmButtonText'=>'Yes']);
     }
 }
