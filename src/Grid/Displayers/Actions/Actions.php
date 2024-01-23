@@ -242,6 +242,14 @@ class Actions extends AbstractDisplayer
             $callback->call($this, $this);
         }
 
+        if(is_array($callback)) {
+            foreach ($callback as $instance) {
+                if($instance instanceof \Closure) {
+                    $instance->call($this, $this);
+                }
+            }
+        }
+
         if ($this->disableAll) {
             return '';
         }

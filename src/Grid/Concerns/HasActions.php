@@ -12,7 +12,7 @@ trait HasActions
      *
      * @var Closure
      */
-    protected $actionsCallback;
+    protected $actionsCallback = [];
 
     /**
      * Actions column display class.
@@ -31,7 +31,7 @@ trait HasActions
     public function actions($actions)
     {
         if ($actions instanceof Closure) {
-            $this->actionsCallback = $actions;
+            $this->actionsCallback[] = $actions;
         }
 
         return $this;
@@ -52,7 +52,7 @@ trait HasActions
             return $class;
         }
 
-        return Grid\Displayers\Acions\Actions::class;
+        return Grid\Displayers\Actions\Actions::class;
     }
 
     /**
