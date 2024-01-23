@@ -19,6 +19,8 @@ trait HasRecycleBin
             $grid->actions(function ($actions) {
                 if (request('_scope_') == 'trashed') {
                     $actions->add(new Restore());
+                    $actions->disableView();
+                    $actions->disableEdit();
                 }
 
                 return $actions;
