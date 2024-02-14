@@ -1,7 +1,7 @@
 @include("admin::grid.table-header")
 
     <!-- /.box-header -->
-    <div class="card-body table-responsive no-padding">
+    <div class="table-responsive no-padding">
         <div class="tables-container">
             <div class="table-wrap table-main">
                 <table class="table grid-table select-table" id="{{ $grid->tableID }}">
