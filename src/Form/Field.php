@@ -450,13 +450,21 @@ class Field implements Renderable
     /**
      * Set the key of the field in the request
      *
-     * @param string
-     *
-     * @return $this
+     * @return string
      */
     public function getRequestFieldKey()
     {
         return $this->requestFieldKey;
+    }
+
+    /**
+    * Returns if the field json type
+    *
+    * @return boolean
+    */
+    public function isJsonType()
+    {
+        return $this->isJsonType;
     }
 
     /**
@@ -1067,9 +1075,9 @@ class Field implements Renderable
                 if (!array_key_exists($column, $input)) {
                     continue;
                 }
-                $input[$column.$key]      = Arr::get($input, $column);
-                $rules[$column.$key]      = $fieldRules;
-                $attributes[$column.$key] = $this->label."[$column]";
+                $input[$column . $key]      = Arr::get($input, $column);
+                $rules[$column . $key]      = $fieldRules;
+                $attributes[$column . $key] = $this->label . "[$column]";
             }
         }
 
@@ -1139,7 +1147,7 @@ class Field implements Renderable
     {
         $add_style = "{$attr}: {$value};";
         if (!empty($this->attributes['style'])) {
-            $add_style = $this->attributes['style'].$add_style;
+            $add_style = $this->attributes['style'] . $add_style;
         }
 
         return $this->attribute('style', $add_style);
@@ -1257,16 +1265,19 @@ class Field implements Renderable
      */
     public function getPlaceholder()
     {
-        return $this->placeholder ?: trans('admin.input').' '.$this->label;
+        return $this->placeholder ?: trans('admin.input') . ' ' . $this->label;
     }
 
-     /**
-     * Get relationName.
-     *
-     * @return mixed
-     */
+    /**
+    * Get relationName.
+    *
+    * @return mixed
+    */
     public function hasRelation()
     {
+        if (!$this->isJsonType() && strpos($this->column, '.') !== false) {
+            return true;
+        }
         return !empty($this->relationName);
     }
 
@@ -1308,7 +1319,7 @@ class Field implements Renderable
         $html = [];
 
         foreach ($this->attributes as $name => $value) {
-            $html[] = $name.'="'.e($value).'"';
+            $html[] = $name . '="' . e($value) . '"';
         }
 
         return implode(' ', $html);
@@ -1460,13 +1471,13 @@ class Field implements Renderable
             $classes = [];
 
             foreach ($elementClass as $index => $class) {
-                $classes[$index] = '.'.(is_array($class) ? implode('.', $class) : $class);
+                $classes[$index] = '.' . (is_array($class) ? implode('.', $class) : $class);
             }
 
             return $classes;
         }
 
-        return '.'.implode('.', $elementClass);
+        return '.' . implode('.', $elementClass);
     }
 
     /**
@@ -1547,7 +1558,7 @@ class Field implements Renderable
      */
     protected function getGroupClass($default = false): string
     {
-        return ($default ? 'form-group row ' : '').implode(' ', array_filter($this->groupClass));
+        return ($default ? 'form-group row ' : '') . implode(' ', array_filter($this->groupClass));
     }
 
     /**
@@ -1640,7 +1651,7 @@ class Field implements Renderable
 
         $class = explode('\\', static::class);
 
-        return 'admin::form.'.strtolower(end($class));
+        return 'admin::form.' . strtolower(end($class));
     }
 
     /**
