@@ -123,7 +123,10 @@ trait HasHeader
     public function renderHeader()
     {
         if ($this->sorter) {
-            $this->addHeader($this->sorter);
+            if (empty($this->grid->sortColumnsRef[$this->name])) {
+                $this->addHeader($this->sorter);
+                $this->grid->sortColumnsRef[$this->name] = true;
+            }
         }
 
         return collect($this->headers)->map(function ($item) {

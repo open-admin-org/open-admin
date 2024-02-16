@@ -15,6 +15,10 @@
 
                     <tbody>
 
+                        @if($grid->rows()->isEmpty() && $grid->showDefineEmptyPage())
+                            @include('admin::grid.empty-grid')
+                        @endif
+
                         @foreach($grid->rows() as $row)
                         <tr {!! $row->getRowAttributes() !!}>
                             @foreach($grid->visibleColumnNames() as $name)
