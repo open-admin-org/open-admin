@@ -72,7 +72,7 @@ class NestedForm
      *
      * @var Model
      */
-    protected $model;
+    public $model;
 
     /**
      * Fields in form.
@@ -154,6 +154,7 @@ class NestedForm
     public function setJson($set = true)
     {
         $this->json = $set;
+
         return $this;
     }
 
@@ -312,15 +313,13 @@ class NestedForm
             $column = $field->column();
             if (is_array($column)) {
                 $fieldKey = [];
-                foreach($column as $col) {
-                    $fieldKey[] = $relationName.".".$key.".".$col;
+                foreach ($column as $col) {
+                    $fieldKey[] = $relationName.'.'.$key.'.'.$col;
                 }
-
             } else {
-                $fieldKey = $relationName.".".$key.".".$column;
+                $fieldKey = $relationName.'.'.$key.'.'.$column;
             }
             $field->setRequestFieldKey($fieldKey);
-
         });
     }
 
@@ -354,9 +353,9 @@ class NestedForm
             }
 
             if (
-                ($field instanceof \OpenAdmin\Admin\Form\Field\Hidden) ||
-                ($value != $field->original() || $this->json) ||  // keep fields if original is the same otherwise values gets lost
-                ($this->save_null_values && $value == null)
+                ($field instanceof Field\Hidden)
+                || ($value != $field->original() || $this->json)  // keep fields if original is the same otherwise values gets lost
+                || ($this->save_null_values && $value == null)
             ) {
                 if (is_array($columns)) {
                     foreach ($columns as $name => $column) {
