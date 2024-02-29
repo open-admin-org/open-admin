@@ -40,15 +40,12 @@ class Image extends File
 
         if (request()->has($this->getRequestFieldKey().Field::FILE_DELETE_FLAG)) {
             $this->destroy();
+
             return '';
         }
 
         if (!empty($file)) {
-            if ($this->picker) {
-                return parent::prepare($file);
-            }
             $this->name = $this->getStoreName($file);
-
             $this->callInterventionMethods($file->getRealPath());
 
             $path = $this->uploadAndDeleteOriginal($file);
