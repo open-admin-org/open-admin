@@ -67,6 +67,8 @@ trait HasAssets
         'vendor/open-admin/toastify-js/toastify.css',
         'vendor/open-admin/flatpickr/flatpicker-custom.css',
         'vendor/open-admin/choicesjs/styles/choices.min.css',
+        'vendor/open-admin/tomselect/tom-select-bootstrap-5.min.css',
+        'vendor/open-admin/tomselect/tom-select-bootstrap-5-changes.css',
         'vendor/open-admin/sortablejs/nestable.css',
 
         // custom open admin stuff
@@ -85,6 +87,8 @@ trait HasAssets
         'vendor/open-admin/toastify-js/toastify.js',
         'vendor/open-admin/flatpickr/flatpickr.min.js',
         'vendor/open-admin/choicesjs/scripts/choices.min.js',
+        'vendor/open-admin/choicesjs/scripts/choices.hacks.js',
+        'vendor/open-admin/tomselect/tom-select.complete.min.js',
         'vendor/open-admin/sortablejs/Sortable.min.js',
 
         'vendor/open-admin/open-admin/js/polyfills.js',
@@ -105,7 +109,7 @@ trait HasAssets
      * @var array
      */
     public static $minifyIgnoresCss = [];
-    public static $minifyIgnoresJs = [];
+    public static $minifyIgnoresJs  = [];
 
     /**
      * Add css or get all css.
@@ -248,9 +252,10 @@ trait HasAssets
             ->unique()
             ->map(function ($line) {
                 $line = trim($line);
-                if (substr($line, -1) !== ";") {
-                    $line .= ";";
-                };
+                if (substr($line, -1) !== ';') {
+                    $line .= ';';
+                }
+
                 return $line;
                 /*
                 //@see https://stackoverflow.com/questions/19509863/how-to-remove-js-comments-using-php
@@ -259,8 +264,6 @@ trait HasAssets
                 return preg_replace('/\s+/', ' ', $line);
                 */
             });
-
-
 
         return view('admin::partials.script', compact('script'));
     }

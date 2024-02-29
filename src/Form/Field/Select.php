@@ -7,11 +7,20 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
 use OpenAdmin\Admin\Form\Field;
+use OpenAdmin\Admin\Form\Field\Select\SelectChoices;
+use OpenAdmin\Admin\Form\Field\Select\SelectNative;
+use OpenAdmin\Admin\Form\Field\Select\SelectTomSelect;
 use OpenAdmin\Admin\Form\Field\Traits\CanCascadeFields;
+use OpenAdmin\Admin\Form\Field\Traits\HasJavascriptConfig;
+use OpenAdmin\Admin\Form\Field\Traits\HasSettings;
 
 class Select extends Field
 {
     use CanCascadeFields;
+    use HasSettings;
+    use HasJavascriptConfig;
+
+    public $must_prepare = true;
 
     /**
      * @var array
@@ -19,14 +28,14 @@ class Select extends Field
     protected $groups = [];
 
     /**
-     * @var array
-     */
-    protected $config = [];
-
-    /**
      * @var string
      */
     protected $cascadeEvent = 'change';
+
+    /**
+     * @var decorator
+     */
+    protected $decorator;
 
     /**
      * @var bool
@@ -34,6 +43,59 @@ class Select extends Field
     protected $native = false;
 
     public $additional_script = '';
+
+    public function init()
+    {
+        $this->settings = [
+            'removable' => true,
+            'html'      => true,
+            'create'    => false,
+        ];
+
+        //$this->decorator(SelectTomSelect::class);
+        $this->decorator(SelectChoices::class);
+    }
+
+    public function allowDecorator()
+    {
+        $class = get_class($this);
+
+        return in_array($class, [
+            'OpenAdmin\Admin\Form\Field\Select',
+            'OpenAdmin\Admin\Form\Field\Tags',
+            'OpenAdmin\Admin\Form\Field\MultipleSelect',
+            'OpenAdmin\Admin\Form\Field\Timezone',
+        ]);
+    }
+
+    /**
+     * Sets the decorator for select fields.
+     *
+     * @param SelectDecorator $decorator
+     *
+     * @return $this
+     */
+    public function decorator($decorator)
+    {
+        $this->decorator = new $decorator();
+        $this->decorator->init($this);
+
+        return $this;
+    }
+
+    /**
+     * Set create option
+     *
+     * @param bool $set
+     *
+     * @return $this
+     */
+    public function create($set = true)
+    {
+        $this->settings['create'] = $set;
+
+        return $this;
+    }
 
     /**
      * Set options.
@@ -97,6 +159,52 @@ class Select extends Field
     }
 
     /**
+     * Returns variable name for Javascript object.
+     */
+    public function getJsInstanceName($field = false)
+    {
+        if (empty($field)) {
+            $field = $this->getVariableName();
+        }
+
+        return str_replace('__', '_', 'js_select_'.$field);
+    }
+
+    /**
+     * Returns variables for Javascript render.
+     */
+    public function getJsVars($target_field = false)
+    {
+        $field_name  = $this->formatName($this->column);
+        $js_var_name = $this->getVariableName();
+        $js_ins_name = $this->getJsInstanceName();
+        $js_selector = $this->getElementClassSelector();
+
+        $vars = [
+            'field_name'  => $field_name,
+            'js_var_name' => $js_var_name,
+            'js_ins_name' => $js_ins_name,
+            'js_selector' => $js_selector,
+        ];
+
+        if ($target_field) {
+            $js_target_var_name = $this->formatName($target_field);
+            $js_target_ins_name = $this->getJsInstanceName($target_field);
+            $js_target_selector = str_replace($field_name, $target_field, $js_selector);
+
+            if (Str::contains($target_field, '[*]')) {
+                $js_target_var_name = str_replace('[*]', '', $js_target_var_name);
+                $js_target_selector = str_replace('[*]', '', $js_target_selector);
+                $js_target_ins_name = str_replace($field_name, $js_target_var_name, $js_ins_name);
+            }
+            $vars['js_target_ins_name'] = $js_target_ins_name;
+            $vars['js_target_selector'] = $js_target_selector;
+        }
+
+        return $vars;
+    }
+
+    /**
      * Load options for other select on change.
      *
      * @param string $field
@@ -106,40 +214,9 @@ class Select extends Field
      *
      * @return $this
      */
-    public function load($field, $url, $idField = 'id', $textField = 'text', bool $allowClear = true)
+    public function load($target_field, $url, $idField = 'id', $textField = 'text')
     {
-
-        $field = $this->formatName($field);
-
-        $field_var_name = $this->choicesObjName($field);
-        if (Str::contains($field, '[*]')) {
-            $this_field = $this->formatName($this->column);
-            $this_var_name = $this->choicesObjName();
-            $field = str_replace('[*]', '', $field);
-            $field_var_name = str_replace($this_field, $field, $this_var_name);
-        }
-
-        $this->additional_script .= <<<JS
-
-            var lookupTimeout;
-            document.querySelector("{$this->getElementClassSelector()}").addEventListener('change', function(event) {
-                var query = {$this->choicesObjName()}.getValue().value;
-                var current_value = {$field_var_name}.getValue().value;
-                admin.ajax.post("{$url}",{query:query},function(data){
-                    let found = false;
-                    for (i in data.data){
-                        if (data.data[i].id == current_value){
-                            data.data[i].selected = true;
-                            found = true;
-                        }
-                    }
-                    if (!found){
-                        data.data.push({'{$idField}':'','{$textField}':'','selected':true});
-                    }
-                    {$field_var_name}.setChoices(data.data, '{$idField}', '{$textField}', true);
-                })
-            });
-JS;
+        $this->decorator->load($target_field, $url, $idField = 'id', $textField = 'text');
 
         return $this;
     }
@@ -189,25 +266,22 @@ JS;
      *
      * @param string $url
      * @param array  $parameters
-     * @param array  $options
      *
      * @return $this
      */
-    protected function loadRemoteOptions($url, $parameters = [], $options = [])
+    public function ajaxOptions($url, $valueField = 'id', $labelField = 'text', $parameters = [])
     {
-        $this->config = array_merge([
-            'removeItems'      => true,
-            'removeItemButton' => true,
-            'allowHTML'        => true,
-        ], $this->config);
+        $this->decorator->ajaxOptions($url, $valueField, $labelField, $parameters);
 
-        $parameters_json = json_encode($parameters);
+        return $this;
+    }
 
-        $this->additional_script .= <<<JS
-        admin.ajax.post("{$url}",{$parameters_json},function(data){
-            {$this->choicesObjName()}.setChoices(data.data, 'id', 'text', true);
-        });
-JS;
+    // backwards compatible
+    public function loadRemoteOptions($url, $parameters = [])
+    {
+        $valueField = 'id';
+        $labelField = 'text';
+        $this->decorator->ajaxOptions($url, $valueField, $labelField, $parameters);
 
         return $this;
     }
@@ -221,32 +295,9 @@ JS;
      *
      * @return $this
      */
-    public function ajax($url, $idField = 'id', $textField = 'text')
+    public function ajax($url, $valueField = 'id', $labelField = 'text')
     {
-        $this->config = array_merge([
-            'removeItems'      => true,
-            'removeItemButton' => true,
-            'allowHTML'        => true,
-            'placeholder'      => $this->label,
-        ], $this->config);
-
-        $this->additional_script = <<<JS
-            let search_{$this->getVariableName()} = document.querySelector("{$this->getElementClassSelector()}");
-            var lookupTimeout;
-            search_{$this->getVariableName()}.addEventListener('search', function(event) {
-                clearTimeout(lookupTimeout);
-                lookupTimeout = setTimeout(function(){
-                    var query = {$this->choicesObjName()}.input.value;
-                    admin.ajax.post("{$url}",{query:query},function(data){
-                        {$this->choicesObjName()}.setChoices(data.data, '{$idField}', '{$textField}', true);
-                    })
-                }, 250);
-            });
-
-            search_{$this->getVariableName()}.addEventListener('choice', function(event) {
-                {$this->choicesObjName()}.setChoices([], '{$idField}', '{$textField}', true);
-            });
-        JS;
+        $this->decorator->ajax($url, $valueField, $labelField);
 
         return $this;
     }
@@ -258,36 +309,7 @@ JS;
      */
     public function useNative()
     {
-        $this->native = true;
-
-        return $this;
-    }
-
-    /**
-     * Set use browser native selectbox.
-     *
-     * @return $this
-     */
-    public function useChoicesjs()
-    {
-        $this->native = false;
-
-        return $this;
-    }
-
-    /**
-     * Set config for Choicesjs.
-     *
-     * all configurations see https://github.com/jshjohnson/Choices
-     *
-     * @param string $key
-     * @param mixed  $val
-     *
-     * @return $this
-     */
-    public function config($key, $val)
-    {
-        $this->config[$key] = $val;
+        $this->decorator(SelectNative::class);
 
         return $this;
     }
@@ -298,37 +320,38 @@ JS;
     public function readonly($set = true): self
     {
         $this->useNative();
-        $this->config('readonly', $set);
+        $this->configKey('readonly', $set);
         $this->disabled($set);
 
         return parent::readonly($set);
     }
 
-    /**
-     * Returns variable name for ChoicesJS object.
-     */
-    public function choicesObjName($field = false)
+    public function prepare($value)
     {
-        if (empty($field)) {
-            $field = $this->getVariableName();
-        }
+        $value = parent::prepare($value);
 
-        return str_replace("__", "_", 'choices_'.$field);
+        return $value;
     }
 
-    /**
-     * Check if field should be rendered as Choises JS (not the case if fields are embed in popup).
-     */
-    public function allowedChoicesJs()
+    public function prepare_relation($value)
     {
-        $class = get_class($this);
+        if ($this->getSetting('create') && is_array($value)) {
+            $model = $this->form->model();
+            if (method_exists($model, $this->column)) {
+                $relation = $model->{$this->column}();
+                $related  = $relation->getRelated();
+                $key      = $related->getKeyName();
 
-        return in_array($class, [
-            'OpenAdmin\Admin\Form\Field\Select',
-            'OpenAdmin\Admin\Form\Field\Tags',
-            'OpenAdmin\Admin\Form\Field\MultipleSelect',
-            'OpenAdmin\Admin\Form\Field\Timezone',
-        ]);
+                $existing_ids = $related->whereIn($key, array_values($value))->get([$key])->pluck($key)->toArray();
+                $missing      = array_diff($value, $existing_ids);
+
+                foreach ($missing as $key => $myvalue) {
+                    $value[$key] = $related->create([$this->getSetting('create') => $myvalue])->id;
+                }
+            }
+        }
+
+        return $value;
     }
 
     /**
@@ -336,42 +359,28 @@ JS;
      */
     public function render()
     {
-        $configs = array_merge([
-            'removeItems'      => true,
-            'removeItemButton' => true,
-            'allowHTML'        => true,
-            'placeholder'      => [
-                'id'   => '',
-                'text' => $this->label,
-            ],
-            'classNames' => [
-                'containerOuter' => 'choices '.$this->getElementClassString(),
-            ],
-        ], $this->config);
-        $configs = json_encode($configs);
-
-        if (!$this->native && $this->allowedChoicesJs()) {
-            $this->script .= 'var '.$this->choicesObjName()." = new Choices('{$this->getElementClassSelector()}',{$configs});";
-            $this->script .= $this->additional_script;
-        }
-
+        // filter and render options
         if ($this->options instanceof \Closure) {
             if ($this->form) {
                 $this->options = $this->options->bindTo($this->form->model());
             }
             $this->options(call_user_func($this->options, $this->value, $this));
         }
-
         $this->options = array_filter($this->options, 'strlen');
 
-        $this->addVariables([
-            'options' => $this->options,
-            'groups'  => $this->groups,
-        ]);
-
-        $this->addCascadeScript();
+        if ($this->allowDecorator()) {
+            $this->decorator->render($this);
+        }
 
         $this->attribute('data-value', implode(',', (array) $this->value()));
+        $this->addVariables([
+            'settings' => $this->settings,
+            'options'  => $this->options,
+            'groups'   => $this->groups,
+        ]);
+
+        // cascading scripts
+        $this->addCascadeScript();
 
         return parent::render();
     }

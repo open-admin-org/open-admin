@@ -21,13 +21,6 @@ class Listbox extends MultipleSelect
         '/vendor/open-admin/dual-listbox/dual-listbox-custom.js',
     ];
 
-    public function settings(array $settings)
-    {
-        $this->settings = array_merge($this->settings, $settings);
-
-        return $this;
-    }
-
     /**
      * Set listbox height.
      *

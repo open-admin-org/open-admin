@@ -15,9 +15,11 @@ class MultipleSelect extends Select
      */
     protected $otherKey;
 
+    public $must_prepare = true;
+
     public function __construct($column, $arguments = [])
     {
-        $this->config['removeItemButton'] = true;
+        $this->configKey('removeItemButton', true);
 
         parent::__construct($column, $arguments);
     }
@@ -79,13 +81,13 @@ class MultipleSelect extends Select
         if (is_null($first)) {
             $this->value = null;
 
-        // MultipleSelect value store as an ont-to-many relationship.
+            // MultipleSelect value store as an ont-to-many relationship.
         } elseif (is_array($first)) {
             foreach ($relations as $relation) {
                 $this->value[] = Arr::get($relation, "pivot.{$this->getOtherKey()}");
             }
 
-        // MultipleSelect value store as a column.
+            // MultipleSelect value store as a column.
         } else {
             $this->value = $relations;
         }
@@ -113,13 +115,13 @@ class MultipleSelect extends Select
         if (is_null($first)) {
             $this->original = null;
 
-        // MultipleSelect value store as an ont-to-many relationship.
+            // MultipleSelect value store as an ont-to-many relationship.
         } elseif (is_array($first)) {
             foreach ($relations as $relation) {
                 $this->original[] = Arr::get($relation, "pivot.{$this->getOtherKey()}");
             }
 
-        // MultipleSelect value store as a column.
+            // MultipleSelect value store as a column.
         } else {
             $this->original = $relations;
         }

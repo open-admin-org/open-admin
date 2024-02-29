@@ -1,0 +1,52 @@
+.focus .ts-control {
+    border-radius: 0.15rem;
+}
+
+body .focus .ts-control {
+    border-color: #86b7fe;
+    box-shadow: 0 0 0 .30rem rgba(58, 150, 255, .25) !important;
+    outline: 0
+}
+
+body .ts-wrapper.multi .ts-control>div.active {
+    background: var(--primary-color);
+}
+
+body .ts-control {
+    min-width: 100px;
+}
+
+body .ts-control>input {
+    min-width: 3rem;
+}
+
+body .ts-wrapper.multi .item {
+    border-radius: 0.25rem;
+    margin-right: 0.5rem;
+}
+
+body .ts-wrapper.multi .item .remove {
+    width: 1.7rem;
+    text-align: center;
+}
+
+body .ts-wrapper.single.plugin-remove_button:not(.rtl) .item .remove,
+body .ts-wrapper.single .item .remove {
+    position: absolute;
+    right: 27px;
+    border: 0;
+    font-size: 1.2rem;
+    padding: 0 6px;
+    line-height: 1.3rem;
+    background: #FFF;
+}
+
+body .ts-dropdown-content {
+    border: 1px solid #ced4da;
+    border-radius: 0.25rem;
+
+}
+
+body .ts-dropdown {
+    box-shadow: 0px 5px 10px -3px rgba(0, 0, 0, 0.1);
+}
