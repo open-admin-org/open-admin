@@ -14,7 +14,6 @@ class Checkbox extends MultipleSelect
      */
     protected $cascadeEvent = 'change';
 
-
     /**
      * Set options.
      *
@@ -81,11 +80,11 @@ class Checkbox extends MultipleSelect
 
     public function script()
     {
-        $var_name = $this->getVariableName();
+        $var_name             = $this->getVariableName();
         $elementClassSelector = $this->getElementClassSelector();
-        $requireMessage = $this->validationMessages['required'] ?? 'This field is required';
+        $requireMessage       = $this->validationMessages['required'] ?? 'This field is required';
 
-        if ($this->stacked && in_array("required", $this->rules)) {
+        if ($this->stacked && in_array('required', $this->rules)) {
             $script = <<<JS
 
             function {$var_name}_check_stacked(){
@@ -107,20 +106,18 @@ class Checkbox extends MultipleSelect
             });
             {$var_name}_check_stacked();
         JS;
+            Admin::script($script);
         }
-
-        Admin::script($script);
     }
 
-
     /**
-     * {@inheritdoc}
+     * @inheritdoc
      */
     public function render()
     {
         $this->addVariables([
-            'checked'      => $this->checked,
-            'stacked'      => $this->stacked,
+            'checked' => $this->checked,
+            'stacked' => $this->stacked,
         ]);
 
         $this->script();
