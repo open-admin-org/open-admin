@@ -139,7 +139,7 @@ class Form implements Renderable
     }
 
     /**
-     * Get form title.
+     * Set form title.
      *
      * @return mixed
      */
@@ -148,6 +148,16 @@ class Form implements Renderable
         $this->title = $title;
 
         return $this;
+    }
+
+    /**
+     * Get form title.
+     *
+     * @return string
+     */
+    public function getTitle()
+    {
+        return $this->title;
     }
 
     /**
@@ -421,12 +431,12 @@ class Form implements Renderable
         ];
 
         $settings = [
-            'type'                => 'question',
-            'showCancelButton'    => true,
-            'confirmButtonText'   => $trans['submit'],
-            'cancelButtonText'    => $trans['cancel'],
-            'title'               => $this->confirm,
-            'text'                => '',
+            'type'              => 'question',
+            'showCancelButton'  => true,
+            'confirmButtonText' => $trans['submit'],
+            'cancelButtonText'  => $trans['cancel'],
+            'title'             => $this->confirm,
+            'text'              => '',
         ];
 
         $settings = trim(json_encode($settings, JSON_PRETTY_PRINT));

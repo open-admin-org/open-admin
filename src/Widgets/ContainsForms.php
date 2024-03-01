@@ -46,7 +46,7 @@ trait ContainsForms
             $form = app()->make($class);
 
             $setActive = ($name == $active);
-            $this->add($form->title(), $form->unbox(), $setActive);
+            $this->add($form->gettitle(), $form->unbox(), $setActive);
         }
 
         return $this;
