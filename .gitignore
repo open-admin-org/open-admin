@@ -10,3 +10,4 @@ composer.lock
 resources/assets/minify-manifest.json
 resources/assets/open-admin.min.css
 resources/assets/open-admin.min.js
+./.phpunit.result.cache

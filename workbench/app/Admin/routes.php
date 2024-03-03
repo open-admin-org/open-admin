@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-use App\Admin\Controllers\HomeController;
 use Illuminate\Routing\Router;
 use Illuminate\Support\Facades\Route;
 use OpenAdmin\Admin\Facades\Admin;
+use Workbench\App\Admin\Controllers\HomeController;
 
 Admin::routes();
 
