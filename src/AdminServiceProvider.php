@@ -6,14 +6,16 @@ use Illuminate\Routing\Router;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider;
+use Illuminate\View\Compilers\BladeCompiler;
 use OpenAdmin\Admin\Layout\Content;
+use ReflectionClass;
 
 class AdminServiceProvider extends ServiceProvider
 {
     /**
      * @var array
      */
-    protected $commands = [
+    protected array $commands = [
         Console\AdminCommand::class,
         Console\MakeCommand::class,
         Console\ControllerCommand::class,
@@ -40,7 +42,7 @@ class AdminServiceProvider extends ServiceProvider
      *
      * @var array
      */
-    protected $routeMiddleware = [
+    protected array $routeMiddleware = [
         'admin.auth'       => Middleware\Authenticate::class,
         'admin.throttle'   => Middleware\Throttle::class,
         'admin.pjax'       => Middleware\Pjax::class,
@@ -55,7 +57,7 @@ class AdminServiceProvider extends ServiceProvider
      *
      * @var array
      */
-    protected $middlewareGroups = [
+    protected array $middlewareGroups = [
         'admin' => [
             'admin.auth',
             'admin.throttle',
@@ -72,7 +74,7 @@ class AdminServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    public function boot()
+    public function boot(): void
     {
         $this->loadViewsFrom(__DIR__.'/../resources/views', 'admin');
 
@@ -92,7 +94,7 @@ class AdminServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    protected function ensureHttps()
+    protected function ensureHttps(): void
     {
         if (config('admin.https') || config('admin.secure')) {
             url()->forceScheme('https');
@@ -105,10 +107,10 @@ class AdminServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    protected function registerPublishing()
+    protected function registerPublishing(): void
     {
         if ($this->app->runningInConsole()) {
-            $this->publishes([__DIR__.'/../config' => config_path()], 'open-admin-config');
+            $this->publishes([__DIR__.'/../config/admin.php' => config_path('admin.php')], 'open-admin-config');
             $this->publishes([__DIR__.'/../resources/lang' => resource_path('lang')], 'open-admin-lang');
             $this->publishes([__DIR__.'/../database/migrations' => database_path('migrations')], 'open-admin-migrations');
             $this->publishes([__DIR__.'/../resources/assets' => public_path('vendor/open-admin')], 'open-admin-assets');
@@ -121,9 +123,9 @@ class AdminServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    protected function compatibleBlade()
+    protected function compatibleBlade(): void
     {
-        $reflectionClass = new \ReflectionClass('\Illuminate\View\Compilers\BladeCompiler');
+        $reflectionClass = new ReflectionClass(BladeCompiler::class);
 
         if ($reflectionClass->hasMethod('withoutDoubleEncoding')) {
             Blade::withoutDoubleEncoding();
@@ -133,7 +135,7 @@ class AdminServiceProvider extends ServiceProvider
     /**
      * Extends laravel router.
      */
-    protected function macroRouter()
+    protected function macroRouter(): void
     {
         Router::macro('content', function ($uri, $content, $options = []) {
             return $this->match(['GET', 'HEAD'], $uri, function (Content $layout) use ($content, $options) {
@@ -159,8 +161,9 @@ class AdminServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    public function register()
+    public function register(): void
     {
+        $this->mergeConfigFrom(__DIR__.'/../config/admin.php', 'admin');
         $this->loadAdminAuthConfig();
 
         $this->registerRouteMiddleware();
@@ -175,7 +178,7 @@ class AdminServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    protected function loadAdminAuthConfig()
+    protected function loadAdminAuthConfig(): void
     {
         config(Arr::dot(config('admin.auth', []), 'auth.'));
     }
@@ -185,7 +188,7 @@ class AdminServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    protected function registerRouteMiddleware()
+    protected function registerRouteMiddleware(): void
     {
         // register route middleware.
         foreach ($this->routeMiddleware as $key => $middleware) {
@@ -203,13 +206,13 @@ class AdminServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    public function bladeDirectives()
+    public function bladeDirectives(): void
     {
-        Blade::directive('box', function ($title) {
-            return "<?php \$box = new \OpenAdmin\Admin\Widgets\Box({$title}, '";
+        Blade::directive('box', static function ($title) {
+            return "<?php \$box = new \OpenAdmin\Admin\Widgets\Box($title, '";
         });
 
-        Blade::directive('endbox', function ($expression) {
+        Blade::directive('endbox', static function () {
             return "'); echo \$box->render(); ?>";
         });
     }
