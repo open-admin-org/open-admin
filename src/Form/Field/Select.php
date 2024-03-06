@@ -116,10 +116,7 @@ class Select extends Field
         }
 
         $this->additional_script .= <<<JS
-
-            let elm = document.querySelector("{$this->getElementClassSelector()}");
-            var lookupTimeout;
-            elm.addEventListener('change', function(event) {
+            document.querySelector("{$this->getElementClassSelector()}").addEventListener('change', function(event) {
                 var query = {$this->choicesObjName()}.getValue().value;
                 var current_value = {$this->choicesObjName($field)}.getValue().value;
                 admin.ajax.post("{$url}",{query:query},function(data){
@@ -228,9 +225,8 @@ JS;
         ], $this->config);
 
         $this->additional_script = <<<JS
-            let elm = document.querySelector("{$this->getElementClassSelector()}");
             var lookupTimeout;
-            elm.addEventListener('search', function(event) {
+            document.querySelector("{$this->getElementClassSelector()}").addEventListener('search', function(event) {
                 clearTimeout(lookupTimeout);
                 lookupTimeout = setTimeout(function(){
                     var query = {$this->choicesObjName()}.input.value;
@@ -239,8 +235,7 @@ JS;
                     })
                 }, 250);
             });
-
-            elm.addEventListener('choice', function(event) {
+            document.querySelector("{$this->getElementClassSelector()}").addEventListener('choice', function(event) {
                 {$this->choicesObjName()}.setChoices([], '{$idField}', '{$textField}', true);
             });
         JS;
