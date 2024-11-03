@@ -1,8 +1,5 @@
-<p align="center">
-    How to install this packagte:
-    ------------
-      ### 1. Create `composer.json`:
-     ```json
+### 1. Create `composer.json`:
+     ```
         {
             "repositories": [                                             
                 {                                                         
@@ -14,7 +11,7 @@
     ```
     After that, the Composer could install packages via Packagist and your VCS.
 
----
+
 
 ### 2. Composer Install
 
@@ -27,7 +24,7 @@ composer -n require name/lib-name
 ```
 
 > `--no-interaction` would skip `auth.json` for VCS repositories such as GitLab API, and use giving url to access instead.
-</p>
+
 
 <p align="center">
 <a href="https://open-admin.org/">
