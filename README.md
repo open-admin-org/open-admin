@@ -1,4 +1,35 @@
 <p align="center">
+    How to install this packagte:
+    ------------
+      ### 1. Create `composer.json`:
+     ```json
+        {
+            "repositories": [                                             
+                {                                                         
+                    "type": "vcs",                                        
+                    "url": "git@github.com:azraf/open-admin.git"
+                }                                                         
+            ]
+        }
+    ```
+    After that, the Composer could install packages via Packagist and your VCS.
+
+---
+
+### 2. Composer Install
+
+First, check the current user has the ssh-key permission to access VCS git-ssh repositories.
+
+Then run Composer require for VCS git package with `--no-interaction`:
+
+```composer
+composer -n require name/lib-name
+```
+
+> `--no-interaction` would skip `auth.json` for VCS repositories such as GitLab API, and use giving url to access instead.
+</p>
+
+<p align="center">
 <a href="https://open-admin.org/">
 <img src="https://open-admin.org/gfx/logo.png" alt="open-admin" style="height:200px;background:transparent;">
 </a>
