@@ -1,5 +1,9 @@
 ### 1. Create `composer.json`:
      ```
+        "require": {
+            "open-admin-org/open-admin": "11.x-dev"
+        },
+
         {
             "repositories": [                                             
                 {                                                         
@@ -8,23 +12,24 @@
                 }                                                         
             ]
         }
+
+        "minimum-stability": "dev",
+        "prefer-stable": true
+
     ```
     After that, the Composer could install packages via Packagist and your VCS.
 
+2. Composer Install
 
-
-### 2. Composer Install
-
-First, check the current user has the ssh-key permission to access VCS git-ssh repositories.
-
-Then run Composer require for VCS git package with `--no-interaction`:
-
-```composer
-composer -n require name/lib-name
 ```
+ composer install
+ php artisan vendor:publish --provider="OpenAdmin\Admin\AdminServiceProvider"
+ php artisan admin:install
+ composer require open-admin-ext/helpers
+ php artisan admin:import helpers
 
-> `--no-interaction` would skip `auth.json` for VCS repositories such as GitLab API, and use giving url to access instead.
-
+```
+Detail Documentation: <a href="https://open-admin.org/docs/en/quick-start">https://open-admin.org/docs/en/quick-start</a>
 
 <p align="center">
 <a href="https://open-admin.org/">
