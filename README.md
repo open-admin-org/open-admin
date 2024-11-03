@@ -1,3 +1,36 @@
+### 1. Create `composer.json`:
+     ```
+        "require": {
+            "open-admin-org/open-admin": "11.x-dev"
+        },
+
+        {
+            "repositories": [                                             
+                {                                                         
+                    "type": "vcs",                                        
+                    "url": "git@github.com:azraf/open-admin.git"
+                }                                                         
+            ]
+        }
+
+        "minimum-stability": "dev",
+        "prefer-stable": true
+
+    ```
+    After that, the Composer could install packages via Packagist and your VCS.
+
+2. Composer Install
+
+```
+ composer install
+ php artisan vendor:publish --provider="OpenAdmin\Admin\AdminServiceProvider"
+ php artisan admin:install
+ composer require open-admin-ext/helpers
+ php artisan admin:import helpers
+
+```
+Detail Documentation: <a href="https://open-admin.org/docs/en/quick-start">https://open-admin.org/docs/en/quick-start</a>
+
 <p align="center">
 <a href="https://open-admin.org/">
 <img src="https://open-admin.org/gfx/logo.png" alt="open-admin" style="height:200px;background:transparent;">

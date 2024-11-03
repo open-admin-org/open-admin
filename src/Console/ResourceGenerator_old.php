@@ -3,8 +3,6 @@
 namespace OpenAdmin\Admin\Console;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Schema;
 
 class ResourceGenerator
 {
@@ -12,7 +10,6 @@ class ResourceGenerator
      * @var Model
      */
     protected $model;
-    private $useDoctine = true;
 
     /**
      * @var array
@@ -56,10 +53,6 @@ class ResourceGenerator
     public function __construct($model)
     {
         $this->model = $this->getModel($model);
-
-        if (explode('.', $this->model->getTable())[0] >= 11) {
-            $this->useDoctine = false;
-        }
     }
 
     /**
@@ -89,17 +82,12 @@ class ResourceGenerator
 
         $output = '';
 
-        $table = $this->model->getTable();
         foreach ($this->getTableColumns() as $column) {
             $name = $column->getName();
             if (in_array($name, $reservedColumns)) {
                 continue;
             }
-            if ($this->useDoctine) {
-                $type = $column->getType()->getName();
-            } else {
-                $type = Schema::getColumnType($table, $name);
-            }
+            $type = $column->getType()->getName();
             $default = $column->getDefault();
 
             $defaultValue = '';
@@ -113,7 +101,7 @@ class ResourceGenerator
                 case 'json':
                 case 'array':
                 case 'object':
-                    $fieldType = 'textarea';
+                    $fieldType = 'text';
                     break;
                 case 'string':
                     $fieldType = 'text';
@@ -128,6 +116,7 @@ class ResourceGenerator
                 case 'integer':
                 case 'bigint':
                 case 'smallint':
+                case 'timestamp':
                     $fieldType = 'number';
                     break;
                 case 'decimal':
@@ -135,17 +124,16 @@ class ResourceGenerator
                 case 'real':
                     $fieldType = 'decimal';
                     break;
-                case 'timestamp':
                 case 'datetime':
-                    $fieldType    = 'datetime';
+                    $fieldType = 'datetime';
                     $defaultValue = "date('Y-m-d H:i:s')";
                     break;
                 case 'date':
-                    $fieldType    = 'date';
+                    $fieldType = 'date';
                     $defaultValue = "date('Y-m-d')";
                     break;
                 case 'time':
-                    $fieldType    = 'time';
+                    $fieldType = 'time';
                     $defaultValue = "date('H:i:s')";
                     break;
                 case 'text':
@@ -153,7 +141,7 @@ class ResourceGenerator
                     $fieldType = 'textarea';
                     break;
                 default:
-                    $fieldType    = 'text';
+                    $fieldType = 'text';
                     $defaultValue = "'{$default}'";
             }
 
@@ -196,7 +184,7 @@ class ResourceGenerator
         $output = '';
 
         foreach ($this->getTableColumns() as $column) {
-            $name  = $column->getName();
+            $name = $column->getName();
             $label = $this->formatLabel($name);
 
             $output .= sprintf($this->formats['grid_column'], $name, $label);
@@ -225,79 +213,31 @@ class ResourceGenerator
      */
     protected function getTableColumns()
     {
-        if ($this->useDoctine && !$this->model->getConnection()->isDoctrineAvailable()) {
+        if (!$this->model->getConnection()->isDoctrineAvailable()) {
             throw new \Exception(
                 'You need to require doctrine/dbal: ~2.3 in your own composer.json to get database columns. '
             );
         }
 
         $table = $this->model->getConnection()->getTablePrefix().$this->model->getTable();
-        /* @var \Doctrine\DBAL\Schema\MySqlSchemaManager $schema */
+        /** @var \Doctrine\DBAL\Schema\MySqlSchemaManager $schema */
+        $schema = $this->model->getConnection()->getDoctrineSchemaManager($table);
 
-        if ($this->useDoctine) {
-            $schema = $this->model->getConnection()->getDoctrineSchemaManager($table);
+        // custom mapping the types that doctrine/dbal does not support
+        $databasePlatform = $schema->getDatabasePlatform();
 
-            // custom mapping the types that doctrine/dbal does not support
-            $databasePlatform = $schema->getDatabasePlatform();
-
-            foreach ($this->doctrineTypeMapping as $doctrineType => $dbTypes) {
-                foreach ($dbTypes as $dbType) {
-                    $databasePlatform->registerDoctrineTypeMapping($dbType, $doctrineType);
-                }
+        foreach ($this->doctrineTypeMapping as $doctrineType => $dbTypes) {
+            foreach ($dbTypes as $dbType) {
+                $databasePlatform->registerDoctrineTypeMapping($dbType, $doctrineType);
             }
-
-            $database = null;
-            if (strpos($table, '.')) {
-                list($database, $table) = explode('.', $table);
-            }
-
-            return $schema->listTableColumns($table, $database);
-        } else {
-            return $this->listTableColumns($table);
-        }
-    }
-
-    public function checkDriver()
-    {
-        $config = $this->model->getConnection()->getConfig();
-        if ($config['driver'] != 'mysql') {
-            throw new \Exception(
-                'Only mysql supported for now, sorry '
-            );
-        }
-    }
-
-    public function listTableColumns($table)
-    {
-        $this->checkDriver();
-        $list    = Schema::getColumnListing($table);
-        $columns = [];
-        foreach ($list as $columnName) {
-            $columnInfo = DB::select('SHOW COLUMNS FROM `'.$table."` LIKE '".$columnName."'")[0];
-
-            $columns[] = new class($columnName, $columnInfo) {
-                public $columnName;
-                public $columnInfo;
-
-                public function __construct($columnName, $columnInfo)
-                {
-                    $this->columnName = $columnName;
-                    $this->columnInfo = $columnInfo;
-                }
-
-                public function getName()
-                {
-                    return $this->columnName;
-                }
-
-                public function getDefault()
-                {
-                    return $this->columnInfo->Default;
-                }
-            };
         }
 
-        return $columns;
+        $database = null;
+        if (strpos($table, '.')) {
+            list($database, $table) = explode('.', $table);
+        }
+
+        return $schema->listTableColumns($table, $database);
     }
 
     /**
