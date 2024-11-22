@@ -26,11 +26,12 @@
         "doctrine/dbal": "2.*|3.*"
     },
     "require-dev": {
-        "laravel/laravel": ">=8.0",
-        "fzaninotto/faker": "~1.4",
+        "laravel/laravel": ">=10.0",
         "intervention/image": "~2.3",
-        "laravel/browser-kit-testing": "^6.0",
-        "spatie/phpunit-watcher": "^1.22.0"
+        "laravel/dusk": "^7.13",
+        "fakerphp/faker": "^1.23",
+        "phpunit/phpunit": "^10.5",
+        "orchestra/testbench-dusk": "^8.22"
     },
     "autoload": {
         "psr-4": {
@@ -42,8 +43,10 @@
     },
     "autoload-dev": {
         "psr-4": {
-            "Tests\\Models\\": "tests/models",
-            "Tests\\Controllers\\": "tests/controllers"
+            "": "tests/",
+            "Workbench\\App\\": "workbench/app/",
+            "Workbench\\Database\\Factories\\": "workbench/database/factories/",
+            "Workbench\\Database\\Seeders\\": "workbench/database/seeders/"
         },
         "classmap": [
             "tests/TestCase.php"
@@ -51,7 +54,24 @@
     },
     "scripts": {
         "sass": "sass --watch resources/assets/open-admin/scss/styles.scss:resources/assets/open-admin/css/styles.css resources/assets/open-admin/scss/pages:resources/assets/open-admin/css/pages --style compressed",
-        "test": "./vendor/bin/phpunit"
+        "test": "./vendor/bin/phpunit",
+        "post-autoload-dump": [
+            "@clear",
+            "@prepare",
+            "@dusk:install-chromedriver"
+        ],
+        "clear": "@php vendor/bin/testbench package:purge-skeleton --ansi",
+        "prepare": "@php vendor/bin/testbench package:discover --ansi",
+        "dusk:install-chromedriver": "@php vendor/bin/dusk-updater detect --auto-update --ansi",
+        "build": "@php vendor/bin/testbench workbench:build --ansi",
+        "serve": [
+            "Composer\\Config::disableProcessTimeout",
+            "@build",
+            "@php vendor/bin/testbench serve"
+        ],
+        "lint": [
+            "@php vendor/bin/phpstan analyse"
+        ]
     },
     "suggest": {
         "intervention/image": "Required to handling and manipulation upload images (~2.3).",
