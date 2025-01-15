@@ -12,7 +12,7 @@ if (!function_exists('admin_path')) {
      */
     function admin_path($path = '')
     {
-        return ucfirst(config('admin.directory')).($path ? DIRECTORY_SEPARATOR.$path : $path);
+        return ucfirst(config('admin.directory')) . ($path ? DIRECTORY_SEPARATOR . $path : $path);
     }
 }
 
@@ -48,7 +48,7 @@ if (!function_exists('admin_base_path')) {
      */
     function admin_base_path($path = '')
     {
-        $prefix = '/'.trim(config('admin.route.prefix'), '/');
+        $prefix = '/' . trim(config('admin.route.prefix'), '/');
 
         $prefix = ($prefix == '/') ? '' : $prefix;
 
@@ -58,7 +58,7 @@ if (!function_exists('admin_base_path')) {
             return $prefix ?: '/';
         }
 
-        return $prefix.'/'.$path;
+        return $prefix . '/' . $path;
     }
 }
 
@@ -70,11 +70,57 @@ if (!function_exists('admin_toastr')) {
      * @param string $type
      * @param array  $options
      */
+    
     function admin_toastr($message = '', $type = 'success', $options = [])
     {
-        $toastr = new MessageBag(get_defined_vars());
-
+        if (session()->has('toastr')) {
+            $toastr = session()->pull('toastr');
+        } else {
+            $toastr = [];
+        }
+        $toastr[] = new MessageBag(get_defined_vars());
+        
         session()->flash('toastr', $toastr);
+    }
+}
+
+if (!function_exists('admin_toastr_script')) {
+    /**
+     * Flash a toastr message bag to session.
+     *
+     * @param string $message
+     * @param string $type
+     * @param array  $options
+     */
+    function admin_toast_from_bag($bag)
+    {
+        $type    = \Illuminate\Support\Arr::get($bag->get('type'), 0, 'success');
+        $message = \Illuminate\Support\Arr::get($bag->get('message'), 0, '');
+        $options = $bag->get('options', []);
+
+        $defaults    = config('admin.toastr_config', []);
+        $options     = array_merge($defaults, $options);
+        $options_str = json_encode($options);
+
+        return <<<JS
+            admin.toastr.{$type}('{$message}', {$options_str});
+        JS;
+    }
+
+    function admin_toastr_script()
+    {
+        $toasts_js = '';
+        $toastr    = session()->pull('toastr');
+        
+        foreach ($toastr as $bag) {
+            $toasts_js .= admin_toast_from_bag($bag);
+        }
+
+        echo <<<JS
+            <script>
+                {$toasts_js}
+            </script>
+            JS;
     }
 }
 
@@ -84,8 +130,15 @@ if (!function_exists('admin_flashjs')) {
      *
      * @param string $flashjs
      */
-    function admin_flashjs($flashjs = '')
+    function admin_flashjs($add_flashjs = '')
     {
+        if (session()->has('flashjs')) {
+            $flashjs = session()->pull('flashjs');
+        } else {
+            $flashjs = '';
+        }
+        $flashjs .= $add_flashjs;
+
         session()->flash('flashjs', $flashjs);
     }
 }
@@ -256,15 +309,15 @@ if (!function_exists('file_size')) {
     function file_size($bytes)
     {
         if ($bytes >= 1073741824) {
-            $bytes = number_format($bytes / 1073741824, 2).' GB';
+            $bytes = number_format($bytes / 1073741824, 2) . ' GB';
         } elseif ($bytes >= 1048576) {
-            $bytes = number_format($bytes / 1048576, 2).' MB';
+            $bytes = number_format($bytes / 1048576, 2) . ' MB';
         } elseif ($bytes >= 1024) {
-            $bytes = number_format($bytes / 1024, 2).' KB';
+            $bytes = number_format($bytes / 1024, 2) . ' KB';
         } elseif ($bytes > 1) {
-            $bytes = $bytes.' bytes';
+            $bytes = $bytes . ' bytes';
         } elseif ($bytes == 1) {
-            $bytes = $bytes.' byte';
+            $bytes = $bytes . ' byte';
         } else {
             $bytes = '0 bytes';
         }
@@ -281,18 +334,18 @@ if (!function_exists('prepare_options')) {
      */
     function prepare_options(array $options)
     {
-        $original = [];
+        $original  = [];
         $toReplace = [];
 
         foreach ($options as $key => &$value) {
             if (is_array($value)) {
-                $subArray = prepare_options($value);
-                $value = $subArray['options'];
-                $original = array_merge($original, $subArray['original']);
+                $subArray  = prepare_options($value);
+                $value     = $subArray['options'];
+                $original  = array_merge($original, $subArray['original']);
                 $toReplace = array_merge($toReplace, $subArray['toReplace']);
             } elseif (strpos($value, 'function(') === 0) {
-                $original[] = $value;
-                $value = "%{$key}%";
+                $original[]  = $value;
+                $value       = "%{$key}%";
                 $toReplace[] = "\"{$value}\"";
             }
         }
@@ -322,7 +375,7 @@ if (!function_exists('json_encode_options')) {
 if (!function_exists('admin_get_route')) {
     function admin_get_route(string $name): string
     {
-        return config('admin.route.prefix').'.'.$name;
+        return config('admin.route.prefix') . '.' . $name;
     }
 }
 

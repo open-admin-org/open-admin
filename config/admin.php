@@ -228,7 +228,7 @@ return [
          * or specific method to path like: get:admin/auth/logs.
          */
         'except' => [
-            env('ADMIN_ROUTE_PREFIX', 'admin').'/auth/logs*',
+            env('ADMIN_ROUTE_PREFIX', 'admin') . '/auth/logs*',
         ],
 
         /*
@@ -285,6 +285,18 @@ return [
     |
     */
     'skin' => 'your-custom-skin-class',
+
+    /*
+    |--------------------------------------------------------------------------
+    | toastr config
+    |--------------------------------------------------------------------------
+    |
+    | Apply custom config to toastr
+    | see https://github.com/apvarun/toastify-js for config option
+    | example: ['position'=>'center', "duration"=>6000]
+    |
+    */
+    'toastr_config' => [],
 
     /*
     |--------------------------------------------------------------------------
