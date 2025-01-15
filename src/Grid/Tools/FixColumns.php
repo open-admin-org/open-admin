@@ -50,7 +50,7 @@ class FixColumns
         $this->head = $head;
         $this->tail = $tail;
 
-        $this->left = Collection::make();
+        $this->left  = Collection::make();
         $this->right = Collection::make();
     }
 

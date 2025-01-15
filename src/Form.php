@@ -145,7 +145,7 @@ class Form implements Renderable
     public $fixedFooter = true;
 
     /**
-     * Overwrite the resource url if needed
+     * Overwrite the resource url if needed.
      *
      * @var string
      */
@@ -154,7 +154,7 @@ class Form implements Renderable
     /**
      * Create a new form instance.
      *
-     * @param          $model
+     * @param         $model
      * @param Closure $callback
      */
     public function __construct($model, Closure $callback = null)
@@ -1647,7 +1647,7 @@ class Form implements Renderable
     /**
      * Add a new layout column.
      *
-     * @param int      $width
+     * @param int     $width
      * @param Closure $closure
      *
      * @return $this

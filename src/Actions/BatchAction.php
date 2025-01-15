@@ -84,9 +84,9 @@ abstract class BatchAction extends GridAction
             }
         }
 
-        $icon = $this->getIcon();
+        $icon           = $this->getIcon();
         $shortClassName = (new \ReflectionClass($this))->getShortName();
-        $modalId = $modalId ? "modal='{$modalId}'" : '';
+        $modalId        = $modalId ? "modal='{$modalId}'" : '';
 
         return "<a href='javascript:void(0);' class='{$this->getElementClass(false)} dropdown-item batch-action {$shortClassName}' {$modalId}>
             {$icon}{$this->name()}

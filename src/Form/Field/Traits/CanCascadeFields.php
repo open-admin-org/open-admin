@@ -26,8 +26,8 @@ trait CanCascadeFields
     public function when($operator, $value, $closure = null)
     {
         if (func_num_args() == 2) {
-            $closure = $value;
-            $value = $operator;
+            $closure  = $value;
+            $value    = $operator;
             $operator = '=';
         }
 

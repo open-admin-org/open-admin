@@ -147,7 +147,7 @@ class StepForm extends Form
         ];
 
         if ($index !== 0) {
-            $step = $this->steps[$index - 1];
+            $step    = $this->steps[$index - 1];
             $prevUrl = request()->fullUrlWithQuery(compact('step'));
             $footer .= "<a href=\"{$prevUrl}\" class=\"btn btn-light me-2\">{$trans['prev']}</a>";
         }

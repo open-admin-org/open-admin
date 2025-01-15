@@ -90,7 +90,7 @@ class BatchActions extends AbstractTool
     /**
      * Add a batch action.
      *
-     * @param $name
+     * @param                  $name
      * @param BatchAction|null $action
      *
      * @return $this

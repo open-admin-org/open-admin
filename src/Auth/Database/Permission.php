@@ -74,7 +74,7 @@ class Permission extends Model
 
             if (Str::contains($path, ':')) {
                 list($method, $path) = explode(':', $path);
-                $method = explode(',', $method);
+                $method              = explode(',', $method);
             }
 
             return compact('method', 'path');

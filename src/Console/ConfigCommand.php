@@ -28,10 +28,10 @@ class ConfigCommand extends Command
     {
         $path = $this->argument('path') ?: 'config/admin.php';
 
-        $current = require $path;
+        $current  = require $path;
         $original = require __DIR__.'/../../config/admin.php';
 
-        $added = $this->diff($current, $original);
+        $added   = $this->diff($current, $original);
         $removed = $this->diff($original, $current);
 
         if ($added->isEmpty() && $removed->isEmpty()) {

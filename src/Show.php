@@ -85,7 +85,7 @@ class Show implements Renderable
      */
     public function __construct($model, $builder = null)
     {
-        $this->model = $model;
+        $this->model   = $model;
         $this->builder = $builder;
 
         $this->initPanel();
@@ -124,7 +124,7 @@ class Show implements Renderable
      */
     protected function initContents()
     {
-        $this->fields = new Collection();
+        $this->fields    = new Collection();
         $this->relations = new Collection();
     }
 
@@ -204,7 +204,7 @@ class Show implements Renderable
     {
         if (is_null($builder)) {
             $builder = $label;
-            $label = '';
+            $label   = '';
         }
 
         return $this->addRelation($name, $builder, $label);

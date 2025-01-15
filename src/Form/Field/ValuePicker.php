@@ -49,9 +49,9 @@ class ValuePicker
     public function __construct($selecteable, $column = '', $multiple = false, $separator = ',')
     {
         $this->selecteable = $selecteable;
-        $this->column = $column;
-        $this->multiple = $multiple;
-        $this->separator = $separator;
+        $this->column      = $column;
+        $this->multiple    = $multiple;
+        $this->separator   = $separator;
     }
 
     /**

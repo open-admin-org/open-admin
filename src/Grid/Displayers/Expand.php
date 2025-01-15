@@ -12,14 +12,14 @@ class Expand extends AbstractDisplayer
 
     public function display($callback = null, $isExpand = false)
     {
-        $html = '';
-        $async = false;
+        $html     = '';
+        $async    = false;
         $loadGrid = false;
 
         if (is_subclass_of($callback, Renderable::class)) {
             $this->renderable = $callback;
-            $async = true;
-            $loadGrid = is_subclass_of($callback, Simple::class);
+            $async            = true;
+            $loadGrid         = is_subclass_of($callback, Simple::class);
         } else {
             $html = call_user_func_array($callback->bindTo($this->row), [$this->row]);
         }

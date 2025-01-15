@@ -99,7 +99,7 @@ class Dashboard
         ];
 
         foreach ($extensions as &$extension) {
-            $name = explode('/', $extension['name']);
+            $name                   = explode('/', $extension['name']);
             $extension['installed'] = array_key_exists(end($name), Admin::$extensions);
         }
 

@@ -99,7 +99,7 @@ abstract class AbstractFilter
     /**
      * AbstractFilter constructor.
      *
-     * @param $column
+     * @param        $column
      * @param string $label
      */
     public function __construct($column, $label = '')

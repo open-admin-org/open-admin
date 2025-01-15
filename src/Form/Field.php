@@ -19,7 +19,8 @@ use OpenAdmin\Admin\Widgets\Form as WidgetForm;
  */
 class Field implements Renderable
 {
-    use Macroable, HasUniqueId;
+    use Macroable;
+    use HasUniqueId;
 
     public const FILE_DELETE_FLAG = '_file_del_';
     public const FILE_SORT_FLAG   = '_file_sort_';
@@ -457,7 +458,7 @@ class Field implements Renderable
     }
 
     /**
-     * Set the key of the field in the request
+     * Set the key of the field in the request.
      *
      * @param string
      *
@@ -471,7 +472,7 @@ class Field implements Renderable
     }
 
     /**
-     * Set the key of the field in the request
+     * Set the key of the field in the request.
      *
      * @return string
      */
@@ -481,7 +482,7 @@ class Field implements Renderable
     }
 
     /**
-     * Returns if the field json type
+     * Returns if the field json type.
      *
      * @return bool
      */
@@ -1836,8 +1837,10 @@ class Field implements Renderable
             if (property_exists($this, $property)) {
                 return $this->{$property};
             }
+
             throw new Exception('get'.$fn.' has no related property');
         }
+
         throw new Exception($fn.' is not callable');
     }
 }

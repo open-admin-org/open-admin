@@ -45,7 +45,7 @@ class PermissionCommand extends Command
         $tables = $this->option('tables') ? explode(',', $this->option('tables')) : [];
         if (empty($tables)) {
             $ignore_tables = $this->getIgnoreTables();
-            $tables = array_diff($all_tables, $ignore_tables);
+            $tables        = array_diff($all_tables, $ignore_tables);
         } else {
             $tables = array_intersect($all_tables, $tables);
         }
@@ -60,10 +60,10 @@ class PermissionCommand extends Command
         foreach ($tables as $table) {
             foreach ($permissions as $permission => $permission_lang) {
                 $http_method = $this->generateHttpMethod($permission);
-                $http_path = $this->generateHttpPath($table, $permission);
-                $slug = $this->generateSlug($table, $permission);
-                $name = $this->generateName($table, $permission_lang);
-                $exists = Permission::where('slug', $slug)->exists();
+                $http_path   = $this->generateHttpPath($table, $permission);
+                $slug        = $this->generateSlug($table, $permission);
+                $name        = $this->generateName($table, $permission_lang);
+                $exists      = Permission::where('slug', $slug)->exists();
                 if (!$exists) {
                     Permission::create([
                         'name'        => $name,

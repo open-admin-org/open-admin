@@ -174,9 +174,9 @@ class Box extends Widget implements Renderable
      */
     public function setStyles()
     {
-        $style = urldecode(http_build_query($this->styles));
-        $style = str_replace('&', ';', $style);
-        $style = str_replace('=', ':', $style);
+        $style       = urldecode(http_build_query($this->styles));
+        $style       = str_replace('&', ';', $style);
+        $style       = str_replace('=', ':', $style);
         $this->style = $style;
     }
 

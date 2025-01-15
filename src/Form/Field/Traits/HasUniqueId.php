@@ -5,7 +5,7 @@ namespace OpenAdmin\Admin\Form\Field\Traits;
 trait HasUniqueId
 {
     /**
-     * unique id to prevent element selector collision
+     * unique id to prevent element selector collision.
      *
      * @var string
      */

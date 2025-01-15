@@ -84,7 +84,7 @@ class Select extends Field
     }
 
     /**
-     * Set create option
+     * Set create option.
      *
      * @param bool $set
      *
@@ -290,8 +290,8 @@ class Select extends Field
      * Load options from ajax results.
      *
      * @param string $url
-     * @param $idField
-     * @param $textField
+     * @param        $idField
+     * @param        $textField
      *
      * @return $this
      */

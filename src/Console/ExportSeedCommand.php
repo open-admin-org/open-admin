@@ -29,9 +29,9 @@ class ExportSeedCommand extends Command
      */
     public function handle()
     {
-        $name = $this->argument('classname');
+        $name         = $this->argument('classname');
         $exceptFields = explode(',', $this->option('except-fields'));
-        $exportUsers = $this->option('users');
+        $exportUsers  = $this->option('users');
 
         $seedFile = $this->laravel->databasePath().'/seeders/'.$name.'.php';
         $contents = $this->getStub('AdminTablesSeeder');
@@ -111,7 +111,7 @@ class ExportSeedCommand extends Command
     /**
      * Custom var_export for correct work with \r\n.
      *
-     * @param $var
+     * @param        $var
      * @param string $indent
      *
      * @return string

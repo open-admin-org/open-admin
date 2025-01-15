@@ -19,7 +19,7 @@ trait HasPermissions
     /**
      * Check if user has permission.
      *
-     * @param $ability
+     * @param       $ability
      * @param array $arguments
      *
      * @return bool

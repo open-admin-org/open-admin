@@ -34,7 +34,7 @@ class Row implements Buildable, Renderable
      * Add a column.
      *
      * @param int $width
-     * @param $content
+     * @param     $content
      */
     public function column($width, $content)
     {
@@ -88,7 +88,7 @@ class Row implements Buildable, Renderable
      */
     protected function startRow()
     {
-        $class = $this->class;
+        $class   = $this->class;
         $class[] = 'row';
         echo '<div class="'.implode(' ', $class).'">';
     }

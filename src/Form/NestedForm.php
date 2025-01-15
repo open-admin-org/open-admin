@@ -341,7 +341,7 @@ class NestedForm
     }
 
     /**
-     * Set request field name and key
+     * Set request field name and key.
      *
      * @param string $key
      *

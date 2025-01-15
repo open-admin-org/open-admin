@@ -31,9 +31,9 @@ class Where extends AbstractFilter
     {
         $this->where = $query;
 
-        $this->label = $this->formatLabel($label);
+        $this->label  = $this->formatLabel($label);
         $this->column = $column ?: static::getQueryHash($query, $this->label);
-        $this->id = $this->formatId($this->column);
+        $this->id     = $this->formatId($this->column);
 
         $this->setupDefaultPresenter();
     }

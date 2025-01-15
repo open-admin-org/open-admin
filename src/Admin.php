@@ -73,7 +73,7 @@ class Admin
     }
 
     /**
-     * @param $model
+     * @param         $model
      * @param Closure $callable
      *
      * @return \OpenAdmin\Admin\Grid
@@ -86,7 +86,7 @@ class Admin
     }
 
     /**
-     * @param $model
+     * @param         $model
      * @param Closure $callable
      *
      * @return \OpenAdmin\Admin\Form
@@ -101,7 +101,7 @@ class Admin
     /**
      * Build a tree.
      *
-     * @param $model
+     * @param              $model
      * @param Closure|null $callable
      *
      * @return \OpenAdmin\Admin\Tree
@@ -114,7 +114,7 @@ class Admin
     /**
      * Build show page.
      *
-     * @param $model
+     * @param       $model
      * @param mixed $callable
      *
      * @return Show

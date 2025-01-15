@@ -22,7 +22,7 @@ class Column implements Buildable
     /**
      * Column constructor.
      *
-     * @param $content
+     * @param     $content
      * @param int $width
      */
     public function __construct($content, $width = 12)

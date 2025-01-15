@@ -33,7 +33,7 @@ class BelongsToMany extends BelongsTo
             ($relation = $model->{$this->getName()}()) instanceof Relation
         ) {
             /* @var Relation $relation */
-            $fullKey = $relation->getQualifiedRelatedPivotKeyName();
+            $fullKey      = $relation->getQualifiedRelatedPivotKeyName();
             $fullKeyArray = explode('.', $fullKey);
 
             return static::$otherKey[$this->getName()] = end($fullKeyArray);

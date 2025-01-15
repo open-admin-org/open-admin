@@ -163,7 +163,7 @@ trait UploadField
     protected function guessPreviewType($file)
     {
         $filetype = 'file';
-        $ext = strtok(strtolower(pathinfo($file, PATHINFO_EXTENSION)), '?');
+        $ext      = strtok(strtolower(pathinfo($file, PATHINFO_EXTENSION)), '?');
 
         foreach ($this->fileTypes as $type => $pattern) {
             if (preg_match($pattern, $ext) === 1) {
@@ -243,7 +243,7 @@ trait UploadField
             );
         }
         $this->options['retainable'] = $retainable; // for js
-        $this->retainable = $retainable;            // for form save
+        $this->retainable            = $retainable;            // for form save
 
         return $this;
     }
@@ -539,9 +539,9 @@ trait UploadField
      */
     protected function generateSequenceName(UploadedFile $file)
     {
-        $index = 1;
+        $index     = 1;
         $extension = $file->getClientOriginalExtension();
-        $original = str_replace('.'.$extension, '', $file->getClientOriginalName());
+        $original  = str_replace('.'.$extension, '', $file->getClientOriginalName());
 
         if (!$this->storage->exists($this->getDirectory().'/'.$file->getClientOriginalName())) {
             return $file->getClientOriginalName();

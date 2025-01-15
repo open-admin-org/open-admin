@@ -69,7 +69,7 @@ class PerPageSelector extends AbstractTool
 
         $options = $this->getOptions()->map(function ($option) {
             $selected = ($option == $this->perPage) ? 'selected' : '';
-            $url = \request()->fullUrlWithQuery([$this->perPageName => $option]);
+            $url      = \request()->fullUrlWithQuery([$this->perPageName => $option]);
 
             return "<option value=\"$url\" $selected>$option</option>";
         })->implode("\r\n");

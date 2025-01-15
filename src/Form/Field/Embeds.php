@@ -26,7 +26,7 @@ class Embeds extends Field
         $this->column = $column;
 
         if (count($arguments) == 1) {
-            $this->label = $this->formatLabel();
+            $this->label   = $this->formatLabel();
             $this->builder = $arguments[0];
         }
 

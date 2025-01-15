@@ -34,14 +34,14 @@ class DateTime extends Presenter
      */
     protected function getOptions(array $options): array
     {
-        $options['format'] = Arr::get($options, 'format', $this->format);
-        $options['locale'] = Arr::get($options, 'locale', config('app.locale'));
-        $options['weekNumbers'] = Arr::get($options, 'weekNumbers', true);
-        $options['time_24hr'] = Arr::get($options, 'time_24hr', true);
+        $options['format']        = Arr::get($options, 'format', $this->format);
+        $options['locale']        = Arr::get($options, 'locale', config('app.locale'));
+        $options['weekNumbers']   = Arr::get($options, 'weekNumbers', true);
+        $options['time_24hr']     = Arr::get($options, 'time_24hr', true);
         $options['enableSeconds'] = Arr::get($options, 'enableSeconds', true);
-        $options['enableTime'] = Arr::get($options, 'enableTime', false);
-        $options['noCalendar'] = Arr::get($options, 'noCalendar', false);
-        $options['allowInput'] = Arr::get($options, 'allowInput', true);
+        $options['enableTime']    = Arr::get($options, 'enableTime', false);
+        $options['noCalendar']    = Arr::get($options, 'noCalendar', false);
+        $options['allowInput']    = Arr::get($options, 'allowInput', true);
 
         return $options;
     }

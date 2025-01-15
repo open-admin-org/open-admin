@@ -192,7 +192,6 @@ trait HasFields
         return false;
     }
 
-
     /**
      * Find field class.
      *
@@ -202,8 +201,7 @@ trait HasFields
      */
     public static function isRelationField($method)
     {
-
-        if (in_array($method, ["hasMany", "morphMany", "belongsTo", "belongsToMany", "langTab"])) {
+        if (in_array($method, ['hasMany', 'morphMany', 'belongsTo', 'belongsToMany', 'langTab'])) {
             return true;
         }
 

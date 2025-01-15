@@ -19,7 +19,7 @@ class RangeFilter extends Filter
      */
     public function __construct($type)
     {
-        $this->type = $type;
+        $this->type  = $type;
         $this->class = [
             'start' => uniqid('column-filter-start-'),
             'end'   => uniqid('column-filter-end-'),
@@ -63,9 +63,9 @@ class RangeFilter extends Filter
             if ($this->type == 'date') {
                 $options['format'] = 'YYYY-MM-DD';
             } elseif ($this->type == 'datetime') {
-                $options['format'] = 'YYYY-MM-DD HH:mm:ss';
+                $options['format']        = 'YYYY-MM-DD HH:mm:ss';
                 $options['enableSeconds'] = true;
-                $options['enableTime'] = true;
+                $options['enableTime']    = true;
             } else {
                 return;
             }
@@ -95,7 +95,7 @@ SCRIPT;
 
         $this->addScript();
 
-        $value = array_merge(['start' => '', 'end' => ''], $this->getFilterValue([]));
+        $value  = array_merge(['start' => '', 'end' => ''], $this->getFilterValue([]));
         $active = empty(array_filter($value)) ? '' : 'text-yellow';
 
         return <<<EOT

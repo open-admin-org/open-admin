@@ -6,7 +6,7 @@ use Illuminate\Support\Facades\Hash;
 
 trait AdminUserHelpers
 {
-    public function handlePassword(& $form)
+    public function handlePassword(&$form)
     {
         if ($form->password && $form->model()->password != $form->password) {
             $form->password = Hash::make($form->password);

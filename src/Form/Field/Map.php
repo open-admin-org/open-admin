@@ -28,20 +28,20 @@ class Map extends Field
         switch (config('admin.map_provider')) {
             case 'tencent':
                 $css = '';
-                $js = '//map.qq.com/api/js?v=2.exp&key='.env('TENCENT_MAP_API_KEY');
+                $js  = '//map.qq.com/api/js?v=2.exp&key='.env('TENCENT_MAP_API_KEY');
                 break;
             case 'google':
                 $css = '';
-                $js = '//maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&key='.env('GOOGLE_API_KEY');
+                $js  = '//maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&key='.env('GOOGLE_API_KEY');
                 break;
             case 'yandex':
                 $css = '';
-                $js = '//api-maps.yandex.ru/2.1/?lang=ru_RU';
+                $js  = '//api-maps.yandex.ru/2.1/?lang=ru_RU';
                 break;
             case 'openstreetmaps':
             default:
                 $css = ['/vendor/open-admin/leaflet/leaflet.css', '/vendor/open-admin/leaflet/leaflet-geosearch.css'];
-                $js = ['/vendor/open-admin/leaflet/leaflet.js', '/vendor/open-admin/leaflet/leaflet-geosearch.js'];
+                $js  = ['/vendor/open-admin/leaflet/leaflet.js', '/vendor/open-admin/leaflet/leaflet-geosearch.js'];
         }
 
         return compact('js', 'css');
@@ -57,7 +57,7 @@ class Map extends Field
         $this->label = $this->formatLabel($arguments);
 
         $this->name = $this->formatId($this->column);
-        $this->id = $this->formatId($column);
+        $this->id   = $this->formatId($column);
 
         /*
          * Google map is blocked in mainland China

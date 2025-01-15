@@ -70,7 +70,7 @@ abstract class Resourceable
     }
 
     /**
-     * Make function to create grid,show & form inside resourable
+     * Make function to create grid,show & form inside resourable.
      *
      * @return null|mixed
      */

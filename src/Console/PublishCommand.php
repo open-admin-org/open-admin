@@ -27,7 +27,7 @@ class PublishCommand extends Command
      */
     public function handle()
     {
-        $force = $this->option('force');
+        $force   = $this->option('force');
         $options = ['--provider' => 'OpenAdmin\Admin\AdminServiceProvider'];
         if ($force == true) {
             $options['--force'] = true;

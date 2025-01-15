@@ -9,7 +9,7 @@ use Illuminate\Support\Str;
 class Scope implements Renderable
 {
     const QUERY_NAME = '_scope_';
-    const SEPARATOR = '_separator_';
+    const SEPARATOR  = '_separator_';
 
     /**
      * @var string
@@ -29,12 +29,12 @@ class Scope implements Renderable
     /**
      * Scope constructor.
      *
-     * @param $key
+     * @param        $key
      * @param string $label
      */
     public function __construct($key, $label = '')
     {
-        $this->key = $key;
+        $this->key   = $key;
         $this->label = $label ? $label : Str::studly($key);
 
         $this->queries = new Collection();

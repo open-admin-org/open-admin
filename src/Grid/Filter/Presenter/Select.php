@@ -176,8 +176,8 @@ JS;
      * Load options from ajax.
      *
      * @param string $resourceUrl
-     * @param $idField
-     * @param $textField
+     * @param        $idField
+     * @param        $textField
      */
     public function ajax($url, $idField = 'id', $textField = 'text')
     {

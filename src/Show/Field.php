@@ -307,7 +307,7 @@ class Field implements Renderable
             } else {
                 $storage = Storage::disk(config('admin.upload.disk'));
                 if ($storage->exists($path)) {
-                    $url = $storage->url($path);
+                    $url  = $storage->url($path);
                     $size = ($storage->size($path) / 1000).'KB';
                 }
             }
@@ -613,7 +613,7 @@ HTML;
         }
 
         if ($this->relation) {
-            $this->name = $method;
+            $this->name  = $method;
             $this->label = $this->formatLabel(Arr::get($arguments, 0));
         }
 

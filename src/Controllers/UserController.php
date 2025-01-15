@@ -10,6 +10,7 @@ use OpenAdmin\Admin\Show;
 class UserController extends AdminController
 {
     use AdminUserHelpers;
+
     /**
      * {@inheritdoc}
      */
@@ -86,13 +87,13 @@ class UserController extends AdminController
      */
     public function form()
     {
-        $userModel = config('admin.database.users_model');
+        $userModel       = config('admin.database.users_model');
         $permissionModel = config('admin.database.permissions_model');
-        $roleModel = config('admin.database.roles_model');
+        $roleModel       = config('admin.database.roles_model');
 
         $form = new Form(new $userModel());
 
-        $userTable = config('admin.database.users_table');
+        $userTable  = config('admin.database.users_table');
         $connection = config('admin.database.connection');
 
         $form->display('id', 'ID');
@@ -115,7 +116,6 @@ class UserController extends AdminController
 
         $form->display('created_at', trans('admin.created_at'));
         $form->display('updated_at', trans('admin.updated_at'));
-
 
         $form->saving(function (Form $form) {
             $this->handlePassword($form);

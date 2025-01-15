@@ -88,7 +88,7 @@ trait ExtendDisplay
     {
         $this->searchable = true;
 
-        $name = $this->getName();
+        $name  = $this->getName();
         $query = request()->query();
 
         $this->prefix(function ($_, $original) use ($name, $query) {

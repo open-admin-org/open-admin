@@ -61,7 +61,7 @@ abstract class Selectable
      */
     public function __construct($multiple = false, $key = '')
     {
-        $this->key = $key ?: $this->key;
+        $this->key      = $key ?: $this->key;
         $this->multiple = $multiple;
 
         $this->initGrid();
@@ -128,7 +128,7 @@ abstract class Selectable
     protected function appendRemoveBtn($hide = true)
     {
         $hide = $hide ? 'd-none' : '';
-        $key = $this->key;
+        $key  = $this->key;
 
         $this->column('__remove__', ' ')->display(function () use ($hide, $key) {
             return <<<HTML

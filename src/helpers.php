@@ -12,7 +12,7 @@ if (!function_exists('admin_path')) {
      */
     function admin_path($path = '')
     {
-        return ucfirst(config('admin.directory')) . ($path ? DIRECTORY_SEPARATOR . $path : $path);
+        return ucfirst(config('admin.directory')).($path ? DIRECTORY_SEPARATOR.$path : $path);
     }
 }
 
@@ -48,7 +48,7 @@ if (!function_exists('admin_base_path')) {
      */
     function admin_base_path($path = '')
     {
-        $prefix = '/' . trim(config('admin.route.prefix'), '/');
+        $prefix = '/'.trim(config('admin.route.prefix'), '/');
 
         $prefix = ($prefix == '/') ? '' : $prefix;
 
@@ -58,7 +58,7 @@ if (!function_exists('admin_base_path')) {
             return $prefix ?: '/';
         }
 
-        return $prefix . '/' . $path;
+        return $prefix.'/'.$path;
     }
 }
 
@@ -70,7 +70,6 @@ if (!function_exists('admin_toastr')) {
      * @param string $type
      * @param array  $options
      */
-    
     function admin_toastr($message = '', $type = 'success', $options = [])
     {
         if (session()->has('toastr')) {
@@ -79,7 +78,7 @@ if (!function_exists('admin_toastr')) {
             $toastr = [];
         }
         $toastr[] = new MessageBag(get_defined_vars());
-        
+
         session()->flash('toastr', $toastr);
     }
 }
@@ -111,7 +110,7 @@ if (!function_exists('admin_toastr_script')) {
     {
         $toasts_js = '';
         $toastr    = session()->pull('toastr');
-        
+
         foreach ($toastr as $bag) {
             $toasts_js .= admin_toast_from_bag($bag);
         }
@@ -126,7 +125,7 @@ if (!function_exists('admin_toastr_script')) {
 
 if (!function_exists('admin_flashjs')) {
     /**
-     * Flash a javascript on the following page
+     * Flash a javascript on the following page.
      *
      * @param string $flashjs
      */
@@ -255,7 +254,7 @@ if (!function_exists('class_uses_deep')) {
     /**
      * To get ALL traits including those used by parent classes and other traits.
      *
-     * @param $class
+     * @param      $class
      * @param bool $autoload
      *
      * @return array
@@ -309,15 +308,15 @@ if (!function_exists('file_size')) {
     function file_size($bytes)
     {
         if ($bytes >= 1073741824) {
-            $bytes = number_format($bytes / 1073741824, 2) . ' GB';
+            $bytes = number_format($bytes / 1073741824, 2).' GB';
         } elseif ($bytes >= 1048576) {
-            $bytes = number_format($bytes / 1048576, 2) . ' MB';
+            $bytes = number_format($bytes / 1048576, 2).' MB';
         } elseif ($bytes >= 1024) {
-            $bytes = number_format($bytes / 1024, 2) . ' KB';
+            $bytes = number_format($bytes / 1024, 2).' KB';
         } elseif ($bytes > 1) {
-            $bytes = $bytes . ' bytes';
+            $bytes = $bytes.' bytes';
         } elseif ($bytes == 1) {
-            $bytes = $bytes . ' byte';
+            $bytes = $bytes.' byte';
         } else {
             $bytes = '0 bytes';
         }
@@ -375,7 +374,7 @@ if (!function_exists('json_encode_options')) {
 if (!function_exists('admin_get_route')) {
     function admin_get_route(string $name): string
     {
-        return config('admin.route.prefix') . '.' . $name;
+        return config('admin.route.prefix').'.'.$name;
     }
 }
 
@@ -385,6 +384,7 @@ if (!function_exists('array_is_list')) {
         if ($arr === []) {
             return true;
         }
+
         return array_keys($arr) === range(0, count($arr) - 1);
     }
 }

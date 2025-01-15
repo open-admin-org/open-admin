@@ -19,8 +19,8 @@ class InputFilter extends Filter
      */
     public function __construct($type)
     {
-        $this->type = $type;
-        $this->class = uniqid('column-filter-');
+        $this->type             = $type;
+        $this->class            = uniqid('column-filter-');
         $this->addition_classes = '';
     }
 
@@ -70,14 +70,14 @@ class InputFilter extends Filter
         if ($this->type == 'date') {
             $options['format'] = 'YYYY-MM-DD';
         } elseif ($this->type == 'datetime') {
-            $options['format'] = 'YYYY-MM-DD HH:mm:ss';
+            $options['format']        = 'YYYY-MM-DD HH:mm:ss';
             $options['enableSeconds'] = true;
-            $options['enableTime'] = true;
+            $options['enableTime']    = true;
         } elseif ($this->type == 'time') {
-            $options['format'] = 'HH:mm:ss';
+            $options['format']        = 'HH:mm:ss';
             $options['enableSeconds'] = true;
-            $options['enableTime'] = true;
-            $options['noCalendar'] = true;
+            $options['enableTime']    = true;
+            $options['noCalendar']    = true;
         } else {
             return;
         }
@@ -108,7 +108,7 @@ SCRIPT;
             $this->addition_classes .= 'd-none';
         }
 
-        $value = $this->getFilterValue();
+        $value  = $this->getFilterValue();
         $active = empty($value) ? '' : 'text-yellow';
 
         return <<<EOT

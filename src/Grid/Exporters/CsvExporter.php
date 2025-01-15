@@ -167,7 +167,7 @@ class CsvExporter extends AbstractExporter
                 $original = $current = $collection->toArray();
 
                 $this->grid->getColumns()->map(function (Column $column) use (&$current) {
-                    $current = $column->fill($current);
+                    $current                   = $column->fill($current);
                     $this->grid->columnNames[] = $column->getName();
                 });
 
@@ -196,7 +196,7 @@ class CsvExporter extends AbstractExporter
     {
         $titles = $this->grid->visibleColumns()
             ->mapWithKeys(function (Column $column) {
-                $columnName = $column->getName();
+                $columnName  = $column->getName();
                 $columnTitle = $column->getLabel();
                 if (isset($this->titleCallbacks[$columnName])) {
                     $columnTitle = $this->titleCallbacks[$columnName]($columnTitle);

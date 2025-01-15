@@ -84,7 +84,7 @@ class RoleController extends AdminController
     public function form()
     {
         $permissionModel = config('admin.database.permissions_model');
-        $roleModel = config('admin.database.roles_model');
+        $roleModel       = config('admin.database.roles_model');
 
         $form = new Form(new $roleModel());
 
