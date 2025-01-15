@@ -64,7 +64,7 @@ class Menu extends Model
      */
     public function allNodes(): array
     {
-        $connection = config('admin.database.connection') ?: config('database.default');
+        $connection  = config('admin.database.connection') ?: config('database.default');
         $orderColumn = DB::connection($connection)->getQueryGrammar()->wrap($this->orderColumn);
 
         $byOrder = 'ROOT ASC,'.$orderColumn;

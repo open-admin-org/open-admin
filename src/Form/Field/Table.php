@@ -17,9 +17,9 @@ class Table extends HasMany
     public $save_null_values = true;
 
     /**
-     * Create a new HasMany field instance. With a real relation
+     * Create a new HasMany field instance. With a real relation.
      *
-     * @param $relationName
+     * @param       $relationName
      * @param array $arguments
      */
     public function __construct($column, $arguments = [])

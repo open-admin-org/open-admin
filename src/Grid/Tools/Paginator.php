@@ -24,7 +24,7 @@ class Paginator extends AbstractTool
      */
     public function __construct(Grid $grid, $perPageSelector = true)
     {
-        $this->grid = $grid;
+        $this->grid            = $grid;
         $this->perPageSelector = $perPageSelector;
 
         $this->initPaginator();

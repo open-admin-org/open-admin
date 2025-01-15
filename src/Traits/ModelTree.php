@@ -176,7 +176,7 @@ trait ModelTree
     public function allNodes()
     {
         $orderColumn = DB::getQueryGrammar()->wrap($this->orderColumn);
-        $byOrder = $orderColumn.' = 0,'.$orderColumn;
+        $byOrder     = $orderColumn.' = 0,'.$orderColumn;
 
         $self = new static();
 
@@ -219,7 +219,7 @@ trait ModelTree
             $node = static::find($branch['id']);
 
             $node->{$node->getParentColumn()} = $parentId;
-            $node->{$node->getOrderColumn()} = static::$branchOrder[$branch['id']];
+            $node->{$node->getOrderColumn()}  = static::$branchOrder[$branch['id']];
             $node->save();
 
             if (isset($branch['children'])) {

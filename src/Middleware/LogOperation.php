@@ -21,7 +21,7 @@ class LogOperation
     {
         if ($this->shouldLogOperation($request)) {
             $setProxy = $request->setTrustedProxies(request()->getClientIps(), \Illuminate\Http\Request::HEADER_X_FORWARDED_FOR);
-            $log = [
+            $log      = [
                 'user_id' => Admin::user()->id,
                 'path'    => substr($request->path(), 0, 255),
                 'method'  => $request->method(),
@@ -102,7 +102,7 @@ class LogOperation
 
             if (Str::contains($except, ':')) {
                 list($methods, $except) = explode(':', $except);
-                $methods = explode(',', $methods);
+                $methods                = explode(',', $methods);
             }
 
             $methods = array_map('strtoupper', $methods);

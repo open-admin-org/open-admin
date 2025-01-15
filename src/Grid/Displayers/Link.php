@@ -8,7 +8,7 @@ class Link extends AbstractDisplayer
     {
         if ($callback instanceof \Closure) {
             $callback = $callback->bindTo($this->row);
-            $href = call_user_func_array($callback, [$this->row]);
+            $href     = call_user_func_array($callback, [$this->row]);
         } else {
             $href = $callback ?: $this->value;
         }

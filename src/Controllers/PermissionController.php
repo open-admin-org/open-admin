@@ -38,7 +38,7 @@ class PermissionController extends AdminController
 
                 if (Str::contains($path, ':')) {
                     list($method, $path) = explode(':', $path);
-                    $method = explode(',', $method);
+                    $method              = explode(',', $method);
                 }
 
                 $method = collect($method)->map(function ($name) {
@@ -90,7 +90,7 @@ class PermissionController extends AdminController
 
                 if (Str::contains($path, ':')) {
                     list($method, $path) = explode(':', $path);
-                    $method = explode(',', $method);
+                    $method              = explode(',', $method);
                 }
 
                 $method = collect($method)->map(function ($name) {

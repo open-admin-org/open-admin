@@ -66,7 +66,7 @@ class Tools implements Renderable
         }
 
         if ($tool instanceof Action) {
-            $model = $this->grid->model()->getOriginalModel();
+            $model     = $this->grid->model()->getOriginalModel();
             $model_str = str_replace('\\', '_', get_class($model));
             $tool->parameter('_model', $model_str);
         }

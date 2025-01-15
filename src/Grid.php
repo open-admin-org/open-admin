@@ -145,7 +145,7 @@ class Grid
     public $sortColumns = true;
 
     /**
-     * Refrence for added sorted (needed for fixed columsn table)
+     * Refrence for added sorted (needed for fixed columsn table).
      *
      * @var array
      */
@@ -382,7 +382,7 @@ class Grid
             return $this;
         }
 
-        $name = ($this->shouldSnakeAttributes() ? Str::snake($relation) : $relation) . '.' . $column;
+        $name = ($this->shouldSnakeAttributes() ? Str::snake($relation) : $relation).'.'.$column;
 
         $this->model()->with($relation);
 
@@ -523,7 +523,7 @@ class Grid
             return;
         }
 
-        $checkAllBox = '<input type="checkbox" class="' . $this->getSelectAllName() . ' form-check-input" onchange="admin.grid.select_all(event,this)" id="grid-select-all" />&nbsp;';
+        $checkAllBox = '<input type="checkbox" class="'.$this->getSelectAllName().' form-check-input" onchange="admin.grid.select_all(event,this)" id="grid-select-all" />&nbsp;';
 
         $this->prependColumn(Column::SELECT_COLUMN_NAME, ' ')
             ->displayUsing(Displayers\RowSelector::class)
@@ -659,7 +659,7 @@ class Grid
         return sprintf(
             '%s/create%s',
             $this->resource(),
-            $queryString ? ('?' . $queryString) : ''
+            $queryString ? ('?'.$queryString) : ''
         );
     }
 

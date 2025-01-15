@@ -178,7 +178,7 @@ class ImageUploadTest extends TestCase
 
         $file = new \Illuminate\Http\UploadedFile($path, 'test.jpg', 'image/jpeg', null, true);
 
-        $size = rand(10, 20);
+        $size  = rand(10, 20);
         $files = ['pictures' => array_pad([], $size, $file)];
 
         $this->call(
@@ -212,7 +212,7 @@ class ImageUploadTest extends TestCase
 
         $file = new \Illuminate\Http\UploadedFile($path, 'test.jpg', 'image/jpeg', null, true);
 
-        $size = rand(10, 20);
+        $size  = rand(10, 20);
         $files = ['pictures' => array_pad([], $size, $file)];
 
         $this->call(

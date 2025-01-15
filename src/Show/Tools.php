@@ -50,7 +50,7 @@ class Tools implements Renderable
     {
         $this->panel = $panel;
 
-        $this->appends = new Collection();
+        $this->appends  = new Collection();
         $this->prepends = new Collection();
     }
 

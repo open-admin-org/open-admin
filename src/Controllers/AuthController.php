@@ -4,7 +4,6 @@ namespace OpenAdmin\Admin\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
-use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Lang;
 use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Support\Facades\Redirect;
@@ -161,6 +160,7 @@ class AuthController extends Controller
         $form->saved(function (Form $form) {
             admin_toastr(trans('admin.update_succeeded'));
             $this->showNewHeaderAvatar($form);
+
             return redirect(admin_url('auth/setting'));
         });
 

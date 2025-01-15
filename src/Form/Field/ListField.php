@@ -60,7 +60,7 @@ class ListField extends Field
             return false;
         }
 
-        $rules["{$this->column}.*"] = $fieldRules;
+        $rules["{$this->column}.*"]      = $fieldRules;
         $attributes["{$this->column}.*"] = __('Value');
 
         $rules["{$this->column}"][] = 'array';

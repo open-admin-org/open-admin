@@ -31,7 +31,7 @@ class QuickCreate implements Renderable
     {
         $this->parent = $grid;
         $this->fields = Collection::make();
-        $this->form = new Form($grid->model());
+        $this->form   = new Form($grid->model());
     }
 
     /**

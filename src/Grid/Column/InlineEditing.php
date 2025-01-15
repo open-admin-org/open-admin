@@ -71,7 +71,7 @@ trait InlineEditing
             $options['format'] = 'YYYY-MM-DD HH:mm:ss';
         }
         if ($options['format'] == 'YYYY-MM-DD HH:mm:ss') {
-            $default_options['enableTime'] = true;
+            $default_options['enableTime']    = true;
             $default_options['enableSeconds'] = true;
         }
         $options = array_merge($default_options, $options);

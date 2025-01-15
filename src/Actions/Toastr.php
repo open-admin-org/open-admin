@@ -29,7 +29,7 @@ class Toastr
      */
     public function show($type, $content = '')
     {
-        $this->type = $type;
+        $this->type    = $type;
         $this->content = $content;
 
         return $this;

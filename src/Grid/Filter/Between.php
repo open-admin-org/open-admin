@@ -109,12 +109,12 @@ class Between extends AbstractFilter
      */
     protected function setupDatetime($options = [])
     {
-        $options['format'] = Arr::get($options, 'format', 'YYYY-MM-DD HH:mm:ss');
-        $options['locale'] = Arr::get($options, 'locale', config('app.locale'));
+        $options['format']     = Arr::get($options, 'format', 'YYYY-MM-DD HH:mm:ss');
+        $options['locale']     = Arr::get($options, 'locale', config('app.locale'));
         $options['allowInput'] = Arr::get($options, 'allowInput', true);
 
         $startOptions = json_encode($options);
-        $endOptions = json_encode($options + ['useCurrent' => false]);
+        $endOptions   = json_encode($options + ['useCurrent' => false]);
 
         $script = <<<SCRIPT
         let inst_{$this->id['start']} = flatpickr('#{$this->id['start']}',$startOptions);

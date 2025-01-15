@@ -70,7 +70,7 @@ class Selector implements Renderable
             }
 
             $options = $label;
-            $label = __(Str::title($column));
+            $label   = __(Str::title($column));
         }
 
         $this->selectors[$column] = compact('label', 'options', 'type', 'query');
@@ -123,7 +123,7 @@ class Selector implements Renderable
      */
     public static function url($column, $value = null, $add = false)
     {
-        $query = request()->query();
+        $query    = request()->query();
         $selected = static::parseSelected();
 
         $options = Arr::get($selected, $column, []);

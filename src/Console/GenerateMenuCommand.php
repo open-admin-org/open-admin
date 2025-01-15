@@ -49,8 +49,9 @@ class GenerateMenuCommand extends Command
     public function handle()
     {
         $adminPrefix = config('admin.route.prefix');
-        $routes = collect($this->router->getRoutes())->filter(function (Route $route) use ($adminPrefix) {
+        $routes      = collect($this->router->getRoutes())->filter(function (Route $route) use ($adminPrefix) {
             $uri = $route->uri();
+
             // built-in, parameterized and no-GET are ignored
             return Str::startsWith($uri, $adminPrefix.'/')
                 && !Str::startsWith($uri, $adminPrefix.'/auth/')

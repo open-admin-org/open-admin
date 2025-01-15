@@ -22,7 +22,7 @@ class SweatAlert2
      */
     public function show($type, $title = '')
     {
-        $this->type = $type;
+        $this->type  = $type;
         $this->title = $title;
 
         return $this;

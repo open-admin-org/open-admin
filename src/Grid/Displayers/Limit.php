@@ -28,7 +28,7 @@ JS;
     public function display($limit = 100, $end = '...')
     {
         $this->addScript();
-        $value = Str::limit($this->value, $limit, $end);
+        $value    = Str::limit($this->value, $limit, $end);
         $original = $this->getColumn()->getOriginal();
 
         if ($value == $original) {

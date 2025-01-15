@@ -47,7 +47,7 @@ trait HasJavascriptConfig
     }
 
     /**
-     * Get config object for
+     * Get config object for.
      *
      * @param string $key
      * @param mixed  $val

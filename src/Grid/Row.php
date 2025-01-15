@@ -45,12 +45,12 @@ class Row
      */
     public function __construct($number, $data, $key, $perPage = 20)
     {
-        $this->data = $data;
+        $this->data   = $data;
         $this->number = $number;
-        $this->key = $key;
+        $this->key    = $key;
 
         $this->attributes = [
-            'style'    => "z-index:".($perPage - $number).";", // hack for Dropdown action menu
+            'style'    => 'z-index:'.($perPage - $number).';', // hack for Dropdown action menu
             'data-key' => $key,
             'class'    => 'row-'.$key,
         ];

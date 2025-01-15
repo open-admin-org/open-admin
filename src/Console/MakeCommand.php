@@ -58,7 +58,7 @@ class MakeCommand extends GeneratorCommand
         }
 
         $this->controllerName = $this->getControllerName();
-        $stub = $this->option('stub');
+        $stub                 = $this->option('stub');
 
         if ($stub and !is_file($stub)) {
             $this->error('The stub file does not exist.');

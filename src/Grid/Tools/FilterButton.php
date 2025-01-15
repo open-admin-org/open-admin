@@ -11,7 +11,7 @@ class FilterButton extends AbstractTool
      */
     public function render()
     {
-        $label = '';
+        $label  = '';
         $filter = $this->grid->getFilter();
 
         if ($scope = $filter->getCurrentScope()) {

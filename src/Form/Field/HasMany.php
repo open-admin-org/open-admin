@@ -63,14 +63,14 @@ class HasMany extends Field
     protected $viewMode = 'default';
 
     /**
-     * show As field
+     * show As field.
      *
      * @var bool
      */
     protected $showAsField = false;
 
     /**
-     * show As field is set
+     * show As field is set.
      *
      * @var bool
      */
@@ -122,7 +122,7 @@ class HasMany extends Field
     /**
      * Create a new HasMany field instance.
      *
-     * @param $relationName
+     * @param       $relationName
      * @param array $arguments
      */
     public function __construct($relationName, $arguments = [], $relationPath = '')
@@ -378,8 +378,9 @@ class HasMany extends Field
 
     public function maybeNeedsForeignKey($relationPath)
     {
-        if (strpos($relationPath, ".") !== false) {
-            $parts = explode(".", $relationPath);
+        if (strpos($relationPath, '.') !== false) {
+            $parts = explode('.', $relationPath);
+
             return $this->form->model->{$parts[0]}()->getRelated()->{$parts[1]}()->getForeignKeyName();
         }
 

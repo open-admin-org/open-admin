@@ -38,9 +38,9 @@ class Group extends AbstractFilter
 
         if (is_callable($label) && is_null($builder)) {
             $this->builder = $label;
-            $this->label = ucfirst($this->column);
+            $this->label   = ucfirst($this->column);
         } elseif (is_string($label) && is_callable($builder)) {
-            $this->label = $label;
+            $this->label   = $label;
             $this->builder = $builder;
         }
 
@@ -52,9 +52,9 @@ class Group extends AbstractFilter
      */
     protected function initialize()
     {
-        $this->id = $this->formatId($this->column);
+        $this->id    = $this->formatId($this->column);
         $this->group = new Collection();
-        $this->name = "{$this->id}-filter-group";
+        $this->name  = "{$this->id}-filter-group";
 
         $this->setupDefaultPresenter();
     }

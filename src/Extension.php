@@ -374,9 +374,9 @@ abstract class Extension
             $extension = static::getInstance();
             foreach ($children as $child) {
                 if ($extension->validateMenu($child)) {
-                    $subTitle = Arr::get($child, 'title');
-                    $subUri = Arr::get($child, 'path');
-                    $subIcon = Arr::get($child, 'icon');
+                    $subTitle    = Arr::get($child, 'title');
+                    $subUri      = Arr::get($child, 'path');
+                    $subIcon     = Arr::get($child, 'icon');
                     $subChildren = Arr::get($child, 'children', []);
                     static::createMenu($subTitle, $subUri, $subIcon, $menu->getKey(), $subChildren);
                 }

@@ -18,9 +18,10 @@ class Date extends Text
     public function init()
     {
         $this->customFormat(function ($value) {
-            if ($value == "0000-00-00") {
+            if ($value == '0000-00-00') {
                 $value = '';
             }
+
             return $value;
         });
     }
@@ -62,10 +63,9 @@ class Date extends Text
 
     public function render()
     {
-
-        $this->options = array_merge($this->defaults, $this->options);
-        $this->options['format'] = $this->format;
-        $this->options['locale'] = array_key_exists('locale', $this->options) ? $this->options['locale'] : config('app.locale');
+        $this->options                     = array_merge($this->defaults, $this->options);
+        $this->options['format']           = $this->format;
+        $this->options['locale']           = array_key_exists('locale', $this->options) ? $this->options['locale'] : config('app.locale');
         $this->options['allowInputToggle'] = true;
         $this->check_format_options();
 

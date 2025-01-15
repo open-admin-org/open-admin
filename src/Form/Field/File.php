@@ -98,6 +98,7 @@ class File extends Field
     {
         if (request()->has($this->getRequestFieldKey().Field::FILE_DELETE_FLAG)) {
             $this->destroy();
+
             return '';
         }
 

@@ -29,7 +29,7 @@ class BelongsTo extends AbstractDisplayer
     protected function getLoadUrl($selectable, $multiple = 0)
     {
         $selectable = str_replace('\\', '_', $selectable);
-        $args = [$multiple];
+        $args       = [$multiple];
 
         return route('admin.handle-selectable', compact('selectable', 'args'));
     }

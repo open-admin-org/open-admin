@@ -38,10 +38,10 @@ abstract class AbstractDisplayer
      */
     public function __construct($value, Grid $grid, Column $column, $row)
     {
-        $this->value = $value;
-        $this->grid = $grid;
+        $this->value  = $value;
+        $this->grid   = $grid;
         $this->column = $column;
-        $this->row = $row;
+        $this->row    = $row;
     }
 
     /**

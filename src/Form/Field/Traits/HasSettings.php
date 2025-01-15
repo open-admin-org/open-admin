@@ -7,7 +7,7 @@ use Illuminate\Contracts\Support\Arrayable;
 trait HasSettings
 {
     /**
-     * Element Settings
+     * Element Settings.
      *
      * @var array
      */

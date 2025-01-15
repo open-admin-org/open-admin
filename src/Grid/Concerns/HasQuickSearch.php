@@ -133,7 +133,7 @@ trait HasQuickSearch
     {
         $columnMap = $this->columns->mapWithKeys(function (Column $column) {
             $label = $column->getLabel();
-            $name = $column->getName();
+            $name  = $column->getName();
 
             return [$label => $name, $name => $name];
         });
@@ -150,7 +150,7 @@ trait HasQuickSearch
             list($column, $condition) = $segments;
 
             if (Str::startsWith($column, '|')) {
-                $or = true;
+                $or     = true;
                 $column = substr($column, 1);
             }
 
@@ -171,7 +171,7 @@ trait HasQuickSearch
     protected function addWhereLikeBinding(Builder $builder, string $column, bool $or, string $pattern)
     {
         $connectionType = $builder->getModel()->getConnection()->getDriverName();
-        $likeOperator = $connectionType == 'pgsql' ? 'ilike' : 'like';
+        $likeOperator   = $connectionType == 'pgsql' ? 'ilike' : 'like';
 
         $method = $or ? 'orWhere' : 'where';
 
@@ -253,7 +253,7 @@ trait HasQuickSearch
 
         if ($operator == '%') {
             $operator = 'like';
-            $value = "%{$value}%";
+            $value    = "%{$value}%";
         }
 
         if ($value === 'NULL') {

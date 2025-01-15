@@ -114,7 +114,7 @@ class Tree implements Renderable
     {
         if (is_null($this->branchCallback)) {
             $this->branchCallback = function ($branch) {
-                $key = $branch[$this->model->getKeyName()];
+                $key   = $branch[$this->model->getKeyName()];
                 $title = $branch[$this->model->getTitleColumn()];
 
                 return "$key - $title";
