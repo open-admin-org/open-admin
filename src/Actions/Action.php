@@ -91,6 +91,9 @@ abstract class Action implements Renderable
      */
     public $name;
 
+
+    public $force_response = false;
+
     /**
      * @var string
      */
@@ -245,12 +248,17 @@ abstract class Action implements Renderable
         if (is_null($this->response)) {
             $this->response = new Response();
         }
-
-        if (method_exists($this, 'dialog')) {
-            $this->response->swal();
+        
+        if (!empty($this->force_response)) {
+            $this->response->{$this->force_response}();
         } else {
-            $this->response->toastr();
+            if (method_exists($this, 'dialog')) {
+                $this->response->swal();
+            } else {
+                $this->response->toastr();
+            }
         }
+        
 
         return $this->response;
     }
