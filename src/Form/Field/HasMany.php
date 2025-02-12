@@ -538,7 +538,7 @@ class HasMany extends Field
          */
         if ($values = old($this->column)) {
             foreach ($values as $key => $data) {
-                if ($data[NestedForm::REMOVE_FLAG_NAME] == 1) {
+                if (isset($data[NestedForm::REMOVE_FLAG_NAME]) && $data[NestedForm::REMOVE_FLAG_NAME] == 1) {
                     continue;
                 }
 
