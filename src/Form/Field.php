@@ -458,6 +458,16 @@ class Field implements Renderable
     }
 
     /**
+     * Get form element name.
+     *
+     * @return string | array $form element name
+     */
+    public function getName(): string | array
+    {
+        return $this->elementName ?: $this->formatName($this->column);
+    }
+
+    /**
      * Set the key of the field in the request.
      *
      * @param string
@@ -1667,7 +1677,7 @@ class Field implements Renderable
     {
         return array_merge($this->variables, [
             'id'             => $this->id,
-            'name'           => $this->elementName ?: $this->formatName($this->column),
+            'name'           => $this->getName(),
             'help'           => $this->help,
             'inline'         => $this->inline,
             'showAsSection'  => $this->showAsSection,
