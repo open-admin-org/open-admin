@@ -1,9 +1,9 @@
 <?php
 
-namespace OpenAdmin\Admin\Grid\Displayers;
+namespace SuperAdmin\Admin\Grid\Displayers;
 
 use Illuminate\Support\Str;
-use OpenAdmin\Admin\Facades\Admin;
+use SuperAdmin\Admin\Facades\Admin;
 
 class Limit extends AbstractDisplayer
 {

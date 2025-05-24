@@ -1,6 +1,6 @@
 <?php
 
-namespace OpenAdmin\Admin\Form\Field;
+namespace SuperAdmin\Admin\Form\Field;
 
 use DateTimeZone;
 

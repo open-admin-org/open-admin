@@ -1,14 +1,15 @@
 <?php
 
-namespace OpenAdmin\Admin\Form\Field;
+namespace SuperAdmin\Admin\Form\Field;
 
-use OpenAdmin\Admin\Form\Field\Traits\BelongsToRelation;
+use SuperAdmin\Admin\Form\Field\Traits\BelongsToRelation;
 
 class BelongsTo extends Select
 {
     use BelongsToRelation;
 
     protected $relation_prefix = 'belongsto-';
+
     protected $relation_type = 'one';
 
     protected function getOptions()

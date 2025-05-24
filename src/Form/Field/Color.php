@@ -1,15 +1,15 @@
 <?php
 
-namespace OpenAdmin\Admin\Form\Field;
+namespace SuperAdmin\Admin\Form\Field;
 
 class Color extends Text
 {
     protected static $css = [
-        '/vendor/open-admin/coloris/coloris.min.css',
+        '/vendor/super-admin/coloris/coloris.min.css',
     ];
 
     protected static $js = [
-        '/vendor/open-admin/coloris/coloris.min.js',
+        '/vendor/super-admin/coloris/coloris.min.js',
     ];
 
     /**
@@ -29,19 +29,18 @@ class Color extends Text
      */
     public function format($format = 'hex')
     {
-        return $this->options(['format'=> $format]);
+        return $this->options(['format' => $format]);
     }
 
     /**
      * Set using alpha.
      *
-     * @param bool $set
-     *
+     * @param  bool  $set
      * @return $this
      */
     public function alpha($set = true)
     {
-        return $this->options(['alpha'=> $set]);
+        return $this->options(['alpha' => $set]);
     }
 
     /**
@@ -49,9 +48,8 @@ class Color extends Text
      *
      * all configurations see https://github.com/mdbassit/Coloris/
      *
-     * @param string $key
-     * @param mixed  $val
-     *
+     * @param  string  $key
+     * @param  mixed  $val
      * @return $this
      */
     public function options($options = [])
@@ -69,19 +67,19 @@ class Color extends Text
     public function render()
     {
         $options = array_merge([
-            'el'         => $this->getElementClassSelector(),
-            'theme'      => 'polaroid',
+            'el' => $this->getElementClassSelector(),
+            'theme' => 'polaroid',
             'focusInput' => false,
 
         ], $this->options);
         $options = json_encode($options);
 
-        //$this->setElementClass('form-control');
+        // $this->setElementClass('form-control');
 
         $this->script = "Coloris($options);";
 
         $this->prepend('<i class="icon-eye-dropper"></i>');
-        //$this->style('max-width', '160px');
+        // $this->style('max-width', '160px');
 
         return parent::render();
     }

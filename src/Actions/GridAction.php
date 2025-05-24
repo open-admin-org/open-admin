@@ -1,10 +1,10 @@
 <?php
 
-namespace OpenAdmin\Admin\Actions;
+namespace SuperAdmin\Admin\Actions;
 
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Http\Request;
-use OpenAdmin\Admin\Grid;
+use SuperAdmin\Admin\Grid;
 
 /**
  * Class GridAction.
@@ -24,8 +24,6 @@ abstract class GridAction extends Action
     public $selectorPrefix = '.grid-action-';
 
     /**
-     * @param Grid $grid
-     *
      * @return $this
      */
     public function setGrid(Grid $grid)
@@ -67,7 +65,6 @@ abstract class GridAction extends Action
     /**
      * Indicates if model uses soft-deletes.
      *
-     * @param $modelClass
      *
      * @return bool
      */

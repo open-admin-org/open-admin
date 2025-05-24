@@ -1,6 +1,6 @@
 <?php
 
-namespace OpenAdmin\Admin\Actions;
+namespace SuperAdmin\Admin\Actions;
 
 use Illuminate\Support\Arr;
 
@@ -22,9 +22,8 @@ class Toastr
     protected $options = [];
 
     /**
-     * @param string $type
-     * @param string $content
-     *
+     * @param  string  $type
+     * @param  string  $content
      * @return $this
      */
     public function show($type, $content = '')
@@ -36,9 +35,6 @@ class Toastr
     }
 
     /**
-     * @param $option
-     * @param $value
-     *
      * @return $this
      */
     protected function options($option, $value)
@@ -49,8 +45,6 @@ class Toastr
     }
 
     /**
-     * @param $position
-     *
      * @return Toastr
      */
     protected function position($position)
@@ -59,8 +53,6 @@ class Toastr
     }
 
     /**
-     * @param $position
-     *
      * @return Toastr
      */
     protected function gravity($position)
@@ -69,8 +61,6 @@ class Toastr
     }
 
     /**
-     * @param $style
-     *
      * @return Toastr
      */
     protected function style($style)
@@ -155,13 +145,13 @@ class Toastr
      */
     public function getOptions()
     {
-        if (!isset($this->options['position'])) {
+        if (! isset($this->options['position'])) {
             $this->topCenter();
         }
 
         return [
             'toastr' => [
-                'type'    => $this->type,
+                'type' => $this->type,
                 'content' => $this->content,
                 'options' => $this->options,
             ],

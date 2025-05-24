@@ -1,6 +1,6 @@
 <?php
 
-namespace OpenAdmin\Admin\Widgets;
+namespace SuperAdmin\Admin\Widgets;
 
 class StepForm extends Form
 {
@@ -25,8 +25,7 @@ class StepForm extends Form
     protected $buttons = [];
 
     /**
-     * @param array $data
-     *
+     * @param  array  $data
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
     protected function next($data = [])
@@ -42,7 +41,7 @@ class StepForm extends Form
     }
 
     /**
-     * @param array $data
+     * @param  array  $data
      */
     protected function remember($data)
     {
@@ -84,8 +83,7 @@ class StepForm extends Form
     }
 
     /**
-     * @param array $steps
-     *
+     * @param  array  $steps
      * @return $this
      */
     public function setSteps($steps)
@@ -96,8 +94,7 @@ class StepForm extends Form
     }
 
     /**
-     * @param string|int $current
-     *
+     * @param  string|int  $current
      * @return $this
      */
     public function setCurrent($current)
@@ -108,8 +105,7 @@ class StepForm extends Form
     }
 
     /**
-     * @param string $url
-     *
+     * @param  string  $url
      * @return $this
      */
     public function setUrl($url)
@@ -141,8 +137,8 @@ class StepForm extends Form
         $index = array_search($this->current, $this->steps);
 
         $trans = [
-            'prev'   => __('admin.prev'),
-            'next'   => __('admin.next'),
+            'prev' => __('admin.prev'),
+            'next' => __('admin.next'),
             'submit' => __('admin.submit'),
         ];
 

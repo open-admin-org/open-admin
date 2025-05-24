@@ -1,9 +1,9 @@
 <?php
 
-namespace OpenAdmin\Admin\Grid\Concerns;
+namespace SuperAdmin\Admin\Grid\Concerns;
 
 use Closure;
-use OpenAdmin\Admin\Grid\Tools\Footer;
+use SuperAdmin\Admin\Grid\Tools\Footer;
 
 trait HasFooter
 {
@@ -18,7 +18,6 @@ trait HasFooter
      * Set footer fixed.
      *
      * @param bool
-     *
      * @return $this|Closure
      */
     public function fixedFooter($bool = true)
@@ -31,13 +30,12 @@ trait HasFooter
     /**
      * Set grid footer.
      *
-     * @param Closure|null $closure
      *
      * @return $this|Closure
      */
-    public function footer(Closure $closure = null)
+    public function footer(?Closure $closure = null)
     {
-        if (!$closure) {
+        if (! $closure) {
             return $this->footer;
         }
 
@@ -53,7 +51,7 @@ trait HasFooter
      */
     public function renderFooter()
     {
-        if (!$this->footer) {
+        if (! $this->footer) {
             return '';
         }
 

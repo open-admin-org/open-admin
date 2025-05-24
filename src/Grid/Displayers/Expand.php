@@ -1,10 +1,10 @@
 <?php
 
-namespace OpenAdmin\Admin\Grid\Displayers;
+namespace SuperAdmin\Admin\Grid\Displayers;
 
 use Illuminate\Contracts\Support\Renderable;
-use OpenAdmin\Admin\Admin;
-use OpenAdmin\Admin\Grid\Simple;
+use SuperAdmin\Admin\Admin;
+use SuperAdmin\Admin\Grid\Simple;
 
 class Expand extends AbstractDisplayer
 {
@@ -25,21 +25,20 @@ class Expand extends AbstractDisplayer
         }
 
         return Admin::component('admin::components.column-expand', [
-            'key'           => $this->getKey(),
-            'url'           => $this->getLoadUrl(),
-            'name'          => str_replace('.', '-', $this->getName()).'-'.$this->getKey(),
-            'html'          => $html,
-            'value'         => $this->value,
-            'async'         => $async,
-            'expand'        => $isExpand,
-            'loadGrid'      => $loadGrid,
-            'elementClass'  => "grid-expand-{$this->grid->getGridRowName()}",
+            'key' => $this->getKey(),
+            'url' => $this->getLoadUrl(),
+            'name' => str_replace('.', '-', $this->getName()).'-'.$this->getKey(),
+            'html' => $html,
+            'value' => $this->value,
+            'async' => $async,
+            'expand' => $isExpand,
+            'loadGrid' => $loadGrid,
+            'elementClass' => "grid-expand-{$this->grid->getGridRowName()}",
         ]);
     }
 
     /**
-     * @param int $multiple
-     *
+     * @param  int  $multiple
      * @return string
      */
     protected function getLoadUrl()

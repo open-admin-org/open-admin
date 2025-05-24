@@ -1,6 +1,6 @@
 <?php
 
-namespace OpenAdmin\Admin\Actions;
+namespace SuperAdmin\Admin\Actions;
 
 use Illuminate\Http\Request;
 
@@ -28,9 +28,6 @@ abstract class BatchAction extends GridAction
 
     public $icon = 'icon-file';
 
-    /**
-     * @param $id
-     */
     public function setId($id)
     {
         $this->id = $id;
@@ -45,13 +42,11 @@ abstract class BatchAction extends GridAction
     }
 
     /**
-     * @param Request $request
-     *
      * @return mixed
      */
     public function retrieveModel(Request $request)
     {
-        if (!$key = $request->input('_key')) {
+        if (! $key = $request->input('_key')) {
             return false;
         }
 

@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\File;
-use OpenAdmin\Admin\Auth\Database\Administrator;
+use SuperAdmin\Admin\Auth\Database\Administrator;
 use Tests\Models\File as FileModel;
 
 class FileUploadTest extends TestCase
@@ -13,7 +13,7 @@ class FileUploadTest extends TestCase
         $this->be(Administrator::first(), 'admin');
     }
 
-    public function testFileUploadPage()
+    public function test_file_upload_page()
     {
         $this->visit('admin/files/create')
             ->see('Files')
@@ -41,7 +41,7 @@ class FileUploadTest extends TestCase
             ->press('Submit');
     }
 
-    public function testUploadFile()
+    public function test_upload_file()
     {
         File::cleanDirectory(public_path('uploads/files'));
 
@@ -70,7 +70,7 @@ class FileUploadTest extends TestCase
         File::cleanDirectory(public_path('uploads/files'));
     }
 
-    public function testUpdateFile()
+    public function test_update_file()
     {
         File::cleanDirectory(public_path('uploads/files'));
 
@@ -111,7 +111,7 @@ class FileUploadTest extends TestCase
         File::cleanDirectory(public_path('uploads/files'));
     }
 
-    public function testDeleteFiles()
+    public function test_delete_files()
     {
         File::cleanDirectory(public_path('uploads/files'));
 
@@ -133,7 +133,7 @@ class FileUploadTest extends TestCase
             ->seeInElement('td', 'svg');
     }
 
-    public function testBatchDelete()
+    public function test_batch_delete()
     {
         File::cleanDirectory(public_path('uploads/files'));
 

@@ -9,7 +9,7 @@
         @foreach($actions as $action)
             <li>{!! $action->render() !!}</li>
 
-            @if($action instanceof \OpenAdmin\Admin\Actions\BatchAction)
+            @if($action instanceof \SuperAdmin\Admin\Actions\BatchAction)
 
             @elseif (1==2)
                 <li><a href="#" class="{{ $action->getElementClass(false) }} dropdown-item"><i class="{{$action->icon}}"></i>{!! $action->render() !!} </a></li>

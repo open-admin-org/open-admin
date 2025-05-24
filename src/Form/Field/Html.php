@@ -1,9 +1,9 @@
 <?php
 
-namespace OpenAdmin\Admin\Form\Field;
+namespace SuperAdmin\Admin\Form\Field;
 
 use Illuminate\Support\Arr;
-use OpenAdmin\Admin\Form\Field;
+use SuperAdmin\Admin\Form\Field;
 
 class Html extends Field
 {
@@ -27,8 +27,8 @@ class Html extends Field
     /**
      * Create a new Html instance.
      *
-     * @param mixed $html
-     * @param array $arguments
+     * @param  mixed  $html
+     * @param  array  $arguments
      */
     public function __construct($html, $arguments)
     {

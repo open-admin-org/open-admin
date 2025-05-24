@@ -1,0 +1,72 @@
+{
+    "name": "super-admin-org/super-admin",
+    "description": "super-admin. Open-source Laravel Admin panel. No pro or paid package, free & open. Based on laravel-admin, with special thanks to z-song",
+    "type": "library",
+    "keywords": ["laravel", "admin", "grid", "form", "super-admin","open","free"],
+    "homepage": "https://github.com/super-admin-org/super-admin",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Sjors Broersen | Open-Admin.org",
+            "email": "info@super-admin.org"
+        }
+    ],
+    "require": {
+        "php": "~7.3|~8.0",
+        "symfony/dom-crawler": "~3.1|~4.0|~5.0|~6.0|~7.0",
+        "laravel/framework": ">=7.0|>=8.0|^10.0|^11.0|^12.0",
+        "doctrine/dbal": "2.*|3.*|4.*|5.*",
+        "fakerphp/faker": "^1.24"
+    },
+    "require-dev": {
+        "laravel/laravel": ">=8.0|^10.0|^11.0|^12.0",
+        "intervention/image": "~2.3",
+        "spatie/phpunit-watcher": "^1.22.0",
+        "phpunit/phpunit": "9.6",
+        "laravel/browser-kit-testing": "^6.4",
+        "orchestra/testbench": "8.13",
+        "pestphp/pest": "^1.22",
+        "pestphp/pest-plugin-laravel": "^1.4"
+    },
+    "autoload": {
+        "psr-4": {
+            "SuperAdmin\\Admin\\": "src/"
+        },
+        "files": [
+            "src/helpers.php"
+        ]
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Tests\\Models\\": "tests/models",
+            "Tests\\Controllers\\": "tests/controllers"
+        },
+        "classmap": [
+            "tests/TestCase.php"
+        ]
+    },
+    "scripts": {
+        "sass": "sass --watch resources/assets/super-admin/scss/styles.scss:resources/assets/super-admin/css/styles.css resources/assets/super-admin/scss/pages:resources/assets/super-admin/css/pages --style compressed",
+        "test": "./vendor/bin/phpunit"
+    },
+    "suggest": {
+        "intervention/image": "Required to handling and manipulation upload images (~2.3).",
+        "spatie/eloquent-sortable": "Required to built orderable gird."
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "SuperAdmin\\Admin\\AdminServiceProvider"
+            ],
+            "aliases": {
+                "Admin": "SuperAdmin\\Admin\\Facades\\Admin"
+            }
+        }
+    },
+    "config": {
+        "process-timeout": 0,
+        "allow-plugins": {
+            "pestphp/pest-plugin": true
+        }
+    }
+}

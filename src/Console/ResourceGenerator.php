@@ -1,6 +1,6 @@
 <?php
 
-namespace OpenAdmin\Admin\Console;
+namespace SuperAdmin\Admin\Console;
 
 use Illuminate\Database\Eloquent\Model;
 
@@ -15,8 +15,8 @@ class ResourceGenerator
      * @var array
      */
     protected $formats = [
-        'form_field'  => "\$form->%s('%s', __('%s'))",
-        'show_field'  => "\$show->field('%s', __('%s'))",
+        'form_field' => "\$form->%s('%s', __('%s'))",
+        'show_field' => "\$show->field('%s', __('%s'))",
         'grid_column' => "\$grid->column('%s', __('%s'))",
     ];
 
@@ -35,20 +35,20 @@ class ResourceGenerator
      * @var array
      */
     protected $fieldTypeMapping = [
-        'ip'          => 'ip',
-        'email'       => 'email|mail',
-        'password'    => 'password|pwd',
-        'url'         => 'url|link|src|href',
+        'ip' => 'ip',
+        'email' => 'email|mail',
+        'password' => 'password|pwd',
+        'url' => 'url|link|src|href',
         'phonenumber' => 'mobile|phone',
-        'color'       => 'color|rgb',
-        'image'       => 'image|img|avatar|pic|picture|cover',
-        'file'        => 'file|attachment',
+        'color' => 'color|rgb',
+        'image' => 'image|img|avatar|pic|picture|cover',
+        'file' => 'file|attachment',
     ];
 
     /**
      * ResourceGenerator constructor.
      *
-     * @param mixed $model
+     * @param  mixed  $model
      */
     public function __construct($model)
     {
@@ -56,8 +56,7 @@ class ResourceGenerator
     }
 
     /**
-     * @param mixed $model
-     *
+     * @param  mixed  $model
      * @return mixed
      */
     protected function getModel($model)
@@ -66,11 +65,11 @@ class ResourceGenerator
             return $model;
         }
 
-        if (!class_exists($model) || !is_string($model) || !is_subclass_of($model, Model::class)) {
+        if (! class_exists($model) || ! is_string($model) || ! is_subclass_of($model, Model::class)) {
             throw new \InvalidArgumentException("Invalid model [$model] !");
         }
 
-        return new $model();
+        return new $model;
     }
 
     /**
@@ -207,44 +206,83 @@ class ResourceGenerator
     /**
      * Get columns of a giving model.
      *
-     * @throws \Exception
-     *
      * @return \Doctrine\DBAL\Schema\Column[]
+     *
+     * @throws \Exception
      */
+    //    protected function getTableColumns()
+    //    {
+    //        if (!$this->model->getConnection()->isDoctrineAvailable()) {
+    //            throw new \Exception(
+    //                'You need to require doctrine/dbal: ~2.3 in your own composer.json to get database columns. '
+    //            );
+    //        }
+    //
+    //        $table = $this->model->getConnection()->getTablePrefix().$this->model->getTable();
+    //        /** @var \Doctrine\DBAL\Schema\MySqlSchemaManager $schema */
+    //        $schema = $this->model->getConnection()->getDoctrineSchemaManager($table);
+    //
+    //        // custom mapping the types that doctrine/dbal does not support
+    //        $databasePlatform = $schema->getDatabasePlatform();
+    //
+    //        foreach ($this->doctrineTypeMapping as $doctrineType => $dbTypes) {
+    //            foreach ($dbTypes as $dbType) {
+    //                $databasePlatform->registerDoctrineTypeMapping($dbType, $doctrineType);
+    //            }
+    //        }
+    //
+    //        $database = null;
+    //        if (strpos($table, '.')) {
+    //            list($database, $table) = explode('.', $table);
+    //        }
+    //
+    //        return $schema->listTableColumns($table, $database);
+    //    }
+
     protected function getTableColumns()
     {
-        if (!$this->model->getConnection()->isDoctrineAvailable()) {
+        $connection = $this->model->getConnection();
+
+        // Check if the connection is using Doctrine DBAL
+        if ($connection->getDriverName() !== 'pgsql' && ! class_exists('Doctrine\DBAL\Driver\Connection')) {
             throw new \Exception(
-                'You need to require doctrine/dbal: ~2.3 in your own composer.json to get database columns. '
+                'Doctrine DBAL is required to get database columns. Please install "doctrine/dbal" in your composer.json.'
             );
         }
 
-        $table = $this->model->getConnection()->getTablePrefix().$this->model->getTable();
-        /** @var \Doctrine\DBAL\Schema\MySqlSchemaManager $schema */
-        $schema = $this->model->getConnection()->getDoctrineSchemaManager($table);
+        $table = $connection->getTablePrefix().$this->model->getTable();
 
-        // custom mapping the types that doctrine/dbal does not support
-        $databasePlatform = $schema->getDatabasePlatform();
+        // Use the Doctrine Schema Manager only if Doctrine DBAL is available
+        if (class_exists('Doctrine\DBAL\Driver\Connection')) {
+            /** @var \Doctrine\DBAL\Schema\AbstractSchemaManager $schema */
+            $schema = $connection->getDoctrineSchemaManager();
 
-        foreach ($this->doctrineTypeMapping as $doctrineType => $dbTypes) {
-            foreach ($dbTypes as $dbType) {
-                $databasePlatform->registerDoctrineTypeMapping($dbType, $doctrineType);
+            // Custom mapping the types that Doctrine DBAL does not support
+            $databasePlatform = $schema->getDatabasePlatform();
+
+            foreach ($this->doctrineTypeMapping as $doctrineType => $dbTypes) {
+                foreach ($dbTypes as $dbType) {
+                    $databasePlatform->registerDoctrineTypeMapping($dbType, $doctrineType);
+                }
             }
+
+            // Handle potential table being prefixed with a database name
+            $database = null;
+            if (strpos($table, '.')) {
+                [$database, $table] = explode('.', $table);
+            }
+
+            return $schema->listTableColumns($table, $database);
         }
 
-        $database = null;
-        if (strpos($table, '.')) {
-            list($database, $table) = explode('.', $table);
-        }
-
-        return $schema->listTableColumns($table, $database);
+        // Return an empty array or handle non-Doctrine case
+        return [];
     }
 
     /**
      * Format label.
      *
-     * @param string $value
-     *
+     * @param  string  $value
      * @return string
      */
     protected function formatLabel($value)

@@ -1,6 +1,6 @@
 <?php
 
-namespace OpenAdmin\Admin\Grid\Exporters;
+namespace SuperAdmin\Admin\Grid\Exporters;
 
 use Illuminate\Support\Str;
 use Maatwebsite\Excel\Concerns\Exportable;
@@ -26,12 +26,9 @@ abstract class ExcelExporter extends AbstractExporter implements FromQuery, With
      */
     protected $columns = [];
 
-    /**
-     * @return array
-     */
     public function headings(): array
     {
-        if (!empty($this->columns)) {
+        if (! empty($this->columns)) {
             return array_values($this->columns);
         }
 
@@ -43,7 +40,7 @@ abstract class ExcelExporter extends AbstractExporter implements FromQuery, With
      */
     public function query()
     {
-        if (!empty($this->columns)) {
+        if (! empty($this->columns)) {
             $columns = array_keys($this->columns);
 
             $eagerLoads = array_keys($this->getQuery()->getEagerLoads());

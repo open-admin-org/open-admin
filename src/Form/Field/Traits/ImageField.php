@@ -1,6 +1,6 @@
 <?php
 
-namespace OpenAdmin\Admin\Form\Field\Traits;
+namespace SuperAdmin\Admin\Form\Field\Traits;
 
 use Illuminate\Support\Str;
 use Intervention\Image\Constraint;
@@ -37,13 +37,12 @@ trait ImageField
     /**
      * Execute Intervention calls.
      *
-     * @param string $target
-     *
+     * @param  string  $target
      * @return mixed
      */
     public function callInterventionMethods($target)
     {
-        if (!empty($this->interventionCalls)) {
+        if (! empty($this->interventionCalls)) {
             $image = ImageManagerStatic::make($target);
 
             foreach ($this->interventionCalls as $call) {
@@ -60,12 +59,11 @@ trait ImageField
     /**
      * Call intervention methods.
      *
-     * @param string $method
-     * @param array  $arguments
+     * @param  string  $method
+     * @param  array  $arguments
+     * @return $this
      *
      * @throws \Exception
-     *
-     * @return $this
      */
     public function __call($method, $arguments)
     {
@@ -73,12 +71,12 @@ trait ImageField
             return $this;
         }
 
-        if (!class_exists(ImageManagerStatic::class)) {
+        if (! class_exists(ImageManagerStatic::class)) {
             throw new \Exception('To use image handling and manipulation, please install [intervention/image] first.');
         }
 
         $this->interventionCalls[] = [
-            'method'    => $method,
+            'method' => $method,
             'arguments' => $arguments,
         ];
 
@@ -98,13 +96,10 @@ trait ImageField
     }
 
     /**
-     * @param string|array $name
-     * @param int          $width
-     * @param int          $height
-     *
+     * @param  string|array  $name
      * @return $this
      */
-    public function thumbnail($name, int $width = null, int $height = null)
+    public function thumbnail($name, ?int $width = null, ?int $height = null)
     {
         if (func_num_args() == 1 && is_array($name)) {
             foreach ($name as $key => $size) {
@@ -120,9 +115,8 @@ trait ImageField
     }
 
     /**
-     * @param string|array $name
-     * @param callable     $function
-     *
+     * @param  string|array  $name
+     * @param  callable  $function
      * @return $this
      */
     public function thumbnailFunction($name, \Closure $function)
@@ -182,7 +176,6 @@ trait ImageField
     /**
      * Upload file and delete original thumbnail files.
      *
-     * @param UploadedFile $file
      *
      * @return $this
      */
@@ -212,7 +205,7 @@ trait ImageField
                 })->resizeCanvas($size[0], $size[1], 'center', false, '#ffffff');
             }
 
-            if (!is_null($this->storagePermission)) {
+            if (! is_null($this->storagePermission)) {
                 $this->storage->put("{$this->getDirectory()}/{$path}", $image->encode(), $this->storagePermission);
             } else {
                 $this->storage->put("{$this->getDirectory()}/{$path}", $image->encode());

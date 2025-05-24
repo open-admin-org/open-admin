@@ -1,9 +1,9 @@
 <?php
 
-namespace OpenAdmin\Admin\Grid\Filter\Presenter;
+namespace SuperAdmin\Admin\Grid\Filter\Presenter;
 
 use Illuminate\Support\Arr;
-use OpenAdmin\Admin\Admin;
+use SuperAdmin\Admin\Admin;
 
 class DateTime extends Presenter
 {
@@ -20,7 +20,7 @@ class DateTime extends Presenter
     /**
      * DateTime constructor.
      *
-     * @param array $options
+     * @param  array  $options
      */
     public function __construct($options = [])
     {
@@ -28,8 +28,6 @@ class DateTime extends Presenter
     }
 
     /**
-     * @param array $options
-     *
      * @return mixed
      */
     protected function getOptions(array $options): array

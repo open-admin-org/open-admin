@@ -1,10 +1,10 @@
 <?php
 
-namespace OpenAdmin\Admin\Grid\Tools;
+namespace SuperAdmin\Admin\Grid\Tools;
 
 use Illuminate\Support\Collection;
-use OpenAdmin\Admin\Actions\BatchAction;
-use OpenAdmin\Admin\Admin;
+use SuperAdmin\Admin\Actions\BatchAction;
+use SuperAdmin\Admin\Admin;
 
 class BatchActions extends AbstractTool
 {
@@ -33,7 +33,7 @@ class BatchActions extends AbstractTool
      */
     public function __construct()
     {
-        $this->actions = new Collection();
+        $this->actions = new Collection;
 
         $this->appendDefaultAction();
     }
@@ -45,8 +45,8 @@ class BatchActions extends AbstractTool
      */
     protected function appendDefaultAction()
     {
-        $this->add(new BatchEdit());
-        $this->add(new BatchDelete());
+        $this->add(new BatchEdit);
+        $this->add(new BatchDelete);
     }
 
     /**
@@ -56,7 +56,7 @@ class BatchActions extends AbstractTool
      */
     public function disableEdit(bool $disable = true)
     {
-        $this->enableEdit = !$disable;
+        $this->enableEdit = ! $disable;
 
         return $this;
     }
@@ -68,7 +68,7 @@ class BatchActions extends AbstractTool
      */
     public function disableDelete(bool $disable = true)
     {
-        $this->enableDelete = !$disable;
+        $this->enableDelete = ! $disable;
 
         return $this;
     }
@@ -90,12 +90,10 @@ class BatchActions extends AbstractTool
     /**
      * Add a batch action.
      *
-     * @param $name
-     * @param BatchAction|null $action
      *
      * @return $this
      */
-    public function add($name, BatchAction $action = null)
+    public function add($name, ?BatchAction $action = null)
     {
         $id = $this->actions->count();
 
@@ -137,23 +135,23 @@ class BatchActions extends AbstractTool
      */
     public function render()
     {
-        if (!$this->enableEdit) {
+        if (! $this->enableEdit) {
             $this->actions = $this->actions->filter(function ($action, $key) {
-                return get_class($action) != "OpenAdmin\Admin\Grid\Tools\BatchEdit";
+                return get_class($action) != "SuperAdmin\Admin\Grid\Tools\BatchEdit";
             });
         }
 
-        if (!$this->enableDelete) {
+        if (! $this->enableDelete) {
             $this->actions = $this->actions->filter(function ($action, $key) {
-                return get_class($action) != "OpenAdmin\Admin\Grid\Tools\BatchDelete";
+                return get_class($action) != "SuperAdmin\Admin\Grid\Tools\BatchDelete";
             });
         }
 
         $this->addActionScripts();
 
         return Admin::component('admin::grid.batch-actions', [
-            'all'     => $this->grid->getSelectAllName(),
-            'row'     => $this->grid->getGridRowName(),
+            'all' => $this->grid->getSelectAllName(),
+            'row' => $this->grid->getGridRowName(),
             'actions' => $this->actions,
             'holdAll' => $this->holdAll,
         ]);

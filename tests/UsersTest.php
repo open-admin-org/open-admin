@@ -1,6 +1,6 @@
 <?php
 
-use OpenAdmin\Admin\Auth\Database\Administrator;
+use SuperAdmin\Admin\Auth\Database\Administrator;
 
 class UsersTest extends TestCase
 {
@@ -15,18 +15,18 @@ class UsersTest extends TestCase
         $this->be($this->user, 'admin');
     }
 
-    public function testUsersIndexPage()
+    public function test_users_index_page()
     {
         $this->visit('admin/auth/users')
             ->see('Administrator');
     }
 
-    public function testCreateUser()
+    public function test_create_user()
     {
         $user = [
-            'username'              => 'Test',
-            'name'                  => 'Name',
-            'password'              => '123456',
+            'username' => 'Test',
+            'name' => 'Name',
+            'password' => '123456',
             'password_confirmation' => '123456',
         ];
 
@@ -61,7 +61,7 @@ class UsersTest extends TestCase
             ->see('<span>Menu</span>');
     }
 
-    public function testUpdateUser()
+    public function test_update_user()
     {
         $this->visit('admin/auth/users/'.$this->user->id.'/edit')
             ->see('Create')
@@ -70,14 +70,14 @@ class UsersTest extends TestCase
             ->seeInDatabase(config('admin.database.users_table'), ['name' => 'test']);
     }
 
-    public function testResetPassword()
+    public function test_reset_password()
     {
         $password = 'odjwyufkglte';
 
         $data = [
-            'password'              => $password,
+            'password' => $password,
             'password_confirmation' => $password,
-            'roles'                 => [1],
+            'roles' => [1],
         ];
 
         $this->visit('admin/auth/users/'.$this->user->id.'/edit')

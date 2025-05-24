@@ -1,13 +1,13 @@
 <?php
 
-namespace OpenAdmin\Admin\Grid\Displayers\Actions;
+namespace SuperAdmin\Admin\Grid\Displayers\Actions;
 
-use OpenAdmin\Admin\Actions\RowAction;
-use OpenAdmin\Admin\Admin;
-use OpenAdmin\Admin\Grid\Actions\Delete;
-use OpenAdmin\Admin\Grid\Actions\Edit;
-use OpenAdmin\Admin\Grid\Actions\Show;
-use OpenAdmin\Admin\Grid\Displayers\AbstractDisplayer;
+use SuperAdmin\Admin\Actions\RowAction;
+use SuperAdmin\Admin\Admin;
+use SuperAdmin\Admin\Grid\Actions\Delete;
+use SuperAdmin\Admin\Grid\Actions\Edit;
+use SuperAdmin\Admin\Grid\Actions\Show;
+use SuperAdmin\Admin\Grid\Displayers\AbstractDisplayer;
 
 class Actions extends AbstractDisplayer
 {
@@ -98,7 +98,6 @@ class Actions extends AbstractDisplayer
     /**
      * Set resource of current resource.
      *
-     * @param $resource
      *
      * @return $this
      */
@@ -120,8 +119,6 @@ class Actions extends AbstractDisplayer
     }
 
     /**
-     * @param RowAction $action
-     *
      * @return $this
      */
     public function add(RowAction $action)
@@ -134,8 +131,6 @@ class Actions extends AbstractDisplayer
     }
 
     /**
-     * @param RowAction $action
-     *
      * @return $this
      */
     public function pre(RowAction $action)
@@ -154,7 +149,7 @@ class Actions extends AbstractDisplayer
     {
         foreach ($this->defaultClass as $class) {
             /** @var RowAction $action */
-            $action = new $class();
+            $action = new $class;
 
             $this->prepareAction($action);
 
@@ -162,9 +157,6 @@ class Actions extends AbstractDisplayer
         }
     }
 
-    /**
-     * @param RowAction $action
-     */
     protected function prepareAction(RowAction $action)
     {
         $action->setGrid($this->grid)
@@ -175,7 +167,6 @@ class Actions extends AbstractDisplayer
     /**
      * Disable view action.
      *
-     * @param bool $disable
      *
      * @return $this
      */
@@ -188,7 +179,7 @@ class Actions extends AbstractDisplayer
     {
         if ($disable) {
             array_delete($this->defaultClass, Show::class);
-        } elseif (!in_array(Show::class, $this->defaultClass)) {
+        } elseif (! in_array(Show::class, $this->defaultClass)) {
             array_push($this->defaultClass, Show::class);
         }
 
@@ -198,7 +189,6 @@ class Actions extends AbstractDisplayer
     /**
      * Disable delete.
      *
-     * @param bool $disable
      *
      * @return $this.
      */
@@ -206,7 +196,7 @@ class Actions extends AbstractDisplayer
     {
         if ($disable) {
             array_delete($this->defaultClass, Delete::class);
-        } elseif (!in_array(Delete::class, $this->defaultClass)) {
+        } elseif (! in_array(Delete::class, $this->defaultClass)) {
             array_push($this->defaultClass, Delete::class);
         }
 
@@ -216,7 +206,6 @@ class Actions extends AbstractDisplayer
     /**
      * Disable edit.
      *
-     * @param bool $disable
      *
      * @return $this
      */
@@ -224,7 +213,7 @@ class Actions extends AbstractDisplayer
     {
         if ($disable) {
             array_delete($this->defaultClass, Edit::class);
-        } elseif (!in_array(Edit::class, $this->defaultClass)) {
+        } elseif (! in_array(Edit::class, $this->defaultClass)) {
             array_push($this->defaultClass, Edit::class);
         }
 
@@ -232,8 +221,7 @@ class Actions extends AbstractDisplayer
     }
 
     /**
-     * @param null|\Closure $callback
-     *
+     * @param  null|\Closure  $callback
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View|string
      */
     public function display($callback = null)
@@ -249,11 +237,11 @@ class Actions extends AbstractDisplayer
         $this->prependDefaultActions();
 
         $variables = [
-            'default'           => $this->default,
-            'custom'            => $this->custom,
-            'showLabels'        => $this->showLabels,
+            'default' => $this->default,
+            'custom' => $this->custom,
+            'showLabels' => $this->showLabels,
             'hideActionsColumn' => $this->hideActionsColumn,
-            'key'               => $this->getRouteKey(),
+            'key' => $this->getRouteKey(),
         ];
 
         if (empty($variables['default']) && empty($variables['custom'])) {

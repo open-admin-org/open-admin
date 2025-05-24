@@ -1,9 +1,9 @@
 <?php
 
-namespace OpenAdmin\Admin\Grid\Concerns;
+namespace SuperAdmin\Admin\Grid\Concerns;
 
-use OpenAdmin\Admin\Grid;
-use OpenAdmin\Admin\Grid\Tools\Selector;
+use SuperAdmin\Admin\Grid;
+use SuperAdmin\Admin\Grid\Tools\Selector;
 
 /**
  * @mixin Grid
@@ -16,13 +16,11 @@ trait HasSelector
     protected $selector;
 
     /**
-     * @param \Closure $closure
-     *
      * @return $this
      */
     public function selector(\Closure $closure)
     {
-        $this->selector = new Selector();
+        $this->selector = new Selector;
 
         call_user_func($closure, $this->selector);
 
@@ -47,7 +45,7 @@ trait HasSelector
         $active = Selector::parseSelected();
 
         $this->selector->getSelectors()->each(function ($selector, $column) use ($active) {
-            if (!array_key_exists($column, $active)) {
+            if (! array_key_exists($column, $active)) {
                 return;
             }
 

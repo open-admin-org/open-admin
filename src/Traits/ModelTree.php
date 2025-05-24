@@ -1,12 +1,12 @@
 <?php
 
-namespace OpenAdmin\Admin\Traits;
+namespace SuperAdmin\Admin\Traits;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Request;
-use OpenAdmin\Admin\Tree;
+use SuperAdmin\Admin\Tree;
 
 trait ModelTree
 {
@@ -66,7 +66,7 @@ trait ModelTree
     /**
      * Set parent column.
      *
-     * @param string $column
+     * @param  string  $column
      */
     public function setParentColumn($column)
     {
@@ -86,7 +86,7 @@ trait ModelTree
     /**
      * Set title column.
      *
-     * @param string $column
+     * @param  string  $column
      */
     public function setTitleColumn($column)
     {
@@ -106,7 +106,7 @@ trait ModelTree
     /**
      * Set order column.
      *
-     * @param string $column
+     * @param  string  $column
      */
     public function setOrderColumn($column)
     {
@@ -116,11 +116,10 @@ trait ModelTree
     /**
      * Set query callback to model.
      *
-     * @param \Closure|null $query
      *
      * @return $this
      */
-    public function withQuery(\Closure $query = null)
+    public function withQuery(?\Closure $query = null)
     {
         $this->queryCallback = $query;
 
@@ -140,9 +139,7 @@ trait ModelTree
     /**
      * Build Nested array.
      *
-     * @param array $nodes
-     * @param int   $parentId
-     *
+     * @param  int  $parentId
      * @return array
      */
     protected function buildNestedArray(array $nodes = [], $parentId = 0)
@@ -178,7 +175,7 @@ trait ModelTree
         $orderColumn = DB::getQueryGrammar()->wrap($this->orderColumn);
         $byOrder = $orderColumn.' = 0,'.$orderColumn;
 
-        $self = new static();
+        $self = new static;
 
         if ($this->queryCallback instanceof \Closure) {
             $self = call_user_func($this->queryCallback, $self);
@@ -190,7 +187,6 @@ trait ModelTree
     /**
      * Set the order of branches in the tree.
      *
-     * @param array $order
      *
      * @return void
      */
@@ -206,8 +202,8 @@ trait ModelTree
     /**
      * Save tree order from a tree like array.
      *
-     * @param array $tree
-     * @param int   $parentId
+     * @param  array  $tree
+     * @param  int  $parentId
      */
     public static function saveOrder($tree = [], $parentId = 0)
     {
@@ -231,14 +227,12 @@ trait ModelTree
     /**
      * Get options for Select field in form.
      *
-     * @param \Closure|null $closure
-     * @param string        $rootText
-     *
+     * @param  string  $rootText
      * @return array
      */
-    public static function selectOptions(\Closure $closure = null, $rootText = 'ROOT')
+    public static function selectOptions(?\Closure $closure = null, $rootText = 'ROOT')
     {
-        $options = (new static())->withQuery($closure)->buildSelectOptions();
+        $options = (new static)->withQuery($closure)->buildSelectOptions();
 
         return collect($options)->prepend($rootText, 0)->all();
     }
@@ -246,11 +240,9 @@ trait ModelTree
     /**
      * Build options of select field in form.
      *
-     * @param array  $nodes
-     * @param int    $parentId
-     * @param string $prefix
-     * @param string $space
-     *
+     * @param  int  $parentId
+     * @param  string  $prefix
+     * @param  string  $space
      * @return array
      */
     protected function buildSelectOptions(array $nodes = [], $parentId = 0, $prefix = '', $space = '&nbsp;')
@@ -311,7 +303,7 @@ trait ModelTree
 
                 Request::offsetUnset('_order');
 
-                (new Tree(new static()))->saveOrder($order);
+                (new Tree(new static))->saveOrder($order);
 
                 return false;
             }

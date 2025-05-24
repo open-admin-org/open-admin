@@ -1,6 +1,6 @@
 <?php
 
-use OpenAdmin\Admin\Auth\Database\Administrator;
+use SuperAdmin\Admin\Auth\Database\Administrator;
 use Tests\Models\User as UserModel;
 
 class UserFormTest extends TestCase
@@ -12,7 +12,7 @@ class UserFormTest extends TestCase
         $this->be(Administrator::first(), 'admin');
     }
 
-    public function testCreatePage()
+    public function test_create_page()
     {
         $this->visit('admin/users/create')
             ->seeElement('input[type=text][name=username]')
@@ -37,25 +37,25 @@ class UserFormTest extends TestCase
             ->seeInElement('a[html-field]', 'html...');
     }
 
-    public function testSubmitForm()
+    public function test_submit_form()
     {
         $data = [
-            'username'              => 'John Doe',
-            'email'                 => 'hello@world.com',
-            'mobile'                => '13421234123',
-            'password'              => '123456',
+            'username' => 'John Doe',
+            'email' => 'hello@world.com',
+            'mobile' => '13421234123',
+            'password' => '123456',
             'password_confirmation' => '123456',
-            //"avatar"   => "test.jpg",
+            // "avatar"   => "test.jpg",
             'profile' => [
                 'first_name' => 'John',
-                'last_name'  => 'Doe',
-                'postcode'   => '123456',
-                'address'    => 'Jinshajiang RD',
-                'latitude'   => '131.2123123456',
-                'longitude'  => '21.342123456',
-                'color'      => '#ffffff',
-                'start_at'   => date('Y-m-d H:i:s', time()),
-                'end_at'     => date('Y-m-d H:i:s', time()),
+                'last_name' => 'Doe',
+                'postcode' => '123456',
+                'address' => 'Jinshajiang RD',
+                'latitude' => '131.2123123456',
+                'longitude' => '21.342123456',
+                'color' => '#ffffff',
+                'start_at' => date('Y-m-d H:i:s', time()),
+                'end_at' => date('Y-m-d H:i:s', time()),
             ],
         ];
 
@@ -109,7 +109,7 @@ class UserFormTest extends TestCase
             });
     }
 
-    public function testEditForm()
+    public function test_edit_form()
     {
         $this->seedsTable(10);
 
@@ -137,7 +137,7 @@ class UserFormTest extends TestCase
         $this->assertCount(5, $this->crawler()->filter("select[name='tags[]'] option[selected]"));
     }
 
-    public function testUpdateForm()
+    public function test_update_form()
     {
         $this->seedsTable(10);
 
@@ -156,7 +156,7 @@ class UserFormTest extends TestCase
         $this->assertEquals($user->username, 'hello world');
     }
 
-    public function testUpdateFormWithRule()
+    public function test_update_form_with_rule()
     {
         $this->seedsTable(10);
 
@@ -188,7 +188,7 @@ class UserFormTest extends TestCase
             ->seeInDatabase('test_users', ['email' => 'xx@xx.xx']);
     }
 
-    public function testFormHeader()
+    public function test_form_header()
     {
         $this->seedsTable(1);
 
@@ -198,7 +198,7 @@ class UserFormTest extends TestCase
             ->seeInElement('a[class*=btn-primary]', 'View');
     }
 
-    public function testFormFooter()
+    public function test_form_footer()
     {
         $this->seedsTable(1);
 

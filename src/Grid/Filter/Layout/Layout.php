@@ -1,9 +1,9 @@
 <?php
 
-namespace OpenAdmin\Admin\Grid\Filter\Layout;
+namespace SuperAdmin\Admin\Grid\Filter\Layout;
 
 use Illuminate\Support\Collection;
-use OpenAdmin\Admin\Grid\Filter;
+use SuperAdmin\Admin\Grid\Filter;
 
 class Layout
 {
@@ -24,22 +24,18 @@ class Layout
 
     /**
      * Layout constructor.
-     *
-     * @param Filter $filter
      */
     public function __construct(Filter $filter)
     {
         $this->parent = $filter;
 
-        $this->current = new Column();
+        $this->current = new Column;
 
-        $this->columns = new Collection();
+        $this->columns = new Collection;
     }
 
     /**
      * Add a filter to layout column.
-     *
-     * @param Filter\AbstractFilter $filter
      */
     public function addFilter(Filter\AbstractFilter $filter)
     {
@@ -49,8 +45,7 @@ class Layout
     /**
      * Add a new column in layout.
      *
-     * @param int      $width
-     * @param \Closure $closure
+     * @param  int  $width
      */
     public function column($width, \Closure $closure)
     {

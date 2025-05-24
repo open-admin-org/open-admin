@@ -1,8 +1,8 @@
 <?php
 
-namespace OpenAdmin\Admin\Form\Field;
+namespace SuperAdmin\Admin\Form\Field;
 
-use OpenAdmin\Admin\Form;
+use SuperAdmin\Admin\Form;
 
 class Captcha extends Text
 {
@@ -12,7 +12,7 @@ class Captcha extends Text
 
     public function __construct($column, $arguments = [])
     {
-        if (!class_exists(\Mews\Captcha\Captcha::class)) {
+        if (! class_exists(\Mews\Captcha\Captcha::class)) {
             throw new \Exception('To use captcha field, please install [mews/captcha] first.');
         }
 
@@ -20,7 +20,7 @@ class Captcha extends Text
         $this->label = trans('admin.captcha');
     }
 
-    public function setForm(Form $form = null)
+    public function setForm(?Form $form = null)
     {
         $this->form = $form;
 

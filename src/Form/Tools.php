@@ -1,6 +1,6 @@
 <?php
 
-namespace OpenAdmin\Admin\Form;
+namespace SuperAdmin\Admin\Form;
 
 use Illuminate\Contracts\Support\Htmlable;
 use Illuminate\Contracts\Support\Renderable;
@@ -36,21 +36,18 @@ class Tools implements Renderable
 
     /**
      * Create a new Tools instance.
-     *
-     * @param Builder $builder
      */
     public function __construct(Builder $builder)
     {
         $this->form = $builder;
-        $this->appends = new Collection();
-        $this->prepends = new Collection();
+        $this->appends = new Collection;
+        $this->prepends = new Collection;
     }
 
     /**
      * Append a tools.
      *
-     * @param mixed $tool
-     *
+     * @param  mixed  $tool
      * @return $this
      */
     public function append($tool)
@@ -63,8 +60,7 @@ class Tools implements Renderable
     /**
      * Prepend a tool.
      *
-     * @param mixed $tool
-     *
+     * @param  mixed  $tool
      * @return $this
      */
     public function prepend($tool)
@@ -83,7 +79,7 @@ class Tools implements Renderable
     {
         if ($disable) {
             array_delete($this->tools, 'list');
-        } elseif (!in_array('list', $this->tools)) {
+        } elseif (! in_array('list', $this->tools)) {
             array_push($this->tools, 'list');
         }
 
@@ -99,7 +95,7 @@ class Tools implements Renderable
     {
         if ($disable) {
             array_delete($this->tools, 'delete');
-        } elseif (!in_array('delete', $this->tools)) {
+        } elseif (! in_array('delete', $this->tools)) {
             array_push($this->tools, 'delete');
         }
 
@@ -115,7 +111,7 @@ class Tools implements Renderable
     {
         if ($disable) {
             array_delete($this->tools, 'view');
-        } elseif (!in_array('view', $this->tools)) {
+        } elseif (! in_array('view', $this->tools)) {
             array_push($this->tools, 'view');
         }
 
@@ -210,7 +206,7 @@ HTML;
     protected function renderDelete()
     {
         $trans = [
-            'delete'         => trans('admin.delete'),
+            'delete' => trans('admin.delete'),
         ];
 
         return <<<HTML
@@ -225,8 +221,7 @@ HTML;
     /**
      * Add a tool.
      *
-     * @param string $tool
-     *
+     * @param  string  $tool
      * @return $this
      *
      * @deprecated use append instead.
@@ -243,9 +238,7 @@ HTML;
      *
      * @deprecated
      */
-    public function disableBackButton()
-    {
-    }
+    public function disableBackButton() {}
 
     /**
      * Disable list button.
@@ -262,8 +255,7 @@ HTML;
     /**
      * Render custom tools.
      *
-     * @param Collection $tools
-     *
+     * @param  Collection  $tools
      * @return mixed
      */
     protected function renderCustomTools($tools)

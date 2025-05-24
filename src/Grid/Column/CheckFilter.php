@@ -1,9 +1,9 @@
 <?php
 
-namespace OpenAdmin\Admin\Grid\Column;
+namespace SuperAdmin\Admin\Grid\Column;
 
-use OpenAdmin\Admin\Admin;
-use OpenAdmin\Admin\Grid\Model;
+use SuperAdmin\Admin\Admin;
+use SuperAdmin\Admin\Grid\Model;
 
 class CheckFilter extends Filter
 {
@@ -14,15 +14,13 @@ class CheckFilter extends Filter
 
     /**
      * CheckFilter constructor.
-     *
-     * @param array $options
      */
     public function __construct(array $options)
     {
         $this->options = $options;
 
         $this->class = [
-            'all'  => uniqid('column-filter-all-'),
+            'all' => uniqid('column-filter-all-'),
             'item' => uniqid('column-filter-item-'),
         ];
     }
@@ -30,8 +28,7 @@ class CheckFilter extends Filter
     /**
      * Add a binding to the query.
      *
-     * @param array $value
-     * @param Model $model
+     * @param  array  $value
      */
     public function addBinding($value, Model $model)
     {

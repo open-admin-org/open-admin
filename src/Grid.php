@@ -1,6 +1,6 @@
 <?php
 
-namespace OpenAdmin\Admin;
+namespace SuperAdmin\Admin;
 
 use Closure;
 use Illuminate\Database\Eloquent\Model as Eloquent;
@@ -8,41 +8,41 @@ use Illuminate\Database\Eloquent\Relations;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
 use Illuminate\Support\Traits\Macroable;
-use OpenAdmin\Admin\Exception\Handler;
-use OpenAdmin\Admin\Grid\Column;
-use OpenAdmin\Admin\Grid\Concerns;
-use OpenAdmin\Admin\Grid\Displayers;
-use OpenAdmin\Admin\Grid\Model;
-use OpenAdmin\Admin\Grid\Row;
-use OpenAdmin\Admin\Grid\Tools;
-use OpenAdmin\Admin\Traits\ShouldSnakeAttributes;
+use SuperAdmin\Admin\Exception\Handler;
+use SuperAdmin\Admin\Grid\Column;
+use SuperAdmin\Admin\Grid\Concerns;
+use SuperAdmin\Admin\Grid\Displayers;
+use SuperAdmin\Admin\Grid\Model;
+use SuperAdmin\Admin\Grid\Row;
+use SuperAdmin\Admin\Grid\Tools;
+use SuperAdmin\Admin\Traits\ShouldSnakeAttributes;
 
 class Grid
 {
-    use Concerns\HasElementNames,
-        Concerns\HasHeader,
-        Concerns\HasFooter,
+    use Concerns\CanDoubleClick,
+        Concerns\CanExportGrid,
+        Concerns\CanFixColumns,
+        Concerns\CanFixHeader,
+        Concerns\CanHidesColumns,
+        Concerns\HasActions,
+        Concerns\HasElementNames,
         Concerns\HasFilter,
-        Concerns\HasTools,
-        Concerns\HasTotalRow,
+        Concerns\HasFooter,
+        Concerns\HasHeader,
         Concerns\HasHotKeys,
         Concerns\HasQuickCreate,
-        Concerns\HasActions,
         Concerns\HasSelector,
-        Concerns\CanHidesColumns,
-        Concerns\CanFixHeader,
-        Concerns\CanFixColumns,
-        Concerns\CanExportGrid,
-        Concerns\CanDoubleClick,
-        ShouldSnakeAttributes,
-        Macroable {
+        Concerns\HasTools,
+        Concerns\HasTotalRow,
+        Macroable,
+        ShouldSnakeAttributes {
             __call as macroCall;
         }
 
     /**
      * The grid data model instance.
      *
-     * @var \OpenAdmin\Admin\Grid\Model|\Illuminate\Database\Eloquent\Builder
+     * @var \SuperAdmin\Admin\Grid\Model|\Illuminate\Database\Eloquent\Builder
      */
     protected $model;
 
@@ -104,8 +104,6 @@ class Grid
 
     /**
      * Resource path of the grid.
-     *
-     * @var
      */
     protected $resourcePath;
 
@@ -148,16 +146,16 @@ class Grid
      * @var array
      */
     protected $options = [
-        'show_pagination'        => true,
-        'show_tools'             => true,
-        'show_filter'            => true,
-        'show_exporter'          => true,
-        'show_actions'           => true,
-        'show_row_selector'      => true,
-        'show_create_btn'        => true,
-        'show_column_selector'   => true,
+        'show_pagination' => true,
+        'show_tools' => true,
+        'show_filter' => true,
+        'show_exporter' => true,
+        'show_actions' => true,
+        'show_row_selector' => true,
+        'show_create_btn' => true,
+        'show_column_selector' => true,
         'show_define_empty_page' => true,
-        'show_perpage_selector'  => true,
+        'show_perpage_selector' => true,
     ];
 
     /**
@@ -174,11 +172,8 @@ class Grid
 
     /**
      * Create a new grid instance.
-     *
-     * @param Eloquent $model
-     * @param Closure  $builder
      */
-    public function __construct(Eloquent $model, Closure $builder = null)
+    public function __construct(Eloquent $model, ?Closure $builder = null)
     {
         $this->model = new Model($model, $this);
         $this->keyName = $model->getKeyName();
@@ -205,10 +200,8 @@ class Grid
 
     /**
      * Initialize with user pre-defined default disables and exporter, etc.
-     *
-     * @param Closure $callback
      */
-    public static function init(Closure $callback = null)
+    public static function init(?Closure $callback = null)
     {
         static::$initCallbacks[] = $callback;
     }
@@ -230,9 +223,8 @@ class Grid
     /**
      * Get or set option for grid.
      *
-     * @param string $key
-     * @param mixed  $value
-     *
+     * @param  string  $key
+     * @param  mixed  $value
      * @return $this|mixed
      */
     public function option($key, $value = null)
@@ -259,9 +251,8 @@ class Grid
     /**
      * Add a column to Grid.
      *
-     * @param string $name
-     * @param string $label
-     *
+     * @param  string  $name
+     * @param  string  $label
      * @return Column
      */
     public function column($name, $label = '')
@@ -284,8 +275,7 @@ class Grid
      * 1.$grid->columns(['name' => 'Name', 'email' => 'Email' ...]);
      * 2.$grid->columns('name', 'email' ...)
      *
-     * @param array $columns
-     *
+     * @param  array  $columns
      * @return Collection|null
      */
     public function columns($columns = [])
@@ -310,9 +300,8 @@ class Grid
     /**
      * Add column to grid.
      *
-     * @param string $column
-     * @param string $label
-     *
+     * @param  string  $column
+     * @param  string  $label
      * @return Column
      */
     protected function addColumn($column = '', $label = '')
@@ -350,18 +339,17 @@ class Grid
     /**
      * Add a relation column to grid.
      *
-     * @param string $name
-     * @param string $label
-     *
+     * @param  string  $name
+     * @param  string  $label
      * @return $this|bool|Column
      */
     protected function addRelationColumn($name, $label = '')
     {
-        list($relation, $column) = explode('.', $name);
+        [$relation, $column] = explode('.', $name);
 
         $model = $this->model()->eloquent();
 
-        if (!method_exists($model, $relation) || !$model->{$relation}() instanceof Relations\Relation) {
+        if (! method_exists($model, $relation) || ! $model->{$relation}() instanceof Relations\Relation) {
             $class = get_class($model);
 
             admin_error("Call to undefined relationship [{$relation}] on model [{$class}].");
@@ -379,9 +367,8 @@ class Grid
     /**
      * Add a json type column to grid.
      *
-     * @param string $name
-     * @param string $label
-     *
+     * @param  string  $name
+     * @param  string  $label
      * @return Column
      */
     protected function addJsonColumn($name, $label = '')
@@ -396,9 +383,8 @@ class Grid
     /**
      * Prepend column to grid.
      *
-     * @param string $column
-     * @param string $label
-     *
+     * @param  string  $column
+     * @param  string  $label
      * @return Column
      */
     public function prependColumn($column = '', $label = '')
@@ -424,8 +410,7 @@ class Grid
     /**
      * Paginate the grid.
      *
-     * @param int $perPage
-     *
+     * @param  int  $perPage
      * @return $this
      */
     public function paginate($perPage = 20)
@@ -454,9 +439,9 @@ class Grid
      */
     public function disablePagination(bool $disable = true)
     {
-        $this->model->usePaginate(!$disable);
+        $this->model->usePaginate(! $disable);
 
-        return $this->option('show_pagination', !$disable);
+        return $this->option('show_pagination', ! $disable);
     }
 
     /**
@@ -471,8 +456,6 @@ class Grid
 
     /**
      * Set per-page options.
-     *
-     * @param array $perPages
      */
     public function perPages(array $perPages)
     {
@@ -480,13 +463,11 @@ class Grid
     }
 
     /**
-     * @param bool $disable
-     *
      * @return $this
      */
     public function disablePerPageSelector(bool $disable = true)
     {
-        return $this->option('show_perpage_selector', !$disable);
+        return $this->option('show_perpage_selector', ! $disable);
     }
 
     /**
@@ -506,7 +487,7 @@ class Grid
      */
     protected function prependRowSelectorColumn()
     {
-        if (!$this->option('show_row_selector')) {
+        if (! $this->option('show_row_selector')) {
             return;
         }
 
@@ -598,8 +579,6 @@ class Grid
     /**
      * Build the grid rows.
      *
-     * @param array      $data
-     * @param Collection $collection
      *
      * @return void
      */
@@ -617,11 +596,10 @@ class Grid
     /**
      * Set grid row callback function.
      *
-     * @param Closure $callable
      *
      * @return Collection|null
      */
-    public function rows(Closure $callable = null)
+    public function rows(?Closure $callable = null)
     {
         if (is_null($callable)) {
             return $this->rows;
@@ -669,7 +647,7 @@ class Grid
      */
     public function disableCreateButton(bool $disable = true)
     {
-        return $this->option('show_create_btn', !$disable);
+        return $this->option('show_create_btn', ! $disable);
     }
 
     /**
@@ -679,7 +657,7 @@ class Grid
      */
     public function disableDefineEmptyPage(bool $disable = true)
     {
-        return $this->option('show_define_empty_page', !$disable);
+        return $this->option('show_define_empty_page', ! $disable);
     }
 
     /**
@@ -715,19 +693,18 @@ class Grid
     /**
      * Get current resource url.
      *
-     * @param string $path
-     *
+     * @param  string  $path
      * @return string
      */
     public function resource($path = null)
     {
-        if (!empty($path)) {
+        if (! empty($path)) {
             $this->resourcePath = $path;
 
             return $this;
         }
 
-        if (!empty($this->resourcePath)) {
+        if (! empty($this->resourcePath)) {
             return $this->resourcePath;
         }
 
@@ -737,9 +714,8 @@ class Grid
     /**
      * Handle get mutator column for grid.
      *
-     * @param string $method
-     * @param string $label
-     *
+     * @param  string  $method
+     * @param  string  $label
      * @return bool|Column
      */
     protected function handleGetMutatorColumn($method, $label)
@@ -754,20 +730,19 @@ class Grid
     /**
      * Handle relation column for grid.
      *
-     * @param string $method
-     * @param string $label
-     *
+     * @param  string  $method
+     * @param  string  $label
      * @return bool|Column
      */
     protected function handleRelationColumn($method, $label)
     {
         $model = $this->model()->eloquent();
 
-        if (!method_exists($model, $method)) {
+        if (! method_exists($model, $method)) {
             return false;
         }
 
-        if (!($relation = $model->$method()) instanceof Relations\Relation) {
+        if (! ($relation = $model->$method()) instanceof Relations\Relation) {
             return false;
         }
 
@@ -798,8 +773,6 @@ class Grid
     /**
      * Dynamically add columns to the grid view.
      *
-     * @param $method
-     * @param $arguments
      *
      * @return Column
      */
@@ -825,8 +798,7 @@ class Grid
     /**
      * Add variables to grid view.
      *
-     * @param array $variables
-     *
+     * @param  array  $variables
      * @return $this
      */
     public function with($variables = [])
@@ -851,12 +823,12 @@ class Grid
     /**
      * Set a view to render.
      *
-     * @param string $view
-     * @param array  $variables
+     * @param  string  $view
+     * @param  array  $variables
      */
     public function setView($view, $variables = [])
     {
-        if (!empty($variables)) {
+        if (! empty($variables)) {
             $this->with($variables);
         }
 
@@ -866,8 +838,7 @@ class Grid
     /**
      * Set grid title.
      *
-     * @param string $title
-     *
+     * @param  string  $title
      * @return $this
      */
     public function setTitle($title)
@@ -880,7 +851,6 @@ class Grid
     /**
      * Set relation for grid.
      *
-     * @param Relations\Relation $relation
      *
      * @return $this
      */
@@ -894,8 +864,7 @@ class Grid
     /**
      * Set resource path for grid.
      *
-     * @param string $path
-     *
+     * @param  string  $path
      * @return $this
      */
     public function setResource($path)
@@ -908,7 +877,6 @@ class Grid
     /**
      * Set rendering callback.
      *
-     * @param callable $callback
      *
      * @return $this
      */

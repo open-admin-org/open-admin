@@ -1,11 +1,11 @@
 <?php
 
-namespace OpenAdmin\Admin\Form\Field;
+namespace SuperAdmin\Admin\Form\Field;
 
 class Decimal extends Text
 {
     protected static $js = [
-        '/vendor/open-admin/inputmask/inputmask.min.js',
+        '/vendor/super-admin/inputmask/inputmask.min.js',
     ];
 
     /**
@@ -14,7 +14,7 @@ class Decimal extends Text
      * @var array
      */
     protected $options = [
-        'alias'      => 'decimal',
+        'alias' => 'decimal',
         'rightAlign' => true,
     ];
 

@@ -2,7 +2,7 @@
 
 namespace DummyNamespace;
 
-use OpenAdmin\Admin\Widgets\Form;
+use SuperAdmin\Admin\Widgets\Form;
 use Illuminate\Http\Request;
 
 class DummyClass extends Form

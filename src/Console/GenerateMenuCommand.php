@@ -1,12 +1,12 @@
 <?php
 
-namespace OpenAdmin\Admin\Console;
+namespace SuperAdmin\Admin\Console;
 
 use Illuminate\Console\Command;
 use Illuminate\Routing\Route;
 use Illuminate\Routing\Router;
 use Illuminate\Support\Str;
-use OpenAdmin\Admin\Auth\Database\Menu;
+use SuperAdmin\Admin\Auth\Database\Menu;
 
 class GenerateMenuCommand extends Command
 {
@@ -31,8 +31,6 @@ class GenerateMenuCommand extends Command
 
     /**
      * Create a new command instance.
-     *
-     * @param Router $router
      */
     public function __construct(Router $router)
     {
@@ -50,11 +48,12 @@ class GenerateMenuCommand extends Command
     {
         $routes = collect($this->router->getRoutes())->filter(function (Route $route) {
             $uri = $route->uri();
+
             // built-in, parameterized and no-GET are ignored
             return Str::startsWith($uri, 'admin/')
-                && !Str::startsWith($uri, 'admin/auth/')
-                && !Str::endsWith($uri, '/create')
-                && !Str::contains($uri, '{')
+                && ! Str::startsWith($uri, 'admin/auth/')
+                && ! Str::endsWith($uri, '/create')
+                && ! Str::contains($uri, '{')
                 && in_array('GET', $route->methods());
         })
             ->map(function (Route $route) {
@@ -74,13 +73,13 @@ class GenerateMenuCommand extends Command
         $news = $routes->diffKeys($menus)->map(function ($item, $key) {
             return [
                 'title' => $item,
-                'uri'   => $key,
+                'uri' => $key,
                 'order' => 10,
-                'icon'  => 'fa-list',
+                'icon' => 'fa-list',
             ];
         })->values()->toArray();
 
-        if (!$news) {
+        if (! $news) {
             $this->error('No newly registered routes found.');
         } else {
             if ($this->hasOption('dry-run') && $this->option('dry-run')) {

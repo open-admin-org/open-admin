@@ -1,8 +1,8 @@
 <?php
 
-namespace OpenAdmin\Admin\Traits;
+namespace SuperAdmin\Admin\Traits;
 
-use OpenAdmin\Admin\Grid\Model as GridModel;
+use SuperAdmin\Admin\Grid\Model as GridModel;
 
 trait ShouldSnakeAttributes
 {

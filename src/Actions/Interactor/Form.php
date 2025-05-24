@@ -1,6 +1,6 @@
 <?php
 
-namespace OpenAdmin\Admin\Actions\Interactor;
+namespace SuperAdmin\Admin\Actions\Interactor;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
@@ -8,10 +8,10 @@ use Illuminate\Support\Facades\View;
 use Illuminate\Support\MessageBag;
 use Illuminate\Validation\ValidationException;
 use Illuminate\Validation\Validator;
-use OpenAdmin\Admin\Actions\RowAction;
-use OpenAdmin\Admin\Admin;
-use OpenAdmin\Admin\Form as ModalForm;
-use OpenAdmin\Admin\Form\Field;
+use SuperAdmin\Admin\Actions\RowAction;
+use SuperAdmin\Admin\Admin;
+use SuperAdmin\Admin\Form as ModalForm;
+use SuperAdmin\Admin\Form\Field;
 use Symfony\Component\DomCrawler\Crawler;
 
 class Form extends Interactor
@@ -56,7 +56,7 @@ class Form extends Interactor
      */
     public function getRow()
     {
-        if ($this->extendsFrom($this->action, 'OpenAdmin\Admin\Actions\RowAction')) {
+        if ($this->extendsFrom($this->action, 'SuperAdmin\Admin\Actions\RowAction')) {
             return $this->action->getRow();
         }
 
@@ -65,7 +65,7 @@ class Form extends Interactor
 
     public function getKey()
     {
-        if ($this->extendsFrom($this->action, 'OpenAdmin\Admin\Actions\RowAction')) {
+        if ($this->extendsFrom($this->action, 'SuperAdmin\Admin\Actions\RowAction')) {
             return $this->getRow()->getKey();
         }
 
@@ -73,8 +73,7 @@ class Form extends Interactor
     }
 
     /**
-     * @param string $label
-     *
+     * @param  string  $label
      * @return array
      */
     protected function formatLabel($label)
@@ -83,8 +82,7 @@ class Form extends Interactor
     }
 
     /**
-     * @param bool $set
-     *
+     * @param  bool  $set
      * @return array
      */
     public function addValues($set = false)
@@ -93,8 +91,6 @@ class Form extends Interactor
     }
 
     /**
-     * @param $message
-     *
      * @return $this
      */
     public function confirm($message)
@@ -125,9 +121,8 @@ class Form extends Interactor
     }
 
     /**
-     * @param string $content
-     * @param string $selector
-     *
+     * @param  string  $content
+     * @param  string  $selector
      * @return string
      */
     public function addElementAttr($content, $selector)
@@ -151,8 +146,6 @@ class Form extends Interactor
     }
 
     /**
-     * @param Field $field
-     *
      * @return Field
      */
     protected function addField(Field $field)
@@ -162,8 +155,8 @@ class Form extends Interactor
         $field->addElementClass($elementClass);
         $this->checkUploadFiel($field);
 
-        if ($this->addValues && !empty($this->row)) {
-            $value = !empty($this->row[$field->column()]) ? $this->row[$field->column()] : null;
+        if ($this->addValues && ! empty($this->row)) {
+            $value = ! empty($this->row[$field->column()]) ? $this->row[$field->column()] : null;
             $field->fill([$field->column() => $value]);
         }
 
@@ -177,7 +170,7 @@ class Form extends Interactor
         if ($this->hasTrait($field, 'UploadField')) {
             $this->multipart = true;
         }
-        if ($this->extendsFrom($field, 'OpenAdmin\Admin\Form\Field\File')) {
+        if ($this->extendsFrom($field, 'SuperAdmin\Admin\Form\Field\File')) {
             $this->multipart = true;
         }
     }
@@ -192,7 +185,7 @@ class Form extends Interactor
     public function extendsFrom($object, $check)
     {
         $reflection = new \ReflectionObject($object);
-        $parent     = $reflection->getParentClass();
+        $parent = $reflection->getParentClass();
 
         return $parent->name == $check;
     }
@@ -207,12 +200,10 @@ class Form extends Interactor
     }
 
     /**
-     * @param Request $request
+     * @return void
      *
      * @throws ValidationException
      * @throws \Exception
-     *
-     * @return void
      */
     public function validate(Request $request)
     {
@@ -226,11 +217,11 @@ class Form extends Interactor
 
         /** @var Field $field */
         foreach ($this->fields as $field) {
-            if (!$validator = $field->getValidator($request->all())) {
+            if (! $validator = $field->getValidator($request->all())) {
                 continue;
             }
 
-            if (($validator instanceof Validator) && !$validator->passes()) {
+            if (($validator instanceof Validator) && ! $validator->passes()) {
                 $failedValidators[] = $validator;
             }
         }
@@ -245,13 +236,12 @@ class Form extends Interactor
     /**
      * Merge validation messages from input validators.
      *
-     * @param \Illuminate\Validation\Validator[] $validators
-     *
+     * @param  \Illuminate\Validation\Validator[]  $validators
      * @return MessageBag
      */
     protected function mergeValidationMessages($validators)
     {
-        $messageBag = new MessageBag();
+        $messageBag = new MessageBag;
 
         foreach ($validators as $validator) {
             $messageBag = $messageBag->merge($validator->messages());
@@ -261,8 +251,7 @@ class Form extends Interactor
     }
 
     /**
-     * @param string $class
-     *
+     * @param  string  $class
      * @return string
      */
     protected function resolveView($class)
@@ -271,7 +260,7 @@ class Form extends Interactor
 
         $name = strtolower(array_pop($path));
 
-        if (!View::exists("admin::form.{$name}")) {
+        if (! View::exists("admin::form.{$name}")) {
             $name = 'input';
         }
 
@@ -283,7 +272,7 @@ class Form extends Interactor
      */
     public function addModalHtml()
     {
-        $field_html    = '';
+        $field_html = '';
         $field_scripts = '';
         foreach ($this->fields as $field) {
             $field_html .= $field->render();
@@ -291,17 +280,17 @@ class Form extends Interactor
         }
 
         $data = [
-            'field_html'    => $field_html,
+            'field_html' => $field_html,
             'field_scripts' => $field_scripts,
-            'multipart'     => $this->multipart,
-            'title'         => $this->action->name(),
-            'modal_id'      => $this->getModalId(),
-            'modal_size'    => $this->modalSize,
-            'method'        => $this->action->getMethod(),
-            'url'           => $this->action->getHandleRoute(),
-            '_key'          => $this->getKey(),
-            '_action'       => $this->action->getCalledClass(),
-            '_model'        => $this->action->parameters()['_model'],
+            'multipart' => $this->multipart,
+            'title' => $this->action->name(),
+            'modal_id' => $this->getModalId(),
+            'modal_size' => $this->modalSize,
+            'method' => $this->action->getMethod(),
+            'url' => $this->action->getHandleRoute(),
+            '_key' => $this->getKey(),
+            '_action' => $this->action->getCalledClass(),
+            '_model' => $this->action->parameters()['_model'],
         ];
 
         $modal = view('admin::actions.form.modal', $data)->render();
@@ -314,7 +303,7 @@ class Form extends Interactor
      */
     public function getModalId()
     {
-        if (!$this->modalId) {
+        if (! $this->modalId) {
             if ($this->action instanceof RowAction) {
                 $this->modalId = uniqid('row_action_modal_').mt_rand(1000, 9999);
             } else {
@@ -386,9 +375,8 @@ class Form extends Interactor
     /**
      * Add nested-form fields dynamically.
      *
-     * @param string $method
-     * @param array  $arguments
-     *
+     * @param  string  $method
+     * @param  array  $arguments
      * @return mixed
      */
     public function __call($method, $arguments)

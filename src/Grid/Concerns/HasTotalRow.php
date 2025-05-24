@@ -1,9 +1,9 @@
 <?php
 
-namespace OpenAdmin\Admin\Grid\Concerns;
+namespace SuperAdmin\Admin\Grid\Concerns;
 
 use Closure;
-use OpenAdmin\Admin\Grid\Tools\TotalRow;
+use SuperAdmin\Admin\Grid\Tools\TotalRow;
 
 trait HasTotalRow
 {
@@ -13,9 +13,8 @@ trait HasTotalRow
     protected $totalRowColumns = [];
 
     /**
-     * @param string  $column
-     * @param Closure $callback
-     *
+     * @param  string  $column
+     * @param  Closure  $callback
      * @return $this
      */
     public function addTotalRow($column, $callback)

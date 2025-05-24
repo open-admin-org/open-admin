@@ -1,6 +1,6 @@
 <?php
 
-namespace OpenAdmin\Admin\Console;
+namespace SuperAdmin\Admin\Console;
 
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Hash;

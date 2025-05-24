@@ -2,7 +2,7 @@
     "name": ":package",
     "description": "description...",
     "type": "library",
-    "keywords": ["open-admin", "extension"],
+    "keywords": ["super-admin", "extension"],
     "homepage": "https://github.com/:package",
     "license": "MIT",
     "authors": [
@@ -13,7 +13,7 @@
     ],
     "require": {
         "php": ">=7.0.0",
-        "open-admin-org/open-admin": "~1.0"
+        "super-admin-org/super-admin": "~1.0"
     },
     "require-dev": {
         "phpunit/phpunit": "~6.0"

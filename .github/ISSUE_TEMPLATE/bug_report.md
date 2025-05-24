@@ -20,7 +20,7 @@ Steps to reproduce the behavior, for example:
 A clear and concise description of what you expected to happen.
 
 **System**
- - Open-admin version 
+ - super-admin version 
  - PHP version
  - Laravel Version
  - OS: [e.g. Linux / Win / Mac]

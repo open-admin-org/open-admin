@@ -1,10 +1,10 @@
 <?php
 
-namespace OpenAdmin\Admin\Grid\Displayers;
+namespace SuperAdmin\Admin\Grid\Displayers;
 
 use Illuminate\Database\Eloquent\Model;
-use OpenAdmin\Admin\Grid;
-use OpenAdmin\Admin\Grid\Column;
+use SuperAdmin\Admin\Grid;
+use SuperAdmin\Admin\Grid\Column;
 
 abstract class AbstractDisplayer
 {
@@ -31,10 +31,8 @@ abstract class AbstractDisplayer
     /**
      * Create a new displayer instance.
      *
-     * @param mixed     $value
-     * @param Grid      $grid
-     * @param Column    $column
-     * @param \stdClass $row
+     * @param  mixed  $value
+     * @param  \stdClass  $row
      */
     public function __construct($value, Grid $grid, Column $column, $row)
     {
@@ -79,8 +77,7 @@ abstract class AbstractDisplayer
     }
 
     /**
-     * @param mixed $key
-     *
+     * @param  mixed  $key
      * @return mixed
      */
     public function getAttribute($key)
@@ -131,8 +128,7 @@ abstract class AbstractDisplayer
     /**
      * Get translation.
      *
-     * @param string $text
-     *
+     * @param  string  $text
      * @return string|\Symfony\Component\Translation\TranslatorInterface
      */
     protected function trans($text)

@@ -1,11 +1,11 @@
 <?php
 
-namespace OpenAdmin\Admin\Layout;
+namespace SuperAdmin\Admin\Layout;
 
 use Closure;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Support\Arr;
-use OpenAdmin\Admin\Facades\Admin;
+use SuperAdmin\Admin\Facades\Admin;
 
 class Content implements Renderable
 {
@@ -63,10 +63,8 @@ class Content implements Renderable
 
     /**
      * Content constructor.
-     *
-     * @param Closure|null $callback
      */
-    public function __construct(\Closure $callback = null)
+    public function __construct(?\Closure $callback = null)
     {
         if ($callback instanceof Closure) {
             $callback($this);
@@ -76,8 +74,7 @@ class Content implements Renderable
     /**
      * Alias of method `title`.
      *
-     * @param string $header
-     *
+     * @param  string  $header
      * @return $this
      */
     public function header($header = '')
@@ -86,8 +83,7 @@ class Content implements Renderable
     }
 
     /**
-     * @param string $title
-     *
+     * @param  string  $title
      * @return $this
      */
     public function title($title)
@@ -100,8 +96,7 @@ class Content implements Renderable
     /**
      * Set description of content.
      *
-     * @param string $description
-     *
+     * @param  string  $description
      * @return $this
      */
     public function description($description = '')
@@ -114,8 +109,7 @@ class Content implements Renderable
     /**
      * Set breadcrumb of content.
      *
-     * @param array ...$breadcrumb
-     *
+     * @param  array  ...$breadcrumb
      * @return $this
      */
     public function breadcrumb(...$breadcrumb)
@@ -130,17 +124,16 @@ class Content implements Renderable
     /**
      * Validate content breadcrumb.
      *
-     * @param array $breadcrumb
-     *
-     * @throws \Exception
      *
      * @return bool
+     *
+     * @throws \Exception
      */
     protected function validateBreadcrumb(array $breadcrumb)
     {
         foreach ($breadcrumb as $item) {
-            if (!is_array($item) || !Arr::has($item, 'text')) {
-                throw new  \Exception('Breadcrumb format error!');
+            if (! is_array($item) || ! Arr::has($item, 'text')) {
+                throw new \Exception('Breadcrumb format error!');
             }
         }
 
@@ -150,8 +143,7 @@ class Content implements Renderable
     /**
      * Set css_files for content.
      *
-     * @param array $css_file
-     *
+     * @param  array  $css_file
      * @return $this
      */
     public function addBodyClass($class)
@@ -168,8 +160,7 @@ class Content implements Renderable
     /**
      * Set css_files for content.
      *
-     * @param array $css_file
-     *
+     * @param  array  $css_file
      * @return $this
      */
     public function css_file(string $css_file)
@@ -182,8 +173,7 @@ class Content implements Renderable
     /**
      * Set css for content.
      *
-     * @param array $css
-     *
+     * @param  array  $css
      * @return $this
      */
     public function css(string $css)
@@ -196,8 +186,7 @@ class Content implements Renderable
     /**
      * Alias of method row.
      *
-     * @param mixed $content
-     *
+     * @param  mixed  $content
      * @return $this
      */
     public function body($content)
@@ -208,14 +197,13 @@ class Content implements Renderable
     /**
      * Add one row for content body.
      *
-     * @param $content
      *
      * @return $this
      */
     public function row($content)
     {
         if ($content instanceof Closure) {
-            $row = new Row();
+            $row = new Row;
             call_user_func($content, $row);
             $this->addRow($row);
         } else {
@@ -228,9 +216,8 @@ class Content implements Renderable
     /**
      * Render giving view as content body.
      *
-     * @param string $view
-     * @param array  $data
-     *
+     * @param  string  $view
+     * @param  array  $data
      * @return $this
      */
     public function view($view, $data = [])
@@ -241,8 +228,8 @@ class Content implements Renderable
     }
 
     /**
-     * @param string $view
-     * @param array  $data
+     * @param  string  $view
+     * @param  array  $data
      */
     public function component($view, $data = [])
     {
@@ -250,8 +237,6 @@ class Content implements Renderable
     }
 
     /**
-     * @param $var
-     *
      * @return $this
      */
     public function dump($var)
@@ -261,8 +246,6 @@ class Content implements Renderable
 
     /**
      * Add Row.
-     *
-     * @param Row $row
      */
     protected function addRow(Row $row)
     {
@@ -292,9 +275,8 @@ class Content implements Renderable
     /**
      * Set success message for content.
      *
-     * @param string $title
-     * @param string $message
-     *
+     * @param  string  $title
+     * @param  string  $message
      * @return $this
      */
     public function withSuccess($title = '', $message = '')
@@ -307,9 +289,8 @@ class Content implements Renderable
     /**
      * Set error message for content.
      *
-     * @param string $title
-     * @param string $message
-     *
+     * @param  string  $title
+     * @param  string  $message
      * @return $this
      */
     public function withError($title = '', $message = '')
@@ -322,9 +303,8 @@ class Content implements Renderable
     /**
      * Set warning message for content.
      *
-     * @param string $title
-     * @param string $message
-     *
+     * @param  string  $title
+     * @param  string  $message
      * @return $this
      */
     public function withWarning($title = '', $message = '')
@@ -337,9 +317,8 @@ class Content implements Renderable
     /**
      * Set info message for content.
      *
-     * @param string $title
-     * @param string $message
-     *
+     * @param  string  $title
+     * @param  string  $message
      * @return $this
      */
     public function withInfo($title = '', $message = '')
@@ -354,7 +333,7 @@ class Content implements Renderable
      */
     protected function getUserData()
     {
-        if (!$user = Admin::user()) {
+        if (! $user = Admin::user()) {
             return [];
         }
 
@@ -369,15 +348,15 @@ class Content implements Renderable
     public function render()
     {
         $items = [
-            'body_classes'      => implode(' ', $this->body_classes),
-            'header'            => $this->title,
-            'description'       => $this->description,
-            'breadcrumb'        => $this->breadcrumb,
-            'css'               => $this->css,
-            'css_files'         => $this->css_files,
-            '_content_'         => $this->build(),
-            '_view_'            => $this->view,
-            '_user_'            => $this->getUserData(),
+            'body_classes' => implode(' ', $this->body_classes),
+            'header' => $this->title,
+            'description' => $this->description,
+            'breadcrumb' => $this->breadcrumb,
+            'css' => $this->css,
+            'css_files' => $this->css_files,
+            '_content_' => $this->build(),
+            '_view_' => $this->view,
+            '_user_' => $this->getUserData(),
         ];
 
         return view('admin::content', $items)->render();

@@ -1,6 +1,6 @@
 <?php
 
-namespace OpenAdmin\Admin\Auth\Database;
+namespace SuperAdmin\Admin\Auth\Database;
 
 use Illuminate\Support\Collection;
 
@@ -19,10 +19,7 @@ trait HasPermissions
     /**
      * Check if user has permission.
      *
-     * @param $ability
-     * @param array $arguments
-     *
-     * @return bool
+     * @param  array  $arguments
      */
     public function can($ability, $arguments = []): bool
     {
@@ -43,14 +40,10 @@ trait HasPermissions
 
     /**
      * Check if user has no permission.
-     *
-     * @param $permission
-     *
-     * @return bool
      */
     public function cannot(string $permission): bool
     {
-        return !$this->can($permission);
+        return ! $this->can($permission);
     }
 
     /**
@@ -66,7 +59,6 @@ trait HasPermissions
     /**
      * Check if user is $role.
      *
-     * @param string $role
      *
      * @return mixed
      */
@@ -78,7 +70,6 @@ trait HasPermissions
     /**
      * Check if user in $roles.
      *
-     * @param array $roles
      *
      * @return mixed
      */
@@ -89,10 +80,6 @@ trait HasPermissions
 
     /**
      * If visible for roles.
-     *
-     * @param $roles
-     *
-     * @return bool
      */
     public function visible(array $roles = []): bool
     {

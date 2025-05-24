@@ -3,7 +3,7 @@
 namespace Tests\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use OpenAdmin\Admin\Traits\ModelTree;
+use SuperAdmin\Admin\Traits\ModelTree;
 
 class Tree extends Model
 {
@@ -11,8 +11,6 @@ class Tree extends Model
 
     /**
      * Create a new Eloquent model instance.
-     *
-     * @param array $attributes
      */
     public function __construct(array $attributes = [])
     {

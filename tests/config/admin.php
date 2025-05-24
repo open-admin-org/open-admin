@@ -3,9 +3,9 @@
 return [
 
     /*
-     * Open-admin name.
+     * super-admin name.
      */
-    'name' => 'Open-admin',
+    'name' => 'super-admin',
 
     /*
      * Logo in admin panel header.
@@ -30,12 +30,12 @@ return [
     ],
 
     /*
-     * Open-admin install directory.
+     * super-admin install directory.
      */
     'directory' => app_path('Admin'),
 
     /*
-     * Open-admin html title.
+     * super-admin html title.
      */
     'title' => 'Admin',
 
@@ -45,12 +45,12 @@ return [
     'secure' => false,
 
     /*
-     * Open-admin auth setting.
+     * super-admin auth setting.
      */
     'auth' => [
         'guards' => [
             'admin' => [
-                'driver'   => 'session',
+                'driver' => 'session',
                 'provider' => 'admin',
             ],
         ],
@@ -58,13 +58,13 @@ return [
         'providers' => [
             'admin' => [
                 'driver' => 'eloquent',
-                'model'  => OpenAdmin\Admin\Auth\Database\Administrator::class,
+                'model' => SuperAdmin\Admin\Auth\Database\Administrator::class,
             ],
         ],
     ],
 
     /*
-     * Open-admin upload setting.
+     * super-admin upload setting.
      */
     'upload' => [
 
@@ -72,12 +72,12 @@ return [
 
         'directory' => [
             'image' => 'images',
-            'file'  => 'files',
+            'file' => 'files',
         ],
     ],
 
     /*
-     * Open-admin database setting.
+     * super-admin database setting.
      */
     'database' => [
 
@@ -86,30 +86,30 @@ return [
 
         // User tables and model.
         'users_table' => 'admin_users',
-        'users_model' => OpenAdmin\Admin\Auth\Database\Administrator::class,
+        'users_model' => SuperAdmin\Admin\Auth\Database\Administrator::class,
 
         // Role table and model.
         'roles_table' => 'admin_roles',
-        'roles_model' => OpenAdmin\Admin\Auth\Database\Role::class,
+        'roles_model' => SuperAdmin\Admin\Auth\Database\Role::class,
 
         // Permission table and model.
         'permissions_table' => 'admin_permissions',
-        'permissions_model' => OpenAdmin\Admin\Auth\Database\Permission::class,
+        'permissions_model' => SuperAdmin\Admin\Auth\Database\Permission::class,
 
         // Menu table and model.
         'menu_table' => 'admin_menu',
-        'menu_model' => OpenAdmin\Admin\Auth\Database\Menu::class,
+        'menu_model' => SuperAdmin\Admin\Auth\Database\Menu::class,
 
         // Pivot table for table above.
-        'operation_log_table'    => 'admin_operation_log',
+        'operation_log_table' => 'admin_operation_log',
         'user_permissions_table' => 'admin_user_permissions',
-        'role_users_table'       => 'admin_role_users',
+        'role_users_table' => 'admin_role_users',
         'role_permissions_table' => 'admin_role_permissions',
-        'role_menu_table'        => 'admin_role_menu',
+        'role_menu_table' => 'admin_role_menu',
     ],
 
     /*
-     * By setting this option to open or close operation log in open-admin.
+     * By setting this option to open or close operation log in super-admin.
      */
     'operation_log' => [
 

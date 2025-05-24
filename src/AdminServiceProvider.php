@@ -1,12 +1,12 @@
 <?php
 
-namespace OpenAdmin\Admin;
+namespace SuperAdmin\Admin;
 
 use Illuminate\Routing\Router;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider;
-use OpenAdmin\Admin\Layout\Content;
+use SuperAdmin\Admin\Layout\Content;
 
 class AdminServiceProvider extends ServiceProvider
 {
@@ -41,13 +41,13 @@ class AdminServiceProvider extends ServiceProvider
      * @var array
      */
     protected $routeMiddleware = [
-        'admin.auth'       => Middleware\Authenticate::class,
-        'admin.throttle'   => Middleware\Throttle::class,
-        'admin.pjax'       => Middleware\Pjax::class,
-        'admin.log'        => Middleware\LogOperation::class,
+        'admin.auth' => Middleware\Authenticate::class,
+        'admin.throttle' => Middleware\Throttle::class,
+        'admin.pjax' => Middleware\Pjax::class,
+        'admin.log' => Middleware\LogOperation::class,
         'admin.permission' => Middleware\Permission::class,
-        'admin.bootstrap'  => Middleware\Bootstrap::class,
-        'admin.session'    => Middleware\Session::class,
+        'admin.bootstrap' => Middleware\Bootstrap::class,
+        'admin.session' => Middleware\Session::class,
     ];
 
     /**
@@ -108,11 +108,11 @@ class AdminServiceProvider extends ServiceProvider
     protected function registerPublishing()
     {
         if ($this->app->runningInConsole()) {
-            $this->publishes([__DIR__.'/../config' => config_path()], 'open-admin-config');
-            $this->publishes([__DIR__.'/../resources/lang' => resource_path('lang')], 'open-admin-lang');
-            $this->publishes([__DIR__.'/../database/migrations' => database_path('migrations')], 'open-admin-migrations');
-            $this->publishes([__DIR__.'/../resources/assets' => public_path('vendor/open-admin')], 'open-admin-assets');
-            $this->publishes([__DIR__.'/../resources/assets/test' => public_path('vendor/open-admin-test')], 'open-admin-test');
+            $this->publishes([__DIR__.'/../config' => config_path()], 'super-admin-config');
+            $this->publishes([__DIR__.'/../resources/lang' => resource_path('lang')], 'super-admin-lang');
+            $this->publishes([__DIR__.'/../database/migrations' => database_path('migrations')], 'super-admin-migrations');
+            $this->publishes([__DIR__.'/../resources/assets' => public_path('vendor/super-admin')], 'super-admin-assets');
+            $this->publishes([__DIR__.'/../resources/assets/test' => public_path('vendor/super-admin-test')], 'super-admin-test');
         }
     }
 
@@ -206,7 +206,7 @@ class AdminServiceProvider extends ServiceProvider
     public function bladeDirectives()
     {
         Blade::directive('box', function ($title) {
-            return "<?php \$box = new \OpenAdmin\Admin\Widgets\Box({$title}, '";
+            return "<?php \$box = new \SuperAdmin\Admin\Widgets\Box({$title}, '";
         });
 
         Blade::directive('endbox', function ($expression) {

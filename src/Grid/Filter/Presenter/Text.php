@@ -1,8 +1,8 @@
 <?php
 
-namespace OpenAdmin\Admin\Grid\Filter\Presenter;
+namespace SuperAdmin\Admin\Grid\Filter\Presenter;
 
-use OpenAdmin\Admin\Admin;
+use SuperAdmin\Admin\Admin;
 
 class Text extends Presenter
 {
@@ -24,7 +24,7 @@ class Text extends Presenter
     /**
      * Text constructor.
      *
-     * @param string $placeholder
+     * @param  string  $placeholder
      */
     public function __construct($placeholder = '')
     {
@@ -33,24 +33,21 @@ class Text extends Presenter
 
     /**
      * Get variables for field template.
-     *
-     * @return array
      */
     public function variables(): array
     {
         return [
             'placeholder' => $this->placeholder,
-            'icon'        => $this->icon,
-            'type'        => $this->type,
-            'group'       => $this->filter->group,
+            'icon' => $this->icon,
+            'type' => $this->type,
+            'group' => $this->filter->group,
         ];
     }
 
     /**
      * Set input placeholder.
      *
-     * @param string $placeholder
-     *
+     * @param  string  $placeholder
      * @return $this
      */
     public function placeholder($placeholder = ''): self
@@ -60,36 +57,25 @@ class Text extends Presenter
         return $this;
     }
 
-    /**
-     * @return Text
-     */
     public function url(): self
     {
         return $this->inputmask(['alias' => 'url'], 'link');
     }
 
-    /**
-     * @return Text
-     */
     public function email(): self
     {
         return $this->inputmask(['alias' => 'email'], 'envelope');
     }
 
-    /**
-     * @return Text
-     */
     public function integer(): self
     {
         return $this->inputmask(['alias' => 'integer']);
     }
 
     /**
-     * @param array $options
+     * @param  array  $options
      *
      * @see https://github.com/RobinHerbots/Inputmask/blob/4.x/README_numeric.md
-     *
-     * @return Text
      */
     public function decimal($options = []): self
     {
@@ -97,23 +83,21 @@ class Text extends Presenter
     }
 
     /**
-     * @param array $options
+     * @param  array  $options
      *
      * @see https://github.com/RobinHerbots/Inputmask/blob/4.x/README_numeric.md
-     *
-     * @return Text
      */
     public function currency($options = []): self
     {
         return $this->inputmask(array_merge($options, [
-            'alias'              => 'currency',
-            'prefix'             => '',
+            'alias' => 'currency',
+            'prefix' => '',
             'removeMaskOnSubmit' => true,
         ]));
     }
 
     /**
-     * @param array $options
+     * @param  array  $options
      *
      * @see https://github.com/RobinHerbots/Inputmask/blob/4.x/README_numeric.md
      *
@@ -126,26 +110,18 @@ class Text extends Presenter
         return $this->inputmask($options);
     }
 
-    /**
-     * @return Text
-     */
     public function ip(): self
     {
         return $this->inputmask(['alias' => 'ip'], 'laptop');
     }
 
-    /**
-     * @return Text
-     */
     public function mac(): self
     {
         return $this->inputmask(['alias' => 'mac'], 'laptop');
     }
 
     /**
-     * @param string $mask
-     *
-     * @return Text
+     * @param  string  $mask
      */
     public function phonenumber($mask = '19999999999'): self
     {
@@ -153,9 +129,8 @@ class Text extends Presenter
     }
 
     /**
-     * @param array  $options
-     * @param string $icon
-     *
+     * @param  array  $options
+     * @param  string  $icon
      * @return $this
      */
     public function inputmask($options = [], $icon = 'pencil-alt'): self

@@ -1,6 +1,6 @@
 <?php
 
-namespace OpenAdmin\Admin\Console;
+namespace SuperAdmin\Admin\Console;
 
 use Illuminate\Console\Command;
 
@@ -20,7 +20,7 @@ class ExportSeedCommand extends Command
      *
      * @var string
      */
-    protected $description = 'Export seed a Open-admin database tables menu, roles and permissions';
+    protected $description = 'Export seed a super-admin database tables menu, roles and permissions';
 
     /**
      * Execute the console command.
@@ -39,29 +39,29 @@ class ExportSeedCommand extends Command
         $replaces = [
             'DummyClass' => $name,
 
-            'ClassMenu'       => config('admin.database.menu_model'),
+            'ClassMenu' => config('admin.database.menu_model'),
             'ClassPermission' => config('admin.database.permissions_model'),
-            'ClassRole'       => config('admin.database.roles_model'),
+            'ClassRole' => config('admin.database.roles_model'),
 
-            'TableRoleMenu'        => config('admin.database.role_menu_table'),
+            'TableRoleMenu' => config('admin.database.role_menu_table'),
             'TableRolePermissions' => config('admin.database.role_permissions_table'),
 
-            'ArrayMenu'       => $this->getTableDataArrayAsString(config('admin.database.menu_table'), $exceptFields),
+            'ArrayMenu' => $this->getTableDataArrayAsString(config('admin.database.menu_table'), $exceptFields),
             'ArrayPermission' => $this->getTableDataArrayAsString(config('admin.database.permissions_table'), $exceptFields),
-            'ArrayRole'       => $this->getTableDataArrayAsString(config('admin.database.roles_table'), $exceptFields),
+            'ArrayRole' => $this->getTableDataArrayAsString(config('admin.database.roles_table'), $exceptFields),
 
-            'ArrayPivotRoleMenu'        => $this->getTableDataArrayAsString(config('admin.database.role_menu_table'), $exceptFields),
+            'ArrayPivotRoleMenu' => $this->getTableDataArrayAsString(config('admin.database.role_menu_table'), $exceptFields),
             'ArrayPivotRolePermissions' => $this->getTableDataArrayAsString(config('admin.database.role_permissions_table'), $exceptFields),
         ];
 
         if ($exportUsers) {
             $replaces = array_merge($replaces, [
-                'ClassUsers'            => config('admin.database.users_model'),
-                'TableRoleUsers'        => config('admin.database.role_users_table'),
+                'ClassUsers' => config('admin.database.users_model'),
+                'TableRoleUsers' => config('admin.database.role_users_table'),
                 'TablePermissionsUsers' => config('admin.database.user_permissions_table'),
 
-                'ArrayUsers'                 => $this->getTableDataArrayAsString(config('admin.database.users_table'), $exceptFields),
-                'ArrayPivotRoleUsers'        => $this->getTableDataArrayAsString(config('admin.database.role_users_table'), $exceptFields),
+                'ArrayUsers' => $this->getTableDataArrayAsString(config('admin.database.users_table'), $exceptFields),
+                'ArrayPivotRoleUsers' => $this->getTableDataArrayAsString(config('admin.database.role_users_table'), $exceptFields),
                 'ArrayPivotPermissionsUsers' => $this->getTableDataArrayAsString(config('admin.database.user_permissions_table'), $exceptFields),
             ]);
         } else {
@@ -79,9 +79,8 @@ class ExportSeedCommand extends Command
     /**
      * Get data array from table as string result var_export.
      *
-     * @param string $table
-     * @param array  $exceptFields
-     *
+     * @param  string  $table
+     * @param  array  $exceptFields
      * @return string
      */
     protected function getTableDataArrayAsString($table, $exceptFields = [])
@@ -99,7 +98,6 @@ class ExportSeedCommand extends Command
     /**
      * Get stub contents.
      *
-     * @param $name
      *
      * @return string
      */
@@ -111,9 +109,7 @@ class ExportSeedCommand extends Command
     /**
      * Custom var_export for correct work with \r\n.
      *
-     * @param $var
-     * @param string $indent
-     *
+     * @param  string  $indent
      * @return string
      */
     protected function varExport($var, $indent = '')

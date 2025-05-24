@@ -1,9 +1,9 @@
 <?php
 
-namespace OpenAdmin\Admin\Grid\Concerns;
+namespace SuperAdmin\Admin\Grid\Concerns;
 
 use Closure;
-use OpenAdmin\Admin\Grid;
+use SuperAdmin\Admin\Grid;
 
 trait HasActions
 {
@@ -24,8 +24,7 @@ trait HasActions
     /**
      * Set grid action callback.
      *
-     * @param Closure|string $actions
-     *
+     * @param  Closure|string  $actions
      * @return $this
      */
     public function actions($actions)
@@ -56,8 +55,6 @@ trait HasActions
     }
 
     /**
-     * @param string $actionClass
-     *
      * @return $this
      */
     public function setActionClass(string $actionClass)
@@ -76,13 +73,12 @@ trait HasActions
      */
     public function disableActions(bool $disable = true)
     {
-        return $this->option('show_actions', !$disable);
+        return $this->option('show_actions', ! $disable);
     }
 
     /**
      * Set grid batch-action callback.
      *
-     * @param Closure $closure
      *
      * @return $this
      */
@@ -96,15 +92,13 @@ trait HasActions
     }
 
     /**
-     * @param bool $disable
-     *
      * @return Grid|mixed
      */
     public function disableBatchActions(bool $disable = true)
     {
         $this->tools->disableBatchActions($disable);
 
-        return $this->option('show_row_selector', !$disable);
+        return $this->option('show_row_selector', ! $disable);
     }
 
     /**
@@ -114,7 +108,7 @@ trait HasActions
      */
     protected function appendActionsColumn()
     {
-        if (!$this->option('show_actions')) {
+        if (! $this->option('show_actions')) {
             return;
         }
 

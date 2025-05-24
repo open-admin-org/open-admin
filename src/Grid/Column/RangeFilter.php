@@ -1,9 +1,9 @@
 <?php
 
-namespace OpenAdmin\Admin\Grid\Column;
+namespace SuperAdmin\Admin\Grid\Column;
 
-use OpenAdmin\Admin\Admin;
-use OpenAdmin\Admin\Grid\Model;
+use SuperAdmin\Admin\Admin;
+use SuperAdmin\Admin\Grid\Model;
 
 class RangeFilter extends Filter
 {
@@ -15,22 +15,21 @@ class RangeFilter extends Filter
     /**
      * RangeFilter constructor.
      *
-     * @param string $type
+     * @param  string  $type
      */
     public function __construct($type)
     {
         $this->type = $type;
         $this->class = [
             'start' => uniqid('column-filter-start-'),
-            'end'   => uniqid('column-filter-end-'),
+            'end' => uniqid('column-filter-end-'),
         ];
     }
 
     /**
      * Add a binding to the query.
      *
-     * @param mixed $value
-     * @param Model $model
+     * @param  mixed  $value
      */
     public function addBinding($value, Model $model)
     {
@@ -40,9 +39,9 @@ class RangeFilter extends Filter
             return;
         }
 
-        if (!isset($value['start'])) {
+        if (! isset($value['start'])) {
             return $model->where($this->getColumnName(), '<', $value['end']);
-        } elseif (!isset($value['end'])) {
+        } elseif (! isset($value['end'])) {
             return $model->where($this->getColumnName(), '>', $value['start']);
         } else {
             return $model->whereBetween($this->getColumnName(), array_values($value));
@@ -55,9 +54,9 @@ class RangeFilter extends Filter
             Admin::script("Inputmask({'mask':'99:99:99'}).mask(document.querySelectorAll('.{$this->class['start']},{$this->class['end']}'));");
         } else {
             $options = [
-                'locale'           => config('app.locale'),
+                'locale' => config('app.locale'),
                 'allowInputToggle' => true,
-                'allowInput'       => true,
+                'allowInput' => true,
             ];
 
             if ($this->type == 'date') {

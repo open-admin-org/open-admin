@@ -1,6 +1,6 @@
 <?php
 
-namespace OpenAdmin\Admin\Widgets;
+namespace SuperAdmin\Admin\Widgets;
 
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Support\Arr;
@@ -30,9 +30,9 @@ class Table extends Widget implements Renderable
     /**
      * Table constructor.
      *
-     * @param array $headers
-     * @param array $rows
-     * @param array $style
+     * @param  array  $headers
+     * @param  array  $rows
+     * @param  array  $style
      */
     public function __construct($headers = [], $rows = [], $style = [])
     {
@@ -46,8 +46,7 @@ class Table extends Widget implements Renderable
     /**
      * Set table headers.
      *
-     * @param array $headers
-     *
+     * @param  array  $headers
      * @return $this
      */
     public function setHeaders($headers = [])
@@ -60,8 +59,7 @@ class Table extends Widget implements Renderable
     /**
      * Set table rows.
      *
-     * @param array $rows
-     *
+     * @param  array  $rows
      * @return $this
      */
     public function setRows($rows = [])
@@ -82,8 +80,7 @@ class Table extends Widget implements Renderable
     /**
      * Set table style.
      *
-     * @param array $style
-     *
+     * @param  array  $style
      * @return $this
      */
     public function setStyle($style = [])
@@ -101,9 +98,9 @@ class Table extends Widget implements Renderable
     public function render()
     {
         $vars = [
-            'headers'    => $this->headers,
-            'rows'       => $this->rows,
-            'style'      => $this->style,
+            'headers' => $this->headers,
+            'rows' => $this->rows,
+            'style' => $this->style,
             'attributes' => $this->formatAttributes(),
         ];
 

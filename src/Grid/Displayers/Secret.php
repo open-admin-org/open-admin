@@ -1,8 +1,8 @@
 <?php
 
-namespace OpenAdmin\Admin\Grid\Displayers;
+namespace SuperAdmin\Admin\Grid\Displayers;
 
-use OpenAdmin\Admin\Facades\Admin;
+use SuperAdmin\Admin\Facades\Admin;
 
 class Secret extends AbstractDisplayer
 {

@@ -1,6 +1,6 @@
 <?php
 
-namespace OpenAdmin\Admin;
+namespace SuperAdmin\Admin;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Arr;
@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
-use OpenAdmin\Admin\Auth\Database\Permission;
+use SuperAdmin\Admin\Auth\Database\Permission;
 
 abstract class Extension
 {
@@ -66,9 +66,9 @@ abstract class Extension
      * @var array
      */
     protected $menuValidationRules = [
-        'title'    => 'required',
-        'path'     => 'required',
-        'icon'     => 'required',
+        'title' => 'required',
+        'path' => 'required',
+        'icon' => 'required',
         'children' => 'nullable|array',
     ];
 
@@ -78,9 +78,9 @@ abstract class Extension
      * @var array
      */
     protected $permissionValidationRules = [
-        'name'  => 'required',
-        'slug'  => 'required',
-        'path'  => 'required',
+        'name' => 'required',
+        'slug' => 'required',
+        'path' => 'required',
     ];
 
     /**
@@ -92,8 +92,8 @@ abstract class Extension
     {
         $class = get_called_class();
 
-        if (!isset(self::$instance[$class]) || !self::$instance[$class] instanceof $class) {
-            self::$instance[$class] = new static();
+        if (! isset(self::$instance[$class]) || ! self::$instance[$class] instanceof $class) {
+            self::$instance[$class] = new static;
         }
 
         return static::$instance[$class];
@@ -112,11 +112,11 @@ abstract class Extension
             return false;
         }
 
-        if (!empty($css = $extension->css())) {
+        if (! empty($css = $extension->css())) {
             Admin::css($css);
         }
 
-        if (!empty($js = $extension->js())) {
+        if (! empty($js = $extension->js())) {
             Admin::js($js);
         }
 
@@ -206,15 +206,14 @@ abstract class Extension
      */
     public function disabled()
     {
-        return !$this->enabled();
+        return ! $this->enabled();
     }
 
     /**
      * Get config set in config/admin.php.
      *
-     * @param string $key
-     * @param null   $default
-     *
+     * @param  string  $key
+     * @param  null  $default
      * @return \Illuminate\Config\Repository|mixed
      */
     public static function config($key = null, $default = null)
@@ -231,7 +230,7 @@ abstract class Extension
     }
 
     /**
-     * Import menu item and permission to open-admin.
+     * Import menu item and permission to super-admin.
      */
     public static function import()
     {
@@ -246,7 +245,7 @@ abstract class Extension
             }
             if ($permission = $extension->permission()) {
                 $name = Arr::get($permission, 'name', null);
-                if (null !== $name) {
+                if ($name !== null) {
                     $permission = [$permission];
                 }
                 foreach ($permission as $item) {
@@ -263,11 +262,10 @@ abstract class Extension
     /**
      * Validate menu fields.
      *
-     * @param array $menu
-     *
-     * @throws \Exception
      *
      * @return bool
+     *
+     * @throws \Exception
      */
     public function validateMenu(array $menu)
     {
@@ -291,9 +289,9 @@ abstract class Extension
     protected function getMenuValidationRules()
     {
         return [
-            'title'    => 'required',
-            'path'     => ['required', Rule::unique(Config::get('admin.database.menu_table'), 'uri')],
-            'icon'     => 'required',
+            'title' => 'required',
+            'path' => ['required', Rule::unique(Config::get('admin.database.menu_table'), 'uri')],
+            'icon' => 'required',
             'children' => 'nullable|array',
         ];
     }
@@ -301,15 +299,14 @@ abstract class Extension
     /**
      * Validate permission fields.
      *
-     * @param array $permission
-     *
-     * @throws \Exception
      *
      * @return bool
+     *
+     * @throws \Exception
      */
     public function validatePermission(array $permission)
     {
-        if (!empty($permission['method'])) {
+        if (! empty($permission['method'])) {
             $permission['method'] = array_map('strtoupper', $permission['method']);
         }
 
@@ -333,27 +330,25 @@ abstract class Extension
     protected function getPermissionValidationRules()
     {
         return [
-            'name'     => 'required',
-            'slug'     => ['required', Rule::unique(Config::get('admin.database.permissions_table'), 'slug')],
-            'path'     => 'required|array',
-            'path.*'   => 'string',
-            'method'   => 'nullable|array',
+            'name' => 'required',
+            'slug' => ['required', Rule::unique(Config::get('admin.database.permissions_table'), 'slug')],
+            'path' => 'required|array',
+            'path.*' => 'string',
+            'method' => 'nullable|array',
             'method.*' => ['string', Rule::in(Permission::$httpMethods)],
         ];
     }
 
     /**
-     * Create a item in open-admin left side menu.
+     * Create a item in super-admin left side menu.
      *
-     * @param string $title
-     * @param string $uri
-     * @param string $icon
-     * @param int    $parentId
-     * @param array  $children
+     * @param  string  $title
+     * @param  string  $uri
+     * @param  string  $icon
+     * @param  int  $parentId
+     * @return Model
      *
      * @throws \Exception
-     *
-     * @return Model
      */
     protected static function createMenu($title, $uri, $icon = 'fa-bars', $parentId = 0, array $children = [])
     {
@@ -365,12 +360,12 @@ abstract class Extension
          */
         $menu = $menuModel::create([
             'parent_id' => $parentId,
-            'order'     => $lastOrder + 1,
-            'title'     => $title,
-            'icon'      => $icon,
-            'uri'       => $uri,
+            'order' => $lastOrder + 1,
+            'title' => $title,
+            'icon' => $icon,
+            'uri' => $uri,
         ]);
-        if (!empty($children)) {
+        if (! empty($children)) {
             $extension = static::getInstance();
             foreach ($children as $child) {
                 if ($extension->validateMenu($child)) {
@@ -389,33 +384,28 @@ abstract class Extension
     /**
      * Create a permission for this extension.
      *
-     * @param       $name
-     * @param       $slug
-     * @param       $path
-     * @param array $methods
+     * @param  array  $methods
      */
     protected static function createPermission($name, $slug, $path, $methods = [])
     {
         $permissionModel = config('admin.database.permissions_model');
 
         $permissionModel::create([
-            'name'        => $name,
-            'slug'        => $slug,
-            'http_path'   => '/'.trim($path, '/'),
+            'name' => $name,
+            'slug' => $slug,
+            'http_path' => '/'.trim($path, '/'),
             'http_method' => $methods,
         ]);
     }
 
     /**
      * Set routes for this extension.
-     *
-     * @param $callback
      */
     public static function routes($callback)
     {
         $attributes = array_merge(
             [
-                'prefix'     => config('admin.route.prefix'),
+                'prefix' => config('admin.route.prefix'),
                 'middleware' => config('admin.route.middleware'),
             ],
             static::config('route', [])

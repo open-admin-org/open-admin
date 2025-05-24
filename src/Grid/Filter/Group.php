@@ -1,10 +1,10 @@
 <?php
 
-namespace OpenAdmin\Admin\Grid\Filter;
+namespace SuperAdmin\Admin\Grid\Filter;
 
 use Illuminate\Support\Arr;
 use Illuminate\Support\Collection;
-use OpenAdmin\Admin\Admin;
+use SuperAdmin\Admin\Admin;
 
 class Group extends AbstractFilter
 {
@@ -28,11 +28,10 @@ class Group extends AbstractFilter
     /**
      * Group constructor.
      *
-     * @param string        $column
-     * @param string        $label
-     * @param \Closure|null $builder
+     * @param  string  $column
+     * @param  string  $label
      */
-    public function __construct($column, $label = '', \Closure $builder = null)
+    public function __construct($column, $label = '', ?\Closure $builder = null)
     {
         $this->column = $column;
 
@@ -53,7 +52,7 @@ class Group extends AbstractFilter
     protected function initialize()
     {
         $this->id = $this->formatId($this->column);
-        $this->group = new Collection();
+        $this->group = new Collection;
         $this->name = "{$this->id}-filter-group";
 
         $this->setupDefaultPresenter();
@@ -62,9 +61,7 @@ class Group extends AbstractFilter
     /**
      * Join a query to group.
      *
-     * @param string $label
-     * @param array  $condition
-     *
+     * @param  string  $label
      * @return $this
      */
     protected function joinGroup($label, array $condition)
@@ -79,9 +76,8 @@ class Group extends AbstractFilter
     /**
      * Filter out `equal` records.
      *
-     * @param string $label
-     * @param string $operator
-     *
+     * @param  string  $label
+     * @param  string  $operator
      * @return Group
      */
     public function equal($label = '', $operator = '=')
@@ -96,8 +92,7 @@ class Group extends AbstractFilter
     /**
      * Filter out `not equal` records.
      *
-     * @param string $label
-     *
+     * @param  string  $label
      * @return Group
      */
     public function notEqual($label = '')
@@ -108,8 +103,7 @@ class Group extends AbstractFilter
     /**
      * Filter out `greater then` records.
      *
-     * @param string $label
-     *
+     * @param  string  $label
      * @return Group
      */
     public function gt($label = '')
@@ -120,8 +114,7 @@ class Group extends AbstractFilter
     /**
      * Filter out `less then` records.
      *
-     * @param string $label
-     *
+     * @param  string  $label
      * @return Group
      */
     public function lt($label = '')
@@ -132,8 +125,7 @@ class Group extends AbstractFilter
     /**
      * Filter out `not less then` records.
      *
-     * @param string $label
-     *
+     * @param  string  $label
      * @return Group
      */
     public function nlt($label = '')
@@ -144,8 +136,7 @@ class Group extends AbstractFilter
     /**
      * Filter out `not greater than` records.
      *
-     * @param string $label
-     *
+     * @param  string  $label
      * @return Group
      */
     public function ngt($label = '')
@@ -156,8 +147,7 @@ class Group extends AbstractFilter
     /**
      * Filter out records that match the regex.
      *
-     * @param string $label
-     *
+     * @param  string  $label
      * @return Group
      */
     public function match($label = '')
@@ -170,9 +160,7 @@ class Group extends AbstractFilter
     /**
      * Specify a where query.
      *
-     * @param string   $label
-     * @param \Closure $builder
-     *
+     * @param  string  $label
      * @return Group
      */
     public function where($label, \Closure $builder)
@@ -187,9 +175,8 @@ class Group extends AbstractFilter
     /**
      * Specify a where like query.
      *
-     * @param string $label
-     * @param string $operator
-     *
+     * @param  string  $label
+     * @param  string  $operator
      * @return Group
      */
     public function like($label = '', $operator = 'like')
@@ -204,8 +191,7 @@ class Group extends AbstractFilter
     /**
      * Alias of `like` method.
      *
-     * @param string $label
-     *
+     * @param  string  $label
      * @return Group
      */
     public function contains($label = '')
@@ -216,8 +202,7 @@ class Group extends AbstractFilter
     /**
      * Specify a where ilike query.
      *
-     * @param string $label
-     *
+     * @param  string  $label
      * @return Group
      */
     public function ilike($label = '')
@@ -228,8 +213,7 @@ class Group extends AbstractFilter
     /**
      * Filter out records which starts with input query.
      *
-     * @param string $label
-     *
+     * @param  string  $label
      * @return Group
      */
     public function startWith($label = '')
@@ -244,8 +228,7 @@ class Group extends AbstractFilter
     /**
      * Filter out records which ends with input query.
      *
-     * @param string $label
-     *
+     * @param  string  $label
      * @return Group
      */
     public function endWith($label = '')
@@ -264,7 +247,7 @@ class Group extends AbstractFilter
     {
         $value = Arr::get($inputs, $this->column);
 
-        if (!isset($value)) {
+        if (! isset($value)) {
             return;
         }
 
@@ -312,7 +295,7 @@ JS;
 
         return array_merge(parent::variables(), [
             'group_name' => $this->name,
-            'default'    => $default,
+            'default' => $default,
         ]);
     }
 

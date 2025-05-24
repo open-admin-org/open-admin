@@ -2,20 +2,20 @@
 
 class AuthTest extends TestCase
 {
-    public function testLoginPage()
+    public function test_login_page()
     {
         $this->visit('admin/auth/login')
             ->see('login');
     }
 
-    public function testVisitWithoutLogin()
+    public function test_visit_without_login()
     {
         $this->visit('admin')
             ->dontSeeIsAuthenticated('admin')
             ->seePageIs('admin/auth/login');
     }
 
-    public function testLogin()
+    public function test_login()
     {
         $credentials = ['username' => 'admin', 'password' => 'admin'];
 
@@ -34,9 +34,9 @@ class AuthTest extends TestCase
             ->see('Laravel version')
 
             ->see('Available extensions')
-            ->seeLink('open-admin-ext/helpers', 'https://github.com/open-admin-extensions/helpers')
-            ->seeLink('open-admin-ext/backup', 'https://github.com/open-admin-extensions/backup')
-            ->seeLink('open-admin-ext/media-manager', 'https://github.com/open-admin-extensions/media-manager')
+            ->seeLink('super-admin-ext/helpers', 'https://github.com/super-admin-extensions/helpers')
+            ->seeLink('super-admin-ext/backup', 'https://github.com/super-admin-extensions/backup')
+            ->seeLink('super-admin-ext/media-manager', 'https://github.com/super-admin-extensions/media-manager')
 
             ->see('Dependencies')
             ->see('php')
@@ -52,7 +52,7 @@ class AuthTest extends TestCase
             ->see('<span>Menu</span>');
     }
 
-    public function testLogout()
+    public function test_logout()
     {
         $this->visit('admin/auth/logout')
             ->seePageIs('admin/auth/login')

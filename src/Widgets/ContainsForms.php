@@ -1,6 +1,6 @@
 <?php
 
-namespace OpenAdmin\Admin\Widgets;
+namespace SuperAdmin\Admin\Widgets;
 
 trait ContainsForms
 {
@@ -10,35 +10,34 @@ trait ContainsForms
     protected $activeName = 'active';
 
     /**
-     * @param array $forms
-     * @param null  $active
-     *
+     * @param  array  $forms
+     * @param  null  $active
      * @return mixed
      */
     public static function forms($forms, $active = null)
     {
-        $tab = new static();
+        $tab = new static;
 
         return $tab->buildTabbedForms($forms, $active);
     }
 
     /**
-     * @param array $forms
-     * @param null  $active
-     *
+     * @param  array  $forms
+     * @param  null  $active
      * @return $this
      */
     protected function buildTabbedForms($forms, $active = null)
     {
         $active = $active ?: request($this->activeName);
 
-        if (!isset($forms[$active])) {
+        if (! isset($forms[$active])) {
             $active = key($forms);
         }
 
         foreach ($forms as $name => $class) {
-            if (!is_subclass_of($class, Form::class)) {
-                admin_error("Class [{$class}] must be a sub-class of [OpenAdmin\Admin\Widgets\Form].");
+            if (! is_subclass_of($class, Form::class)) {
+                admin_error("Class [{$class}] must be a sub-class of [SuperAdmin\Admin\Widgets\Form].");
+
                 continue;
             }
 
@@ -53,8 +52,7 @@ trait ContainsForms
     }
 
     /**
-     * @param string $name
-     *
+     * @param  string  $name
      * @return string
      */
     protected function getTabUrl($name)

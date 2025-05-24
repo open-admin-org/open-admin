@@ -1,6 +1,6 @@
 <?php
 
-namespace OpenAdmin\Admin\Show;
+namespace SuperAdmin\Admin\Show;
 
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Database\Eloquent\Model;
@@ -11,8 +11,8 @@ use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Illuminate\Database\Eloquent\Relations\MorphOne;
-use OpenAdmin\Admin\Grid;
-use OpenAdmin\Admin\Show;
+use SuperAdmin\Admin\Grid;
+use SuperAdmin\Admin\Show;
 
 class Relation extends Field
 {
@@ -47,21 +47,20 @@ class Relation extends Field
     /**
      * Relation constructor.
      *
-     * @param string   $name
-     * @param callable $builder
-     * @param string   $title
+     * @param  string  $name
+     * @param  callable  $builder
+     * @param  string  $title
      */
     public function __construct($name, $builder, $title = '')
     {
-        $this->name    = $name;
+        $this->name = $name;
         $this->builder = $builder;
-        $this->title   = $this->formatLabel($title);
+        $this->title = $this->formatLabel($title);
     }
 
     /**
      * Set parent model for relation.
      *
-     * @param Model $model
      *
      * @return $this
      */
@@ -79,10 +78,9 @@ class Relation extends Field
      */
     protected function getNullRenderable()
     {
-        return new class() implements Renderable {
-            public function render()
-            {
-            }
+        return new class implements Renderable
+        {
+            public function render() {}
         };
     }
 
@@ -103,7 +101,7 @@ class Relation extends Field
         ) {
             $model = $this->model->{$this->name};
 
-            if (!$model instanceof Model) {
+            if (! $model instanceof Model) {
                 $model = $relation->getRelated();
             }
 

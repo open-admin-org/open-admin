@@ -1,9 +1,9 @@
 <?php
 
-namespace OpenAdmin\Admin\Grid;
+namespace SuperAdmin\Admin\Grid;
 
-use OpenAdmin\Admin\Grid;
-use OpenAdmin\Admin\Grid\Exporters\CsvExporter;
+use SuperAdmin\Admin\Grid;
+use SuperAdmin\Admin\Grid\Exporters\CsvExporter;
 
 class Exporter
 {
@@ -11,7 +11,9 @@ class Exporter
      * Export scope constants.
      */
     const SCOPE_ALL = 'all';
+
     const SCOPE_CURRENT_PAGE = 'page';
+
     const SCOPE_SELECTED_ROWS = 'selected';
 
     /**
@@ -40,8 +42,6 @@ class Exporter
 
     /**
      * Create a new Exporter instance.
-     *
-     * @param Grid $grid
      */
     public function __construct(Grid $grid)
     {
@@ -52,8 +52,6 @@ class Exporter
 
     /**
      * Set export query name.
-     *
-     * @param $name
      */
     public static function setQueryName($name)
     {
@@ -62,9 +60,6 @@ class Exporter
 
     /**
      * Extends new exporter driver.
-     *
-     * @param $driver
-     * @param $extend
      */
     public static function extend($driver, $extend)
     {
@@ -74,8 +69,7 @@ class Exporter
     /**
      * Resolve export driver.
      *
-     * @param string $driver
-     *
+     * @param  string  $driver
      * @return CsvExporter
      */
     public function resolve($driver)
@@ -90,8 +84,7 @@ class Exporter
     /**
      * Get export driver.
      *
-     * @param string $driver
-     *
+     * @param  string  $driver
      * @return CsvExporter
      */
     protected function getExporter($driver)
@@ -100,7 +93,7 @@ class Exporter
             return static::$exporter;
         }
 
-        if (!array_key_exists($driver, static::$drivers)) {
+        if (! array_key_exists($driver, static::$drivers)) {
             return static::$exporter = $this->getDefaultExporter();
         }
 
@@ -120,9 +113,8 @@ class Exporter
     /**
      * Format query for export url.
      *
-     * @param int  $scope
-     * @param null $args
-     *
+     * @param  int  $scope
+     * @param  null  $args
      * @return array
      */
     public static function formatExportQuery($scope = '', $args = null)

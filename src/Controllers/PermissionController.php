@@ -1,11 +1,11 @@
 <?php
 
-namespace OpenAdmin\Admin\Controllers;
+namespace SuperAdmin\Admin\Controllers;
 
 use Illuminate\Support\Str;
-use OpenAdmin\Admin\Form;
-use OpenAdmin\Admin\Grid;
-use OpenAdmin\Admin\Show;
+use SuperAdmin\Admin\Form;
+use SuperAdmin\Admin\Grid;
+use SuperAdmin\Admin\Show;
 
 class PermissionController extends AdminController
 {
@@ -26,7 +26,7 @@ class PermissionController extends AdminController
     {
         $permissionModel = config('admin.database.permissions_model');
 
-        $grid = new Grid(new $permissionModel());
+        $grid = new Grid(new $permissionModel);
 
         $grid->column('id', 'ID')->sortable();
         $grid->column('slug', trans('admin.slug'));
@@ -37,7 +37,7 @@ class PermissionController extends AdminController
                 $method = $this->http_method ?: ['ANY'];
 
                 if (Str::contains($path, ':')) {
-                    list($method, $path) = explode(':', $path);
+                    [$method, $path] = explode(':', $path);
                     $method = explode(',', $method);
                 }
 
@@ -47,7 +47,7 @@ class PermissionController extends AdminController
                     return "<span class='badge bg-primary'>{$name}</span>";
                 })->implode('&nbsp;');
 
-                if (!empty(config('admin.route.prefix'))) {
+                if (! empty(config('admin.route.prefix'))) {
                     $path = '/'.trim(config('admin.route.prefix'), '/').$path;
                 }
 
@@ -70,8 +70,7 @@ class PermissionController extends AdminController
     /**
      * Make a show builder.
      *
-     * @param mixed $id
-     *
+     * @param  mixed  $id
      * @return Show
      */
     protected function detail($id)
@@ -89,7 +88,7 @@ class PermissionController extends AdminController
                 $method = $this->http_method ?: ['ANY'];
 
                 if (Str::contains($path, ':')) {
-                    list($method, $path) = explode(':', $path);
+                    [$method, $path] = explode(':', $path);
                     $method = explode(',', $method);
                 }
 
@@ -99,7 +98,7 @@ class PermissionController extends AdminController
                     return "<span class='badge bg-primary'>{$name}</span>";
                 })->implode('&nbsp;');
 
-                if (!empty(config('admin.route.prefix'))) {
+                if (! empty(config('admin.route.prefix'))) {
                     $path = '/'.trim(config('admin.route.prefix'), '/').$path;
                 }
 
@@ -122,7 +121,7 @@ class PermissionController extends AdminController
     {
         $permissionModel = config('admin.database.permissions_model');
 
-        $form = new Form(new $permissionModel());
+        $form = new Form(new $permissionModel);
 
         $form->display('id', 'ID');
 

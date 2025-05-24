@@ -1,6 +1,6 @@
 <?php
 
-namespace OpenAdmin\Admin\Console;
+namespace SuperAdmin\Admin\Console;
 
 use Illuminate\Console\GeneratorCommand;
 use Illuminate\Support\Str;
@@ -30,9 +30,8 @@ class ActionCommand extends GeneratorCommand
     /**
      * Replace the class name for the given stub.
      *
-     * @param string $stub
-     * @param string $name
-     *
+     * @param  string  $stub
+     * @param  string  $name
      * @return string
      */
     protected function replaceClass($stub, $name)
@@ -102,8 +101,7 @@ CODE;
     /**
      * Get the default namespace for the class.
      *
-     * @param string $rootNamespace
-     *
+     * @param  string  $rootNamespace
      * @return string
      */
     protected function getDefaultNamespace($rootNamespace)

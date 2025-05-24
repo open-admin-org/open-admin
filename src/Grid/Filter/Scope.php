@@ -1,6 +1,6 @@
 <?php
 
-namespace OpenAdmin\Admin\Grid\Filter;
+namespace SuperAdmin\Admin\Grid\Filter;
 
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Support\Collection;
@@ -9,6 +9,7 @@ use Illuminate\Support\Str;
 class Scope implements Renderable
 {
     const QUERY_NAME = '_scope_';
+
     const SEPARATOR = '_separator_';
 
     /**
@@ -29,15 +30,14 @@ class Scope implements Renderable
     /**
      * Scope constructor.
      *
-     * @param $key
-     * @param string $label
+     * @param  string  $label
      */
     public function __construct($key, $label = '')
     {
         $this->key = $key;
         $this->label = $label ? $label : Str::studly($key);
 
-        $this->queries = new Collection();
+        $this->queries = new Collection;
     }
 
     /**
@@ -83,7 +83,7 @@ class Scope implements Renderable
      */
     public function asDefault()
     {
-        if (!request()->input('_scope_')) {
+        if (! request()->input('_scope_')) {
             request()->merge(['_scope_' => $this->key]);
         }
 
@@ -91,9 +91,8 @@ class Scope implements Renderable
     }
 
     /**
-     * @param string $method
-     * @param array  $arguments
-     *
+     * @param  string  $method
+     * @param  array  $arguments
      * @return $this
      */
     public function __call($method, $arguments)

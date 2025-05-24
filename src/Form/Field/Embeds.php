@@ -1,12 +1,12 @@
 <?php
 
-namespace OpenAdmin\Admin\Form\Field;
+namespace SuperAdmin\Admin\Form\Field;
 
 use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
-use OpenAdmin\Admin\Form\EmbeddedForm;
-use OpenAdmin\Admin\Form\Field;
-use OpenAdmin\Admin\Widgets\Form as WidgetForm;
+use SuperAdmin\Admin\Form\EmbeddedForm;
+use SuperAdmin\Admin\Form\Field;
+use SuperAdmin\Admin\Widgets\Form as WidgetForm;
 
 class Embeds extends Field
 {
@@ -18,8 +18,8 @@ class Embeds extends Field
     /**
      * Create a new HasMany field instance.
      *
-     * @param string $column
-     * @param array  $arguments
+     * @param  string  $column
+     * @param  array  $arguments
      */
     public function __construct($column, $arguments = [])
     {
@@ -31,15 +31,14 @@ class Embeds extends Field
         }
 
         if (count($arguments) == 2) {
-            list($this->label, $this->builder) = $arguments;
+            [$this->label, $this->builder] = $arguments;
         }
     }
 
     /**
      * Prepare input data for insert or update.
      *
-     * @param array $input
-     *
+     * @param  array  $input
      * @return array
      */
     public function prepare($input)
@@ -54,7 +53,7 @@ class Embeds extends Field
      */
     public function getValidator(array $input)
     {
-        if (!array_key_exists($this->column, $input)) {
+        if (! array_key_exists($this->column, $input)) {
             return false;
         }
 
@@ -64,7 +63,7 @@ class Embeds extends Field
 
         /** @var Field $field */
         foreach ($this->buildEmbeddedForm()->fields() as $field) {
-            if (!$fieldRules = $field->getRules()) {
+            if (! $fieldRules = $field->getRules()) {
                 continue;
             }
 
@@ -135,10 +134,9 @@ class Embeds extends Field
     /**
      * Format validation attributes.
      *
-     * @param array  $input
-     * @param string $label
-     * @param string $column
-     *
+     * @param  array  $input
+     * @param  string  $label
+     * @param  string  $column
      * @return array
      */
     protected function formatValidationAttribute($input, $label, $column)
@@ -171,9 +169,7 @@ class Embeds extends Field
     /**
      * Reset input key for validation.
      *
-     * @param array $input
-     * @param array $column $column is the column name array set
-     *
+     * @param  array  $column  $column is the column name array set
      * @return void.
      */
     public function resetInputKey(array &$input, array $column)
@@ -181,7 +177,7 @@ class Embeds extends Field
         $column = array_flip($column);
 
         foreach ($input[$this->column] as $key => $value) {
-            if (!array_key_exists($key, $column)) {
+            if (! array_key_exists($key, $column)) {
                 continue;
             }
 
@@ -267,7 +263,7 @@ class Embeds extends Field
      */
     protected function isNested()
     {
-        return !empty($this->elementName);
+        return ! empty($this->elementName);
     }
 
     /**

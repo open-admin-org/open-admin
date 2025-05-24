@@ -1,6 +1,6 @@
 <?php
 
-namespace OpenAdmin\Admin\Traits;
+namespace SuperAdmin\Admin\Traits;
 
 use Illuminate\Support\Str;
 
@@ -9,15 +9,14 @@ trait Resizable
     /**
      * Method for returning specific thumbnail for model.
      *
-     * @param string $type
-     * @param string $attribute
-     *
+     * @param  string  $type
+     * @param  string  $attribute
      * @return string
      */
     public function thumbnail($type, $attribute = 'image')
     {
         // Return empty string if the field not found
-        if (!isset($this->attributes[$attribute])) {
+        if (! isset($this->attributes[$attribute])) {
             return '';
         }
 
@@ -32,8 +31,6 @@ trait Resizable
     /**
      * Generate thumbnail URL.
      *
-     * @param $image
-     * @param $type
      *
      * @return string
      */

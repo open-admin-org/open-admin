@@ -1,7 +1,5 @@
 <?php
 
-namespace OpenAdmin\Admin\Grid\Displayers;
+namespace SuperAdmin\Admin\Grid\Displayers;
 
-class Text extends Input
-{
-}
+class Text extends Input {}

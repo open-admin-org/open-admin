@@ -1,7 +1,5 @@
 <?php
 
-namespace OpenAdmin\Admin\Grid\Filter;
+namespace SuperAdmin\Admin\Grid\Filter;
 
-class Equal extends AbstractFilter
-{
-}
+class Equal extends AbstractFilter {}

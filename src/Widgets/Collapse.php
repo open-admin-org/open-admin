@@ -1,6 +1,6 @@
 <?php
 
-namespace OpenAdmin\Admin\Widgets;
+namespace SuperAdmin\Admin\Widgets;
 
 use Illuminate\Contracts\Support\Renderable;
 
@@ -29,15 +29,14 @@ class Collapse extends Widget implements Renderable
     /**
      * Add item.
      *
-     * @param string $title
-     * @param string $content
-     *
+     * @param  string  $title
+     * @param  string  $content
      * @return $this
      */
     public function add($title, $content)
     {
         $this->items[] = [
-            'title'   => $title,
+            'title' => $title,
             'content' => $content,
         ];
 
@@ -47,8 +46,8 @@ class Collapse extends Widget implements Renderable
     protected function variables()
     {
         return [
-            'id'         => $this->id,
-            'items'      => $this->items,
+            'id' => $this->id,
+            'items' => $this->items,
             'attributes' => $this->formatAttributes(),
         ];
     }

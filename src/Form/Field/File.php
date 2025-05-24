@@ -1,34 +1,35 @@
 <?php
 
-namespace OpenAdmin\Admin\Form\Field;
+namespace SuperAdmin\Admin\Form\Field;
 
 use Illuminate\Support\Arr;
-use OpenAdmin\Admin\Form\Field;
-use OpenAdmin\Admin\Form\Field\Traits\HasMediaPicker;
-use OpenAdmin\Admin\Form\Field\Traits\UploadField;
+use SuperAdmin\Admin\Form\Field;
+use SuperAdmin\Admin\Form\Field\Traits\HasMediaPicker;
+use SuperAdmin\Admin\Form\Field\Traits\UploadField;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 class File extends Field
 {
-    use UploadField;
     use HasMediaPicker;
+    use UploadField;
 
     protected static $css = [
-        '/vendor/open-admin/fields/file-upload/file-upload.css',
+        '/vendor/super-admin/fields/file-upload/file-upload.css',
     ];
 
     protected static $js = [
-        '/vendor/open-admin/fields/file-upload/file-upload.js',
+        '/vendor/super-admin/fields/file-upload/file-upload.js',
     ];
 
-    public $type     = 'file';
+    public $type = 'file';
+
     public $readonly = false;
 
     /**
      * Create a new File instance.
      *
-     * @param string $column
-     * @param array  $arguments
+     * @param  string  $column
+     * @param  array  $arguments
      */
     public function __construct($column, $arguments = [])
     {
@@ -48,7 +49,7 @@ class File extends Field
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getValidator(array $input)
     {
@@ -77,11 +78,11 @@ class File extends Field
 
         $rules = $attributes = [];
 
-        if (!$fieldRules = $this->getRules()) {
+        if (! $fieldRules = $this->getRules()) {
             return false;
         }
 
-        $rules[$this->column]      = $fieldRules;
+        $rules[$this->column] = $fieldRules;
         $attributes[$this->column] = $this->label;
 
         return \validator($input, $rules, $this->getValidationMessages(), $attributes);
@@ -90,8 +91,7 @@ class File extends Field
     /**
      * Prepare for saving.
      *
-     * @param UploadedFile|array $file
-     *
+     * @param  UploadedFile|array  $file
      * @return mixed|string
      */
     public function prepare($file)
@@ -102,11 +102,11 @@ class File extends Field
             return '';
         }
 
-        if (!empty($this->picker) && request()->has($this->column.Field::FILE_ADD_FLAG)) {
+        if (! empty($this->picker) && request()->has($this->column.Field::FILE_ADD_FLAG)) {
             return request($this->column.Field::FILE_ADD_FLAG);
         }
 
-        if (!empty($file)) {
+        if (! empty($file)) {
             $this->name = $this->getStoreName($file);
 
             return $this->uploadAndDeleteOriginal($file);
@@ -118,7 +118,6 @@ class File extends Field
     /**
      * Upload file and delete original file.
      *
-     * @param UploadedFile $file
      *
      * @return mixed
      */
@@ -128,7 +127,7 @@ class File extends Field
 
         $path = null;
 
-        if (!is_null($this->storagePermission)) {
+        if (! is_null($this->storagePermission)) {
             $path = $this->storage->putFileAs($this->getDirectory(), $file, $this->name, $this->storagePermission);
         } else {
             $path = $this->storage->putFileAs($this->getDirectory(), $file, $this->name);
@@ -164,8 +163,7 @@ class File extends Field
     /**
      * Initialize the caption.
      *
-     * @param string $caption
-     *
+     * @param  string  $caption
      * @return string
      */
     protected function initialCaption($caption)
@@ -192,7 +190,7 @@ class File extends Field
 
     protected function getFieldId()
     {
-        if (!empty($this->elementName)) {
+        if (! empty($this->elementName)) {
             $id = $this->elementName;
         } else {
             $id = $this->id;
@@ -214,8 +212,8 @@ class File extends Field
         $this->setType();
         $this->attribute('id', $id);
         $this->options['storageUrl'] = $this->storageUrl();
-        $json_options                = json_encode($this->options);
-        $this->script                = <<<JS
+        $json_options = json_encode($this->options);
+        $this->script = <<<JS
         var FileUpload_{$id} = new FileUpload(document.querySelector('#{$id}'),{$json_options});
         JS;
     }
@@ -235,7 +233,7 @@ class File extends Field
 
         $this->setupDefaultOptions();
 
-        if (!empty($this->value)) {
+        if (! empty($this->value)) {
             $this->attribute('data-files', $this->value);
             $this->attribute('data-file-captions', $this->initialCaption($this->value));
 

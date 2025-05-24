@@ -1,6 +1,6 @@
 <?php
 
-namespace OpenAdmin\Admin\Traits;
+namespace SuperAdmin\Admin\Traits;
 
 use Closure;
 use Illuminate\Support\Arr;
@@ -22,10 +22,8 @@ trait HasCustomHooks
 
     /**
      * Initialize with user pre-defined default disables, etc.
-     *
-     * @param Closure $callback
      */
-    public static function init(Closure $callback = null)
+    public static function init(?Closure $callback = null)
     {
         static::$initCallbacks[] = $callback;
     }
@@ -47,22 +45,19 @@ trait HasCustomHooks
     /**
      * Check has hook.
      *
-     * @param string  $name
-     * @param Closure $callback
-     *
+     * @param  string  $name
+     * @param  Closure  $callback
      * @return $this
      */
     protected function hasHooks($name)
     {
-        return !empty($this->hooks[$name]);
+        return ! empty($this->hooks[$name]);
     }
 
     /**
      * Register a hook.
      *
-     * @param string  $name
-     * @param Closure $callback
-     *
+     * @param  string  $name
      * @return $this
      */
     protected function hook($name, Closure $callback)
@@ -75,9 +70,7 @@ trait HasCustomHooks
     /**
      * Register a hook.
      *
-     * @param string  $name
-     * @param Closure $callback
-     *
+     * @param  string  $name
      * @return $this
      */
     protected function registerHook($name, Closure $callback)
@@ -90,9 +83,8 @@ trait HasCustomHooks
     /**
      * Call hooks by giving name.
      *
-     * @param string $name
-     * @param array  $parameters
-     *
+     * @param  string  $name
+     * @param  array  $parameters
      * @return Response
      */
     protected function callHooks($name, $parameters = [])
@@ -100,7 +92,7 @@ trait HasCustomHooks
         $hooks = Arr::get($this->hooks, $name, []);
 
         foreach ($hooks as $func) {
-            if (!$func instanceof Closure) {
+            if (! $func instanceof Closure) {
                 continue;
             }
 

@@ -1,11 +1,11 @@
 <?php
 
-namespace OpenAdmin\Admin\Grid\Tools;
+namespace SuperAdmin\Admin\Grid\Tools;
 
 use Illuminate\Contracts\Support\Htmlable;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Database\Query\Builder;
-use OpenAdmin\Admin\Grid;
+use SuperAdmin\Admin\Grid;
 
 class Footer extends AbstractTool
 {
@@ -16,8 +16,6 @@ class Footer extends AbstractTool
 
     /**
      * Footer constructor.
-     *
-     * @param Grid $grid
      */
     public function __construct(Grid $grid)
     {
@@ -31,7 +29,7 @@ class Footer extends AbstractTool
      */
     public function queryBuilder()
     {
-        if (!$this->queryBuilder) {
+        if (! $this->queryBuilder) {
             $this->queryBuilder = $this->grid->model()->getQueryBuilder();
         }
 

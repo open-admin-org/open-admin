@@ -1,9 +1,9 @@
 <?php
 
-namespace OpenAdmin\Admin\Grid\Concerns;
+namespace SuperAdmin\Admin\Grid\Concerns;
 
 use Closure;
-use OpenAdmin\Admin\Grid\Tools;
+use SuperAdmin\Admin\Grid\Tools;
 
 trait HasTools
 {
@@ -35,13 +35,12 @@ trait HasTools
      */
     public function disableTools(bool $disable = true)
     {
-        return $this->option('show_tools', !$disable);
+        return $this->option('show_tools', ! $disable);
     }
 
     /**
      * Setup grid tools.
      *
-     * @param Closure $callback
      *
      * @return void
      */

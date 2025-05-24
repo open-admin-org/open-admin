@@ -1,8 +1,8 @@
 <?php
 
-namespace OpenAdmin\Admin\Grid\Concerns;
+namespace SuperAdmin\Admin\Grid\Concerns;
 
-use OpenAdmin\Admin\Admin;
+use SuperAdmin\Admin\Admin;
 
 trait HasHotKeys
 {

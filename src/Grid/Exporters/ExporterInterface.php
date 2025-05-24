@@ -1,6 +1,6 @@
 <?php
 
-namespace OpenAdmin\Admin\Grid\Exporters;
+namespace SuperAdmin\Admin\Grid\Exporters;
 
 interface ExporterInterface
 {

@@ -1,6 +1,6 @@
 <?php
 
-namespace OpenAdmin\Admin\Grid\Column;
+namespace SuperAdmin\Admin\Grid\Column;
 
 use Illuminate\Contracts\Support\Renderable;
 
@@ -14,7 +14,7 @@ class Help implements Renderable
     /**
      * Help constructor.
      *
-     * @param string $message
+     * @param  string  $message
      */
     public function __construct($message = '')
     {
@@ -29,10 +29,10 @@ class Help implements Renderable
     public function render()
     {
         $data = [
-            'data-bs-toggle'    => 'tooltip',
+            'data-bs-toggle' => 'tooltip',
             'data-bs-placement' => 'top',
-            'data-bs-html'      => 'true',
-            'title'             => $this->message,
+            'data-bs-html' => 'true',
+            'title' => $this->message,
         ];
 
         $data = collect($data)->map(function ($val, $key) {

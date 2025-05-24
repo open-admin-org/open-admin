@@ -1,15 +1,15 @@
 <?php
 
-namespace OpenAdmin\Admin\Controllers;
+namespace SuperAdmin\Admin\Controllers;
 
 use Illuminate\Routing\Controller;
-use OpenAdmin\Admin\Layout\Content;
-use OpenAdmin\Admin\Traits\HasCustomHooks;
+use SuperAdmin\Admin\Layout\Content;
+use SuperAdmin\Admin\Traits\HasCustomHooks;
 
 class AdminController extends Controller
 {
-    use HasResourceActions;
     use HasCustomHooks;
+    use HasResourceActions;
 
     /**
      * Title for current resource.
@@ -43,7 +43,6 @@ class AdminController extends Controller
     /**
      * Index interface.
      *
-     * @param Content $content
      *
      * @return Content
      */
@@ -63,9 +62,7 @@ class AdminController extends Controller
     /**
      * Show interface.
      *
-     * @param mixed   $id
-     * @param Content $content
-     *
+     * @param  mixed  $id
      * @return Content
      */
     public function show($id, Content $content)
@@ -84,9 +81,7 @@ class AdminController extends Controller
     /**
      * Edit interface.
      *
-     * @param mixed   $id
-     * @param Content $content
-     *
+     * @param  mixed  $id
      * @return Content
      */
     public function edit($id, Content $content)
@@ -105,7 +100,6 @@ class AdminController extends Controller
     /**
      * Create interface.
      *
-     * @param Content $content
      *
      * @return Content
      */

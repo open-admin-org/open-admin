@@ -1,6 +1,6 @@
 <?php
 
-namespace OpenAdmin\Admin\Widgets;
+namespace SuperAdmin\Admin\Widgets;
 
 use Illuminate\Contracts\Support\Renderable;
 
@@ -29,9 +29,9 @@ class Callout extends Widget implements Renderable
     /**
      * Callout constructor.
      *
-     * @param string $content
-     * @param string $title
-     * @param string $style
+     * @param  string  $content
+     * @param  string  $title
+     * @param  string  $style
      */
     public function __construct($content, $title = '', $style = 'danger')
     {
@@ -45,8 +45,7 @@ class Callout extends Widget implements Renderable
     /**
      * Add style to Callout.
      *
-     * @param string $style
-     *
+     * @param  string  $style
      * @return $this
      */
     public function style($style = 'info')
@@ -64,8 +63,8 @@ class Callout extends Widget implements Renderable
         $this->class("callout callout-{$this->style}");
 
         return [
-            'title'      => $this->title,
-            'content'    => $this->content,
+            'title' => $this->title,
+            'content' => $this->content,
             'attributes' => $this->formatAttributes(),
         ];
     }

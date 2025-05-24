@@ -1,12 +1,12 @@
 <?php
 
-namespace OpenAdmin\Admin\Auth\Database;
+namespace SuperAdmin\Admin\Auth\Database;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
-use OpenAdmin\Admin\Traits\DefaultDatetimeFormat;
+use SuperAdmin\Admin\Traits\DefaultDatetimeFormat;
 
 class Permission extends Model
 {
@@ -26,8 +26,6 @@ class Permission extends Model
 
     /**
      * Create a new Eloquent model instance.
-     *
-     * @param array $attributes
      */
     public function __construct(array $attributes = [])
     {
@@ -42,8 +40,6 @@ class Permission extends Model
 
     /**
      * Permission belongs to many roles.
-     *
-     * @return BelongsToMany
      */
     public function roles(): BelongsToMany
     {
@@ -56,10 +52,6 @@ class Permission extends Model
 
     /**
      * If request should pass through the current permission.
-     *
-     * @param Request $request
-     *
-     * @return bool
      */
     public function shouldPassThrough(Request $request): bool
     {
@@ -73,7 +65,7 @@ class Permission extends Model
             $path = trim(config('admin.route.prefix'), '/').$path;
 
             if (Str::contains($path, ':')) {
-                list($method, $path) = explode(':', $path);
+                [$method, $path] = explode(':', $path);
                 $method = explode(',', $method);
             }
 
@@ -92,8 +84,7 @@ class Permission extends Model
     /**
      * filter \r.
      *
-     * @param string $path
-     *
+     * @param  string  $path
      * @return mixed
      */
     public function getHttpPathAttribute($path)
@@ -103,11 +94,6 @@ class Permission extends Model
 
     /**
      * If a request match the specific HTTP method and path.
-     *
-     * @param array   $match
-     * @param Request $request
-     *
-     * @return bool
      */
     protected function matchRequest(array $match, Request $request): bool
     {
@@ -117,7 +103,7 @@ class Permission extends Model
             $path = trim($match['path'], '/');
         }
 
-        if (!$request->is($path)) {
+        if (! $request->is($path)) {
             return false;
         }
 
@@ -128,9 +114,6 @@ class Permission extends Model
         return $method->isEmpty() || $method->contains($request->method());
     }
 
-    /**
-     * @param $method
-     */
     public function setHttpMethodAttribute($method)
     {
         if (is_array($method)) {
@@ -139,8 +122,6 @@ class Permission extends Model
     }
 
     /**
-     * @param $method
-     *
      * @return array
      */
     public function getHttpMethodAttribute($method)

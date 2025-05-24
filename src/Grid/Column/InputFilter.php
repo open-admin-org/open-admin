@@ -1,9 +1,9 @@
 <?php
 
-namespace OpenAdmin\Admin\Grid\Column;
+namespace SuperAdmin\Admin\Grid\Column;
 
-use OpenAdmin\Admin\Admin;
-use OpenAdmin\Admin\Grid\Model;
+use SuperAdmin\Admin\Admin;
+use SuperAdmin\Admin\Grid\Model;
 
 class InputFilter extends Filter
 {
@@ -15,7 +15,7 @@ class InputFilter extends Filter
     /**
      * InputFilter constructor.
      *
-     * @param string $type
+     * @param  string  $type
      */
     public function __construct($type)
     {
@@ -27,8 +27,8 @@ class InputFilter extends Filter
     /**
      * Add a binding to the query.
      *
-     * @param string     $value
-     * @param Model|null $model
+     * @param  string  $value
+     * @param  Model|null  $model
      */
     public function addBinding($value, Model $model)
     {
@@ -60,11 +60,11 @@ class InputFilter extends Filter
     protected function addDateTimeScript()
     {
         $options = [
-            'locale'           => config('app.locale'),
-            'inline'           => true,
+            'locale' => config('app.locale'),
+            'inline' => true,
             'allowInputToggle' => true,
-            'allowInput'       => true,
-            'time_24hr'        => true,
+            'allowInput' => true,
+            'time_24hr' => true,
         ];
 
         if ($this->type == 'date') {

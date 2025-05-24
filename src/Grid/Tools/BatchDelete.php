@@ -1,8 +1,8 @@
 <?php
 
-namespace OpenAdmin\Admin\Grid\Tools;
+namespace SuperAdmin\Admin\Grid\Tools;
 
-use OpenAdmin\Admin\Actions\BatchAction;
+use SuperAdmin\Admin\Actions\BatchAction;
 
 class BatchDelete extends BatchAction
 {

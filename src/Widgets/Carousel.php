@@ -1,6 +1,6 @@
 <?php
 
-namespace OpenAdmin\Admin\Widgets;
+namespace SuperAdmin\Admin\Widgets;
 
 use Illuminate\Contracts\Support\Renderable;
 
@@ -24,7 +24,7 @@ class Carousel extends Widget implements Renderable
     /**
      * Carousel constructor.
      *
-     * @param array $items
+     * @param  array  $items
      */
     public function __construct($items = [])
     {
@@ -38,7 +38,7 @@ class Carousel extends Widget implements Renderable
     /**
      * Set title.
      *
-     * @param string $title
+     * @param  string  $title
      */
     public function title($title)
     {
@@ -53,12 +53,12 @@ class Carousel extends Widget implements Renderable
     public function render()
     {
         $variables = [
-            'items'      => $this->items,
-            'title'      => $this->title,
+            'items' => $this->items,
+            'title' => $this->title,
             'attributes' => $this->formatAttributes(),
-            'id'         => $this->id,
-            'width'      => $this->width ?: 300,
-            'height'     => $this->height ?: 200,
+            'id' => $this->id,
+            'width' => $this->width ?: 300,
+            'height' => $this->height ?: 200,
         ];
 
         return view($this->view, $variables)->render();

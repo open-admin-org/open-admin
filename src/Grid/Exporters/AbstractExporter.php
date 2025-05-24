@@ -1,13 +1,13 @@
 <?php
 
-namespace OpenAdmin\Admin\Grid\Exporters;
+namespace SuperAdmin\Admin\Grid\Exporters;
 
-use OpenAdmin\Admin\Grid;
+use SuperAdmin\Admin\Grid;
 
 abstract class AbstractExporter implements ExporterInterface
 {
     /**
-     * @var \OpenAdmin\Admin\Grid
+     * @var \SuperAdmin\Admin\Grid
      */
     protected $grid;
 
@@ -18,10 +18,8 @@ abstract class AbstractExporter implements ExporterInterface
 
     /**
      * Create a new exporter instance.
-     *
-     * @param $grid
      */
-    public function __construct(Grid $grid = null)
+    public function __construct(?Grid $grid = null)
     {
         if ($grid) {
             $this->setGrid($grid);
@@ -31,7 +29,6 @@ abstract class AbstractExporter implements ExporterInterface
     /**
      * Set grid for exporter.
      *
-     * @param Grid $grid
      *
      * @return $this
      */
@@ -55,8 +52,7 @@ abstract class AbstractExporter implements ExporterInterface
     /**
      * Get data with export query.
      *
-     * @param bool $toArray
-     *
+     * @param  bool  $toArray
      * @return array|\Illuminate\Support\Collection|mixed
      */
     public function getData($toArray = true)
@@ -65,9 +61,7 @@ abstract class AbstractExporter implements ExporterInterface
     }
 
     /**
-     * @param callable $callback
-     * @param int      $count
-     *
+     * @param  int  $count
      * @return bool
      */
     public function chunk(callable $callback, $count = 100)
@@ -113,8 +107,7 @@ abstract class AbstractExporter implements ExporterInterface
     /**
      * Export data with scope.
      *
-     * @param string $scope
-     *
+     * @param  string  $scope
      * @return $this
      */
     public function withScope($scope)
@@ -123,7 +116,7 @@ abstract class AbstractExporter implements ExporterInterface
             return $this;
         }
 
-        list($scope, $args) = explode(':', $scope);
+        [$scope, $args] = explode(':', $scope);
 
         if ($scope == Grid\Exporter::SCOPE_CURRENT_PAGE) {
             $this->grid->model()->usePaginate(true);

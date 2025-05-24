@@ -1,6 +1,6 @@
 <?php
 
-namespace OpenAdmin\Admin\Console;
+namespace SuperAdmin\Admin\Console;
 
 use Illuminate\Console\GeneratorCommand;
 use Illuminate\Database\Eloquent\Model;
@@ -51,7 +51,7 @@ class MakeCommand extends GeneratorCommand
     {
         $this->modelName = $this->getModelName();
 
-        if (!$this->modelExists()) {
+        if (! $this->modelExists()) {
             $this->error('Model not found! use, command like: artisan admin:controller \\\\App\\\\Models\\\\ModelName');
 
             return false;
@@ -60,7 +60,7 @@ class MakeCommand extends GeneratorCommand
         $this->controllerName = $this->getControllerName();
         $stub = $this->option('stub');
 
-        if ($stub and !is_file($stub)) {
+        if ($stub and ! is_file($stub)) {
             $this->error('The stub file does not exist.');
 
             return false;
@@ -84,13 +84,13 @@ class MakeCommand extends GeneratorCommand
     }
 
     /**
-     * @throws \ReflectionException
-     *
      * @return string
+     *
+     * @throws \ReflectionException
      */
     protected function getControllerName()
     {
-        if (!empty($this->option('name'))) {
+        if (! empty($this->option('name'))) {
             return $this->option('name');
         }
         $name = (new \ReflectionClass($this->modelName))->getShortName();
@@ -107,9 +107,9 @@ class MakeCommand extends GeneratorCommand
     }
 
     /**
-     * @throws \ReflectionException
-     *
      * @return array|bool|string|null
+     *
+     * @throws \ReflectionException
      */
     protected function getTitle()
     {
@@ -121,11 +121,11 @@ class MakeCommand extends GeneratorCommand
     }
 
     /**
-     * @param string $modelName
+     * @param  string  $modelName
      */
     protected function output($modelName)
     {
-        $this->alert("open-admin controller code for model [{$modelName}]");
+        $this->alert("super-admin controller code for model [{$modelName}]");
 
         $this->info($this->generator->generateGrid());
         $this->info($this->generator->generateShow());
@@ -149,9 +149,8 @@ class MakeCommand extends GeneratorCommand
     /**
      * Replace the class name for the given stub.
      *
-     * @param string $stub
-     * @param string $name
-     *
+     * @param  string  $stub
+     * @param  string  $name
      * @return string
      */
     protected function replaceClass($stub, $name)
@@ -180,8 +179,7 @@ class MakeCommand extends GeneratorCommand
     }
 
     /**
-     * @param string $code
-     *
+     * @param  string  $code
      * @return string
      */
     protected function indentCodes($code)
@@ -212,8 +210,7 @@ class MakeCommand extends GeneratorCommand
     /**
      * Get the default namespace for the class.
      *
-     * @param string $rootNamespace
-     *
+     * @param  string  $rootNamespace
      * @return string
      */
     protected function getDefaultNamespace($rootNamespace)

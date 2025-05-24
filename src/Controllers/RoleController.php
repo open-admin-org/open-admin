@@ -1,10 +1,10 @@
 <?php
 
-namespace OpenAdmin\Admin\Controllers;
+namespace SuperAdmin\Admin\Controllers;
 
-use OpenAdmin\Admin\Form;
-use OpenAdmin\Admin\Grid;
-use OpenAdmin\Admin\Show;
+use SuperAdmin\Admin\Form;
+use SuperAdmin\Admin\Grid;
+use SuperAdmin\Admin\Show;
 
 class RoleController extends AdminController
 {
@@ -25,7 +25,7 @@ class RoleController extends AdminController
     {
         $roleModel = config('admin.database.roles_model');
 
-        $grid = new Grid(new $roleModel());
+        $grid = new Grid(new $roleModel);
 
         $grid->column('id', 'ID')->sortable();
         $grid->column('slug', trans('admin.slug'));
@@ -54,8 +54,7 @@ class RoleController extends AdminController
     /**
      * Make a show builder.
      *
-     * @param mixed $id
-     *
+     * @param  mixed  $id
      * @return Show
      */
     protected function detail($id)
@@ -86,7 +85,7 @@ class RoleController extends AdminController
         $permissionModel = config('admin.database.permissions_model');
         $roleModel = config('admin.database.roles_model');
 
-        $form = new Form(new $roleModel());
+        $form = new Form(new $roleModel);
 
         $form->display('id', 'ID');
 

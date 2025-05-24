@@ -2,7 +2,7 @@
 
 namespace DummyNamespace;
 
-use OpenAdmin\Admin\Actions\Action;
+use SuperAdmin\Admin\Actions\Action;
 use Illuminate\Http\Request;
 
 class DummyClass extends Action

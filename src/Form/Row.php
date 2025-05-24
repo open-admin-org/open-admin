@@ -1,9 +1,9 @@
 <?php
 
-namespace OpenAdmin\Admin\Form;
+namespace SuperAdmin\Admin\Form;
 
 use Illuminate\Contracts\Support\Renderable;
-use OpenAdmin\Admin\Form;
+use SuperAdmin\Admin\Form;
 
 class Row implements Renderable
 {
@@ -37,9 +37,6 @@ class Row implements Renderable
 
     /**
      * Row constructor.
-     *
-     * @param \Closure $callback
-     * @param Form     $form
      */
     public function __construct(\Closure $callback, Form $form)
     {
@@ -63,8 +60,7 @@ class Row implements Renderable
     /**
      * Set width for a incomming field.
      *
-     * @param int $width
-     *
+     * @param  int  $width
      * @return $this
      */
     public function width($width = 12)
@@ -87,9 +83,8 @@ class Row implements Renderable
     /**
      * Add field.
      *
-     * @param string $method
-     * @param array  $arguments
-     *
+     * @param  string  $method
+     * @param  array  $arguments
      * @return Field|void
      */
     public function __call($method, $arguments)
@@ -99,7 +94,7 @@ class Row implements Renderable
         $field->disableHorizontal();
 
         $this->fields[] = [
-            'width'   => $this->defaultFieldWidth,
+            'width' => $this->defaultFieldWidth,
             'element' => $field,
         ];
 

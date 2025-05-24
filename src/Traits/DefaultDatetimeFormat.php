@@ -1,6 +1,6 @@
 <?php
 
-namespace OpenAdmin\Admin\Traits;
+namespace SuperAdmin\Admin\Traits;
 
 use Carbon\Carbon;
 

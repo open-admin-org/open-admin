@@ -1,6 +1,6 @@
 <?php
 
-namespace OpenAdmin\Admin\Controllers;
+namespace SuperAdmin\Admin\Controllers;
 
 use Exception;
 use Illuminate\Contracts\Support\Renderable;
@@ -8,17 +8,15 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Collection;
-use OpenAdmin\Admin\Actions\Action;
-use OpenAdmin\Admin\Actions\GridAction;
-use OpenAdmin\Admin\Actions\Response;
-use OpenAdmin\Admin\Actions\RowAction;
-use OpenAdmin\Admin\Widgets\Form;
+use SuperAdmin\Admin\Actions\Action;
+use SuperAdmin\Admin\Actions\GridAction;
+use SuperAdmin\Admin\Actions\Response;
+use SuperAdmin\Admin\Actions\RowAction;
+use SuperAdmin\Admin\Widgets\Form;
 
 class HandleController extends Controller
 {
     /**
-     * @param Request $request
-     *
      * @return $this|mixed
      */
     public function handleForm(Request $request)
@@ -33,28 +31,26 @@ class HandleController extends Controller
     }
 
     /**
-     * @param Request $request
+     * @return Form
      *
      * @throws Exception
-     *
-     * @return Form
      */
     protected function resolveForm(Request $request)
     {
-        if (!$request->has('_form_')) {
+        if (! $request->has('_form_')) {
             throw new Exception('Invalid form request.');
         }
 
         $formClass = $request->get('_form_');
 
-        if (!class_exists($formClass)) {
+        if (! class_exists($formClass)) {
             throw new Exception("Form [{$formClass}] does not exist.");
         }
 
         /** @var Form $form */
         $form = app($formClass);
 
-        if (!method_exists($form, 'handle')) {
+        if (! method_exists($form, 'handle')) {
             throw new Exception("Form method {$formClass}::handle() does not exist.");
         }
 
@@ -62,8 +58,6 @@ class HandleController extends Controller
     }
 
     /**
-     * @param Request $request
-     *
      * @return $this|\Illuminate\Http\JsonResponse
      */
     public function handleAction(Request $request)
@@ -78,7 +72,7 @@ class HandleController extends Controller
             $arguments[] = $model;
         }
 
-        if (!$action->passesAuthorization($model)) {
+        if (! $action->passesAuthorization($model)) {
             return $action->failedAuthorization();
         }
 
@@ -100,28 +94,26 @@ class HandleController extends Controller
     }
 
     /**
-     * @param Request $request
+     * @return Action
      *
      * @throws Exception
-     *
-     * @return Action
      */
     protected function resolveActionInstance(Request $request)
     {
-        if (!$request->has('_action')) {
+        if (! $request->has('_action')) {
             throw new Exception('Invalid action request.');
         }
 
         $actionClass = str_replace('_', '\\', $request->get('_action'));
 
-        if (!class_exists($actionClass)) {
+        if (! class_exists($actionClass)) {
             throw new Exception("Form [{$actionClass}] does not exist.");
         }
 
         /** @var GridAction $form */
         $action = app($actionClass);
 
-        if (!method_exists($action, 'handle')) {
+        if (! method_exists($action, 'handle')) {
             throw new Exception("Action method {$actionClass}::handle() does not exist.");
         }
 
@@ -129,16 +121,14 @@ class HandleController extends Controller
     }
 
     /**
-     * @param Request               $request
-     * @param Model|Collection|bool $model
-     *
+     * @param  Model|Collection|bool  $model
      * @return array
      */
     protected function resolveActionArgs(Request $request, $model = null)
     {
         $args = [$request];
 
-        if (!empty($model)) {
+        if (! empty($model)) {
             array_unshift($args, $model);
         }
 
@@ -146,8 +136,6 @@ class HandleController extends Controller
     }
 
     /**
-     * @param Request $request
-     *
      * @return mixed|string|string[]
      */
     public function handleSelectable(Request $request)
@@ -158,7 +146,7 @@ class HandleController extends Controller
         $class = str_replace('_', '\\', $class);
 
         if (class_exists($class)) {
-            /** @var \OpenAdmin\Admin\Grid\Selectable $selectable */
+            /** @var \SuperAdmin\Admin\Grid\Selectable $selectable */
             $selectable = new $class(...array_values($args));
 
             return $selectable->render();
@@ -168,8 +156,6 @@ class HandleController extends Controller
     }
 
     /**
-     * @param Request $request
-     *
      * @return mixed|string|string[]
      */
     public function handleRenderable(Request $request)
@@ -181,7 +167,7 @@ class HandleController extends Controller
 
         if (class_exists($class)) {
             /** @var Renderable $selectable */
-            $renderable = new $class();
+            $renderable = new $class;
 
             return $renderable->render($key);
         }

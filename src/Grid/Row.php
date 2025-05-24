@@ -1,6 +1,6 @@
 <?php
 
-namespace OpenAdmin\Admin\Grid;
+namespace SuperAdmin\Admin\Grid;
 
 use Closure;
 use Illuminate\Contracts\Support\Htmlable;
@@ -12,15 +12,11 @@ class Row
 {
     /**
      * Row number.
-     *
-     * @var
      */
     public $number;
 
     /**
      * Row data.
-     *
-     * @var
      */
     protected $data;
 
@@ -39,9 +35,9 @@ class Row
     /**
      * Row constructor.
      *
-     * @param mixed $number
-     * @param array $data
-     * @param mixed $key
+     * @param  mixed  $number
+     * @param  array  $data
+     * @param  mixed  $key
      */
     public function __construct($number, $data, $key)
     {
@@ -51,7 +47,7 @@ class Row
 
         $this->attributes = [
             'data-key' => $key,
-            'class'    => 'row-'.$key,
+            'class' => 'row-'.$key,
         ];
     }
 
@@ -78,8 +74,7 @@ class Row
     /**
      * Get column attributes.
      *
-     * @param string $column
-     *
+     * @param  string  $column
      * @return string
      */
     public function getColumnAttributes($column)
@@ -94,8 +89,7 @@ class Row
     /**
      * Format attributes to html.
      *
-     * @param array $attributes
-     *
+     * @param  array  $attributes
      * @return string
      */
     private function formatHtmlAttribute($attributes = [])
@@ -110,8 +104,6 @@ class Row
 
     /**
      * Set attributes.
-     *
-     * @param array $attributes
      */
     public function setAttributes(array $attributes)
     {
@@ -121,7 +113,7 @@ class Row
     /**
      * Set style of the row.
      *
-     * @param array|string $style
+     * @param  array|string  $style
      */
     public function style($style)
     {
@@ -149,8 +141,7 @@ class Row
     /**
      * Getter.
      *
-     * @param mixed $attr
-     *
+     * @param  mixed  $attr
      * @return mixed
      */
     public function __get($attr)
@@ -161,9 +152,8 @@ class Row
     /**
      * Get or set value of column in this row.
      *
-     * @param string $name
-     * @param mixed  $value
-     *
+     * @param  string  $name
+     * @param  mixed  $value
      * @return $this|mixed
      */
     public function column($name, $value = null)
@@ -186,8 +176,7 @@ class Row
     /**
      * Output column value.
      *
-     * @param mixed $value
-     *
+     * @param  mixed  $value
      * @return mixed|string
      */
     protected function output($value)
@@ -204,7 +193,7 @@ class Row
             $value = $value->toJson();
         }
 
-        if (!is_null($value) && !is_scalar($value)) {
+        if (! is_null($value) && ! is_scalar($value)) {
             return sprintf('<pre>%s</pre>', var_export($value, true));
         }
 

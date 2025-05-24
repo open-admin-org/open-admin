@@ -1,6 +1,6 @@
 <?php
 
-use OpenAdmin\Admin\Auth\Database\Administrator;
+use SuperAdmin\Admin\Auth\Database\Administrator;
 use Tests\Models\Profile as ProfileModel;
 use Tests\Models\User as UserModel;
 
@@ -13,7 +13,7 @@ class UserGridTest extends TestCase
         $this->be(Administrator::first(), 'admin');
     }
 
-    public function testIndexPage()
+    public function test_index_page()
     {
         $this->visit('admin/users')
             ->see('Users')
@@ -61,7 +61,7 @@ class UserGridTest extends TestCase
             });
     }
 
-    public function testGridWithData()
+    public function test_grid_with_data()
     {
         $this->seedsTable();
 
@@ -72,7 +72,7 @@ class UserGridTest extends TestCase
         $this->assertCount(100, ProfileModel::all());
     }
 
-    public function testGridPagination()
+    public function test_grid_pagination()
     {
         $this->seedsTable(65);
 
@@ -92,7 +92,7 @@ class UserGridTest extends TestCase
         $this->assertCount(20, $this->crawler()->filter('td a i[class*=fa-edit]'));
     }
 
-    public function testOrderByJson()
+    public function test_order_by_json()
     {
         $this->seedsTable(10);
         $this->assertCount(10, UserModel::all());
@@ -109,7 +109,7 @@ class UserGridTest extends TestCase
         }
     }
 
-    public function testEqualFilter()
+    public function test_equal_filter()
     {
         $this->seedsTable(50);
 
@@ -137,7 +137,7 @@ class UserGridTest extends TestCase
             ->seeInElement('td', $user->end_at);
     }
 
-    public function testLikeFilter()
+    public function test_like_filter()
     {
         $this->seedsTable(50);
 
@@ -158,7 +158,7 @@ class UserGridTest extends TestCase
         }
     }
 
-    public function testFilterRelation()
+    public function test_filter_relation()
     {
         $this->seedsTable(50);
 
@@ -178,7 +178,7 @@ class UserGridTest extends TestCase
             ->seeInElement('td', $user->end_at);
     }
 
-    public function testDisplayCallback()
+    public function test_display_callback()
     {
         $this->seedsTable(1);
 
@@ -191,7 +191,7 @@ class UserGridTest extends TestCase
             ->seeInElement('td', "{$user->email}#{$user->profile->color}");
     }
 
-    public function testHasManyRelation()
+    public function test_has_many_relation()
     {
         factory(\Tests\Models\User::class, 10)
             ->create()
@@ -206,7 +206,7 @@ class UserGridTest extends TestCase
         $this->assertCount(50, $this->crawler()->filter('td code'));
     }
 
-    public function testGridActions()
+    public function test_grid_actions()
     {
         $this->seedsTable(15);
 
@@ -216,7 +216,7 @@ class UserGridTest extends TestCase
         $this->assertCount(15, $this->crawler()->filter('td a i[class*=fa-trash]'));
     }
 
-    public function testGridRows()
+    public function test_grid_rows()
     {
         $this->seedsTable(10);
 
@@ -226,7 +226,7 @@ class UserGridTest extends TestCase
         $this->assertCount(5, $this->crawler()->filter('td a[class*=btn]'));
     }
 
-    public function testGridPerPage()
+    public function test_grid_per_page()
     {
         $this->seedsTable(98);
 

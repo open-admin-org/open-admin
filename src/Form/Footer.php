@@ -1,6 +1,6 @@
 <?php
 
-namespace OpenAdmin\Admin\Form;
+namespace SuperAdmin\Admin\Form;
 
 use Illuminate\Contracts\Support\Renderable;
 
@@ -46,8 +46,6 @@ class Footer implements Renderable
 
     /**
      * Footer constructor.
-     *
-     * @param Builder $builder
      */
     public function __construct(Builder $builder)
     {
@@ -63,7 +61,7 @@ class Footer implements Renderable
     {
         if ($disable) {
             array_delete($this->buttons, 'reset');
-        } elseif (!in_array('reset', $this->buttons)) {
+        } elseif (! in_array('reset', $this->buttons)) {
             array_push($this->buttons, 'reset');
         }
 
@@ -79,7 +77,7 @@ class Footer implements Renderable
     {
         if ($disable) {
             array_delete($this->buttons, 'submit');
-        } elseif (!in_array('submit', $this->buttons)) {
+        } elseif (! in_array('submit', $this->buttons)) {
             array_push($this->buttons, 'submit');
         }
 
@@ -95,7 +93,7 @@ class Footer implements Renderable
     {
         if ($disable) {
             array_delete($this->checkboxes, 'view');
-        } elseif (!in_array('view', $this->checkboxes)) {
+        } elseif (! in_array('view', $this->checkboxes)) {
             array_push($this->checkboxes, 'view');
         }
 
@@ -111,7 +109,7 @@ class Footer implements Renderable
     {
         if ($disable) {
             array_delete($this->checkboxes, 'continue_editing');
-        } elseif (!in_array('continue_editing', $this->checkboxes)) {
+        } elseif (! in_array('continue_editing', $this->checkboxes)) {
             array_push($this->checkboxes, 'continue_editing');
         }
 
@@ -127,7 +125,7 @@ class Footer implements Renderable
     {
         if ($disable) {
             array_delete($this->checkboxes, 'continue_creating');
-        } elseif (!in_array('continue_creating', $this->checkboxes)) {
+        } elseif (! in_array('continue_creating', $this->checkboxes)) {
             array_push($this->checkboxes, 'continue_creating');
         }
 
@@ -190,19 +188,19 @@ class Footer implements Renderable
     public function render()
     {
         $submitRedirects = [
-            'continue_editing'  => 'continue_editing',
+            'continue_editing' => 'continue_editing',
             'continue_creating' => 'continue_creating',
-            'view'              => 'view',
-            //'exit' => 'exit', // can be exit as well when doing ajax request
+            'view' => 'view',
+            // 'exit' => 'exit', // can be exit as well when doing ajax request
         ];
 
         $data = [
-            'width'            => $this->builder->getWidth(),
-            'buttons'          => $this->buttons,
-            'checkboxes'       => $this->checkboxes,
+            'width' => $this->builder->getWidth(),
+            'buttons' => $this->buttons,
+            'checkboxes' => $this->checkboxes,
             'submit_redirects' => $submitRedirects,
-            'default_check'    => $this->defaultCheck,
-            'fixedFooter'      => $this->fixedFooter,
+            'default_check' => $this->defaultCheck,
+            'fixedFooter' => $this->fixedFooter,
         ];
 
         return view($this->view, $data)->render();

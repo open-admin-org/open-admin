@@ -1,6 +1,6 @@
 <?php
 
-namespace OpenAdmin\Admin\Form\Concerns;
+namespace SuperAdmin\Admin\Form\Concerns;
 
 use Illuminate\Support\Arr;
 
@@ -27,11 +27,11 @@ trait HasFormAttributes
     protected function initFormAttributes()
     {
         $this->attributes = [
-            'id'             => 'form-'.uniqid(),
-            'method'         => 'POST',
-            'action'         => '',
-            'autocomplete'   => 'off',
-            'class'          => '',
+            'id' => 'form-'.uniqid(),
+            'method' => 'POST',
+            'action' => '',
+            'autocomplete' => 'off',
+            'class' => '',
             'accept-charset' => 'UTF-8',
             'pjax-container' => true,
         ];
@@ -41,9 +41,8 @@ trait HasFormAttributes
     /**
      * Add form attributes.
      *
-     * @param string|array $attr
-     * @param string       $value
-     *
+     * @param  string|array  $attr
+     * @param  string  $value
      * @return $this
      */
     public function attribute($attr, $value = '')
@@ -62,8 +61,7 @@ trait HasFormAttributes
     /**
      * Add form removeAttribute.
      *
-     * @param string $attr
-     *
+     * @param  string  $attr
      * @return $this
      */
     public function removeAttribute($attr)
@@ -76,8 +74,7 @@ trait HasFormAttributes
     /**
      * Format form attributes form array to html.
      *
-     * @param array $attributes
-     *
+     * @param  array  $attributes
      * @return string
      */
     public function formatAttribute($attributes = [])
@@ -88,7 +85,7 @@ trait HasFormAttributes
             $attributes['enctype'] = 'multipart/form-data';
         }
 
-        if (!empty($attributes['class'])) {
+        if (! empty($attributes['class'])) {
             $this->form_classes[] = $attributes['class'];
         }
         $attributes['class'] = implode(' ', $this->form_classes);
@@ -146,8 +143,7 @@ trait HasFormAttributes
     /**
      * Action uri of the form.
      *
-     * @param string $action
-     *
+     * @param  string  $action
      * @return $this
      */
     public function action($action)
@@ -158,8 +154,7 @@ trait HasFormAttributes
     /**
      * Method of the form.
      *
-     * @param string $method
-     *
+     * @param  string  $method
      * @return $this
      */
     public function method($method = 'POST')

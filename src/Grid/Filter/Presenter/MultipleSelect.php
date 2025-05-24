@@ -1,19 +1,18 @@
 <?php
 
-namespace OpenAdmin\Admin\Grid\Filter\Presenter;
+namespace SuperAdmin\Admin\Grid\Filter\Presenter;
 
-use OpenAdmin\Admin\Facades\Admin;
+use SuperAdmin\Admin\Facades\Admin;
 
 class MultipleSelect extends Select
 {
     /**
      * Load options for other select when change.
      *
-     * @param string $target
-     * @param string $resourceUrl
-     * @param string $idField
-     * @param string $textField
-     *
+     * @param  string  $target
+     * @param  string  $resourceUrl
+     * @param  string  $idField
+     * @param  string  $textField
      * @return $this
      */
     public function loadMore($target, $resourceUrl, $idField = 'id', $textField = 'text'): self

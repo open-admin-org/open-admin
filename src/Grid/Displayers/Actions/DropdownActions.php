@@ -1,6 +1,6 @@
 <?php
 
-namespace OpenAdmin\Admin\Grid\Displayers\Actions;
+namespace SuperAdmin\Admin\Grid\Displayers\Actions;
 
 class DropdownActions extends Actions
 {

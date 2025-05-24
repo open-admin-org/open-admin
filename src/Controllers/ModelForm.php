@@ -1,6 +1,6 @@
 <?php
 
-namespace OpenAdmin\Admin\Controllers;
+namespace SuperAdmin\Admin\Controllers;
 
 /**
  * Trait ModelForm.

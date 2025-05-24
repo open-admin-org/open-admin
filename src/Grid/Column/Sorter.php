@@ -1,6 +1,6 @@
 <?php
 
-namespace OpenAdmin\Admin\Grid\Column;
+namespace SuperAdmin\Admin\Grid\Column;
 
 use Illuminate\Contracts\Support\Renderable;
 
@@ -33,9 +33,9 @@ class Sorter implements Renderable
     /**
      * Sorter constructor.
      *
-     * @param string $sortName
-     * @param string $columnName
-     * @param string $cast
+     * @param  string  $sortName
+     * @param  string  $columnName
+     * @param  string  $cast
      */
     public function __construct($sortName, $columnName, $cast)
     {

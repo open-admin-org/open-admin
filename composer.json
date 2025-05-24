@@ -1,24 +1,24 @@
 {
-    "name": "open-admin-org/open-admin",
-    "description": "open-admin. Open-source Laravel Admin panel. No pro or paid package, free & open. Based on laravel-admin, with special thanks to z-song",
+    "name": "talemul/super-admin",
+    "description": "super-admin. Open-source Laravel Admin panel. No pro or paid package, free & open. Based on laravel-admin, with special thanks to z-song",
     "type": "library",
-    "keywords": ["laravel", "admin", "grid", "form", "open-admin","open","free"],
-    "homepage": "https://github.com/open-admin-org/open-admin",
+    "keywords": ["laravel", "admin", "grid", "form", "super-admin","super","free"],
+    "homepage": "https://github.com/talemul/super-admin",
     "license": "MIT",
     "authors": [
         {
-            "name": "Sjors Broersen | Open-Admin.org",
-            "email": "info@open-admin.org"
+            "name": "Super Admin",
+            "email": "talemulislam@gmail.com"
         }
     ],
     "require": {
         "php": "~7.3|~8.0",
-        "symfony/dom-crawler": "~3.1|~4.0|~5.0",
+        "symfony/dom-crawler": "~3.1|~4.0|~5.0|~6.0|~7.0",
         "laravel/framework": ">=7.0",
-        "doctrine/dbal": "2.*|3.*"
+        "doctrine/dbal": "2.*|3.*|4.*|5.*"
     },
     "require-dev": {
-        "laravel/laravel": ">=8.0",
+        "laravel/laravel": ">=8.0|^10.0|^11.0|^12.0",
         "fzaninotto/faker": "~1.4",
         "intervention/image": "~2.3",
         "laravel/browser-kit-testing": "^6.0",
@@ -26,7 +26,7 @@
     },
     "autoload": {
         "psr-4": {
-            "OpenAdmin\\Admin\\": "src/"
+            "SuperAdmin\\Admin\\": "src/"
         },
         "files": [
             "src/helpers.php"
@@ -42,7 +42,7 @@
         ]
     },
     "scripts": {
-        "sass": "sass --watch resources/assets/open-admin/scss/styles.scss:resources/assets/open-admin/css/styles.css resources/assets/open-admin/scss/pages:resources/assets/open-admin/css/pages --style compressed",
+        "sass": "sass --watch resources/assets/super-admin/scss/styles.scss:resources/assets/super-admin/css/styles.css resources/assets/super-admin/scss/pages:resources/assets/super-admin/css/pages --style compressed",
         "test": "./vendor/bin/phpunit"
     },
     "suggest": {
@@ -52,10 +52,10 @@
     "extra": {
         "laravel": {
             "providers": [
-                "OpenAdmin\\Admin\\AdminServiceProvider"
+                "SuperAdmin\\Admin\\AdminServiceProvider"
             ],
             "aliases": {
-                "Admin": "OpenAdmin\\Admin\\Facades\\Admin"
+                "Admin": "SuperAdmin\\Admin\\Facades\\Admin"
             }
         }
     },

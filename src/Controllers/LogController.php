@@ -1,10 +1,10 @@
 <?php
 
-namespace OpenAdmin\Admin\Controllers;
+namespace SuperAdmin\Admin\Controllers;
 
 use Illuminate\Support\Arr;
-use OpenAdmin\Admin\Auth\Database\OperationLog;
-use OpenAdmin\Admin\Grid;
+use SuperAdmin\Admin\Auth\Database\OperationLog;
+use SuperAdmin\Admin\Grid;
 
 class LogController extends AdminController
 {
@@ -21,7 +21,7 @@ class LogController extends AdminController
      */
     protected function grid()
     {
-        $grid = new Grid(new OperationLog());
+        $grid = new Grid(new OperationLog);
 
         $grid->model()->orderBy('id', 'DESC');
 
@@ -66,8 +66,7 @@ class LogController extends AdminController
     }
 
     /**
-     * @param mixed $id
-     *
+     * @param  mixed  $id
      * @return \Illuminate\Http\JsonResponse
      */
     public function destroy($id)
@@ -76,12 +75,12 @@ class LogController extends AdminController
 
         if (OperationLog::destroy(array_filter($ids))) {
             $data = [
-                'status'  => true,
+                'status' => true,
                 'message' => trans('admin.delete_succeeded'),
             ];
         } else {
             $data = [
-                'status'  => false,
+                'status' => false,
                 'message' => trans('admin.delete_failed'),
             ];
         }

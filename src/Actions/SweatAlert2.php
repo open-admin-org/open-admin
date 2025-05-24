@@ -1,6 +1,6 @@
 <?php
 
-namespace OpenAdmin\Admin\Actions;
+namespace SuperAdmin\Admin\Actions;
 
 class SweatAlert2
 {
@@ -15,9 +15,8 @@ class SweatAlert2
     protected $title;
 
     /**
-     * @param string $type
-     * @param string $title
-     *
+     * @param  string  $type
+     * @param  string  $title
      * @return $this
      */
     public function show($type, $title = '')
@@ -35,7 +34,7 @@ class SweatAlert2
     {
         return [
             'swal' => [
-                'type'  => $this->type,
+                'type' => $this->type,
                 'title' => $this->title,
             ],
         ];

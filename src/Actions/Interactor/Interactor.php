@@ -1,8 +1,8 @@
 <?php
 
-namespace OpenAdmin\Admin\Actions\Interactor;
+namespace SuperAdmin\Admin\Actions\Interactor;
 
-use OpenAdmin\Admin\Actions\Action;
+use SuperAdmin\Admin\Actions\Action;
 
 abstract class Interactor
 {
@@ -24,8 +24,6 @@ abstract class Interactor
 
     /**
      * Dialog constructor.
-     *
-     * @param Action $action
      */
     public function __construct(Action $action)
     {

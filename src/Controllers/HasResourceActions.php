@@ -1,13 +1,13 @@
 <?php
 
-namespace OpenAdmin\Admin\Controllers;
+namespace SuperAdmin\Admin\Controllers;
 
 trait HasResourceActions
 {
     /**
      * Returns the form with possible callback hooks.
      *
-     * @return \OpenAdmin\Admin\Form;
+     * @return \SuperAdmin\Admin\Form;
      */
     public function getForm()
     {
@@ -22,8 +22,7 @@ trait HasResourceActions
     /**
      * Update the specified resource in storage.
      *
-     * @param int $id
-     *
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
     public function update($id)
@@ -44,8 +43,7 @@ trait HasResourceActions
     /**
      * Remove the specified resource from storage.
      *
-     * @param int $id
-     *
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)

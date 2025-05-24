@@ -1,6 +1,6 @@
 <?php
 
-namespace OpenAdmin\Admin\Form\Field;
+namespace SuperAdmin\Admin\Form\Field;
 
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Support\Arr;
@@ -25,9 +25,9 @@ class MultipleSelect extends Select
     /**
      * Get other key for this many-to-many relation.
      *
-     * @throws \Exception
-     *
      * @return string
+     *
+     * @throws \Exception
      */
     protected function getOtherKey()
     {
@@ -63,12 +63,12 @@ class MultipleSelect extends Select
 
         if (is_string($relations)) {
             $this->value = json_decode($relations);
-            if (!is_array($this->value)) {
+            if (! is_array($this->value)) {
                 $this->value = explode(',', $relations);
             }
         }
 
-        if (!is_array($relations)) {
+        if (! is_array($relations)) {
             $this->applyCascadeConditions();
 
             return;
@@ -79,13 +79,13 @@ class MultipleSelect extends Select
         if (is_null($first)) {
             $this->value = null;
 
-        // MultipleSelect value store as an ont-to-many relationship.
+            // MultipleSelect value store as an ont-to-many relationship.
         } elseif (is_array($first)) {
             foreach ($relations as $relation) {
                 $this->value[] = Arr::get($relation, "pivot.{$this->getOtherKey()}");
             }
 
-        // MultipleSelect value store as a column.
+            // MultipleSelect value store as a column.
         } else {
             $this->value = $relations;
         }
@@ -104,7 +104,7 @@ class MultipleSelect extends Select
             $this->original = explode(',', $relations);
         }
 
-        if (!is_array($relations)) {
+        if (! is_array($relations)) {
             return;
         }
 
@@ -113,13 +113,13 @@ class MultipleSelect extends Select
         if (is_null($first)) {
             $this->original = null;
 
-        // MultipleSelect value store as an ont-to-many relationship.
+            // MultipleSelect value store as an ont-to-many relationship.
         } elseif (is_array($first)) {
             foreach ($relations as $relation) {
                 $this->original[] = Arr::get($relation, "pivot.{$this->getOtherKey()}");
             }
 
-        // MultipleSelect value store as a column.
+            // MultipleSelect value store as a column.
         } else {
             $this->original = $relations;
         }

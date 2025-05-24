@@ -1,6 +1,6 @@
 <?php
 
-namespace OpenAdmin\Admin\Widgets;
+namespace SuperAdmin\Admin\Widgets;
 
 use Illuminate\Contracts\Support\Renderable;
 
@@ -19,20 +19,20 @@ class InfoBox extends Widget implements Renderable
     /**
      * InfoBox constructor.
      *
-     * @param string $name
-     * @param string $icon
-     * @param string $color
-     * @param string $link
-     * @param string $info
+     * @param  string  $name
+     * @param  string  $icon
+     * @param  string  $color
+     * @param  string  $link
+     * @param  string  $info
      */
     public function __construct($name, $icon, $color, $link, $info)
     {
         $this->data = [
-            'name'      => $name,
-            'icon'      => $icon,
-            'link'      => $link,
-            'color'     => $color,
-            'info'      => $info,
+            'name' => $name,
+            'icon' => $icon,
+            'link' => $link,
+            'color' => $color,
+            'info' => $info,
             'link_text' => trans('admin.more'),
         ];
         $this->id = uniqid('info-box-');
@@ -43,8 +43,7 @@ class InfoBox extends Widget implements Renderable
     /**
      * Set box id.
      *
-     * @param string $id
-     *
+     * @param  string  $id
      * @return $this
      */
     public function setId($id)

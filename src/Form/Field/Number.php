@@ -1,15 +1,15 @@
 <?php
 
-namespace OpenAdmin\Admin\Form\Field;
+namespace SuperAdmin\Admin\Form\Field;
 
-use  OpenAdmin\Admin\Form\Field\Traits\HasNumberModifiers;
+use SuperAdmin\Admin\Form\Field\Traits\HasNumberModifiers;
 
 class Number extends Text
 {
     use HasNumberModifiers;
 
     protected static $js = [
-        '/vendor/open-admin/fields/number-input.js',
+        '/vendor/super-admin/fields/number-input.js',
     ];
 
     protected $view = 'admin::form.number';

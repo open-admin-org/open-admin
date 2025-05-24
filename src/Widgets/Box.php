@@ -1,6 +1,6 @@
 <?php
 
-namespace OpenAdmin\Admin\Widgets;
+namespace SuperAdmin\Admin\Widgets;
 
 use Illuminate\Contracts\Support\Renderable;
 
@@ -44,8 +44,8 @@ class Box extends Widget implements Renderable
     /**
      * Box constructor.
      *
-     * @param string $title
-     * @param string $content
+     * @param  string  $title
+     * @param  string  $content
      */
     public function __construct($title = '', $content = '', $footer = '')
     {
@@ -68,8 +68,7 @@ class Box extends Widget implements Renderable
     /**
      * Set box id.
      *
-     * @param string $id
-     *
+     * @param  string  $id
      * @return $this
      */
     public function setId($id)
@@ -82,8 +81,7 @@ class Box extends Widget implements Renderable
     /**
      * Set box content.
      *
-     * @param string $content
-     *
+     * @param  string  $content
      * @return $this
      */
     public function content($content)
@@ -100,8 +98,7 @@ class Box extends Widget implements Renderable
     /**
      * Set box footer.
      *
-     * @param string $footer
-     *
+     * @param  string  $footer
      * @return $this
      */
     public function footer($footer)
@@ -118,8 +115,7 @@ class Box extends Widget implements Renderable
     /**
      * Set box title.
      *
-     * @param string $title
-     *
+     * @param  string  $title
      * @return $this
      */
     public function title($title)
@@ -158,8 +154,7 @@ class Box extends Widget implements Renderable
     /**
      * Set box style.
      *
-     * @param array $styles
-     *
+     * @param  array  $styles
      * @return $this|Box
      */
     public function styles($styles)
@@ -190,13 +185,13 @@ class Box extends Widget implements Renderable
         $this->setStyles();
 
         return [
-            'id'         => $this->id,
-            'title'      => $this->title,
-            'content'    => $this->content,
-            'footer'     => $this->footer,
-            'tools'      => $this->tools,
+            'id' => $this->id,
+            'title' => $this->title,
+            'content' => $this->content,
+            'footer' => $this->footer,
+            'tools' => $this->tools,
             'attributes' => $this->formatAttributes(),
-            'script'     => $this->script,
+            'script' => $this->script,
         ];
     }
 

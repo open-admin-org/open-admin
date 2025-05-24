@@ -1,10 +1,10 @@
 <?php
 
-namespace OpenAdmin\Admin\Grid\Displayers;
+namespace SuperAdmin\Admin\Grid\Displayers;
 
 use Illuminate\Contracts\Support\Renderable;
-use OpenAdmin\Admin\Admin;
-use OpenAdmin\Admin\Grid\Simple;
+use SuperAdmin\Admin\Admin;
+use SuperAdmin\Admin\Grid\Simple;
 
 class Modal extends AbstractDisplayer
 {
@@ -14,8 +14,7 @@ class Modal extends AbstractDisplayer
     protected $renderable;
 
     /**
-     * @param int $multiple
-     *
+     * @param  int  $multiple
      * @return string
      */
     protected function getLoadUrl()
@@ -26,14 +25,13 @@ class Modal extends AbstractDisplayer
     }
 
     /**
-     * @param \Closure|string $callback
-     *
+     * @param  \Closure|string  $callback
      * @return mixed|string
      */
     public function display($callback = null)
     {
         if (func_num_args() == 2) {
-            list($title, $callback) = func_get_args();
+            [$title, $callback] = func_get_args();
         } elseif (func_num_args() == 1) {
             $title = $this->trans('title');
         }
@@ -47,14 +45,14 @@ class Modal extends AbstractDisplayer
         }
 
         return Admin::component('admin::components.column-modal', [
-            'url'     => $this->getLoadUrl(),
-            'async'   => $async,
-            'grid'    => is_subclass_of($callback, Simple::class),
-            'title'   => $title,
-            'html'    => $html,
-            'key'     => $this->getKey(),
-            'value'   => $this->value,
-            'name'    => $this->getKey().'-'.str_replace('.', '_', $this->getColumn()->getName()),
+            'url' => $this->getLoadUrl(),
+            'async' => $async,
+            'grid' => is_subclass_of($callback, Simple::class),
+            'title' => $title,
+            'html' => $html,
+            'key' => $this->getKey(),
+            'value' => $this->value,
+            'name' => $this->getKey().'-'.str_replace('.', '_', $this->getColumn()->getName()),
         ]);
     }
 }

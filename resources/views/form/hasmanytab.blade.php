@@ -40,14 +40,14 @@
     </div>
 
     <template class="{{$column}}-tab-tpl">
-        <li class="new nav-item" id="tab_{{ $relationName . '_new_' . \OpenAdmin\Admin\Form\NestedForm::DEFAULT_KEY_NAME }}">
-            <a class="nav-link" href="#{{ $relationName . '_new_' . \OpenAdmin\Admin\Form\NestedForm::DEFAULT_KEY_NAME }}" data-bs-toggle="tab">
-                &nbsp;New {{ \OpenAdmin\Admin\Form\NestedForm::DEFAULT_KEY_NAME }} <i class="icon-exclamation-circle text-red hide"></i>
+        <li class="new nav-item" id="tab_{{ $relationName . '_new_' . \SuperAdmin\Admin\Form\NestedForm::DEFAULT_KEY_NAME }}">
+            <a class="nav-link" href="#{{ $relationName . '_new_' . \SuperAdmin\Admin\Form\NestedForm::DEFAULT_KEY_NAME }}" data-bs-toggle="tab">
+                &nbsp;New {{ \SuperAdmin\Admin\Form\NestedForm::DEFAULT_KEY_NAME }} <i class="icon-exclamation-circle text-red hide"></i>
             </a>
         </li>
     </template>
     <template  class="{{$column}}-tpl">
-        <div class="tab-pane fields-group new" id="{{ $relationName . '_new_' . \OpenAdmin\Admin\Form\NestedForm::DEFAULT_KEY_NAME }}">
+        <div class="tab-pane fields-group new" id="{{ $relationName . '_new_' . \SuperAdmin\Admin\Form\NestedForm::DEFAULT_KEY_NAME }}">
             {!! $template !!}
             @if($options['allowDelete'])
             <div class="form-group form-delete-group">

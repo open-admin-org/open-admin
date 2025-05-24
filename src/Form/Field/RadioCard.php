@@ -1,8 +1,8 @@
 <?php
 
-namespace OpenAdmin\Admin\Form\Field;
+namespace SuperAdmin\Admin\Form\Field;
 
-use OpenAdmin\Admin\Admin;
+use SuperAdmin\Admin\Admin;
 
 class RadioCard extends RadioButton
 {

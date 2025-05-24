@@ -1,12 +1,12 @@
 <?php
 
-namespace OpenAdmin\Admin\Grid;
+namespace SuperAdmin\Admin\Grid;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Arr;
-use OpenAdmin\Admin\Grid;
-use OpenAdmin\Admin\Grid\Selectable\Checkbox;
-use OpenAdmin\Admin\Grid\Selectable\Radio;
+use SuperAdmin\Admin\Grid;
+use SuperAdmin\Admin\Grid\Selectable\Checkbox;
+use SuperAdmin\Admin\Grid\Selectable\Radio;
 
 /**
  * @mixin Grid
@@ -55,9 +55,6 @@ abstract class Selectable
 
     /**
      * Selectable constructor.
-     *
-     * @param $key
-     * @param $multiple
      */
     public function __construct($multiple = false, $key = '')
     {
@@ -73,8 +70,7 @@ abstract class Selectable
     abstract public function make();
 
     /**
-     * @param bool $multiple
-     *
+     * @param  bool  $multiple
      * @return string
      */
     public function render()
@@ -114,12 +110,12 @@ abstract class Selectable
 
         $this->disableFeatures()->disableFilter();
 
-        if (!$this->multiple) {
+        if (! $this->multiple) {
             $this->disablePagination();
         }
 
         $this->tools(function (Tools $tools) {
-            $tools->append(new Grid\Selectable\BrowserBtn());
+            $tools->append(new Grid\Selectable\BrowserBtn);
         });
 
         return $this->grid;
@@ -141,17 +137,17 @@ HTML;
 
     protected function initGrid()
     {
-        if (!class_exists($this->model) || !is_subclass_of($this->model, Model::class)) {
+        if (! class_exists($this->model) || ! is_subclass_of($this->model, Model::class)) {
             throw new \InvalidArgumentException("Invalid model [{$this->model}]");
         }
 
         /** @var Model $model */
-        $model = new $this->model();
+        $model = new $this->model;
 
-        $this->grid = new Grid(new $model());
+        $this->grid = new Grid(new $model);
         $this->grid->fixedFooter(false);
 
-        if (!$this->key) {
+        if (! $this->key) {
             $this->key = $model->getKeyName();
         }
     }
@@ -170,9 +166,6 @@ HTML;
     }
 
     /**
-     * @param string $method
-     * @param array  $arguments
-     *
      * @return mixed
      */
     public function __call(string $method, array $arguments = [])

@@ -1,12 +1,12 @@
 <?php
 
-namespace OpenAdmin\Admin\Console;
+namespace SuperAdmin\Admin\Console;
 
 use Illuminate\Console\Command;
 use Illuminate\Support\Str;
 use MatthiasMullie\Minify;
-use OpenAdmin\Admin\Admin;
-use OpenAdmin\Admin\Facades\Admin as AdminFacade;
+use SuperAdmin\Admin\Admin;
+use SuperAdmin\Admin\Facades\Admin as AdminFacade;
 
 class MinifyCommand extends Command
 {
@@ -29,7 +29,7 @@ class MinifyCommand extends Command
      */
     protected $assets = [
         'css' => [],
-        'js'  => [],
+        'js' => [],
     ];
 
     /**
@@ -42,7 +42,7 @@ class MinifyCommand extends Command
      */
     public function handle()
     {
-        if (!class_exists(Minify\Minify::class)) {
+        if (! class_exists(Minify\Minify::class)) {
             $this->error('To use `admin:minify` command, please install [matthiasmullie/minify] first.');
 
             return;
@@ -114,7 +114,7 @@ class MinifyCommand extends Command
                 return public_path($css);
             })->filter();
 
-        $minifier = new Minify\CSS();
+        $minifier = new Minify\CSS;
 
         $minifier->add(...$css);
 
@@ -144,7 +144,7 @@ class MinifyCommand extends Command
                 return public_path($js);
             })->filter();
 
-        $minifier = new Minify\JS();
+        $minifier = new Minify\JS;
 
         $minifier->add(...$js);
 

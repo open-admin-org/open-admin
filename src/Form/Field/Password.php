@@ -1,6 +1,6 @@
 <?php
 
-namespace OpenAdmin\Admin\Form\Field;
+namespace SuperAdmin\Admin\Form\Field;
 
 class Password extends Text
 {
@@ -32,7 +32,7 @@ class Password extends Text
     public function render()
     {
         $this->prepend('<i class="icon-eye-slash fa-fw"></i>')
-             ->defaultAttribute('type', 'password');
+            ->defaultAttribute('type', 'password');
 
         if ($this->showPasswordToggle) {
             $this->setupScript();

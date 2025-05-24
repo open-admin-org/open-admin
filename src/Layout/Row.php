@@ -1,6 +1,6 @@
 <?php
 
-namespace OpenAdmin\Admin\Layout;
+namespace SuperAdmin\Admin\Layout;
 
 use Illuminate\Contracts\Support\Renderable;
 
@@ -21,11 +21,11 @@ class Row implements Buildable, Renderable
     /**
      * Row constructor.
      *
-     * @param string $content
+     * @param  string  $content
      */
     public function __construct($content = '')
     {
-        if (!empty($content)) {
+        if (! empty($content)) {
             $this->column(12, $content);
         }
     }
@@ -33,8 +33,7 @@ class Row implements Buildable, Renderable
     /**
      * Add a column.
      *
-     * @param int $width
-     * @param $content
+     * @param  int  $width
      */
     public function column($width, $content)
     {
@@ -48,7 +47,7 @@ class Row implements Buildable, Renderable
     /**
      * Add class in row.
      *
-     * @param array|string $class
+     * @param  array|string  $class
      */
     public function class($class)
     {
@@ -61,9 +60,6 @@ class Row implements Buildable, Renderable
         return $this;
     }
 
-    /**
-     * @param Column $column
-     */
     protected function addColumn(Column $column)
     {
         $this->columns[] = $column;

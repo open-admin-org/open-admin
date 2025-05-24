@@ -1,10 +1,10 @@
 <?php
 
-namespace OpenAdmin\Admin\Form\Field\Traits;
+namespace SuperAdmin\Admin\Form\Field\Traits;
 
 use Illuminate\Support\Arr;
-use OpenAdmin\Admin\Admin;
-use OpenAdmin\Admin\Form;
+use SuperAdmin\Admin\Admin;
+use SuperAdmin\Admin\Form;
 
 /**
  * @property Form $form
@@ -17,10 +17,6 @@ trait CanCascadeFields
     protected $conditions = [];
 
     /**
-     * @param $operator
-     * @param $value
-     * @param $closure
-     *
      * @return $this
      */
     public function when($operator, $value, $closure = null)
@@ -39,8 +35,7 @@ trait CanCascadeFields
     }
 
     /**
-     * @param string $operator
-     * @param mixed  $value
+     * @param  mixed  $value
      */
     protected function formatValues(string $operator, &$value)
     {
@@ -56,9 +51,7 @@ trait CanCascadeFields
     }
 
     /**
-     * @param string   $operator
-     * @param mixed    $value
-     * @param \Closure $closure
+     * @param  mixed  $value
      */
     protected function addDependents(string $operator, $value, \Closure $closure)
     {
@@ -66,8 +59,8 @@ trait CanCascadeFields
 
         $this->form->cascadeGroup($closure, [
             'column' => $this->column(),
-            'index'  => count($this->conditions) - 1,
-            'class'  => $this->getCascadeClass($value),
+            'index' => count($this->conditions) - 1,
+            'class' => $this->getCascadeClass($value),
         ]);
     }
 
@@ -82,8 +75,7 @@ trait CanCascadeFields
     }
 
     /**
-     * @param mixed $value
-     *
+     * @param  mixed  $value
      * @return string
      */
     protected function getCascadeClass($value)
@@ -113,11 +105,9 @@ trait CanCascadeFields
     }
 
     /**
-     * @param CascadeGroup $group
+     * @return bool
      *
      * @throws \Exception
-     *
-     * @return bool
      */
     protected function hitsCondition(CascadeGroup $group)
     {
@@ -143,7 +133,7 @@ trait CanCascadeFields
             case 'in':
                 return in_array($old, $value);
             case 'notIn':
-                return !in_array($old, $value);
+                return ! in_array($old, $value);
             case 'has':
                 return in_array($value, $old);
             case 'oneIn':
@@ -176,9 +166,9 @@ trait CanCascadeFields
 
         $cascadeGroups = collect($this->conditions)->map(function ($condition) {
             return [
-                'class'    => $this->getCascadeClass($condition['value']),
+                'class' => $this->getCascadeClass($condition['value']),
                 'operator' => $condition['operator'],
-                'value'    => $condition['value'],
+                'value' => $condition['value'],
             ];
         })->toJson();
 

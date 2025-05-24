@@ -1,20 +1,20 @@
 <?php
 
-namespace OpenAdmin\Admin\Form\Field;
+namespace SuperAdmin\Admin\Form\Field;
 
-use OpenAdmin\Admin\Form\Field;
+use SuperAdmin\Admin\Form\Field;
 
 class DateRange extends Field
 {
     protected $format = 'YYYY-MM-DD';
 
     protected $defaults = [
-        'weekNumbers'   => true,
-        'time_24hr'     => true,
+        'weekNumbers' => true,
+        'time_24hr' => true,
         'enableSeconds' => true,
-        'enableTime'    => false,
-        'allowInput'    => true,
-        'noCalendar'    => false,
+        'enableTime' => false,
+        'allowInput' => true,
+        'noCalendar' => false,
     ];
 
     /**
@@ -25,7 +25,7 @@ class DateRange extends Field
     protected $column = [];
 
     protected static $js = [
-        '/vendor/open-admin/flatpickr/plugins/rangePlugin.js',
+        '/vendor/super-admin/flatpickr/plugins/rangePlugin.js',
     ];
 
     public function __construct($column, $arguments)
@@ -78,7 +78,7 @@ class DateRange extends Field
         $options_start = json_encode($this->options);
         $options_start = str_replace('"__replace_me__"', '[new rangePlugin({ input: "'.$this->getElementClassSelector()['end'].'"})]', $options_start);
 
-        //$options_end = json_encode($this->options);
+        // $options_end = json_encode($this->options);
 
         $this->script = <<<EOT
             flatpickr('{$this->getElementClassSelector()['start']}',{$options_start});

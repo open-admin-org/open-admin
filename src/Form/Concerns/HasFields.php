@@ -1,64 +1,64 @@
 <?php
 
-namespace OpenAdmin\Admin\Form\Concerns;
+namespace SuperAdmin\Admin\Form\Concerns;
 
 use Illuminate\Support\Arr;
-use OpenAdmin\Admin\Form\Field;
+use SuperAdmin\Admin\Form\Field;
 
 /**
- * @method Field\Text           text($column, $label = '')
- * @method Field\Checkbox       checkbox($column, $label = '')
+ * @method Field\Text text($column, $label = '')
+ * @method Field\Checkbox checkbox($column, $label = '')
  * @method Field\CheckboxButton checkboxButton($column, $label = '')
- * @method Field\CheckboxCard   checkboxCard($column, $label = '')
- * @method Field\Radio          radio($column, $label = '')
- * @method Field\RadioButton    radioButton($column, $label = '')
- * @method Field\RadioCard      radioCard($column, $label = '')
- * @method Field\Select         select($column, $label = '')
+ * @method Field\CheckboxCard checkboxCard($column, $label = '')
+ * @method Field\Radio radio($column, $label = '')
+ * @method Field\RadioButton radioButton($column, $label = '')
+ * @method Field\RadioCard radioCard($column, $label = '')
+ * @method Field\Select select($column, $label = '')
  * @method Field\MultipleSelect multipleSelect($column, $label = '')
- * @method Field\Textarea       textarea($column, $label = '')
- * @method Field\Hidden         hidden($column, $label = '')
- * @method Field\Id             id($column, $label = '')
- * @method Field\Ip             ip($column, $label = '')
- * @method Field\Url            url($column, $label = '')
- * @method Field\Color          color($column, $label = '')
- * @method Field\Email          email($column, $label = '')
- * @method Field\PhoneNumber    phonenumber($column, $label = '')
- * @method Field\Slider         slider($column, $label = '')
- * @method Field\File           file($column, $label = '')
- * @method Field\Image          image($column, $label = '')
- * @method Field\Date           date($column, $label = '')
- * @method Field\Datetime       datetime($column, $label = '')
- * @method Field\Time           time($column, $label = '')
- * @method Field\Year           year($column, $label = '')
- * @method Field\Month          month($column, $label = '')
- * @method Field\DateRange      dateRange($start, $end, $label = '')
- * @method Field\DateMultiple   DateMultiple($column, $label = '')
- * @method Field\DateTimeRange  datetimeRange($start, $end, $label = '')
- * @method Field\TimeRange      timeRange($start, $end, $label = '')
- * @method Field\Number         number($column, $label = '')
- * @method Field\Currency       currency($column, $label = '')
- * @method Field\SwitchField    switch($column, $label = '')
- * @method Field\Display        display($column, $label = '')
- * @method Field\Rate           rate($column, $label = '')
- * @method Field\Divider        divider($title = '')
- * @method Field\Password       password($column, $label = '')
- * @method Field\Decimal        decimal($column, $label = '')
- * @method Field\Html           html($html, $label = '')
- * @method Field\Tags           tags($column, $label = '')
- * @method Field\Icon           icon($column, $label = '')
- * @method Field\Embeds         embeds($column, $label = '', $callback)
- * @method Field\MultipleImage  multipleImage($column, $label = '')
- * @method Field\MultipleFile   multipleFile($column, $label = '')
- * @method Field\Captcha        captcha($column, $label = '')
- * @method Field\Listbox        listbox($column, $label = '')
- * @method Field\Table          table($column, $label, $builder)
- * @method Field\Timezone       timezone($column, $label = '')
- * @method Field\KeyValue       keyValue($column, $label = '')
- * @method Field\ListField      list($column, $label = '')
- * @method Field\HasMany        hasMany($relationName, $label = '', $callback)
- * @method Field\HasMany        morphMany($relationName, $label = '', $callback)
- * @method Field\BelongsTo      belongsTo($column, $selectable, $label = '')
- * @method Field\BelongsToMany  belongsToMany($column, $selectable, $label = '')
+ * @method Field\Textarea textarea($column, $label = '')
+ * @method Field\Hidden hidden($column, $label = '')
+ * @method Field\Id id($column, $label = '')
+ * @method Field\Ip ip($column, $label = '')
+ * @method Field\Url url($column, $label = '')
+ * @method Field\Color color($column, $label = '')
+ * @method Field\Email email($column, $label = '')
+ * @method Field\PhoneNumber phonenumber($column, $label = '')
+ * @method Field\Slider slider($column, $label = '')
+ * @method Field\File file($column, $label = '')
+ * @method Field\Image image($column, $label = '')
+ * @method Field\Date date($column, $label = '')
+ * @method Field\Datetime datetime($column, $label = '')
+ * @method Field\Time time($column, $label = '')
+ * @method Field\Year year($column, $label = '')
+ * @method Field\Month month($column, $label = '')
+ * @method Field\DateRange dateRange($start, $end, $label = '')
+ * @method Field\DateMultiple DateMultiple($column, $label = '')
+ * @method Field\DateTimeRange datetimeRange($start, $end, $label = '')
+ * @method Field\TimeRange timeRange($start, $end, $label = '')
+ * @method Field\Number number($column, $label = '')
+ * @method Field\Currency currency($column, $label = '')
+ * @method Field\SwitchField switch($column, $label = '')
+ * @method Field\Display display($column, $label = '')
+ * @method Field\Rate rate($column, $label = '')
+ * @method Field\Divider divider($title = '')
+ * @method Field\Password password($column, $label = '')
+ * @method Field\Decimal decimal($column, $label = '')
+ * @method Field\Html html($html, $label = '')
+ * @method Field\Tags tags($column, $label = '')
+ * @method Field\Icon icon($column, $label = '')
+ * @method Field\Embeds embeds($column, $label = '', $callback)
+ * @method Field\MultipleImage multipleImage($column, $label = '')
+ * @method Field\MultipleFile multipleFile($column, $label = '')
+ * @method Field\Captcha captcha($column, $label = '')
+ * @method Field\Listbox listbox($column, $label = '')
+ * @method Field\Table table($column, $label, $builder)
+ * @method Field\Timezone timezone($column, $label = '')
+ * @method Field\KeyValue keyValue($column, $label = '')
+ * @method Field\ListField list($column, $label = '')
+ * @method Field\HasMany hasMany($relationName, $label = '', $callback)
+ * @method Field\HasMany morphMany($relationName, $label = '', $callback)
+ * @method Field\BelongsTo belongsTo($column, $selectable, $label = '')
+ * @method Field\BelongsToMany belongsToMany($column, $selectable, $label = '')
  */
 trait HasFields
 {
@@ -68,62 +68,62 @@ trait HasFields
      * @var array
      */
     public static $availableFields = [
-        'button'            => Field\Button::class,
-        'checkbox'          => Field\Checkbox::class,
-        'checkboxButton'    => Field\CheckboxButton::class,
-        'checkboxCard'      => Field\CheckboxCard::class,
-        'color'             => Field\Color::class,
-        'currency'          => Field\Currency::class,
-        'date'              => Field\Date::class,
-        'dateRange'         => Field\DateRange::class,
-        'DateMultiple'      => Field\DateMultiple::class,
-        'datetime'          => Field\Datetime::class,
-        'dateTimeRange'     => Field\DatetimeRange::class,
-        'datetimeRange'     => Field\DatetimeRange::class,
-        'decimal'           => Field\Decimal::class,
-        'display'           => Field\Display::class,
-        'divider'           => Field\Divider::class,
-        'embeds'            => Field\Embeds::class,
-        'email'             => Field\Email::class,
-        'file'              => Field\File::class,
-        'hidden'            => Field\Hidden::class,
-        'id'                => Field\Id::class,
-        'image'             => Field\Image::class,
-        'ip'                => Field\Ip::class,
-        'phonenumber'       => Field\PhoneNumber::class,
-        'month'             => Field\Month::class,
-        'multipleSelect'    => Field\MultipleSelect::class,
-        'map'               => Field\Map::class,
-        'number'            => Field\Number::class,
-        'password'          => Field\Password::class,
-        'radio'             => Field\Radio::class,
-        'radioButton'       => Field\RadioButton::class,
-        'radioCard'         => Field\RadioCard::class,
-        'rate'              => Field\Rate::class,
-        'select'            => Field\Select::class,
-        'slider'            => Field\Slider::class,
-        'switch'            => Field\SwitchField::class,
-        'text'              => Field\Text::class,
-        'textarea'          => Field\Textarea::class,
-        'time'              => Field\Time::class,
-        'timeRange'         => Field\TimeRange::class,
-        'url'               => Field\Url::class,
-        'year'              => Field\Year::class,
-        'html'              => Field\Html::class,
-        'tags'              => Field\Tags::class,
-        'icon'              => Field\Icon::class,
-        'multipleFile'      => Field\MultipleFile::class,
-        'multipleImage'     => Field\MultipleImage::class,
-        'captcha'           => Field\Captcha::class,
-        'listbox'           => Field\Listbox::class,
-        'table'             => Field\Table::class,
-        'timezone'          => Field\Timezone::class,
-        'keyValue'          => Field\KeyValue::class,
-        'list'              => Field\ListField::class,
-        'hasMany'           => Field\HasMany::class,
-        'morphMany'         => Field\HasMany::class,
-        'belongsTo'         => Field\BelongsTo::class,
-        'belongsToMany'     => Field\BelongsToMany::class,
+        'button' => Field\Button::class,
+        'checkbox' => Field\Checkbox::class,
+        'checkboxButton' => Field\CheckboxButton::class,
+        'checkboxCard' => Field\CheckboxCard::class,
+        'color' => Field\Color::class,
+        'currency' => Field\Currency::class,
+        'date' => Field\Date::class,
+        'dateRange' => Field\DateRange::class,
+        'DateMultiple' => Field\DateMultiple::class,
+        'datetime' => Field\Datetime::class,
+        'dateTimeRange' => Field\DatetimeRange::class,
+        'datetimeRange' => Field\DatetimeRange::class,
+        'decimal' => Field\Decimal::class,
+        'display' => Field\Display::class,
+        'divider' => Field\Divider::class,
+        'embeds' => Field\Embeds::class,
+        'email' => Field\Email::class,
+        'file' => Field\File::class,
+        'hidden' => Field\Hidden::class,
+        'id' => Field\Id::class,
+        'image' => Field\Image::class,
+        'ip' => Field\Ip::class,
+        'phonenumber' => Field\PhoneNumber::class,
+        'month' => Field\Month::class,
+        'multipleSelect' => Field\MultipleSelect::class,
+        'map' => Field\Map::class,
+        'number' => Field\Number::class,
+        'password' => Field\Password::class,
+        'radio' => Field\Radio::class,
+        'radioButton' => Field\RadioButton::class,
+        'radioCard' => Field\RadioCard::class,
+        'rate' => Field\Rate::class,
+        'select' => Field\Select::class,
+        'slider' => Field\Slider::class,
+        'switch' => Field\SwitchField::class,
+        'text' => Field\Text::class,
+        'textarea' => Field\Textarea::class,
+        'time' => Field\Time::class,
+        'timeRange' => Field\TimeRange::class,
+        'url' => Field\Url::class,
+        'year' => Field\Year::class,
+        'html' => Field\Html::class,
+        'tags' => Field\Tags::class,
+        'icon' => Field\Icon::class,
+        'multipleFile' => Field\MultipleFile::class,
+        'multipleImage' => Field\MultipleImage::class,
+        'captcha' => Field\Captcha::class,
+        'listbox' => Field\Listbox::class,
+        'table' => Field\Table::class,
+        'timezone' => Field\Timezone::class,
+        'keyValue' => Field\KeyValue::class,
+        'list' => Field\ListField::class,
+        'hasMany' => Field\HasMany::class,
+        'morphMany' => Field\HasMany::class,
+        'belongsTo' => Field\BelongsTo::class,
+        'belongsToMany' => Field\BelongsToMany::class,
     ];
 
     /**
@@ -136,9 +136,8 @@ trait HasFields
     /**
      * Register custom field.
      *
-     * @param string $abstract
-     * @param string $class
-     *
+     * @param  string  $abstract
+     * @param  string  $class
      * @return void
      */
     public static function extend($abstract, $class)
@@ -149,9 +148,8 @@ trait HasFields
     /**
      * Set form field alias.
      *
-     * @param string $field
-     * @param string $alias
-     *
+     * @param  string  $field
+     * @param  string  $alias
      * @return void
      */
     public static function alias($field, $alias)
@@ -162,7 +160,7 @@ trait HasFields
     /**
      * Remove registered field.
      *
-     * @param array|string $abstract
+     * @param  array|string  $abstract
      */
     public static function forget($abstract)
     {
@@ -172,8 +170,7 @@ trait HasFields
     /**
      * Find field class.
      *
-     * @param string $method
-     *
+     * @param  string  $method
      * @return bool|mixed
      */
     public static function findFieldClass($method)
@@ -194,12 +191,10 @@ trait HasFields
 
     /**
      * Collect assets required by registered field.
-     *
-     * @return array
      */
     public static function collectFieldAssets(): array
     {
-        if (!empty(static::$collectedAssets)) {
+        if (! empty(static::$collectedAssets)) {
             return static::$collectedAssets;
         }
 
@@ -207,7 +202,7 @@ trait HasFields
         $js = collect();
 
         foreach (static::$availableFields as $field) {
-            if (!method_exists($field, 'getAssets')) {
+            if (! method_exists($field, 'getAssets')) {
                 continue;
             }
 
@@ -219,7 +214,7 @@ trait HasFields
 
         return static::$collectedAssets = [
             'css' => $css->flatten()->unique()->filter()->toArray(),
-            'js'  => $js->flatten()->unique()->filter()->toArray(),
+            'js' => $js->flatten()->unique()->filter()->toArray(),
         ];
     }
 }

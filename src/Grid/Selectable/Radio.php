@@ -1,8 +1,8 @@
 <?php
 
-namespace OpenAdmin\Admin\Grid\Selectable;
+namespace SuperAdmin\Admin\Grid\Selectable;
 
-use OpenAdmin\Admin\Grid\Displayers\AbstractDisplayer;
+use SuperAdmin\Admin\Grid\Displayers\AbstractDisplayer;
 
 class Radio extends AbstractDisplayer
 {

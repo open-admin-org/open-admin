@@ -1,9 +1,9 @@
 <?php
 
-namespace OpenAdmin\Admin\Layout;
+namespace SuperAdmin\Admin\Layout;
 
 use Illuminate\Contracts\Support\Renderable;
-use OpenAdmin\Admin\Grid;
+use SuperAdmin\Admin\Grid;
 
 class Column implements Buildable
 {
@@ -22,8 +22,7 @@ class Column implements Buildable
     /**
      * Column constructor.
      *
-     * @param $content
-     * @param int $width
+     * @param  int  $width
      */
     public function __construct($content, $width = 12)
     {
@@ -33,7 +32,7 @@ class Column implements Buildable
             $this->append($content);
         }
 
-        ///// set width.
+        // /// set width.
         // if null, or $this->width is empty array, set as "md" => "12"
         if (is_null($width) || (is_array($width) && count($width) === 0)) {
             $this->width['md'] = 12;
@@ -49,7 +48,6 @@ class Column implements Buildable
     /**
      * Append content to column.
      *
-     * @param $content
      *
      * @return $this
      */
@@ -63,16 +61,15 @@ class Column implements Buildable
     /**
      * Add a row for column.
      *
-     * @param $content
      *
      * @return Column
      */
     public function row($content)
     {
-        if (!$content instanceof \Closure) {
+        if (! $content instanceof \Closure) {
             $row = new Row($content);
         } else {
-            $row = new Row();
+            $row = new Row;
 
             call_user_func($content, $row);
         }

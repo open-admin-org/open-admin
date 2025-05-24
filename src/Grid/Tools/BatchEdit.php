@@ -1,9 +1,9 @@
 <?php
 
-namespace OpenAdmin\Admin\Grid\Tools;
+namespace SuperAdmin\Admin\Grid\Tools;
 
 use Illuminate\Support\Facades\URL;
-use OpenAdmin\Admin\Actions\BatchAction;
+use SuperAdmin\Admin\Actions\BatchAction;
 
 class BatchEdit extends BatchAction
 {

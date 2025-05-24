@@ -2,7 +2,7 @@
 
 namespace :namespace;
 
-use OpenAdmin\Admin\Extension;
+use SuperAdmin\Admin\Extension;
 
 class :class_name extends Extension
 {

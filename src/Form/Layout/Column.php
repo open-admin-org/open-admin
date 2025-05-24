@@ -1,12 +1,13 @@
 <?php
+
 /**
  * Copyright (c) 2019. Mallto.Co.Ltd.<mall-to.com> All rights reserved.
  */
 
-namespace OpenAdmin\Admin\Form\Layout;
+namespace SuperAdmin\Admin\Form\Layout;
 
 use Illuminate\Support\Collection;
-use OpenAdmin\Admin\Form\Field;
+use SuperAdmin\Admin\Form\Field;
 
 class Column
 {
@@ -23,18 +24,16 @@ class Column
     /**
      * Column constructor.
      *
-     * @param int $width
+     * @param  int  $width
      */
     public function __construct($width = 12)
     {
         $this->width = $width;
-        $this->fields = new Collection();
+        $this->fields = new Collection;
     }
 
     /**
      * Add a filter to this column.
-     *
-     * @param Field $field
      */
     public function add(Field $field)
     {
@@ -43,8 +42,6 @@ class Column
 
     /**
      * Remove fields from column.
-     *
-     * @param $fields
      */
     public function removeFields($fields)
     {
@@ -66,7 +63,7 @@ class Column
     /**
      * Set column width.
      *
-     * @param int $width
+     * @param  int  $width
      */
     public function setWidth($width)
     {

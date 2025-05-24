@@ -1,2 +1,2 @@
 # Changelog
-See https://open-admin.org/docs/
+See https://super-admin.org/docs/

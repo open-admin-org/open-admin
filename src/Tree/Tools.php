@@ -1,11 +1,11 @@
 <?php
 
-namespace OpenAdmin\Admin\Tree;
+namespace SuperAdmin\Admin\Tree;
 
 use Illuminate\Contracts\Support\Htmlable;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Support\Collection;
-use OpenAdmin\Admin\Tree;
+use SuperAdmin\Admin\Tree;
 
 class Tools implements Renderable
 {
@@ -26,19 +26,18 @@ class Tools implements Renderable
     /**
      * Create a new Tools instance.
      *
-     * @param Builder $builder
+     * @param  Builder  $builder
      */
     public function __construct(Tree $tree)
     {
         $this->tree = $tree;
-        $this->tools = new Collection();
+        $this->tools = new Collection;
     }
 
     /**
      * Prepend a tool.
      *
-     * @param string $tool
-     *
+     * @param  string  $tool
      * @return $this
      */
     public function add($tool)

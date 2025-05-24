@@ -2,7 +2,7 @@
 
 namespace :namespace\Http\Controllers;
 
-use OpenAdmin\Admin\Layout\Content;
+use SuperAdmin\Admin\Layout\Content;
 use Illuminate\Routing\Controller;
 
 class :class_nameController extends Controller

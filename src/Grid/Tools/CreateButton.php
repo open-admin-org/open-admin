@@ -1,8 +1,8 @@
 <?php
 
-namespace OpenAdmin\Admin\Grid\Tools;
+namespace SuperAdmin\Admin\Grid\Tools;
 
-use OpenAdmin\Admin\Grid;
+use SuperAdmin\Admin\Grid;
 
 class CreateButton extends AbstractTool
 {
@@ -13,8 +13,6 @@ class CreateButton extends AbstractTool
 
     /**
      * Create a new CreateButton instance.
-     *
-     * @param Grid $grid
      */
     public function __construct(Grid $grid)
     {
@@ -28,7 +26,7 @@ class CreateButton extends AbstractTool
      */
     public function render()
     {
-        if (!$this->grid->showCreateBtn()) {
+        if (! $this->grid->showCreateBtn()) {
             return '';
         }
 

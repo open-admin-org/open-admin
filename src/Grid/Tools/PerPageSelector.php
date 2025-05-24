@@ -1,9 +1,9 @@
 <?php
 
-namespace OpenAdmin\Admin\Grid\Tools;
+namespace SuperAdmin\Admin\Grid\Tools;
 
-use OpenAdmin\Admin\Admin;
-use OpenAdmin\Admin\Grid;
+use SuperAdmin\Admin\Admin;
+use SuperAdmin\Admin\Grid;
 
 class PerPageSelector extends AbstractTool
 {
@@ -19,8 +19,6 @@ class PerPageSelector extends AbstractTool
 
     /**
      * Create a new PerPageSelector instance.
-     *
-     * @param Grid $grid
      */
     public function __construct(Grid $grid)
     {
@@ -75,7 +73,7 @@ class PerPageSelector extends AbstractTool
         })->implode("\r\n");
 
         $trans = [
-            'show'    => trans('admin.show'),
+            'show' => trans('admin.show'),
             'entries' => trans('admin.entries'),
         ];
 

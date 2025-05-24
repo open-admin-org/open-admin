@@ -1,9 +1,9 @@
 <?php
 
-namespace OpenAdmin\Admin\Grid\Displayers;
+namespace SuperAdmin\Admin\Grid\Displayers;
 
 use Illuminate\Support\Arr;
-use OpenAdmin\Admin\Admin;
+use SuperAdmin\Admin\Admin;
 
 class Select extends AbstractDisplayer
 {
@@ -11,21 +11,21 @@ class Select extends AbstractDisplayer
     {
         // prevent null value
         $value = $this->getValue();
-        if (!is_null($value)) {
+        if (! is_null($value)) {
             $display = Arr::get($options, $value, $value);
         } else {
             $display = $value;
         }
 
         return Admin::component('admin::grid.inline-edit.select', [
-            'key'      => $this->getKey(),
-            'value'    => $this->getValue(),
-            'display'  => $display,
-            'name'     => $this->getPayloadName(),
+            'key' => $this->getKey(),
+            'value' => $this->getValue(),
+            'display' => $display,
+            'name' => $this->getPayloadName(),
             'resource' => $this->getResource(),
-            'trigger'  => "ie-trigger-{$this->getClassName()}-{$this->getKey()}",
-            'target'   => "ie-content-{$this->getClassName()}-{$this->getKey()}",
-            'options'  => $options,
+            'trigger' => "ie-trigger-{$this->getClassName()}-{$this->getKey()}",
+            'target' => "ie-content-{$this->getClassName()}-{$this->getKey()}",
+            'options' => $options,
         ]);
     }
 }

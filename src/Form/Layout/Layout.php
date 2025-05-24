@@ -1,12 +1,13 @@
 <?php
+
 /**
  * Copyright (c) 2019. Mallto.Co.Ltd.<mall-to.com> All rights reserved.
  */
 
-namespace OpenAdmin\Admin\Form\Layout;
+namespace SuperAdmin\Admin\Form\Layout;
 
 use Illuminate\Support\Collection;
-use OpenAdmin\Admin\Form;
+use SuperAdmin\Admin\Form;
 
 class Layout
 {
@@ -27,22 +28,18 @@ class Layout
 
     /**
      * Layout constructor.
-     *
-     * @param Form $form
      */
     public function __construct(Form $form)
     {
         $this->parent = $form;
 
-        $this->current = new Column();
+        $this->current = new Column;
 
-        $this->columns = new Collection();
+        $this->columns = new Collection;
     }
 
     /**
      * Add a filter to layout column.
-     *
-     * @param Form\Field $field
      */
     public function addField(Form\Field $field)
     {
@@ -52,8 +49,7 @@ class Layout
     /**
      * Add a new column in layout.
      *
-     * @param int      $width
-     * @param \Closure $closure
+     * @param  int  $width
      */
     public function column($width, \Closure $closure)
     {
@@ -88,8 +84,6 @@ class Layout
 
     /**
      * Remove reserved fields from form layout.
-     *
-     * @param array $fields
      */
     public function removeReservedFields(array $fields)
     {

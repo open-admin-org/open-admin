@@ -1,8 +1,8 @@
 <?php
 
-use OpenAdmin\Admin\Auth\Database\Administrator;
-use OpenAdmin\Admin\Auth\Database\Permission;
-use OpenAdmin\Admin\Auth\Database\Role;
+use SuperAdmin\Admin\Auth\Database\Administrator;
+use SuperAdmin\Admin\Auth\Database\Permission;
+use SuperAdmin\Admin\Auth\Database\Role;
 
 class PermissionsTest extends TestCase
 {
@@ -13,7 +13,7 @@ class PermissionsTest extends TestCase
         $this->be(Administrator::first(), 'admin');
     }
 
-    public function testPermissionsIndex()
+    public function test_permissions_index()
     {
         $this->assertTrue(Administrator::first()->isAdministrator());
 
@@ -21,7 +21,7 @@ class PermissionsTest extends TestCase
             ->see('Permissions');
     }
 
-    public function testAddAndDeletePermissions()
+    public function test_add_and_delete_permissions()
     {
         $this->visit('admin/auth/permissions/create')
             ->see('Permissions')
@@ -45,7 +45,7 @@ class PermissionsTest extends TestCase
             ->assertEquals(5, Permission::count());
     }
 
-    public function testAddPermissionToRole()
+    public function test_add_permission_to_role()
     {
         $this->visit('admin/auth/permissions/create')
             ->see('Permissions')
@@ -61,7 +61,7 @@ class PermissionsTest extends TestCase
             ->seeInDatabase(config('admin.database.role_permissions_table'), ['role_id' => 1, 'permission_id' => 1]);
     }
 
-    public function testAddPermissionToUser()
+    public function test_add_permission_to_user()
     {
         $this->visit('admin/auth/permissions/create')
             ->see('Permissions')
@@ -78,12 +78,12 @@ class PermissionsTest extends TestCase
             ->seeInDatabase(config('admin.database.role_users_table'), ['user_id' => 1, 'role_id' => 1]);
     }
 
-    public function testAddUserAndAssignPermission()
+    public function test_add_user_and_assign_permission()
     {
         $user = [
-            'username'              => 'Test',
-            'name'                  => 'Name',
-            'password'              => '123456',
+            'username' => 'Test',
+            'name' => 'Name',
+            'password' => '123456',
             'password_confirmation' => '123456',
         ];
 
@@ -137,12 +137,12 @@ class PermissionsTest extends TestCase
         $this->assertTrue(Administrator::find(2)->cannot('can-remove'));
     }
 
-    public function testPermissionThroughRole()
+    public function test_permission_through_role()
     {
         $user = [
-            'username'              => 'Test',
-            'name'                  => 'Name',
-            'password'              => '123456',
+            'username' => 'Test',
+            'name' => 'Name',
+            'password' => '123456',
             'password_confirmation' => '123456',
         ];
 
@@ -194,7 +194,7 @@ class PermissionsTest extends TestCase
         $this->assertTrue(Administrator::find(2)->can('can-remove'));
     }
 
-    public function testEditPermission()
+    public function test_edit_permission()
     {
         $this->visit('admin/auth/permissions/create')
             ->see('Permissions')

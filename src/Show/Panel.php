@@ -1,10 +1,10 @@
 <?php
 
-namespace OpenAdmin\Admin\Show;
+namespace SuperAdmin\Admin\Show;
 
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Support\Collection;
-use OpenAdmin\Admin\Show;
+use SuperAdmin\Admin\Show;
 
 class Panel implements Renderable
 {
@@ -52,17 +52,16 @@ class Panel implements Renderable
     protected function initData()
     {
         $this->data = [
-            'fields' => new Collection(),
-            'tools'  => new Tools($this),
-            'style'  => 'none',
-            'title'  => trans('admin.detail'),
+            'fields' => new Collection,
+            'tools' => new Tools($this),
+            'style' => 'none',
+            'title' => trans('admin.detail'),
         ];
     }
 
     /**
      * Set parent container.
      *
-     * @param Show $show
      *
      * @return $this
      */
@@ -86,8 +85,7 @@ class Panel implements Renderable
     /**
      * Set style for this panel.
      *
-     * @param string $style
-     *
+     * @param  string  $style
      * @return $this
      */
     public function style($style = 'info')
@@ -100,8 +98,7 @@ class Panel implements Renderable
     /**
      * Set title for this panel.
      *
-     * @param string $title
-     *
+     * @param  string  $title
      * @return $this
      */
     public function title($title)
@@ -114,8 +111,7 @@ class Panel implements Renderable
     /**
      * Set view for this panel to render.
      *
-     * @param string $view
-     *
+     * @param  string  $view
      * @return $this
      */
     public function view($view)
@@ -127,8 +123,6 @@ class Panel implements Renderable
 
     /**
      * Build panel tools.
-     *
-     * @param $callable
      */
     public function tools($callable)
     {
@@ -139,7 +133,6 @@ class Panel implements Renderable
      * Fill fields to panel.
      *
      * @param []Field $fields
-     *
      * @return $this
      */
     public function fill($fields)

@@ -1,6 +1,6 @@
 <?php
 
-namespace OpenAdmin\Admin\Auth\Database;
+namespace SuperAdmin\Admin\Auth\Database;
 
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
@@ -19,7 +19,7 @@ class AdminTablesSeeder extends Seeder
         Administrator::create([
             'username' => 'admin',
             'password' => Hash::make('admin'),
-            'name'     => 'Administrator',
+            'name' => 'Administrator',
         ]);
 
         // create a role.
@@ -32,38 +32,38 @@ class AdminTablesSeeder extends Seeder
         // add role to user.
         Administrator::first()->roles()->save(Role::first());
 
-        //create a permission
+        // create a permission
         Permission::truncate();
         Permission::insert([
             [
-                'name'        => 'All permission',
-                'slug'        => '*',
+                'name' => 'All permission',
+                'slug' => '*',
                 'http_method' => '',
-                'http_path'   => '*',
+                'http_path' => '*',
             ],
             [
-                'name'        => 'Dashboard',
-                'slug'        => 'dashboard',
+                'name' => 'Dashboard',
+                'slug' => 'dashboard',
                 'http_method' => 'GET',
-                'http_path'   => '/',
+                'http_path' => '/',
             ],
             [
-                'name'        => 'Login',
-                'slug'        => 'auth.login',
+                'name' => 'Login',
+                'slug' => 'auth.login',
                 'http_method' => '',
-                'http_path'   => "/auth/login\r\n/auth/logout",
+                'http_path' => "/auth/login\r\n/auth/logout",
             ],
             [
-                'name'        => 'User setting',
-                'slug'        => 'auth.setting',
+                'name' => 'User setting',
+                'slug' => 'auth.setting',
                 'http_method' => 'GET,PUT',
-                'http_path'   => '/auth/setting',
+                'http_path' => '/auth/setting',
             ],
             [
-                'name'        => 'Auth management',
-                'slug'        => 'auth.management',
+                'name' => 'Auth management',
+                'slug' => 'auth.management',
                 'http_method' => '',
-                'http_path'   => "/auth/roles\r\n/auth/permissions\r\n/auth/menu\r\n/auth/logs",
+                'http_path' => "/auth/roles\r\n/auth/permissions\r\n/auth/menu\r\n/auth/logs",
             ],
         ]);
 
@@ -74,52 +74,52 @@ class AdminTablesSeeder extends Seeder
         Menu::insert([
             [
                 'parent_id' => 0,
-                'order'     => 1,
-                'title'     => 'Dashboard',
-                'icon'      => 'icon-chart-bar',
-                'uri'       => '/',
+                'order' => 1,
+                'title' => 'Dashboard',
+                'icon' => 'icon-chart-bar',
+                'uri' => '/',
             ],
             [
                 'parent_id' => 0,
-                'order'     => 2,
-                'title'     => 'Admin',
-                'icon'      => 'icon-server',
-                'uri'       => '',
+                'order' => 2,
+                'title' => 'Admin',
+                'icon' => 'icon-server',
+                'uri' => '',
             ],
             [
                 'parent_id' => 2,
-                'order'     => 3,
-                'title'     => 'Users',
-                'icon'      => 'icon-users',
-                'uri'       => 'auth/users',
+                'order' => 3,
+                'title' => 'Users',
+                'icon' => 'icon-users',
+                'uri' => 'auth/users',
             ],
             [
                 'parent_id' => 2,
-                'order'     => 4,
-                'title'     => 'Roles',
-                'icon'      => 'icon-user',
-                'uri'       => 'auth/roles',
+                'order' => 4,
+                'title' => 'Roles',
+                'icon' => 'icon-user',
+                'uri' => 'auth/roles',
             ],
             [
                 'parent_id' => 2,
-                'order'     => 5,
-                'title'     => 'Permission',
-                'icon'      => 'icon-ban',
-                'uri'       => 'auth/permissions',
+                'order' => 5,
+                'title' => 'Permission',
+                'icon' => 'icon-ban',
+                'uri' => 'auth/permissions',
             ],
             [
                 'parent_id' => 2,
-                'order'     => 6,
-                'title'     => 'Menu',
-                'icon'      => 'icon-bars',
-                'uri'       => 'auth/menu',
+                'order' => 6,
+                'title' => 'Menu',
+                'icon' => 'icon-bars',
+                'uri' => 'auth/menu',
             ],
             [
                 'parent_id' => 2,
-                'order'     => 7,
-                'title'     => 'Operation log',
-                'icon'      => 'icon-history',
-                'uri'       => 'auth/logs',
+                'order' => 7,
+                'title' => 'Operation log',
+                'icon' => 'icon-history',
+                'uri' => 'auth/logs',
             ],
         ]);
 

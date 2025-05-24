@@ -1,6 +1,6 @@
 <?php
 
-namespace OpenAdmin\Admin\Console;
+namespace SuperAdmin\Admin\Console;
 
 use Illuminate\Console\Command;
 use Illuminate\Support\Arr;
@@ -46,7 +46,7 @@ class ConfigCommand extends Command
         $this->printDiff('Removed', $removed, true);
 
         $this->line('');
-        $this->comment('Please open `vendor/encore/open-admin/config/admin.php` to check the difference');
+        $this->comment('Please open `vendor/talemul/super-admin/config/admin.php` to check the difference');
     }
 
     protected function diff(array $from, array $to)

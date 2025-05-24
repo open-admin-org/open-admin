@@ -1,6 +1,6 @@
 <?php
 
-namespace OpenAdmin\Admin\Grid\Filter;
+namespace SuperAdmin\Admin\Grid\Filter;
 
 class Hidden extends AbstractFilter
 {
@@ -17,8 +17,8 @@ class Hidden extends AbstractFilter
     /**
      * Hidden constructor.
      *
-     * @param string $name
-     * @param string $value
+     * @param  string  $name
+     * @param  string  $value
      */
     public function __construct($name, $value)
     {
@@ -30,9 +30,7 @@ class Hidden extends AbstractFilter
     /**
      * {@inheritdoc}
      */
-    public function condition($inputs)
-    {
-    }
+    public function condition($inputs) {}
 
     /**
      * {@inheritdoc}

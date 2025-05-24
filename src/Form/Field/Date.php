@@ -1,18 +1,18 @@
 <?php
 
-namespace OpenAdmin\Admin\Form\Field;
+namespace SuperAdmin\Admin\Form\Field;
 
 class Date extends Text
 {
     protected $format = 'YYYY-MM-DD';
 
     protected $defaults = [
-        'weekNumbers'   => true,
-        'time_24hr'     => true,
+        'weekNumbers' => true,
+        'time_24hr' => true,
         'enableSeconds' => true,
-        'enableTime'    => false,
-        'allowInput'    => true,
-        'noCalendar'    => false,
+        'enableTime' => false,
+        'allowInput' => true,
+        'noCalendar' => false,
     ];
 
     public function format($format)
@@ -32,7 +32,7 @@ class Date extends Text
         }
 
         // if the field is not present in the request it should not be processed
-        if (empty($value) && !request()->has($this->column)) {
+        if (empty($value) && ! request()->has($this->column)) {
             $value = false;
         }
 

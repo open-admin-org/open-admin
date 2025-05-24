@@ -1,6 +1,6 @@
 <?php
 
-namespace OpenAdmin\Admin\Grid;
+namespace SuperAdmin\Admin\Grid;
 
 use Illuminate\Database\Eloquent\Model as EloquentModel;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -12,8 +12,8 @@ use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Str;
-use OpenAdmin\Admin\Grid;
-use OpenAdmin\Admin\Middleware\Pjax;
+use SuperAdmin\Admin\Grid;
+use SuperAdmin\Admin\Middleware\Pjax;
 
 class Model
 {
@@ -95,11 +95,8 @@ class Model
 
     /**
      * Create a new grid model instance.
-     *
-     * @param EloquentModel $model
-     * @param Grid          $grid
      */
-    public function __construct(EloquentModel $model, Grid $grid = null)
+    public function __construct(EloquentModel $model, ?Grid $grid = null)
     {
         $this->model = $model;
 
@@ -131,7 +128,7 @@ class Model
     /**
      * Enable or disable pagination.
      *
-     * @param bool $use
+     * @param  bool  $use
      */
     public function usePaginate($use = true)
     {
@@ -151,8 +148,7 @@ class Model
     /**
      * Set the query string variable used to store the per-page.
      *
-     * @param string $name
-     *
+     * @param  string  $name
      * @return $this
      */
     public function setPerPageName($name)
@@ -175,8 +171,7 @@ class Model
     /**
      * Set per-page number.
      *
-     * @param int $perPage
-     *
+     * @param  int  $perPage
      * @return $this
      */
     public function setPerPage($perPage)
@@ -201,8 +196,7 @@ class Model
     /**
      * Set the query string variable used to store the sort.
      *
-     * @param string $name
-     *
+     * @param  string  $name
      * @return $this
      */
     public function setSortName($name)
@@ -215,7 +209,6 @@ class Model
     /**
      * Set parent grid instance.
      *
-     * @param Grid $grid
      *
      * @return $this
      */
@@ -237,8 +230,6 @@ class Model
     }
 
     /**
-     * @param Relation $relation
-     *
      * @return $this
      */
     public function setRelation(Relation $relation)
@@ -272,7 +263,7 @@ class Model
         if ($this->relation instanceof MorphMany) {
             return [
                 $this->relation->getForeignKeyName() => $this->relation->getParentKey(),
-                $this->relation->getMorphType()      => $this->relation->getMorphClass(),
+                $this->relation->getMorphType() => $this->relation->getMorphClass(),
             ];
         }
 
@@ -282,11 +273,10 @@ class Model
     /**
      * Set collection callback.
      *
-     * @param \Closure $callback
      *
      * @return $this
      */
-    public function collection(\Closure $callback = null)
+    public function collection(?\Closure $callback = null)
     {
         $this->collectionCallback = $callback;
 
@@ -296,8 +286,7 @@ class Model
     /**
      * Build.
      *
-     * @param bool $toArray
-     *
+     * @param  bool  $toArray
      * @return array|Collection|mixed
      */
     public function buildData($toArray = true)
@@ -320,9 +309,8 @@ class Model
     }
 
     /**
-     * @param callable $callback
-     * @param int      $count
-     *
+     * @param  callable  $callback
+     * @param  int  $count
      * @return bool
      */
     public function chunk($callback, $count = 100)
@@ -345,7 +333,6 @@ class Model
     /**
      * Add conditions to grid model.
      *
-     * @param array $conditions
      *
      * @return $this
      */
@@ -369,9 +356,9 @@ class Model
     }
 
     /**
-     * @throws \Exception
-     *
      * @return Collection
+     *
+     * @throws \Exception
      */
     protected function get()
     {
@@ -428,7 +415,6 @@ class Model
     /**
      * If current page is greater than last page, then redirect to last page.
      *
-     * @param LengthAwarePaginator $paginator
      *
      * @return void
      */
@@ -456,14 +442,14 @@ class Model
             return $query['method'] == 'paginate';
         });
 
-        if (!$this->usePaginate) {
+        if (! $this->usePaginate) {
             $query = [
-                'method'    => 'get',
+                'method' => 'get',
                 'arguments' => [],
             ];
         } else {
             $query = [
-                'method'    => 'paginate',
+                'method' => 'paginate',
                 'arguments' => $this->resolvePerPage($paginate),
             ];
         }
@@ -474,8 +460,7 @@ class Model
     /**
      * Resolve perPage for pagination.
      *
-     * @param array|null $paginate
-     *
+     * @param  array|null  $paginate
      * @return array
      */
     protected function resolvePerPage($paginate)
@@ -504,7 +489,6 @@ class Model
     /**
      * Find query by method name.
      *
-     * @param $method
      *
      * @return static
      */
@@ -523,7 +507,7 @@ class Model
     protected function setSort()
     {
         $this->sort = \request($this->sortName, []);
-        if (!is_array($this->sort)) {
+        if (! is_array($this->sort)) {
             return;
         }
 
@@ -542,7 +526,7 @@ class Model
             $this->resetOrderBy();
 
             if ($columnNameContainsDots === true) {
-                //json
+                // json
                 $this->resetOrderBy();
                 $explodedCols = explode('.', $this->sort['column']);
                 $col = array_shift($explodedCols);
@@ -551,7 +535,7 @@ class Model
             }
 
             // get column. if contains "cast", set set column as cast
-            if (!empty($this->sort['cast'])) {
+            if (! empty($this->sort['cast'])) {
                 $column = "CAST({$columnName} AS {$this->sort['cast']}) {$this->sort['type']}";
                 $method = 'orderByRaw';
                 $arguments = [$column];
@@ -562,7 +546,7 @@ class Model
             }
 
             $this->queries->push([
-                'method'    => $method,
+                'method' => $method,
                 'arguments' => $arguments,
             ]);
         }
@@ -571,13 +555,12 @@ class Model
     /**
      * Set relation sort.
      *
-     * @param string $column
-     *
+     * @param  string  $column
      * @return void
      */
     protected function setRelationSort($column)
     {
-        list($relationName, $relationColumn) = explode('.', $column);
+        [$relationName, $relationColumn] = explode('.', $column);
 
         if ($this->queries->contains(function ($query) use ($relationName) {
             return $query['method'] == 'with' && in_array($relationName, $query['arguments']);
@@ -585,19 +568,19 @@ class Model
             $relation = $this->model->$relationName();
 
             $this->queries->push([
-                'method'    => 'select',
+                'method' => 'select',
                 'arguments' => [$this->model->getTable().'.*'],
             ]);
 
             $this->queries->push([
-                'method'    => 'join',
+                'method' => 'join',
                 'arguments' => $this->joinParameters($relation),
             ]);
 
             $this->resetOrderBy();
 
             $this->queries->push([
-                'method'    => 'orderBy',
+                'method' => 'orderBy',
                 'arguments' => [
                     $relation->getRelated()->getTable().'.'.$relationColumn,
                     $this->sort['type'],
@@ -623,11 +606,10 @@ class Model
      *
      * `HasOne` and `BelongsTo` relation has different join parameters.
      *
-     * @param Relation $relation
-     *
-     * @throws \Exception
      *
      * @return array
+     *
+     * @throws \Exception
      */
     protected function joinParameters(Relation $relation)
     {
@@ -657,15 +639,14 @@ class Model
     }
 
     /**
-     * @param string $method
-     * @param array  $arguments
-     *
+     * @param  string  $method
+     * @param  array  $arguments
      * @return $this
      */
     public function __call($method, $arguments)
     {
         $this->queries->push([
-            'method'    => $method,
+            'method' => $method,
             'arguments' => $arguments,
         ]);
 
@@ -673,8 +654,6 @@ class Model
     }
 
     /**
-     * @param $key
-     *
      * @return mixed
      */
     public function __get($key)

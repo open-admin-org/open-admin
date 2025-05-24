@@ -31,7 +31,7 @@
 
                         @foreach($form->fields() as $field)
 
-                            @if (is_a($field, \OpenAdmin\Admin\Form\Field\Hidden::class))
+                            @if (is_a($field, \SuperAdmin\Admin\Form\Field\Hidden::class))
                                 <?php $hidden .= $field->render(); ?>
                                 @continue
                             @endif

@@ -1,6 +1,6 @@
 <?php
 
-namespace OpenAdmin\Admin\Form\Field;
+namespace SuperAdmin\Admin\Form\Field;
 
 use Illuminate\Contracts\Support\Arrayable;
 
@@ -16,8 +16,7 @@ class Checkbox extends MultipleSelect
     /**
      * Set options.
      *
-     * @param array|callable|string $options
-     *
+     * @param  array|callable|string  $options
      * @return $this|mixed
      */
     public function options($options = [])
@@ -38,8 +37,7 @@ class Checkbox extends MultipleSelect
     /**
      * Set checked.
      *
-     * @param array|callable|string $checked
-     *
+     * @param  array|callable|string  $checked
      * @return $this
      */
     public function checked($checked = [])
@@ -83,8 +81,8 @@ class Checkbox extends MultipleSelect
     public function render()
     {
         $this->addVariables([
-            'checked'      => $this->checked,
-            'stacked'      => $this->stacked,
+            'checked' => $this->checked,
+            'stacked' => $this->stacked,
         ]);
 
         return parent::render();

@@ -1,6 +1,6 @@
 <?php
 
-namespace OpenAdmin\Admin\Console;
+namespace SuperAdmin\Admin\Console;
 
 use Illuminate\Console\Command;
 use Illuminate\Filesystem\Filesystem;
@@ -20,7 +20,7 @@ class ExtendCommand extends Command
      *
      * @var string
      */
-    protected $description = 'Build a Open-admin extension';
+    protected $description = 'Build a super-admin extension';
 
     /**
      * @var string
@@ -80,14 +80,14 @@ class ExtendCommand extends Command
             $this->extensionDir = $this->ask('Please input a directory to store your extension:');
         }
 
-        if (!file_exists($this->extensionDir)) {
+        if (! file_exists($this->extensionDir)) {
             $this->makeDir();
         }
 
         $this->package = $this->argument('extension');
 
         InputExtensionName:
-        if (!$this->validateExtensionName($this->package)) {
+        if (! $this->validateExtensionName($this->package)) {
             $this->package = $this->ask("[$this->package] is not a valid package name, please input a name like (<vendor>/<name>)");
             goto InputExtensionName;
         }
@@ -140,10 +140,10 @@ TREE;
 
         // copy files
         $this->copy([
-            __DIR__.'/stubs/extension/view.stub'       => 'resources/views/index.blade.php',
+            __DIR__.'/stubs/extension/view.stub' => 'resources/views/index.blade.php',
             __DIR__.'/stubs/extension/.gitignore.stub' => '.gitignore',
-            __DIR__.'/stubs/extension/README.md.stub'  => 'README.md',
-            __DIR__.'/stubs/extension/LICENSE.stub'    => 'LICENSE',
+            __DIR__.'/stubs/extension/README.md.stub' => 'README.md',
+            __DIR__.'/stubs/extension/LICENSE.stub' => 'LICENSE',
         ]);
 
         // make composer.json
@@ -194,8 +194,8 @@ TREE;
      */
     protected function getRootNameSpace()
     {
-        if (!$namespace = $this->option('namespace')) {
-            list($vendor, $name) = explode('/', $this->package);
+        if (! $namespace = $this->option('namespace')) {
+            [$vendor, $name] = explode('/', $this->package);
 
             $default = str_replace(['-', '-'], '', Str::title($vendor).'\\'.Str::title($name));
 
@@ -228,8 +228,7 @@ TREE;
     /**
      * Validate extension name.
      *
-     * @param string $name
-     *
+     * @param  string  $name
      * @return int
      */
     protected function validateExtensionName($name)
@@ -240,8 +239,7 @@ TREE;
     /**
      * Extension path.
      *
-     * @param string $path
-     *
+     * @param  string  $path
      * @return string
      */
     protected function extensionPath($path = '')
@@ -258,8 +256,8 @@ TREE;
     /**
      * Put contents to file.
      *
-     * @param string $to
-     * @param string $content
+     * @param  string  $to
+     * @param  string  $content
      */
     protected function putFile($to, $content)
     {
@@ -271,8 +269,8 @@ TREE;
     /**
      * Copy files to extension path.
      *
-     * @param string|array $from
-     * @param string|null  $to
+     * @param  string|array  $from
+     * @param  string|null  $to
      */
     protected function copy($from, $to = null)
     {
@@ -284,7 +282,7 @@ TREE;
             return;
         }
 
-        if (!file_exists($from)) {
+        if (! file_exists($from)) {
             return;
         }
 
@@ -296,7 +294,7 @@ TREE;
     /**
      * Make new directory.
      *
-     * @param array|string $paths
+     * @param  array|string  $paths
      */
     protected function makeDir($paths = '')
     {

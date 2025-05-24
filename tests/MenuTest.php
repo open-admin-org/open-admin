@@ -1,7 +1,7 @@
 <?php
 
-use OpenAdmin\Admin\Auth\Database\Administrator;
-use OpenAdmin\Admin\Auth\Database\Menu;
+use SuperAdmin\Admin\Auth\Database\Administrator;
+use SuperAdmin\Admin\Auth\Database\Menu;
 
 class MenuTest extends TestCase
 {
@@ -12,7 +12,7 @@ class MenuTest extends TestCase
         $this->be(Administrator::first(), 'admin');
     }
 
-    public function testMenuIndex()
+    public function test_menu_index()
     {
         $this->visit('admin/auth/menu')
             ->see('Menu')
@@ -24,7 +24,7 @@ class MenuTest extends TestCase
             ->see('Menu');
     }
 
-    public function testAddMenu()
+    public function test_add_menu()
     {
         $item = ['parent_id' => '0', 'title' => 'Test', 'uri' => 'test'];
 
@@ -36,20 +36,20 @@ class MenuTest extends TestCase
             ->seeInDatabase(config('admin.database.menu_table'), $item)
             ->assertEquals(8, Menu::count());
 
-//        $this->expectException(\Laravel\BrowserKitTesting\HttpException::class);
-//
-//        $this->visit('admin')
-//            ->see('Test')
-//            ->click('Test');
+        //        $this->expectException(\Laravel\BrowserKitTesting\HttpException::class);
+        //
+        //        $this->visit('admin')
+        //            ->see('Test')
+        //            ->click('Test');
     }
 
-    public function testDeleteMenu()
+    public function test_delete_menu()
     {
         $this->delete('admin/auth/menu/8')
             ->assertEquals(7, Menu::count());
     }
 
-    public function testEditMenu()
+    public function test_edit_menu()
     {
         $this->visit('admin/auth/menu/1/edit')
             ->see('Menu')
@@ -59,13 +59,13 @@ class MenuTest extends TestCase
             ->assertEquals(7, Menu::count());
     }
 
-    public function testShowPage()
+    public function test_show_page()
     {
         $this->visit('admin/auth/menu/1/edit')
             ->seePageIs('admin/auth/menu/1/edit');
     }
 
-    public function testEditMenuParent()
+    public function test_edit_menu_parent()
     {
         $this->expectException(\Laravel\BrowserKitTesting\HttpException::class);
 

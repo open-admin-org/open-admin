@@ -1,11 +1,11 @@
 <?php
 
-namespace OpenAdmin\Admin\Grid\Column;
+namespace SuperAdmin\Admin\Grid\Column;
 
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Support\Arr;
-use OpenAdmin\Admin\Grid\Column;
-use OpenAdmin\Admin\Grid\Model;
+use SuperAdmin\Admin\Grid\Column;
+use SuperAdmin\Admin\Grid\Model;
 
 class Filter implements Renderable
 {
@@ -19,9 +19,6 @@ class Filter implements Renderable
      */
     protected $parent;
 
-    /**
-     * @param Column $column
-     */
     public function setParent(Column $column)
     {
         $this->parent = $column;
@@ -40,8 +37,7 @@ class Filter implements Renderable
     /**
      * Get filter value of this column.
      *
-     * @param string $default
-     *
+     * @param  string  $default
      * @return array|\Illuminate\Http\Request|string
      */
     public function getFilterValue($default = '')
@@ -69,8 +65,7 @@ class Filter implements Renderable
     }
 
     /**
-     * @param string $key
-     *
+     * @param  string  $key
      * @return array|null|string
      */
     protected function trans($key)
@@ -81,8 +76,7 @@ class Filter implements Renderable
     /**
      * Add a query binding.
      *
-     * @param mixed $value
-     * @param Model $model
+     * @param  mixed  $value
      */
     public function addBinding($value, Model $model)
     {

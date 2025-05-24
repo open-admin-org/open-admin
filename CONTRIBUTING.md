@@ -2,7 +2,7 @@
 
 ## Introduction
 
-First, thank you for considering contributing to open-admin! It's people like you that make the open source community such a great community! 😊
+First, thank you for considering contributing to super-admin! It's people like you that make the open source community such a great community! 😊
 
 We welcome any type of contribution, not only code. You can help with
 - **QA**: file bug reports, the more details you can give the better (e.g. screenshots with the console open)
@@ -33,7 +33,7 @@ We also welcome financial contributions in full transparency please drop us a li
 ## Questions
 
 If you have any questions, create an [issue](issue) (protip: do a quick search first to see if someone else didn't ask the same question before!).
-You can also reach us at hello@open-admin.opencollective.com.
+You can also reach us at hello@super-admin.opencollective.com.
 
 
 <!-- This `CONTRIBUTING.md` is based on @nayafia's template https://github.com/nayafia/contributing-template -->

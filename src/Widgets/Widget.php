@@ -1,6 +1,6 @@
 <?php
 
-namespace OpenAdmin\Admin\Widgets;
+namespace SuperAdmin\Admin\Widgets;
 
 use Illuminate\Support\Fluent;
 
@@ -19,7 +19,7 @@ abstract class Widget extends Fluent
     /**
      * Set view of widget.
      *
-     * @param string $view
+     * @param  string  $view
      */
     public function view($view)
     {
@@ -36,7 +36,7 @@ abstract class Widget extends Fluent
         $html = [];
         foreach ((array) $this->getAttributes() as $key => $value) {
             $element = $this->attributeElement($key, $value);
-            if (!is_null($element)) {
+            if (! is_null($element)) {
                 $html[] = $element;
             }
         }
@@ -47,9 +47,8 @@ abstract class Widget extends Fluent
     /**
      * Build a single attribute element.
      *
-     * @param string $key
-     * @param string $value
-     *
+     * @param  string  $key
+     * @param  string  $value
      * @return string
      */
     protected function attributeElement($key, $value)
@@ -57,7 +56,7 @@ abstract class Widget extends Fluent
         if (is_numeric($key)) {
             $key = $value;
         }
-        if (!is_null($value)) {
+        if (! is_null($value)) {
             return $key.'="'.htmlentities($value, ENT_QUOTES, 'UTF-8').'"';
         }
     }

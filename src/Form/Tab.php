@@ -1,9 +1,9 @@
 <?php
 
-namespace OpenAdmin\Admin\Form;
+namespace SuperAdmin\Admin\Form;
 
 use Illuminate\Support\Collection;
-use OpenAdmin\Admin\Form;
+use SuperAdmin\Admin\Form;
 
 class Tab
 {
@@ -24,23 +24,19 @@ class Tab
 
     /**
      * Tab constructor.
-     *
-     * @param Form $form
      */
     public function __construct(Form $form)
     {
         $this->form = $form;
 
-        $this->tabs = new Collection();
+        $this->tabs = new Collection;
     }
 
     /**
      * Append a tab section.
      *
-     * @param string   $title
-     * @param \Closure $content
-     * @param bool     $active
-     *
+     * @param  string  $title
+     * @param  bool  $active
      * @return $this
      */
     public function append($title, \Closure $content, $active = false)
@@ -57,7 +53,6 @@ class Tab
     /**
      * Collect fields under current tab.
      *
-     * @param \Closure $content
      *
      * @return Collection
      */
@@ -78,7 +73,7 @@ class Tab
 
             foreach ($rowFields as $field) {
                 if (($index = array_search($field, $all)) !== false) {
-                    if (!$match) {
+                    if (! $match) {
                         $fields->put($index, $row);
                     } else {
                         $fields->pull($index);
@@ -110,7 +105,7 @@ class Tab
 
         // if empty only first
         if ($activeTabs->isEmpty()) {
-            $first           = $this->tabs->first();
+            $first = $this->tabs->first();
             $first['active'] = true;
             $this->tabs->offsetSet(0, $first);
         }

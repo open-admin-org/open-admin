@@ -1,8 +1,8 @@
 <?php
 
-namespace OpenAdmin\Admin\Form\Field;
+namespace SuperAdmin\Admin\Form\Field;
 
-use OpenAdmin\Admin\Form\Field;
+use SuperAdmin\Admin\Form\Field;
 
 class CascadeGroup extends Field
 {
@@ -18,8 +18,6 @@ class CascadeGroup extends Field
 
     /**
      * CascadeGroup constructor.
-     *
-     * @param array $dependency
      */
     public function __construct(array $dependency)
     {
@@ -27,8 +25,6 @@ class CascadeGroup extends Field
     }
 
     /**
-     * @param Field $field
-     *
      * @return bool
      */
     public function dependsOn(Field $field)

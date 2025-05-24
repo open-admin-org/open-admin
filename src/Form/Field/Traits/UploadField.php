@@ -1,11 +1,11 @@
 <?php
 
-namespace OpenAdmin\Admin\Form\Field\Traits;
+namespace SuperAdmin\Admin\Form\Field\Traits;
 
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\URL;
-use OpenAdmin\Admin\Form;
+use SuperAdmin\Admin\Form;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 trait UploadField
@@ -64,7 +64,7 @@ trait UploadField
      */
     protected $fileActionSettings = [
         'showRemove' => false,
-        'showDrag'   => false,
+        'showDrag' => false,
     ];
 
     /**
@@ -78,33 +78,33 @@ trait UploadField
      * @var array
      */
     protected $fileTypes = [
-        'image'      => '/^(gif|png|jpe?g|svg|webp|bpm|tiff)$/i',
-        'html'       => '/^(htm|html)$/i',
-        'word'       => '/^(doc|docx|rtf)$/i',
-        'excel'      => '/^(xls|xlsx|csv)$/i',
+        'image' => '/^(gif|png|jpe?g|svg|webp|bpm|tiff)$/i',
+        'html' => '/^(htm|html)$/i',
+        'word' => '/^(doc|docx|rtf)$/i',
+        'excel' => '/^(xls|xlsx|csv)$/i',
         'powerpoint' => '/^(ppt|pptx|pps|potx)$/i',
-        'text'       => '/^(txt|rtf|md|csv|nfo|ini|json|php|js|css|ts|sql)$/i',
-        'video'      => '/^(og?|mp4|webm|mp?g|mov|3gp|avi|)$/i',
-        'audio'      => '/^(og?|mp3|mp?g|wav)$/i',
-        'pdf'        => '/^(pdf)$/i',
-        'archive'    => '/^(zip|rar)$/i',
+        'text' => '/^(txt|rtf|md|csv|nfo|ini|json|php|js|css|ts|sql)$/i',
+        'video' => '/^(og?|mp4|webm|mp?g|mov|3gp|avi|)$/i',
+        'audio' => '/^(og?|mp3|mp?g|wav)$/i',
+        'pdf' => '/^(pdf)$/i',
+        'archive' => '/^(zip|rar)$/i',
     ];
 
     /**
      * @var array
      */
     protected $fileTypesIcons = [
-        'file'       => 'icon-file',
-        'image'      => 'icon-file-image',
-        'html'       => 'icon-file-code',
-        'word'       => 'icon-file-word',
-        'excel'      => 'icon-file-excel',
+        'file' => 'icon-file',
+        'image' => 'icon-file-image',
+        'html' => 'icon-file-code',
+        'word' => 'icon-file-word',
+        'excel' => 'icon-file-excel',
         'powerpoint' => 'icon-file-powerpoint',
-        'text'       => 'icon-file-alt',
-        'video'      => 'icon-file-video',
-        'audio'      => 'icon-file-audio',
-        'pdf'        => 'icon-file-pdf',
-        'archive'    => 'icon-file-archive',
+        'text' => 'icon-file-alt',
+        'video' => 'icon-file-video',
+        'audio' => 'icon-file-audio',
+        'pdf' => 'icon-file-pdf',
+        'archive' => 'icon-file-archive',
     ];
 
     /**
@@ -135,10 +135,10 @@ trait UploadField
     protected function setupDefaultOptions()
     {
         $defaults = [
-            'retainable'     => false,
-            'sortable'       => true,
-            'download'       => true,
-            'delete'         => true,
+            'retainable' => false,
+            'sortable' => true,
+            'download' => true,
+            'delete' => true,
             'confirm_delete' => true,
         ];
 
@@ -195,8 +195,7 @@ trait UploadField
     /**
      * Indicates if the underlying field is downloadable.
      *
-     * @param bool $downloadable
-     *
+     * @param  bool  $downloadable
      * @return $this
      */
     public function downloadable($downloadable = true)
@@ -237,7 +236,7 @@ trait UploadField
      */
     public function retainable($retainable = true)
     {
-        if (!empty($this->picker) && $retainable == false) {
+        if (! empty($this->picker) && $retainable == false) {
             throw new \InvalidArgumentException(
                 'retainable can not be set to false when using pick()'
             );
@@ -251,8 +250,7 @@ trait UploadField
     /**
      * Set options for file-upload plugin.
      *
-     * @param array $options
-     *
+     * @param  array  $options
      * @return $this
      */
     public function options($options = [])
@@ -265,18 +263,17 @@ trait UploadField
     /**
      * Set disk for storage.
      *
-     * @param string $disk Disks defined in `config/filesystems.php`.
+     * @param  string  $disk  Disks defined in `config/filesystems.php`.
+     * @return $this
      *
      * @throws \Exception
-     *
-     * @return $this
      */
     public function disk($disk)
     {
         try {
             $this->storage = Storage::disk($disk);
         } catch (\Exception $exception) {
-            if (!array_key_exists($disk, config('filesystems.disks'))) {
+            if (! array_key_exists($disk, config('filesystems.disks'))) {
                 admin_error(
                     'Config error.',
                     "Disk [$disk] not configured, please add a disk config in `config/filesystems.php`."
@@ -294,9 +291,8 @@ trait UploadField
     /**
      * Specify the directory and name for upload file.
      *
-     * @param string      $directory
-     * @param null|string $name
-     *
+     * @param  string  $directory
+     * @param  null|string  $name
      * @return $this
      */
     public function move($directory, $name = null)
@@ -311,8 +307,7 @@ trait UploadField
     /**
      * Specify the directory upload file.
      *
-     * @param string $dir
-     *
+     * @param  string  $dir
      * @return $this
      */
     public function dir($dir)
@@ -327,8 +322,7 @@ trait UploadField
     /**
      * Set name of store name.
      *
-     * @param string|callable $name
-     *
+     * @param  string|callable  $name
      * @return $this
      */
     public function name($name)
@@ -367,7 +361,6 @@ trait UploadField
     /**
      * Get store name of upload file.
      *
-     * @param UploadedFile $file
      *
      * @return string
      */
@@ -409,8 +402,7 @@ trait UploadField
     /**
      * Set path column in has-many related model.
      *
-     * @param string $column
-     *
+     * @param  string  $column
      * @return $this
      */
     public function pathColumn($column = 'path')
@@ -423,8 +415,7 @@ trait UploadField
     /**
      * Set path column in has-many related model.
      *
-     * @param string $column
-     *
+     * @param  string  $column
      * @return $this
      */
     public function sortColumn($column = 'order')
@@ -437,7 +428,6 @@ trait UploadField
     /**
      * Upload file and delete original file.
      *
-     * @param UploadedFile $file
      *
      * @return mixed
      */
@@ -445,7 +435,7 @@ trait UploadField
     {
         $this->renameIfExists($file);
 
-        if (!is_null($this->storagePermission)) {
+        if (! is_null($this->storagePermission)) {
             return $this->storage->putFileAs($this->getDirectory(), $file, $this->name, $this->storagePermission);
         }
 
@@ -455,7 +445,6 @@ trait UploadField
     /**
      * If name already exists, rename it.
      *
-     * @param $file
      *
      * @return void
      */
@@ -469,7 +458,6 @@ trait UploadField
     /**
      * Get file visit url.
      *
-     * @param $path
      *
      * @return string
      */
@@ -493,7 +481,6 @@ trait UploadField
     /**
      * Get file path from url.
      *
-     * @param $url
      *
      * @return string
      */
@@ -521,7 +508,6 @@ trait UploadField
     /**
      * Generate a unique name for uploaded file.
      *
-     * @param UploadedFile $file
      *
      * @return string
      */
@@ -533,7 +519,6 @@ trait UploadField
     /**
      * Generate a sequence name for uploaded file.
      *
-     * @param UploadedFile $file
      *
      * @return string
      */
@@ -543,7 +528,7 @@ trait UploadField
         $extension = $file->getClientOriginalExtension();
         $original = str_replace('.'.$extension, '', $file->getClientOriginalName());
 
-        if (!$this->storage->exists($this->getDirectory().'/'.$file->getClientOriginalName())) {
+        if (! $this->storage->exists($this->getDirectory().'/'.$file->getClientOriginalName())) {
             return $file->getClientOriginalName();
         }
 
@@ -573,7 +558,7 @@ trait UploadField
             $this->destroyThumbnail($delete_all);
         }
 
-        if (!empty($this->original) && $this->storage->exists($this->original)) {
+        if (! empty($this->original) && $this->storage->exists($this->original)) {
             $this->storage->delete($this->original);
         }
     }
@@ -581,8 +566,7 @@ trait UploadField
     /**
      * Set file permission when stored into storage.
      *
-     * @param string $permission
-     *
+     * @param  string  $permission
      * @return $this
      */
     public function storagePermission($permission)

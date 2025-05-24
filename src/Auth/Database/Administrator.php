@@ -1,13 +1,13 @@
 <?php
 
-namespace OpenAdmin\Admin\Auth\Database;
+namespace SuperAdmin\Admin\Auth\Database;
 
 use Illuminate\Auth\Authenticatable;
 use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Support\Facades\Storage;
-use OpenAdmin\Admin\Traits\DefaultDatetimeFormat;
+use SuperAdmin\Admin\Traits\DefaultDatetimeFormat;
 
 /**
  * Class Administrator.
@@ -17,15 +17,13 @@ use OpenAdmin\Admin\Traits\DefaultDatetimeFormat;
 class Administrator extends Model implements AuthenticatableContract
 {
     use Authenticatable;
-    use HasPermissions;
     use DefaultDatetimeFormat;
+    use HasPermissions;
 
     protected $fillable = ['username', 'password', 'name', 'avatar'];
 
     /**
      * Create a new Eloquent model instance.
-     *
-     * @param array $attributes
      */
     public function __construct(array $attributes = [])
     {
@@ -41,8 +39,7 @@ class Administrator extends Model implements AuthenticatableContract
     /**
      * Get avatar attribute.
      *
-     * @param string $avatar
-     *
+     * @param  string  $avatar
      * @return string
      */
     public function getAvatarAttribute($avatar)
@@ -57,15 +54,13 @@ class Administrator extends Model implements AuthenticatableContract
             return Storage::disk(config('admin.upload.disk'))->url($avatar);
         }
 
-        $default = config('admin.default_avatar') ?: '/vendor/open-admin/open-admin/gfx/user.svg';
+        $default = config('admin.default_avatar') ?: '/vendor/super-admin/super-admin/gfx/user.svg';
 
         return admin_asset($default);
     }
 
     /**
      * A user has and belongs to many roles.
-     *
-     * @return BelongsToMany
      */
     public function roles(): BelongsToMany
     {
@@ -78,8 +73,6 @@ class Administrator extends Model implements AuthenticatableContract
 
     /**
      * A User has and belongs to many permissions.
-     *
-     * @return BelongsToMany
      */
     public function permissions(): BelongsToMany
     {

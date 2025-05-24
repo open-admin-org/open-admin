@@ -77,11 +77,11 @@
                             $active = in_array($value, \Illuminate\Support\Arr::get($selected, $column, []));
                         @endphp
                         <li>
-                            <a href="{{ \OpenAdmin\Admin\Grid\Tools\Selector::url($column, $value, true) }}"
+                            <a href="{{ \SuperAdmin\Admin\Grid\Tools\Selector::url($column, $value, true) }}"
                                class="{{$active ? 'active' : ''}}">{{ $option }}</a>
                             @if(!$active && $selector['type'] == 'many')
                                 &nbsp;
-                                <a href="{{ \OpenAdmin\Admin\Grid\Tools\Selector::url($column, $value) }}" class="add"><i
+                                <a href="{{ \SuperAdmin\Admin\Grid\Tools\Selector::url($column, $value) }}" class="add"><i
                                             class="icon-plus-square"></i></a>
                             @else
                                 <a style="visibility: hidden;"><i class="icon-plus-square"></i></a>
@@ -89,7 +89,7 @@
                         </li>
                     @endforeach
                     <li>
-                        <a href="{{ \OpenAdmin\Admin\Grid\Tools\Selector::url($column) }}" class="clear"><i
+                        <a href="{{ \SuperAdmin\Admin\Grid\Tools\Selector::url($column) }}" class="clear"><i
                                     class="icon-trash"></i></a>
                     </li>
                 </ul>

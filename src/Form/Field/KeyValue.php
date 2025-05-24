@@ -1,10 +1,10 @@
 <?php
 
-namespace OpenAdmin\Admin\Form\Field;
+namespace SuperAdmin\Admin\Form\Field;
 
 use Illuminate\Support\Arr;
-use OpenAdmin\Admin\Form\Field;
-use OpenAdmin\Admin\Form\Field\Traits\Sortable;
+use SuperAdmin\Admin\Form\Field;
+use SuperAdmin\Admin\Form\Field\Traits\Sortable;
 
 class KeyValue extends Field
 {
@@ -18,8 +18,7 @@ class KeyValue extends Field
     /**
      * Fill data to the field.
      *
-     * @param array $data
-     *
+     * @param  array  $data
      * @return void
      */
     public function fill($data)
@@ -40,17 +39,17 @@ class KeyValue extends Field
             return $this->validator->call($this, $input);
         }
 
-        if (!is_string($this->column)) {
+        if (! is_string($this->column)) {
             return false;
         }
 
         $rules = $attributes = [];
 
-        if (!$fieldRules = $this->getRules()) {
+        if (! $fieldRules = $this->getRules()) {
             return false;
         }
 
-        if (!Arr::has($input, $this->column)) {
+        if (! Arr::has($input, $this->column)) {
             return false;
         }
 

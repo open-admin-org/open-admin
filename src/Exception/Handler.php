@@ -1,6 +1,6 @@
 <?php
 
-namespace OpenAdmin\Admin\Exception;
+namespace SuperAdmin\Admin\Exception;
 
 use Illuminate\Support\MessageBag;
 use Illuminate\Support\ViewErrorBag;
@@ -10,21 +10,20 @@ class Handler
     /**
      * Render exception.
      *
-     * @param \Exception $exception
      *
      * @return string
      */
     public static function renderException(\Exception $exception)
     {
         $error = new MessageBag([
-            'type'    => get_class($exception),
+            'type' => get_class($exception),
             'message' => $exception->getMessage(),
-            'file'    => $exception->getFile(),
-            'line'    => $exception->getLine(),
-            'trace'   => $exception->getTraceAsString(),
+            'file' => $exception->getFile(),
+            'line' => $exception->getLine(),
+            'trace' => $exception->getTraceAsString(),
         ]);
 
-        $errors = new ViewErrorBag();
+        $errors = new ViewErrorBag;
         $errors->put('exception', $error);
 
         return view('admin::partials.exception', compact('errors'))->render();
@@ -33,9 +32,8 @@ class Handler
     /**
      * Flash a error message to content.
      *
-     * @param string $title
-     * @param string $message
-     *
+     * @param  string  $title
+     * @param  string  $message
      * @return mixed
      */
     public static function error($title = '', $message = '')

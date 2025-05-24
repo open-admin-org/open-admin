@@ -1,13 +1,13 @@
 <?php
 
-namespace OpenAdmin\Admin\Form\Field;
+namespace SuperAdmin\Admin\Form\Field;
 
 use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
-use OpenAdmin\Admin\Form\Field;
-use OpenAdmin\Admin\Form\Field\Traits\CanCascadeFields;
+use SuperAdmin\Admin\Form\Field;
+use SuperAdmin\Admin\Form\Field\Traits\CanCascadeFields;
 
 class Select extends Field
 {
@@ -38,8 +38,7 @@ class Select extends Field
     /**
      * Set options.
      *
-     * @param array|callable|string $options
-     *
+     * @param  array|callable|string  $options
      * @return $this|mixed
      */
     public function options($options = [])
@@ -68,10 +67,6 @@ class Select extends Field
     }
 
     /**
-     * @param array $groups
-     */
-
-    /**
      * Set option groups.
      *
      * eg: $group = [
@@ -85,7 +80,6 @@ class Select extends Field
      *        ...
      *     ]
      *
-     * @param array $groups
      *
      * @return $this
      */
@@ -99,11 +93,10 @@ class Select extends Field
     /**
      * Load options for other select on change.
      *
-     * @param string $field
-     * @param string $sourceUrl
-     * @param string $idField
-     * @param string $textField
-     *
+     * @param  string  $field
+     * @param  string  $sourceUrl
+     * @param  string  $idField
+     * @param  string  $textField
      * @return $this
      */
     public function load($field, $url, $idField = 'id', $textField = 'text', bool $allowClear = true)
@@ -144,16 +137,15 @@ JS;
     /**
      * Load options from current selected resource(s).
      *
-     * @param string $model
-     * @param string $idField
-     * @param string $textField
-     *
+     * @param  string  $model
+     * @param  string  $idField
+     * @param  string  $textField
      * @return $this
      */
     public function model($model, $idField = 'id', $textField = 'name')
     {
-        if (!class_exists($model)
-            || !in_array(Model::class, class_parents($model))
+        if (! class_exists($model)
+            || ! in_array(Model::class, class_parents($model))
         ) {
             throw new \InvalidArgumentException("[$model] must be a valid model class");
         }
@@ -184,18 +176,17 @@ JS;
     /**
      * Load options from remote.
      *
-     * @param string $url
-     * @param array  $parameters
-     * @param array  $options
-     *
+     * @param  string  $url
+     * @param  array  $parameters
+     * @param  array  $options
      * @return $this
      */
     protected function loadRemoteOptions($url, $parameters = [], $options = [])
     {
         $this->config = array_merge([
-            'removeItems'        => true,
-            'removeItemButton'   => true,
-            'allowHTML'          => true,
+            'removeItems' => true,
+            'removeItemButton' => true,
+            'allowHTML' => true,
         ], $this->config);
 
         $parameters_json = json_encode($parameters);
@@ -212,19 +203,16 @@ JS;
     /**
      * Load options from ajax results.
      *
-     * @param string $url
-     * @param $idField
-     * @param $textField
-     *
+     * @param  string  $url
      * @return $this
      */
     public function ajax($url, $idField = 'id', $textField = 'text')
     {
         $this->config = array_merge([
-            'removeItems'        => true,
-            'removeItemButton'   => true,
-            'allowHTML'          => true,
-            'placeholder'        => $this->label,
+            'removeItems' => true,
+            'removeItemButton' => true,
+            'allowHTML' => true,
+            'placeholder' => $this->label,
         ], $this->config);
 
         $this->additional_script = <<<JS
@@ -277,9 +265,8 @@ JS;
      *
      * all configurations see https://github.com/jshjohnson/Choices
      *
-     * @param string $key
-     * @param mixed  $val
-     *
+     * @param  string  $key
+     * @param  mixed  $val
      * @return $this
      */
     public function config($key, $val)
@@ -321,10 +308,10 @@ JS;
         $class = get_class($this);
 
         return in_array($class, [
-            'OpenAdmin\Admin\Form\Field\Select',
-            'OpenAdmin\Admin\Form\Field\Tags',
-            'OpenAdmin\Admin\Form\Field\MultipleSelect',
-            'OpenAdmin\Admin\Form\Field\Timezone',
+            'SuperAdmin\Admin\Form\Field\Select',
+            'SuperAdmin\Admin\Form\Field\Tags',
+            'SuperAdmin\Admin\Form\Field\MultipleSelect',
+            'SuperAdmin\Admin\Form\Field\Timezone',
         ]);
     }
 
@@ -334,11 +321,11 @@ JS;
     public function render()
     {
         $configs = array_merge([
-            'removeItems'        => true,
-            'removeItemButton'   => true,
-            'allowHTML'          => true,
-            'placeholder'        => [
-                'id'   => '',
+            'removeItems' => true,
+            'removeItemButton' => true,
+            'allowHTML' => true,
+            'placeholder' => [
+                'id' => '',
                 'text' => $this->label,
             ],
             'classNames' => [
@@ -347,7 +334,7 @@ JS;
         ], $this->config);
         $configs = json_encode($configs);
 
-        if (!$this->native && $this->allowedChoicesJs()) {
+        if (! $this->native && $this->allowedChoicesJs()) {
             $this->script .= 'var '.$this->choicesObjName()." = new Choices('{$this->getElementClassSelector()}',{$configs});";
             $this->script .= $this->additional_script;
         }
@@ -363,7 +350,7 @@ JS;
 
         $this->addVariables([
             'options' => $this->options,
-            'groups'  => $this->groups,
+            'groups' => $this->groups,
         ]);
 
         $this->addCascadeScript();

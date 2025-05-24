@@ -1,6 +1,6 @@
 <?php
 
-namespace OpenAdmin\Admin\Grid\Displayers;
+namespace SuperAdmin\Admin\Grid\Displayers;
 
 use Illuminate\Support\Arr;
 
@@ -24,7 +24,7 @@ class Editable extends AbstractDisplayer
      * @var array
      */
     protected $options = [
-        'emptytext'  => '<i class="icon-pencil"></i>',
+        'emptytext' => '<i class="icon-pencil"></i>',
     ];
 
     /**
@@ -35,7 +35,7 @@ class Editable extends AbstractDisplayer
     /**
      * Add options for editable.
      *
-     * @param array $options
+     * @param  array  $options
      */
     public function addOptions($options = [])
     {
@@ -45,16 +45,13 @@ class Editable extends AbstractDisplayer
     /**
      * Add attributes for editable.
      *
-     * @param array $attributes
+     * @param  array  $attributes
      */
     public function addAttributes($attributes = [])
     {
         $this->attributes = array_merge($this->attributes, $attributes);
     }
 
-    /**
-     * @param array $arguments
-     */
     protected function buildEditableOptions(array $arguments = [])
     {
         $this->type = Arr::get($arguments, 0, 'text');
@@ -75,7 +72,7 @@ class Editable extends AbstractDisplayer
 
         $options = json_encode($this->options);
 
-        $class = '\OpenAdmin\Admin\Grid\Displayers\\'.ucfirst($this->type);
+        $class = '\SuperAdmin\Admin\Grid\Displayers\\'.ucfirst($this->type);
         $displayer = new $class($this->value, $this->grid, $this->column, $this->row);
         $displayer->options = $this->options;
 

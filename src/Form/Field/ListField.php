@@ -1,15 +1,16 @@
 <?php
 
-namespace OpenAdmin\Admin\Form\Field;
+namespace SuperAdmin\Admin\Form\Field;
 
 use Illuminate\Support\Arr;
-use OpenAdmin\Admin\Admin;
-use OpenAdmin\Admin\Form\Field;
-use OpenAdmin\Admin\Form\Field\Traits\Sortable;
+use SuperAdmin\Admin\Admin;
+use SuperAdmin\Admin\Form\Field;
+use SuperAdmin\Admin\Form\Field\Traits\Sortable;
 
 class ListField extends Field
 {
     use Sortable;
+
     /**
      * @var array
      */
@@ -18,8 +19,7 @@ class ListField extends Field
     /**
      * Fill data to the field.
      *
-     * @param array $data
-     *
+     * @param  array  $data
      * @return void
      */
     public function fill($data)
@@ -27,7 +27,7 @@ class ListField extends Field
         $this->data = $data;
 
         $this->value = Arr::get($data, $this->column, $this->value);
-        if (!is_array($this->value)) {
+        if (! is_array($this->value)) {
             $this->value = json_decode($this->value);
         }
         if (empty($this->value)) {
@@ -46,17 +46,17 @@ class ListField extends Field
             return $this->validator->call($this, $input);
         }
 
-        if (!is_string($this->column)) {
+        if (! is_string($this->column)) {
             return false;
         }
 
         $rules = $attributes = [];
 
-        if (!$fieldRules = $this->getRules()) {
+        if (! $fieldRules = $this->getRules()) {
             return false;
         }
 
-        if (!Arr::has($input, $this->column)) {
+        if (! Arr::has($input, $this->column)) {
             return false;
         }
 

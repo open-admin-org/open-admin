@@ -1,17 +1,17 @@
 <?php
 
-namespace OpenAdmin\Admin;
+namespace SuperAdmin\Admin;
 
 use Closure;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Auth;
 use InvalidArgumentException;
-use OpenAdmin\Admin\Auth\Database\Menu;
-use OpenAdmin\Admin\Controllers\AuthController;
-use OpenAdmin\Admin\Layout\Content;
-use OpenAdmin\Admin\Traits\HasAssets;
-use OpenAdmin\Admin\Widgets\Navbar;
+use SuperAdmin\Admin\Auth\Database\Menu;
+use SuperAdmin\Admin\Controllers\AuthController;
+use SuperAdmin\Admin\Layout\Content;
+use SuperAdmin\Admin\Traits\HasAssets;
+use SuperAdmin\Admin\Widgets\Navbar;
 
 /**
  * Class Admin.
@@ -21,7 +21,7 @@ class Admin
     use HasAssets;
 
     /**
-     * The Open-admin version.
+     * The super-admin version.
      *
      * @var string
      */
@@ -63,20 +63,17 @@ class Admin
     protected static $bootedCallbacks = [];
 
     /**
-     * Returns the long version of Open-admin.
+     * Returns the long version of super-admin.
      *
      * @return string The long application version
      */
     public static function getLongVersion()
     {
-        return sprintf('Open-admin <comment>version</comment> <info>%s</info>', self::VERSION);
+        return sprintf('super-admin <comment>version</comment> <info>%s</info>', self::VERSION);
     }
 
     /**
-     * @param $model
-     * @param Closure $callable
-     *
-     * @return \OpenAdmin\Admin\Grid
+     * @return \SuperAdmin\Admin\Grid
      *
      * @deprecated since v1.6.1
      */
@@ -86,10 +83,7 @@ class Admin
     }
 
     /**
-     * @param $model
-     * @param Closure $callable
-     *
-     * @return \OpenAdmin\Admin\Form
+     * @return \SuperAdmin\Admin\Form
      *
      *  @deprecated since v1.6.1
      */
@@ -101,12 +95,10 @@ class Admin
     /**
      * Build a tree.
      *
-     * @param $model
-     * @param Closure|null $callable
      *
-     * @return \OpenAdmin\Admin\Tree
+     * @return \SuperAdmin\Admin\Tree
      */
-    public function tree($model, Closure $callable = null)
+    public function tree($model, ?Closure $callable = null)
     {
         return new Tree($this->getModel($model), $callable);
     }
@@ -114,9 +106,7 @@ class Admin
     /**
      * Build show page.
      *
-     * @param $model
-     * @param mixed $callable
-     *
+     * @param  mixed  $callable
      * @return Show
      */
     public function show($model, $callable = null)
@@ -125,18 +115,14 @@ class Admin
     }
 
     /**
-     * @param Closure $callable
-     *
-     * @return \OpenAdmin\Admin\Layout\Content
+     * @return \SuperAdmin\Admin\Layout\Content
      */
-    public function content(Closure $callable = null)
+    public function content(?Closure $callable = null)
     {
         return new Content($callable);
     }
 
     /**
-     * @param $model
-     *
      * @return mixed
      */
     public function getModel($model)
@@ -146,7 +132,7 @@ class Admin
         }
 
         if (is_string($model) && class_exists($model)) {
-            return $this->getModel(new $model());
+            return $this->getModel(new $model);
         }
 
         throw new InvalidArgumentException("$model is not a valid model");
@@ -159,21 +145,20 @@ class Admin
      */
     public function menu()
     {
-        if (!empty($this->menu)) {
+        if (! empty($this->menu)) {
             return $this->menu;
         }
 
         $menuClass = config('admin.database.menu_model');
 
         /** @var Menu $menuModel */
-        $menuModel = new $menuClass();
+        $menuModel = new $menuClass;
 
         return $this->menu = $menuModel->toTree();
     }
 
     /**
-     * @param array $menu
-     *
+     * @param  array  $menu
      * @return array
      */
     public function menuLinks($menu = [])
@@ -185,7 +170,7 @@ class Admin
         $links = [];
 
         foreach ($menu as $item) {
-            if (!empty($item['children'])) {
+            if (! empty($item['children'])) {
                 $links = array_merge($links, $this->menuLinks($item['children']));
             } else {
                 $links[] = Arr::only($item, ['title', 'uri', 'icon']);
@@ -198,8 +183,7 @@ class Admin
     /**
      * Set admin title.
      *
-     * @param string $title
-     *
+     * @param  string  $title
      * @return void
      */
     public static function setTitle($title)
@@ -218,8 +202,7 @@ class Admin
     }
 
     /**
-     * @param null|string $favicon
-     *
+     * @param  null|string  $favicon
      * @return string|void
      */
     public function favicon($favicon = null)
@@ -264,11 +247,10 @@ class Admin
     /**
      * Set navbar.
      *
-     * @param Closure|null $builder
      *
      * @return Navbar
      */
-    public function navbar(Closure $builder = null)
+    public function navbar(?Closure $builder = null)
     {
         if (is_null($builder)) {
             return $this->getNavbar();
@@ -280,19 +262,19 @@ class Admin
     /**
      * Get navbar object.
      *
-     * @return \OpenAdmin\Admin\Widgets\Navbar
+     * @return \SuperAdmin\Admin\Widgets\Navbar
      */
     public function getNavbar()
     {
         if (is_null($this->navbar)) {
-            $this->navbar = new Navbar();
+            $this->navbar = new Navbar;
         }
 
         return $this->navbar;
     }
 
     /**
-     * Register the open-admin builtin routes.
+     * Register the super-admin builtin routes.
      *
      * @return void
      *
@@ -304,20 +286,20 @@ class Admin
     }
 
     /**
-     * Register the open-admin builtin routes.
+     * Register the super-admin builtin routes.
      *
      * @return void
      */
     public function routes()
     {
         $attributes = [
-            'prefix'     => config('admin.route.prefix'),
+            'prefix' => config('admin.route.prefix'),
             'middleware' => config('admin.route.middleware'),
         ];
 
         app('router')->group($attributes, function ($router) {
             /* @var \Illuminate\Support\Facades\Route $router */
-            $router->namespace('\OpenAdmin\Admin\Controllers')->group(function ($router) {
+            $router->namespace('\SuperAdmin\Admin\Controllers')->group(function ($router) {
                 /* @var \Illuminate\Routing\Router $router */
                 $router->resource('auth/users', 'UserController')->names('admin.auth.users');
                 $router->resource('auth/roles', 'RoleController')->names('admin.auth.roles');
@@ -345,9 +327,8 @@ class Admin
     /**
      * Extend a extension.
      *
-     * @param string $name
-     * @param string $class
-     *
+     * @param  string  $name
+     * @param  string  $class
      * @return void
      */
     public static function extend($name, $class)
@@ -355,17 +336,11 @@ class Admin
         static::$extensions[$name] = $class;
     }
 
-    /**
-     * @param callable $callback
-     */
     public static function booting(callable $callback)
     {
         static::$bootingCallbacks[] = $callback;
     }
 
-    /**
-     * @param callable $callback
-     */
     public static function booted(callable $callback)
     {
         static::$bootedCallbacks[] = $callback;
@@ -418,7 +393,7 @@ class Admin
 
     public static function asset($asset)
     {
-        return url('/vendor/open-admin/'.$asset);
+        return url('/vendor/super-admin/'.$asset);
     }
 
     public static function js_trans()

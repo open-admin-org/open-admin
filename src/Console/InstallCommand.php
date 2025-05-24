@@ -1,6 +1,6 @@
 <?php
 
-namespace OpenAdmin\Admin\Console;
+namespace SuperAdmin\Admin\Console;
 
 use Illuminate\Console\Command;
 
@@ -51,7 +51,7 @@ class InstallCommand extends Command
         $userModel = config('admin.database.users_model');
 
         if ($userModel::count() == 0) {
-            $this->call('db:seed', ['--class' => \OpenAdmin\Admin\Auth\Database\AdminTablesSeeder::class]);
+            $this->call('db:seed', ['--class' => \SuperAdmin\Admin\Auth\Database\AdminTablesSeeder::class]);
         }
     }
 
@@ -165,7 +165,6 @@ class InstallCommand extends Command
     /**
      * Get stub contents.
      *
-     * @param $name
      *
      * @return string
      */
@@ -177,7 +176,7 @@ class InstallCommand extends Command
     /**
      * Make new directory.
      *
-     * @param string $path
+     * @param  string  $path
      */
     protected function makeDir($path = '')
     {

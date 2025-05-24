@@ -1,10 +1,10 @@
 <?php
 
-namespace OpenAdmin\Admin\Form\Field;
+namespace SuperAdmin\Admin\Form\Field;
 
 use Illuminate\Support\Arr;
-use OpenAdmin\Admin\Form\NestedForm;
-use OpenAdmin\Admin\Widgets\Form as WidgetForm;
+use SuperAdmin\Admin\Form\NestedForm;
+use SuperAdmin\Admin\Widgets\Form as WidgetForm;
 
 class Table extends HasMany
 {
@@ -18,28 +18,27 @@ class Table extends HasMany
     /**
      * Table constructor.
      *
-     * @param string $column
-     * @param array  $arguments
+     * @param  string  $column
+     * @param  array  $arguments
      */
     public function __construct($column, $arguments = [])
     {
         $this->column = $column;
 
         if (count($arguments) == 1) {
-            $this->label   = $this->formatLabel();
+            $this->label = $this->formatLabel();
             $this->builder = $arguments[0];
         }
 
         if (count($arguments) == 2) {
-            list($this->label, $this->builder) = $arguments;
+            [$this->label, $this->builder] = $arguments;
         }
     }
 
     /**
      * Save null values or not.
      *
-     * @param bool $set
-     *
+     * @param  bool  $set
      * @return $this
      */
     public function saveNullValues($set = true)

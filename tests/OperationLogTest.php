@@ -1,7 +1,7 @@
 <?php
 
-use OpenAdmin\Admin\Auth\Database\Administrator;
-use OpenAdmin\Admin\Auth\Database\OperationLog;
+use SuperAdmin\Admin\Auth\Database\Administrator;
+use SuperAdmin\Admin\Auth\Database\OperationLog;
 
 class OperationLogTest extends TestCase
 {
@@ -12,7 +12,7 @@ class OperationLogTest extends TestCase
         $this->be(Administrator::first(), 'admin');
     }
 
-    public function testOperationLogIndex()
+    public function test_operation_log_index()
     {
         $this->visit('admin/auth/logs')
             ->see('Operation log')
@@ -21,7 +21,7 @@ class OperationLogTest extends TestCase
             ->see('admin/auth/logs');
     }
 
-    public function testGenerateLogs()
+    public function test_generate_logs()
     {
         $table = config('admin.database.operation_log_table');
 
@@ -43,7 +43,7 @@ class OperationLogTest extends TestCase
         $this->assertEquals(4, OperationLog::count());
     }
 
-    public function testDeleteLogs()
+    public function test_delete_logs()
     {
         $table = config('admin.database.operation_log_table');
 
@@ -59,7 +59,7 @@ class OperationLogTest extends TestCase
             ->assertEquals(0, OperationLog::count());
     }
 
-    public function testDeleteMultipleLogs()
+    public function test_delete_multiple_logs()
     {
         $table = config('admin.database.operation_log_table');
 

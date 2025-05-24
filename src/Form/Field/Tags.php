@@ -1,11 +1,11 @@
 <?php
 
-namespace OpenAdmin\Admin\Form\Field;
+namespace SuperAdmin\Admin\Form\Field;
 
 use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Collection;
-use OpenAdmin\Admin\Form\Field;
+use SuperAdmin\Admin\Form\Field;
 
 class Tags extends Select
 {
@@ -60,14 +60,12 @@ class Tags extends Select
     /**
      * Set visible column and key of data.
      *
-     * @param $visibleColumn
-     * @param $key
      *
      * @return $this
      */
     public function pluck($visibleColumn, $key)
     {
-        if (!empty($visibleColumn) && !empty($key)) {
+        if (! empty($visibleColumn) && ! empty($key)) {
             $this->keyAsValue = true;
         }
 
@@ -80,13 +78,12 @@ class Tags extends Select
     /**
      * Set the field options.
      *
-     * @param array|Collection|Arrayable $options
-     *
+     * @param  array|Collection|Arrayable  $options
      * @return $this|Field
      */
     public function options($options = [])
     {
-        if (!$this->keyAsValue) {
+        if (! $this->keyAsValue) {
             return parent::options($options);
         }
 
@@ -106,8 +103,7 @@ class Tags extends Select
     /**
      * Set Tag Separators.
      *
-     * @param array $separators
-     *
+     * @param  array  $separators
      * @return $this
      */
     public function separators($separators = [])
@@ -115,7 +111,7 @@ class Tags extends Select
         if ($separators instanceof Collection or $separators instanceof Arrayable) {
             $separators = $separators->toArray();
         }
-        if (!empty($separators)) {
+        if (! empty($separators)) {
             $this->separators = $separators;
         }
 
@@ -125,7 +121,6 @@ class Tags extends Select
     /**
      * Set save Action.
      *
-     * @param \Closure $saveAction
      *
      * @return $this
      */
@@ -148,7 +143,7 @@ class Tags extends Select
             return is_null($this->saveAction) ? $value : ($this->saveAction)($value);
         }
 
-        if (is_array($value) && !Arr::isAssoc($value)) {
+        if (is_array($value) && ! Arr::isAssoc($value)) {
             $value = implode(',', $value);
         }
 
@@ -158,8 +153,7 @@ class Tags extends Select
     /**
      * Get or set value for this field.
      *
-     * @param mixed $value
-     *
+     * @param  mixed  $value
      * @return $this|array|mixed
      */
     public function value($value = null)
@@ -179,10 +173,10 @@ class Tags extends Select
     public function render()
     {
         $this->config = array_merge([
-            'allowHTML'             => true,
-            'paste'                 => true,
+            'allowHTML' => true,
+            'paste' => true,
             'duplicateItemsAllowed' => false,
-            'editItems'             => true,
+            'editItems' => true,
         ], $this->config);
 
         return parent::render();

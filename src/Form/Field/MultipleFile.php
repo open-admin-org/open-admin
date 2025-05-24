@@ -1,37 +1,40 @@
 <?php
 
-namespace OpenAdmin\Admin\Form\Field;
+namespace SuperAdmin\Admin\Form\Field;
 
 use Illuminate\Support\Arr;
-use OpenAdmin\Admin\Form;
-use OpenAdmin\Admin\Form\Field;
-use OpenAdmin\Admin\Form\Field\Traits\HasMediaPicker;
-use OpenAdmin\Admin\Form\Field\Traits\UploadField;
+use SuperAdmin\Admin\Form;
+use SuperAdmin\Admin\Form\Field;
+use SuperAdmin\Admin\Form\Field\Traits\HasMediaPicker;
+use SuperAdmin\Admin\Form\Field\Traits\UploadField;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 class MultipleFile extends Field
 {
-    use UploadField;
     use HasMediaPicker;
+    use UploadField;
 
     protected static $css = [
-        '/vendor/open-admin/fields/file-upload/file-upload.css',
+        '/vendor/super-admin/fields/file-upload/file-upload.css',
     ];
 
     protected static $js = [
-        '/vendor/open-admin/fields/file-upload/file-upload.js',
+        '/vendor/super-admin/fields/file-upload/file-upload.js',
     ];
 
     public $must_prepare = true;
+
     public $type = 'file';
+
     public $readonly = false;
+
     public $multiple = true;
 
     /**
      * Create a new File instance.
      *
-     * @param string $column
-     * @param array  $arguments
+     * @param  string  $column
+     * @param  array  $arguments
      */
     public function __construct($column, $arguments = [])
     {
@@ -66,13 +69,13 @@ class MultipleFile extends Field
 
         $attributes = [];
 
-        if (!$fieldRules = $this->getRules()) {
+        if (! $fieldRules = $this->getRules()) {
             return false;
         }
 
         $attributes[$this->column] = $this->label;
 
-        list($rules, $input) = $this->hydrateFiles(Arr::get($input, $this->column, []));
+        [$rules, $input] = $this->hydrateFiles(Arr::get($input, $this->column, []));
 
         return \validator($input, $rules, $this->getValidationMessages(), $attributes);
     }
@@ -80,7 +83,6 @@ class MultipleFile extends Field
     /**
      * Hydrate the files array.
      *
-     * @param array $value
      *
      * @return array
      */
@@ -103,8 +105,7 @@ class MultipleFile extends Field
     /**
      * Sort files.
      *
-     * @param string $order
-     *
+     * @param  string  $order
      * @return array
      */
     protected function sortFiles($order, $updated_files)
@@ -131,8 +132,7 @@ class MultipleFile extends Field
     /**
      * Add files.
      *
-     * @param string $files
-     *
+     * @param  string  $files
      * @return array
      */
     protected function addFiles($add, $updated_files)
@@ -150,8 +150,7 @@ class MultipleFile extends Field
     /**
      * Prepare for saving.
      *
-     * @param UploadedFile|array $files
-     *
+     * @param  UploadedFile|array  $files
      * @return mixed|string
      */
     public function prepare($files)
@@ -166,7 +165,7 @@ class MultipleFile extends Field
             }
         }
 
-        if (!empty($this->picker) && request()->has($this->column.Field::FILE_ADD_FLAG)) {
+        if (! empty($this->picker) && request()->has($this->column.Field::FILE_ADD_FLAG)) {
             $updated_files = $this->addFiles(request($this->column.Field::FILE_ADD_FLAG), $updated_files);
         }
 
@@ -179,7 +178,7 @@ class MultipleFile extends Field
             }
         }
 
-        if (!empty($files)) {
+        if (! empty($files)) {
             $targets = array_map([$this, 'prepareForeach'], $files);
 
             // for create or update
@@ -220,11 +219,10 @@ class MultipleFile extends Field
     /**
      * Prepare for each file.
      *
-     * @param UploadedFile $file
      *
      * @return mixed|string
      */
-    protected function prepareForeach(UploadedFile $file = null)
+    protected function prepareForeach(?UploadedFile $file = null)
     {
         $this->name = $this->getStoreName($file);
 
@@ -243,7 +241,7 @@ class MultipleFile extends Field
         $files = $this->value ?: [];
         $files = $this->fixIfJsonString($files);
 
-        if (!empty($files[0]) && is_array($files[0]) && $this->pathColumn) {
+        if (! empty($files[0]) && is_array($files[0]) && $this->pathColumn) {
             if ($this->sortColumn) {
                 array_multisort(array_column($files, $this->sortColumn), SORT_ASC, $files);
             }
@@ -259,7 +257,7 @@ class MultipleFile extends Field
 
     public function fixIfJsonString($arr)
     {
-        if (!empty($arr) && !is_array($arr)) {
+        if (! empty($arr) && ! is_array($arr)) {
             $arr = json_decode($arr);
         }
 
@@ -269,8 +267,7 @@ class MultipleFile extends Field
     /**
      * Initialize the caption.
      *
-     * @param array $caption
-     *
+     * @param  array  $caption
      * @return string
      */
     protected function initialCaption($caption)
@@ -302,7 +299,7 @@ class MultipleFile extends Field
 
             $preview = array_merge([
                 'caption' => basename($file),
-                'key'     => $index,
+                'key' => $index,
             ], $this->guessPreviewType($file));
 
             $config[] = $preview;
@@ -345,8 +342,7 @@ class MultipleFile extends Field
     /**
      * Destroy original files.
      *
-     * @param string $key
-     *
+     * @param  string  $key
      * @return array
      */
     public function destroy($remove_me)
@@ -366,7 +362,7 @@ class MultipleFile extends Field
 
     public function destroyFile($file)
     {
-        if (!$this->retainable && $this->storage->exists($file)) {
+        if (! $this->retainable && $this->storage->exists($file)) {
             /* If this field class is using ImageField trait i.e MultipleImage field,
             we loop through the thumbnails to delete them as well. */
             if (isset($this->thumbnails) && method_exists($this, 'destroyThumbnailFile')) {
@@ -381,8 +377,7 @@ class MultipleFile extends Field
     /**
      * Destroy original files from hasmany related model.
      *
-     * @param int $key
-     *
+     * @param  int  $key
      * @return array
      */
     public function destroyFromHasMany($remove_me)
@@ -405,9 +400,8 @@ class MultipleFile extends Field
     /**
      * Sort files.
      *
-     * @param string $order
-     * @param array  $files
-     *
+     * @param  string  $order
+     * @param  array  $files
      * @return array
      */
     protected function sortFilesFromHasmany($order, $files)
@@ -427,7 +421,7 @@ class MultipleFile extends Field
 
     protected function getFieldId()
     {
-        if (!empty($this->elementName)) {
+        if (! empty($this->elementName)) {
             $id = $this->elementName;
         } else {
             $id = $this->id;
@@ -473,15 +467,15 @@ class MultipleFile extends Field
             $this->renderMediaPicker();
         }
 
-        if (!is_array($this->value)) {
-            //try decoding json
+        if (! is_array($this->value)) {
+            // try decoding json
             $this->value = json_decode($this->value);
-            if (!is_array($this->value)) {
+            if (! is_array($this->value)) {
                 throw new \Exception('Column: '.$this->column.' with Label: '.$this->label.'; value is not empty and not a valid Array');
             }
         }
 
-        if (!empty($this->value)) {
+        if (! empty($this->value)) {
             $this->attribute('data-files', $this->preview());
             $this->setupPreviewOptions();
         }

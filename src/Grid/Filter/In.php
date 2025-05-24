@@ -1,6 +1,6 @@
 <?php
 
-namespace OpenAdmin\Admin\Grid\Filter;
+namespace SuperAdmin\Admin\Grid\Filter;
 
 use Illuminate\Support\Arr;
 
@@ -14,8 +14,7 @@ class In extends AbstractFilter
     /**
      * Get condition of this filter.
      *
-     * @param array $inputs
-     *
+     * @param  array  $inputs
      * @return mixed
      */
     public function condition($inputs)

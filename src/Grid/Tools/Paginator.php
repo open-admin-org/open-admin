@@ -1,9 +1,9 @@
 <?php
 
-namespace OpenAdmin\Admin\Grid\Tools;
+namespace SuperAdmin\Admin\Grid\Tools;
 
 use Illuminate\Pagination\LengthAwarePaginator;
-use OpenAdmin\Admin\Grid;
+use SuperAdmin\Admin\Grid;
 
 class Paginator extends AbstractTool
 {
@@ -19,8 +19,6 @@ class Paginator extends AbstractTool
 
     /**
      * Create a new Paginator instance.
-     *
-     * @param Grid $grid
      */
     public function __construct(Grid $grid, $perPageSelector = true)
     {
@@ -61,7 +59,7 @@ class Paginator extends AbstractTool
      */
     protected function perPageSelector()
     {
-        if (!$this->perPageSelector) {
+        if (! $this->perPageSelector) {
             return;
         }
 
@@ -77,7 +75,7 @@ class Paginator extends AbstractTool
     {
         $parameters = [
             'first' => $this->paginator->firstItem(),
-            'last'  => $this->paginator->lastItem(),
+            'last' => $this->paginator->lastItem(),
             'total' => $this->paginator->total(),
         ];
 
@@ -95,14 +93,14 @@ class Paginator extends AbstractTool
      */
     public function render()
     {
-        if (!$this->grid->showPagination()) {
+        if (! $this->grid->showPagination()) {
             return '';
         }
 
         $vars = [
-            'range'       => $this->paginationRanger(),
-            'links'       => $this->paginationLinks(),
-            'per_page'    => $this->perPageSelector(),
+            'range' => $this->paginationRanger(),
+            'links' => $this->paginationLinks(),
+            'per_page' => $this->perPageSelector(),
             'fixedFooter' => $this->grid->fixedFooter,
         ];
 

@@ -1,11 +1,11 @@
 <?php
 
-namespace OpenAdmin\Admin\Grid\Filter\Presenter;
+namespace SuperAdmin\Admin\Grid\Filter\Presenter;
 
 use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Arr;
-use OpenAdmin\Admin\Facades\Admin;
+use SuperAdmin\Admin\Facades\Admin;
 
 class Select extends Presenter
 {
@@ -34,7 +34,7 @@ class Select extends Presenter
     /**
      * Select constructor.
      *
-     * @param mixed $options
+     * @param  mixed  $options
      */
     public function __construct($options)
     {
@@ -46,9 +46,8 @@ class Select extends Presenter
      *
      * all configurations see https://github.com/jshjohnson/Choices
      *
-     * @param string $key
-     * @param mixed  $val
-     *
+     * @param  string  $key
+     * @param  mixed  $val
      * @return $this
      */
     public function config($key, $val)
@@ -72,8 +71,6 @@ class Select extends Presenter
 
     /**
      * Build options.
-     *
-     * @return array
      */
     protected function buildOptions(): array
     {
@@ -90,10 +87,10 @@ class Select extends Presenter
         }
 
         $configs = array_merge([
-            'removeItems'        => true,
-            'removeItemButton'   => true,
-            'allowHTML'          => true,
-            'classNames'         => [
+            'removeItems' => true,
+            'removeItemButton' => true,
+            'allowHTML' => true,
+            'classNames' => [
                 'containerOuter' => 'choices '.$this->getElementClass(),
             ],
         ], $this->config);
@@ -108,16 +105,15 @@ class Select extends Presenter
     /**
      * Load options from current selected resource(s).
      *
-     * @param string $model
-     * @param string $idField
-     * @param string $textField
-     *
+     * @param  string  $model
+     * @param  string  $idField
+     * @param  string  $textField
      * @return $this
      */
     public function model($model, $idField = 'id', $textField = 'name')
     {
-        if (!class_exists($model)
-            || !in_array(Model::class, class_parents($model))
+        if (! class_exists($model)
+            || ! in_array(Model::class, class_parents($model))
         ) {
             throw new \InvalidArgumentException("[$model] must be a valid model class");
         }
@@ -148,17 +144,16 @@ class Select extends Presenter
     /**
      * Load options from remote.
      *
-     * @param string $url
-     * @param array  $parameters
-     * @param array  $options
-     *
+     * @param  string  $url
+     * @param  array  $parameters
+     * @param  array  $options
      * @return $this
      */
     protected function loadRemoteOptions($url, $parameters = [], $options = [])
     {
         $this->config = array_merge([
-            'removeItems'        => true,
-            'removeItemButton'   => true,
+            'removeItems' => true,
+            'removeItemButton' => true,
         ], $this->config);
 
         $parameters_json = json_encode($parameters);
@@ -175,16 +170,14 @@ JS;
     /**
      * Load options from ajax.
      *
-     * @param string $resourceUrl
-     * @param $idField
-     * @param $textField
+     * @param  string  $resourceUrl
      */
     public function ajax($url, $idField = 'id', $textField = 'text')
     {
         $this->config = array_merge([
-            'removeItems'        => true,
-            'removeItemButton'   => true,
-            'placeholder'        => $this->label,
+            'removeItems' => true,
+            'removeItemButton' => true,
+            'placeholder' => $this->label,
         ], $this->config);
 
         $this->additional_script = <<<JS
@@ -208,20 +201,14 @@ JS;
         return $this;
     }
 
-    /**
-     * @return array
-     */
     public function variables(): array
     {
         return [
             'options' => $this->buildOptions(),
-            'class'   => $this->getElementClass(),
+            'class' => $this->getElementClass(),
         ];
     }
 
-    /**
-     * @return string
-     */
     protected function getElementClass(): string
     {
         return str_replace('.', '_', $this->filter->getColumn());
@@ -230,8 +217,7 @@ JS;
     /**
      * Get form element class.
      *
-     * @param string $target
-     *
+     * @param  string  $target
      * @return mixed
      */
     protected function getClass($target): string

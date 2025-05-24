@@ -2,9 +2,9 @@
 
 namespace Tests\Controllers;
 
-use OpenAdmin\Admin\Controllers\AdminController;
-use OpenAdmin\Admin\Form;
-use OpenAdmin\Admin\Grid;
+use SuperAdmin\Admin\Controllers\AdminController;
+use SuperAdmin\Admin\Form;
+use SuperAdmin\Admin\Grid;
 use Tests\Models\File;
 
 class FileController extends AdminController
@@ -18,7 +18,7 @@ class FileController extends AdminController
      */
     protected function grid()
     {
-        $grid = new Grid(new File());
+        $grid = new Grid(new File);
 
         $grid->id('ID')->sortable();
 
@@ -35,7 +35,7 @@ class FileController extends AdminController
      */
     protected function form()
     {
-        $form = new Form(new File());
+        $form = new Form(new File);
 
         $form->display('id', 'ID');
 

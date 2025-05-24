@@ -1,54 +1,54 @@
 <?php
 
-namespace OpenAdmin\Admin\Form;
+namespace SuperAdmin\Admin\Form;
 
 use Illuminate\Support\Arr;
 use Illuminate\Support\Collection;
-use OpenAdmin\Admin\Form;
-use OpenAdmin\Admin\Widgets\Form as WidgetForm;
+use SuperAdmin\Admin\Form;
+use SuperAdmin\Admin\Widgets\Form as WidgetForm;
 
 /**
  * Class EmbeddedForm.
  *
- * @method Field\Text           text($column, $label = '')
- * @method Field\Checkbox       checkbox($column, $label = '')
- * @method Field\Radio          radio($column, $label = '')
- * @method Field\Select         select($column, $label = '')
+ * @method Field\Text text($column, $label = '')
+ * @method Field\Checkbox checkbox($column, $label = '')
+ * @method Field\Radio radio($column, $label = '')
+ * @method Field\Select select($column, $label = '')
  * @method Field\MultipleSelect multipleSelect($column, $label = '')
- * @method Field\Textarea       textarea($column, $label = '')
- * @method Field\Hidden         hidden($column, $label = '')
- * @method Field\Id             id($column, $label = '')
- * @method Field\Ip             ip($column, $label = '')
- * @method Field\Url            url($column, $label = '')
- * @method Field\Color          color($column, $label = '')
- * @method Field\Email          email($column, $label = '')
- * @method Field\PhoneNumber    phonenumber($column, $label = '')
- * @method Field\Slider         slider($column, $label = '')
- * @method Field\Map            map($latitude, $longitude, $label = '')
- * @method Field\Editor         editor($column, $label = '')
- * @method Field\File           file($column, $label = '')
- * @method Field\Image          image($column, $label = '')
- * @method Field\Date           date($column, $label = '')
- * @method Field\Datetime       datetime($column, $label = '')
- * @method Field\Time           time($column, $label = '')
- * @method Field\Year           year($column, $label = '')
- * @method Field\Month          month($column, $label = '')
- * @method Field\DateRange      dateRange($start, $end, $label = '')
- * @method Field\DateTimeRange  datetimeRange($start, $end, $label = '')
- * @method Field\TimeRange      timeRange($start, $end, $label = '')
- * @method Field\Number         number($column, $label = '')
- * @method Field\Currency       currency($column, $label = '')
- * @method Field\HasMany        hasMany($relationName, $callback)
- * @method Field\SwitchField    switch($column, $label = '')
- * @method Field\Display        display($column, $label = '')
- * @method Field\Rate           rate($column, $label = '')
- * @method Field\Divide         divider()
- * @method Field\Password       password($column, $label = '')
- * @method Field\Decimal        decimal($column, $label = '')
- * @method Field\Html           html($html, $label = '')
- * @method Field\Tags           tags($column, $label = '')
- * @method Field\Icon           icon($column, $label = '')
- * @method Field\Embeds         embeds($column, $label = '')
+ * @method Field\Textarea textarea($column, $label = '')
+ * @method Field\Hidden hidden($column, $label = '')
+ * @method Field\Id id($column, $label = '')
+ * @method Field\Ip ip($column, $label = '')
+ * @method Field\Url url($column, $label = '')
+ * @method Field\Color color($column, $label = '')
+ * @method Field\Email email($column, $label = '')
+ * @method Field\PhoneNumber phonenumber($column, $label = '')
+ * @method Field\Slider slider($column, $label = '')
+ * @method Field\Map map($latitude, $longitude, $label = '')
+ * @method Field\Editor editor($column, $label = '')
+ * @method Field\File file($column, $label = '')
+ * @method Field\Image image($column, $label = '')
+ * @method Field\Date date($column, $label = '')
+ * @method Field\Datetime datetime($column, $label = '')
+ * @method Field\Time time($column, $label = '')
+ * @method Field\Year year($column, $label = '')
+ * @method Field\Month month($column, $label = '')
+ * @method Field\DateRange dateRange($start, $end, $label = '')
+ * @method Field\DateTimeRange datetimeRange($start, $end, $label = '')
+ * @method Field\TimeRange timeRange($start, $end, $label = '')
+ * @method Field\Number number($column, $label = '')
+ * @method Field\Currency currency($column, $label = '')
+ * @method Field\HasMany hasMany($relationName, $callback)
+ * @method Field\SwitchField switch($column, $label = '')
+ * @method Field\Display display($column, $label = '')
+ * @method Field\Rate rate($column, $label = '')
+ * @method Field\Divide divider()
+ * @method Field\Password password($column, $label = '')
+ * @method Field\Decimal decimal($column, $label = '')
+ * @method Field\Html html($html, $label = '')
+ * @method Field\Tags tags($column, $label = '')
+ * @method Field\Icon icon($column, $label = '')
+ * @method Field\Embeds embeds($column, $label = '')
  */
 class EmbeddedForm
 {
@@ -81,13 +81,13 @@ class EmbeddedForm
     /**
      * EmbeddedForm constructor.
      *
-     * @param string $column
+     * @param  string  $column
      */
     public function __construct($column)
     {
         $this->column = $column;
 
-        $this->fields = new Collection();
+        $this->fields = new Collection;
     }
 
     /**
@@ -103,7 +103,6 @@ class EmbeddedForm
     /**
      * Set parent form for this form.
      *
-     * @param Form $parent
      *
      * @return $this
      */
@@ -117,7 +116,6 @@ class EmbeddedForm
     /**
      * Set parent form for this form.
      *
-     * @param WidgetForm $parent
      *
      * @return $this
      */
@@ -131,8 +129,7 @@ class EmbeddedForm
     /**
      * Set original values for fields.
      *
-     * @param array $data
-     *
+     * @param  array  $data
      * @return $this
      */
     public function setOriginal($data)
@@ -153,8 +150,7 @@ class EmbeddedForm
     /**
      * Prepare for insert or update.
      *
-     * @param array $input
-     *
+     * @param  array  $input
      * @return mixed
      */
     public function prepare($input)
@@ -170,9 +166,8 @@ class EmbeddedForm
     /**
      * Do prepare work for each field.
      *
-     * @param string $key
-     * @param string $record
-     *
+     * @param  string  $key
+     * @param  string  $record
      * @return mixed
      */
     protected function prepareValue($key, $record)
@@ -191,8 +186,7 @@ class EmbeddedForm
     /**
      * Set original data for each field.
      *
-     * @param string $key
-     *
+     * @param  string  $key
      * @return void
      */
     protected function setFieldOriginalValue($key)
@@ -209,7 +203,6 @@ class EmbeddedForm
     /**
      * Fill data to all fields in form.
      *
-     * @param array $data
      *
      * @return $this
      */
@@ -225,7 +218,6 @@ class EmbeddedForm
     /**
      * Format form, set `element name` `error key` and `element class`.
      *
-     * @param Field $field
      *
      * @return Field
      */
@@ -257,7 +249,6 @@ class EmbeddedForm
     /**
      * Add a field to form.
      *
-     * @param Field $field
      *
      * @return $this
      */
@@ -273,9 +264,8 @@ class EmbeddedForm
     /**
      * Add nested-form fields dynamically.
      *
-     * @param string $method
-     * @param array  $arguments
-     *
+     * @param  string  $method
+     * @param  array  $arguments
      * @return Field|$this
      */
     public function __call($method, $arguments)

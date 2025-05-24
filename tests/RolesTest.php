@@ -1,7 +1,7 @@
 <?php
 
-use OpenAdmin\Admin\Auth\Database\Administrator;
-use OpenAdmin\Admin\Auth\Database\Role;
+use SuperAdmin\Admin\Auth\Database\Administrator;
+use SuperAdmin\Admin\Auth\Database\Role;
 
 class RolesTest extends TestCase
 {
@@ -12,14 +12,14 @@ class RolesTest extends TestCase
         $this->be(Administrator::first(), 'admin');
     }
 
-    public function testRolesIndex()
+    public function test_roles_index()
     {
         $this->visit('admin/auth/roles')
             ->see('Roles')
             ->see('administrator');
     }
 
-    public function testAddRole()
+    public function test_add_role()
     {
         $this->visit('admin/auth/roles/create')
             ->see('Roles')
@@ -29,12 +29,12 @@ class RolesTest extends TestCase
             ->assertEquals(2, Role::count());
     }
 
-    public function testAddRoleToUser()
+    public function test_add_role_to_user()
     {
         $user = [
-            'username'              => 'Test',
-            'name'                  => 'Name',
-            'password'              => '123456',
+            'username' => 'Test',
+            'name' => 'Name',
+            'password' => '123456',
             'password_confirmation' => '123456',
 
         ];
@@ -68,7 +68,7 @@ class RolesTest extends TestCase
         $this->assertTrue(Administrator::find(2)->inRoles(['developer', 'operator', 'editor']));
     }
 
-    public function testDeleteRole()
+    public function test_delete_role()
     {
         $this->assertEquals(1, Role::count());
 
@@ -86,7 +86,7 @@ class RolesTest extends TestCase
             ->assertEquals(0, Role::count());
     }
 
-    public function testEditRole()
+    public function test_edit_role()
     {
         $this->visit('admin/auth/roles/create')
             ->see('Roles')

@@ -1,6 +1,6 @@
 <?php
 
-namespace OpenAdmin\Admin;
+namespace SuperAdmin\Admin;
 
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Database\Eloquent\Model;
@@ -15,11 +15,11 @@ use Illuminate\Database\Eloquent\Relations\Relation as EloquentRelation;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
-use OpenAdmin\Admin\Show\Divider;
-use OpenAdmin\Admin\Show\Field;
-use OpenAdmin\Admin\Show\Panel;
-use OpenAdmin\Admin\Show\Relation;
-use OpenAdmin\Admin\Traits\ShouldSnakeAttributes;
+use SuperAdmin\Admin\Show\Divider;
+use SuperAdmin\Admin\Show\Field;
+use SuperAdmin\Admin\Show\Panel;
+use SuperAdmin\Admin\Show\Relation;
+use SuperAdmin\Admin\Traits\ShouldSnakeAttributes;
 
 class Show implements Renderable
 {
@@ -80,8 +80,8 @@ class Show implements Renderable
     /**
      * Show constructor.
      *
-     * @param Model $model
-     * @param mixed $builder
+     * @param  Model  $model
+     * @param  mixed  $builder
      */
     public function __construct($model, $builder = null)
     {
@@ -98,10 +98,8 @@ class Show implements Renderable
 
     /**
      * Initialize with user pre-defined default disables, etc.
-     *
-     * @param \Closure $callback
      */
-    public static function init(\Closure $callback = null)
+    public static function init(?\Closure $callback = null)
     {
         static::$initCallback = $callback;
     }
@@ -109,9 +107,8 @@ class Show implements Renderable
     /**
      * Register custom field.
      *
-     * @param string $abstract
-     * @param string $class
-     *
+     * @param  string  $abstract
+     * @param  string  $class
      * @return void
      */
     public static function extend($abstract, $class)
@@ -124,8 +121,8 @@ class Show implements Renderable
      */
     protected function initContents()
     {
-        $this->fields = new Collection();
-        $this->relations = new Collection();
+        $this->fields = new Collection;
+        $this->relations = new Collection;
     }
 
     /**
@@ -149,9 +146,8 @@ class Show implements Renderable
     /**
      * Add a model field to show.
      *
-     * @param string $name
-     * @param string $label
-     *
+     * @param  string  $name
+     * @param  string  $label
      * @return Field
      */
     public function field($name, $label = '')
@@ -162,13 +158,12 @@ class Show implements Renderable
     /**
      * Add multiple fields.
      *
-     * @param array $fields
      *
      * @return $this
      */
     public function fields(array $fields = [])
     {
-        if (!Arr::isAssoc($fields)) {
+        if (! Arr::isAssoc($fields)) {
             $fields = array_combine($fields, $fields);
         }
 
@@ -194,10 +189,9 @@ class Show implements Renderable
     /**
      * Add a relation to show.
      *
-     * @param string          $name
-     * @param string|\Closure $label
-     * @param null|\Closure   $builder
-     *
+     * @param  string  $name
+     * @param  string|\Closure  $label
+     * @param  null|\Closure  $builder
      * @return Relation
      */
     public function relation($name, $label, $builder = null)
@@ -213,9 +207,8 @@ class Show implements Renderable
     /**
      * Add a model field to show.
      *
-     * @param string $name
-     * @param string $label
-     *
+     * @param  string  $name
+     * @param  string  $label
      * @return Field
      */
     protected function addField($name, $label = '')
@@ -234,10 +227,9 @@ class Show implements Renderable
     /**
      * Add a relation panel to show.
      *
-     * @param string   $name
-     * @param \Closure $builder
-     * @param string   $label
-     *
+     * @param  string  $name
+     * @param  \Closure  $builder
+     * @param  string  $label
      * @return Relation
      */
     protected function addRelation($name, $builder, $label = '')
@@ -256,7 +248,7 @@ class Show implements Renderable
     /**
      * Overwrite existing field.
      *
-     * @param string $name
+     * @param  string  $name
      */
     protected function overwriteExistingField($name)
     {
@@ -274,7 +266,7 @@ class Show implements Renderable
     /**
      * Overwrite existing relation.
      *
-     * @param string $name
+     * @param  string  $name
      */
     protected function overwriteExistingRelation($name)
     {
@@ -294,14 +286,13 @@ class Show implements Renderable
      */
     public function divider()
     {
-        $this->fields->push(new Divider());
+        $this->fields->push(new Divider);
     }
 
     /**
      * Set resource path.
      *
-     * @param string $resource
-     *
+     * @param  string  $resource
      * @return $this
      */
     public function setResource($resource)
@@ -333,9 +324,8 @@ class Show implements Renderable
     /**
      * Set field and label width in fields.
      *
-     * @param int $fieldWidth
-     * @param int $labelWidth
-     *
+     * @param  int  $fieldWidth
+     * @param  int  $labelWidth
      * @return $this
      */
     public function setWidth($fieldWidth = 8, $labelWidth = 2)
@@ -350,8 +340,7 @@ class Show implements Renderable
     /**
      * Set the model instance.
      *
-     * @param Model $model
-     *
+     * @param  Model  $model
      * @return $this
      */
     public function setModel($model)
@@ -374,9 +363,8 @@ class Show implements Renderable
     /**
      * Add field and relation dynamically.
      *
-     * @param string $method
-     * @param array  $arguments
-     *
+     * @param  string  $method
+     * @param  array  $arguments
      * @return bool|mixed
      */
     public function __call($method, $arguments = [])
@@ -397,9 +385,8 @@ class Show implements Renderable
     /**
      * Handle the get mutator field.
      *
-     * @param string $method
-     * @param string $label
-     *
+     * @param  string  $method
+     * @param  string  $label
      * @return bool|Field
      */
     protected function handleGetMutatorField($method, $label)
@@ -418,18 +405,17 @@ class Show implements Renderable
     /**
      * Handle relation field.
      *
-     * @param string $method
-     * @param array  $arguments
-     *
+     * @param  string  $method
+     * @param  array  $arguments
      * @return $this|bool|Relation|Field
      */
     protected function handleRelationField($method, $arguments)
     {
-        if (!method_exists($this->model, $method)) {
+        if (! method_exists($this->model, $method)) {
             return false;
         }
 
-        if (!($relation = $this->model->$method()) instanceof EloquentRelation) {
+        if (! ($relation = $this->model->$method()) instanceof EloquentRelation) {
             return false;
         }
 
@@ -476,9 +462,8 @@ class Show implements Renderable
     }
 
     /**
-     * @param string $relation
-     * @param string $label
-     *
+     * @param  string  $relation
+     * @param  string  $label
      * @return Field
      */
     protected function showRelationAsField($relation = '', $label = '')
@@ -489,9 +474,8 @@ class Show implements Renderable
     /**
      * Handle model field.
      *
-     * @param string $method
-     * @param string $label
-     *
+     * @param  string  $method
+     * @param  string  $label
      * @return bool|Field
      */
     protected function handleModelField($method, $label)
@@ -526,7 +510,7 @@ class Show implements Renderable
         $this->relations->each->setModel($this->model);
 
         $data = [
-            'panel'     => $this->panel->fill($this->fields),
+            'panel' => $this->panel->fill($this->fields),
             'relations' => $this->relations,
         ];
 

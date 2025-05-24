@@ -1,17 +1,17 @@
 <?php
 
-namespace OpenAdmin\Admin\Grid\Concerns;
+namespace SuperAdmin\Admin\Grid\Concerns;
 
 use Closure;
 use Illuminate\Support\Collection;
-use OpenAdmin\Admin\Grid\Filter;
+use SuperAdmin\Admin\Grid\Filter;
 
 trait HasFilter
 {
     /**
      * The grid Filter.
      *
-     * @var \OpenAdmin\Admin\Grid\Filter
+     * @var \SuperAdmin\Admin\Grid\Filter
      */
     protected $filter;
 
@@ -36,7 +36,7 @@ trait HasFilter
     {
         $this->tools->disableFilterButton($disable);
 
-        return $this->option('show_filter', !$disable);
+        return $this->option('show_filter', ! $disable);
     }
 
     /**
@@ -52,8 +52,7 @@ trait HasFilter
     /**
      * Process the grid filter.
      *
-     * @param bool $toArray
-     *
+     * @param  bool  $toArray
      * @return array|Collection|mixed
      */
     public function applyFilter($toArray = true)
@@ -67,8 +66,6 @@ trait HasFilter
 
     /**
      * Set the grid filter.
-     *
-     * @param Closure $callback
      */
     public function filter(Closure $callback)
     {
@@ -82,7 +79,7 @@ trait HasFilter
      */
     public function renderFilter()
     {
-        if (!$this->option('show_filter')) {
+        if (! $this->option('show_filter')) {
             return '';
         }
 

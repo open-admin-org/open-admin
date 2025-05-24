@@ -1,9 +1,9 @@
 <?php
 
-namespace OpenAdmin\Admin\Grid\Concerns;
+namespace SuperAdmin\Admin\Grid\Concerns;
 
 use Illuminate\Support\Collection;
-use OpenAdmin\Admin\Grid\Tools\FixColumns;
+use SuperAdmin\Admin\Grid\Tools\FixColumns;
 
 trait CanFixColumns
 {
@@ -12,10 +12,6 @@ trait CanFixColumns
      */
     protected $fixColumns;
 
-    /**
-     * @param int $head
-     * @param int $tail
-     */
     public function fixColumns(int $head, int $tail = -1)
     {
         $this->fixColumns = new FixColumns($this, $head, $tail);

@@ -1,6 +1,6 @@
 <?php
 
-namespace OpenAdmin\Admin\Grid\Displayers;
+namespace SuperAdmin\Admin\Grid\Displayers;
 
 use Illuminate\Support\Arr;
 
@@ -39,7 +39,7 @@ class Table extends AbstractDisplayer
 
         $variables = [
             'titles' => $titles,
-            'data'   => $data,
+            'data' => $data,
         ];
 
         return view('admin::grid.displayer.table', $variables)->render();

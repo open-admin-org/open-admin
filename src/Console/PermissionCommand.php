@@ -1,11 +1,11 @@
 <?php
 
-namespace OpenAdmin\Admin\Console;
+namespace SuperAdmin\Admin\Console;
 
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
-use OpenAdmin\Admin\Auth\Database\Permission;
+use SuperAdmin\Admin\Auth\Database\Permission;
 
 class PermissionCommand extends Command
 {
@@ -64,12 +64,12 @@ class PermissionCommand extends Command
                 $slug = $this->generateSlug($table, $permission);
                 $name = $this->generateName($table, $permission_lang);
                 $exists = Permission::where('slug', $slug)->exists();
-                if (!$exists) {
+                if (! $exists) {
                     Permission::create([
-                        'name'        => $name,
-                        'slug'        => $slug,
+                        'name' => $name,
+                        'slug' => $slug,
                         'http_method' => $http_method,
-                        'http_path'   => $http_path,
+                        'http_path' => $http_path,
                     ]);
                     $this->info("$slug is generated");
                 } else {
@@ -102,10 +102,10 @@ class PermissionCommand extends Command
     private function getPermissions()
     {
         return [
-            'list'   => __('admin.list'),
-            'view'   => __('admin.view'),
+            'list' => __('admin.list'),
+            'view' => __('admin.view'),
             'create' => __('admin.create'),
-            'edit'   => __('admin.edit'),
+            'edit' => __('admin.edit'),
             'delete' => __('admin.delete'),
             'export' => __('admin.export'),
             'filter' => __('admin.filter'),

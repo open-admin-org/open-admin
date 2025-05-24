@@ -1,9 +1,9 @@
 <?php
 
-namespace OpenAdmin\Admin\Form\Field;
+namespace SuperAdmin\Admin\Form\Field;
 
-use OpenAdmin\Admin\Form\Field;
-use OpenAdmin\Admin\Form\Field\Traits\ImageField;
+use SuperAdmin\Admin\Form\Field;
+use SuperAdmin\Admin\Form\Field\Traits\ImageField;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 class Image extends File
@@ -11,7 +11,7 @@ class Image extends File
     use ImageField;
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     protected $view = 'admin::form.file';
 
@@ -28,8 +28,7 @@ class Image extends File
     }
 
     /**
-     * @param array|UploadedFile $image
-     *
+     * @param  array|UploadedFile  $image
      * @return string
      */
     public function prepare($file)
@@ -44,7 +43,7 @@ class Image extends File
             return '';
         }
 
-        if (!empty($file)) {
+        if (! empty($file)) {
             if ($this->picker) {
                 return parent::prepare($file);
             }
@@ -65,13 +64,12 @@ class Image extends File
     /**
      * force file type to image.
      *
-     * @param $file
      *
      * @return array|bool|int[]|string[]
      */
     public function guessPreviewType($file)
     {
-        $extra         = parent::guessPreviewType($file);
+        $extra = parent::guessPreviewType($file);
         $extra['type'] = 'image';
 
         return $extra;
