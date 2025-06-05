@@ -10,13 +10,27 @@ class Map extends Field
         'lat' => 52.378900135815,
         'lng' => 4.9005728960037,
     ];
-
-    /**
-     * Column name.
-     *
-     * @var array
-     */
     protected $column = [];
+
+    public $name = [];
+
+    public $map_div = '';
+
+    public $map_inst = '';
+
+    public $show_inputs = false;
+
+    public function getElementClassString()
+    {
+        $elementClass = $this->getElementClass();
+        return implode(' ', $elementClass);
+    }
+
+    public function showInputs($show_inputs = true)
+    {
+        $this->show_inputs = $show_inputs;
+        return $this;
+    }
 
     /**
      * Get assets required by this field.
@@ -49,26 +63,18 @@ class Map extends Field
 
     public function __construct($column, $arguments)
     {
-        $this->column['lat'] = (string) $column;
-        $this->column['lng'] = (string) $arguments[0];
-
-        array_shift($arguments);
-
-        $this->label = $this->formatLabel($arguments);
-
-        $this->name = $this->formatId($this->column);
-        $this->id   = $this->formatId($column);
+        $this->initMapFields($column, $arguments);
 
         /*
          * Google map is blocked in mainland China
          * people in China can use Tencent map instead(;
          */
         switch (config('admin.map_provider')) {
-            case 'tencent':
-                $this->useTencentMap();
-                break;
             case 'google':
                 $this->useGoogleMap();
+                break;
+            case 'tencent':
+                $this->useTencentMap();
                 break;
             case 'yandex':
                 $this->useYandexMap();
@@ -79,25 +85,39 @@ class Map extends Field
         }
     }
 
+    public function initMapFields($column, $arguments)
+    {
+        $this->column['lat'] = (string) $column;
+        $this->column['lng'] = (string) $arguments[0];
+
+        array_shift($arguments);
+
+        $this->label = $this->formatLabel($arguments);
+        $this->name = $this->formatId($this->column);
+        $this->id   = $this->formatId($column);
+        $this->map_div = "map_{$this->name['lat']}{$this->name['lng']}";
+        $this->map_inst = "inst_{$this->map_div}";
+    }
+
     public function useOpenstreetmap()
     {
+        $map_div = $this->map_div;
+        $map_inst = $this->map_inst;
+
         $this->script = <<<JS
         (function() {
+            var {$map_inst}
             function initOpenstreetMap(name) {
 
                 var lat = document.querySelector('#{$this->name['lat']}');
                 var lng = document.querySelector('#{$this->name['lng']}');
-
-                console.log(lat.value);
-                console.log(lng.value);
-
-                var map = L.map(name).setView([lat.value, lng.value], 13);
+                {$map_inst} = L.map(name).setView([lat.value, lng.value], 13);
 
                 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
                     attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-                }).addTo(map);
+                }).addTo({$map_inst});
 
-                var marker = L.marker([lat.value, lng.value], {draggable:'true'}).addTo(map)
+                var marker = L.marker([lat.value, lng.value], {draggable:'true'}).addTo({$map_inst})
                 marker.on('dragend', function(event){
                     var marker = event.target;
                     var position = marker.getLatLng();
@@ -113,17 +133,29 @@ class Map extends Field
                     updateMap: true,
                     autoClose: true
                 });
-                map.on('geosearch/showlocation', function(e){
+                {$map_inst}.on('geosearch/showlocation', function(e){
                     lat.value = e.location.y;
                     lng.value = e.location.x;
                     marker.setLatLng([lat.value, lng.value]).update();
 
                 });
 
-                map.addControl(search);
+                {$map_inst}.addControl(search);
             }
 
-            initOpenstreetMap('map_{$this->name['lat']}{$this->name['lng']}');
+            // Fix for maps inside tabs or other hidden sections
+            let element = document.querySelector('#{$map_div}');
+            let handleIntersection = function (entries) {
+                for (let entry of entries) {
+                    if (entry.isIntersecting) {
+                        {$map_inst}.invalidateSize();
+                    }
+                }
+            }
+            const observer = new IntersectionObserver(handleIntersection);
+            observer.observe(element);
+
+            initOpenstreetMap('{$map_div}');
         })();
 JS;
     }
@@ -255,6 +287,7 @@ JS;
 
     public function render()
     {
+        $this->addVariables(["show_inputs" => $this->show_inputs]);
         if (empty($this->value['lat'])) {
             $this->value['lat'] = $this->default['lat'];
         }
